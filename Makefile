@@ -6,7 +6,7 @@ SOURCES := $(wildcard src/*.c)
 OBJECTS := $(patsubst src/%.c,build/arm/%.o,$(SOURCES))
 HEADERS := $(wildcard include/*.h)
 
-.PHONY: all arm test inventory binary-check boot-probe references-check ledger emulate target-interfaces physical-firmware rebuilt-system proof-checksum
+.PHONY: all arm test inventory binary-check boot-probe references-check ledger emulate target-interfaces physical-firmware rebuilt-system proof-checksum proof-physical-checksum
 all: arm
 arm: build/arm/libsyscon-reconstruction.a
 
@@ -52,3 +52,6 @@ rebuilt-system: physical-firmware
 proof-checksum:
 	$(PYTHON) tools/proof_checksum.py
 	$(PYTHON) tools/proof_checksum.py --mutant --output analysis/proof-checksum-negative
+
+proof-physical-checksum:
+	$(PYTHON) tools/proof_physical_checksum.py

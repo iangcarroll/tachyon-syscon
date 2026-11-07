@@ -1,0 +1,3242 @@
+{
+  "source_sha256": {
+    "target/callback_helpers.c": "264d68f65e4afba09fd5a30a7fb65d69bab7b4b4b2f80b1bed157b91b5542d6c",
+    "target/config_helpers.c": "1b3974aee539f3435f73cdbf0e2a247a5a9cabb84475bdbffa0ae68506f0de64",
+    "target/config_read.c": "2f512d609f71ed412008872af3ad3804c3a81e0b6b0f6d1706e1873263114a28",
+    "target/config_storage.c": "42962c86d60ffda27c25fdf6d0de359f2ab596328652e8780eb87617a23c7a2a",
+    "target/config_write_slot_abi.S": "d2c414946da10fe736f523db265bf02b32ea9f59f3bcbc5a282724ed7321b751",
+    "target/core_helpers.c": "281aa18dcc5d20ac43240f11618275103aff3acd4d88ae3d94f6fd46dbaae4aa",
+    "target/interface_bindings.c": "48074e950681c94add2e59c653098b8590631d9434c8358d0a2ccfb827e9558a",
+    "target/fault_control_target.c": "d32c8aeb5d59df5aa6fd8f516f685caf034dade23669fe817e9a13642834868a",
+    "target/fault_handlers.c": "30b900ef3bffabfb12cdecece015a335d86ea4212d900c739c641da40cc7ee92",
+    "target/hal_helpers.c": "0f6c7f18f87a91cc891e5efafeb1b59d5030d7003b2e2799af178b34347e1d1d",
+    "target/mspm0_core_target.c": "337610b8b2c74cbc11da1f8584d72761131263dc4d96174c948c2ee864b58d67",
+    "target/uart_ring.c": "1c21719a7d48ff7a06e506dcc2951bc6e49ad6998ec44fe9e963f1534cdcc1ba",
+    "target/uart_ring_abi.S": "8de3ec6c418741d805d8bd0794fdd56abc75aec0d6674e5511ad120c449266c2",
+    "target/runtime_arithmetic_abi.S": "77f6b178adb66b49b7d0c56285c76d72d1a8e0a06bf6f19482385e1f63f2b93b",
+    "target/runtime_heap.c": "faa09e955114fe47aad08971877ff22a6b0710b625d1636e6d3260d74d546f1d",
+    "target/runtime_scan.c": "2a67ec697346f5df7930695e5b8ec6b4989bfa1f1571eab42889cf748ac9f236",
+    "target/runtime_scan_abi.S": "5a0cd5030dbac2389ee07dda62fcb66c456f695dcd5222a6578a8ebc3080cb9b",
+    "target/runtime_scan_printf.c": "6b077cd518dda5edd55646369193e59a1421ef4437ac01b7fc99f0e27f416b2e",
+    "target/runtime_scan_wrappers.c": "add0aa7ee566cdd893665e2db124dce74540af6153eb824acf6c033862334046",
+    "target/runtime_stdio.c": "87470c581d9d303a835707da2e85eb3e45a8e30b1d89074cfba399287b895ceb",
+    "target/runtime_support.c": "2073e0e81c07b2a6edfc33479fe23c2a2a6e51df2f6be63b5da0701497cc102a",
+    "target/runtime_arithmetic_float.c": "027d34ea8ca7001dabf2135ae6e26d4e39c47f13bb9fea607b85df5e1ae8c71a",
+    "target/adc_target.c": "817700d70bb9ef89f8f40b5ff87c23aa6dd9623ae390a80c3226fa16abf4b79d",
+    "target/uart_hal_target.c": "de8099106c1b12fa3877bc2d34ced6dd20f526eeae7758a22ec1d5c2c0526adc",
+    "target/timers_target.c": "d96398e541a2cdc5effab73172b7dace724712055f81e99256c365b046fa553b",
+    "target/tasks_target.c": "33d43a1547e1f49fa2019cde5fc9548ff172ba7673a4a9383f62a2d0a72a1bbf",
+    "target/retained_target.c": "2a42f13f35f7ec61bc022eaab8b2b71369600f52e736272150f60b30a40e1af6",
+    "target/diagnostics_target.c": "1f6017d0fbc82f2e06cc04e80031e7919ae9d0aa3a0d72ffcd9156525b5914f4",
+    "target/application_target.c": "0276716d8ad63baf809ecd88193405ec712db13a515d8bbaa253e71d8da1f830",
+    "target/logger_target.c": "54462255b2a71111213d4a1ef74867f48e962039552f2ffff5814347ce89349d",
+    "target/logger_target_abi.S": "17591084a1f164f26c31212611846ffa8590a9da09d9acd3a8679649ccf3fd0e",
+    "target/rgb_target.c": "7b9557c46d02dd727528a3719460628a605b978246a45c3c4876fb46cadd194e",
+    "target/power_key_target.c": "3d222668a70ec818b7677f4867eef897377d07ed2eac5b5744ec06e9b4df5b79",
+    "target/power_policy_target.c": "9b59fa799da512513aec13de98cd037e72c1bfa6983b31baea8f10baf049f7f3",
+    "target/i2c_target.c": "1159f8296ee04699d1aadd224f45c185ce6a51212fd9a48406bad9ab86bc7ec3",
+    "target/pwm_target.c": "58d7dee62a0f90fcc864478cffc7fcd5a59e229dc9f26405ac4c530e836427d5",
+    "target/config_update.c": "bbb0defb246d12a6a0a718410167293767a8876fe3473bd0f3259591052b2add",
+    "target/config_update_abi.S": "92df2cfba40a971d60919654b5c13bc4cb6fe25c68aefa19e7799fd05856f26e",
+    "target/ioexpander_target.c": "7d53753ca79dc6a9837ecfc71c28fdb0907a1ea2c1606b9e74ab463b61190b45",
+    "target/power_manager_target.c": "ef91e1bd86da18f7ee0f65ff4687738085a72ceaba942c95530a69fa14e3c8b0",
+    "target/protocol_target.c": "3664220f043ed20b4f725c4f1993f5ce8d5139ba1daa5514bc3066f414db2f86",
+    "target/command_table_target.c": "0e87bcede11502f0ce18cc19d5de3e9153ee64a82342a12e4995a7b22148fe2c",
+    "target/config_commands_target.c": "b1468c7d2006017af3438b2af377e3c67fdd22b771d02f57cd0cde657793ac8d",
+    "target/control_commands_target.c": "0c94f8a2a7cb6a00a78e918b194840be51cf3562634aec5d5af7d733c4269afe",
+    "target/runtime_init_target.c": "a942a078f0814c110305a5c8c3d6b399960d64f62b7146e4150d28d2fccf3ac2",
+    "target/format_core_target.c": "13cbd57ec407c911eb949ab78f2fc675331098bd67f8feb4075bd0a6d388e507",
+    "target/sg560d_target.c": "a71f71ab162e9c1903053d2a11d2170e247ba45b75da3d9bfab6140fa3b4a5eb",
+    "src/runtime_memory.c": "0cda92323a7bc61be7fec82b869a3aa35c7a708194b5476f90374b66558bb1eb",
+    "src/runtime_arithmetic.c": "e0c9ca29f2f62cac95dcb010157481794009b325c9c89996ec3a70e615b2e106",
+    "src/flash_controller.c": "dd4998787bbd6db5178004d8b88a077d4ea5b10763ba43799d3c0be99057b8e0",
+    "src/format.c": "65440481fa0ad96a0adb073005603f6a980a28db3c1506ffdadfb5a2e9a5ff56",
+    "vendor/gcc-soft-fp/adddf3.c": "0a15c1aae008dac35acdbe81cce38b7ec19bc1cbc8f4c4764368a8d395903e51",
+    "vendor/gcc-soft-fp/addsf3.c": "f398056f91b5b1ee34f8b4c7134eb3959fa83d373c66d8b73e7b3d350ac70225",
+    "vendor/gcc-soft-fp/divsf3.c": "610d29ddd84fe9f900041fa31e080b6baa74f9492e7a91273186022ec38411ed",
+    "vendor/gcc-soft-fp/extendsfdf2.c": "f967705770eff0769756e09bdba7d93e7161c1dd1467343ece3d0976a59c28e2",
+    "vendor/gcc-soft-fp/fixdfsi.c": "e5cb3c339701a09b9c37390afbc72e37c311325654b65bc5b356853cc6542323",
+    "vendor/gcc-soft-fp/fixsfsi.c": "98ea2f6f22a81436025e7b7ec5801294a6f22bacf6398bf439f0fd09653dc97b",
+    "vendor/gcc-soft-fp/floatsisf.c": "06d3c7823e004d1a01d78fa2450616e9c0bd478cf69b8a4f623018874476f0d5",
+    "vendor/gcc-soft-fp/floatunsisf.c": "4c5bfadf624ff875d1244ab21d74c2d35d0d44bdcc661d346af94178f645f474",
+    "vendor/gcc-soft-fp/mulsf3.c": "a5cfc06946400053c3dc6b741e6b9d9baef3af50f4405d0ee52634e8dfead870",
+    "vendor/gcc-soft-fp/subdf3.c": "a43ef6b4d28b09652f4b6b676f2f3c4ee7f9c3d5b4f9721eef4b814bc3c87ec1",
+    "vendor/gcc-soft-fp/subsf3.c": "63a77ba7bcb465652d49f897688b109970ddfe713b1f54d3aafdd2ca148a7bca",
+    "target/flash_abi_target.c": "3e1e998b6dcb57244f1e91d7a896389a5b57d5feed4c13479123ce17b398470a",
+    "target/physical/startup.c": "7f0cbf4e737e5b923d5713e834c58607d70bd8386787eb3afb60746d528f15c6",
+    "target/physical/constants.S": "a8ec78286d5f5358e51c3867ea7b320561d3a2d26546de14eace6f96b382e474"
+  },
+  "linker_sha256": "c9e24005b673fc4d3e18466be819e143825fa1ae47be9b721016584611d5ce8b",
+  "compile_failures": [],
+  "unresolved_symbols": [],
+  "physical_mcu_identity_verified": false,
+  "original_executable_bytes_included": false,
+  "endpoint_stubs_included": false,
+  "whole_image_stack_bound_proven": false,
+  "whole_firmware_equivalence": false,
+  "flash_candidate": false,
+  "linker_defined_symbols": [
+    "__extra_bss_end",
+    "__extra_bss_start",
+    "__physical_initial_data",
+    "__ram_exec_end",
+    "__ram_exec_load",
+    "__ram_exec_start",
+    "__ram_extra_end",
+    "__ram_extra_load",
+    "__ram_extra_start"
+  ],
+  "section_size_report": "/Users/ian/tachyon/syscon-re/analysis/proof-physical-checksum/physical-image/physical-inputs.o  :\nsection                                            size   addr\n.text                                               444      0\n.text.syscon_target_failure                          28      0\n.text.syscon_target_buffer_output                    24      0\n.text.syscon_target_null_output                       2      0\n.text.slot_blank                                     36      0\n.text.failed_version                                 64      0\n.text.syscon_cfg_indexed_get                         80      0\n.text.syscon_cfg_runtime_slot_blank                  16      0\n.text.syscon_cfg_identity_slot_blank                 16      0\n.text.syscon_cfg_runtime_slot_count                   4      0\n.text.syscon_cfg_identity_slot_count                  4      0\n.text.syscon_cfg_identity_erase                     124      0\n.text.syscon_cfg_identity_append                     30      0\n.text.syscon_cfg_identity_get                        20      0\n.text.syscon_cfg_identity_indexed_get                20      0\n.text.syscon_cfg_runtime_get                         20      0\n.text.syscon_cfg_runtime_erase                      128      0\n.text.syscon_cfg_runtime_indexed_get                 20      0\n.text.syscon_cfg_field_readable                      52      0\n.text.syscon_cfg_field_writable                      30      0\n.text.syscon_cfg_checksum                            20      0\n.text.syscon_cfg_slot_valid                         112      0\n.text.syscon_cfg_read_slot                           50      0\n.text.syscon_cfg_find_slot                          292      0\n.text.syscon_cfg_store_get                           80      0\n.text.packed32                                       16      0\n.text.read_register.isra.0                            4      0\n.text.syscon_cfg_flash_report                       128      0\n.text.syscon_cfg_store_erase                         52      0\n.text.syscon_cfg_prepare_slot                        40      0\n.text.syscon_cfg_finish_slot                         84      0\n.text.syscon_cfg_store_append                       140      0\n.text.syscon_cfg_bool_get                           136      0\n.text.syscon_cfg_u32_get                            100      0\n.text.syscon_cfg_load                               224      0\n.text.syscon_cfg_write_slot                          80      0\n.text.syscon_mcu_sleep                               72      0\n.text.syscon_cycle_delay                             10      0\n.text.memset                                          8      0\n.text.syscon_cfg_assert                               6      0\n.text.syscon_core_log                                 8      0\n.text.memcpy                                          8      0\n.text.syscon_target_uart_write                       24      0\n.text.syscon_target_color                             8      0\n.text.request_reset                                  28      0\n.text.syscon_target_assert                          152      0\n.text.syscon_target_fault_stage_set                  12      0\n.text.syscon_target_fault_stage_get                  12      0\n.text.syscon_target_fault_stage_name                 28      0\n.text.syscon_target_enable_mftick                    20      0\n.text.syscon_target_cached_reason                    12      0\n.text.fault_stop                                     12      0\n.text.syscon_default_exception                        8      0\n.text.syscon_hardfault                                8      0\n.text.syscon_nmi                                      8      0\n.text.syscon_hal_adc_lookup                          32      0\n.text.syscon_hal_pwm_lookup                          48      0\n.text.syscon_hal_uart_lookup                         20      0\n.text.syscon_hal_i2c_lookup                          24      0\n.text.syscon_hal_adc_clock                           72      0\n.text.syscon_hal_i2c_clock                           48      0\n.text.syscon_hal_i2c_fill_tx                         48      0\n.text.syscon_hal_i2c_flush_tx                        52      0\n.text.syscon_hal_i2c_flush_rx                        48      0\n.text.syscon_hal_uart_put_blocking                   28      0\n.text.syscon_hal_vref_config                         40      0\n.text.syscon_hal_vref_clock                          28      0\n.text.arm_lsl                                        18      0\n.text.gpio_assert                                    48      0\n.text.syscon_target_watchdog_init                    68      0\n.text.syscon_target_watchdog_feed                    16      0\n.text.syscon_target_hal_noop                          2      0\n.text.syscon_target_gpio_lookup                      20      0\n.text.syscon_target_reset_cause                      56      0\n.text.syscon_target_reset_cause_name                 28      0\n.text.syscon_target_gpio_config                     204      0\n.text.syscon_target_gpio_write                       64      0\n.text.syscon_target_gpio_toggle                      52      0\n.text.syscon_target_gpio_read                        56      0\n.text.syscon_target_gpio_attach                     192      0\n.text.syscon_target_gpio_detach                      76      0\n.text.syscon_target_gpio_irq                         84      0\n.text.lookup_or_assert                               60      0\n.text.syscon_target_uart_rx_disable                  32      0\n.text.syscon_target_uart_rx_enable                   28      0\n.text.syscon_target_uart_put                         44      0\n.text.syscon_target_uart_write_buffer_body           60      0\n.text.syscon_target_uart_available                   96      0\n.text.syscon_target_uart_irq                        140      0\n.text.syscon_target_uart_read                       112      0\n.text.syscon_rt_malloc_lock                          16      0\n.text.syscon_rt_malloc_unlock                        16      0\n.text.syscon_rt_sbrk                                  6      0\n.text.syscon_rt_sbrk_r                               36      0\n.text.syscon_rt_malloc_usable_size_r                 16      0\n.text.syscon_rt_free_r                              148      0\n.text.syscon_rt_malloc_r                            188      0\n.text.syscon_rt_realloc_r                            78      0\n.text.scan_space                                     16      0\n.text.scan_memchr                                    22      0\n.text.scan_refill                                     8      0\n.text.scan_ungetc                                     8      0\n.text.syscon_scan_sccl                              122      0\n.text.syscon_scan_chars                             202      0\n.text.syscon_scan_integer                           508      0\n.text.syscon_rt_vfscanf                             648      0\n.text.syscon_rt_vfprintf                             28      0\n.text.syscon_rt_snprintf                            104      0\n.text.find                                           20      0\n.text.format_impl                                  1240      0\n.text.bounded                                       110      0\n.text.syscon_rt_vfprintf_seeded                      22      0\n.text.syscon_rt_vfprintf_checked                     18      0\n.text.syscon_rt_snprintf_checked                     36      0\n.text.syscon_rt_snprintf_seeded                      32      0\n.text.syscon_rt_seofread                              4      0\n.text.syscon_rt_strtol_core                         276      0\n.text.syscon_rt_strtol_r                              8      0\n.text.syscon_rt_strtol                               24      0\n.text.syscon_rt_strncasecmp                          72      0\n.text.syscon_rt_sscanf                               72      0\n.text.flags                                           4      0\n.text.next_word                                      10      0\n.text.syscon_rt_strtoul_r                           256      0\n.text.syscon_rt_swrite                              232      0\n.text.syscon_rt_submore                             124      0\n.text.syscon_rt_sungetc_r                           130      0\n.text.syscon_rt_ssrefill_r                           68      0\n.text.syscon_rt_printf_common                       208      0\n.text.syscon_rt_printf_integer                      540      0\n.text.syscon_rt_cxa_atexit                            4      0\n.text.syscon_rt_arm_atexit                           14      0\n.text.syscon_rt_atoi                                 12      0\n.text.syscon_rt_isalnum                              16      0\n.text.syscon_rt_toupper                              20      0\n.text.syscon_rt_getreent                             12      0\n.text.syscon_rt_strtoul_alias                         8      0\n.text.syscon_rt_lock_acquire                          2      0\n.text.syscon_rt_lock_release                          2      0\n.text.syscon_rt_memmove                              38      0\n.text.syscon_rt_f2u                                  46      0\n.text.syscon_rt_d2u                                  56      0\n.text.adc_assert                                     48      0\n.text.syscon_target_adc_init                        240      0\n.text.syscon_target_adc_temperature                 296      0\n.text.syscon_target_adc_raw                         140      0\n.text.syscon_target_adc_millivolts                  104      0\n.text.uart_assert                                    48      0\n.text.syscon_target_uart_clock_config                28      0\n.text.syscon_target_uart_line_config                 76      0\n.text.syscon_target_uart_init                       472      0\n.text.syscon_target_uart_deinit                     208      0\n.text.started_write                                   6      0\n.text.started_read                                    8      0\n.text.syscon_target_now                              20      0\n.text.syscon_target_timer_tick                      120      0\n.text.syscon_target_timer_init                       88      0\n.text.syscon_target_timer_register                  136      0\n.text.syscon_target_timer_unregister                 36      0\n.text.syscon_target_timer_delay                      56      0\n.text.syscon_target_timer_wait_countflags            32      0\n.text.syscon_target_tasks_init                       20      0\n.text.syscon_target_tasks_submit                    152      0\n.text.syscon_target_tasks_poll                      260      0\n.text.syscon_target_tasks_active                     28      0\n.text.syscon_target_retained_commit                  52      0\n.text.syscon_target_retained_load                   128      0\n.text.syscon_target_retained_clear_registers         28      0\n.text.syscon_target_retained_set_modem               28      0\n.text.syscon_target_retained_modem                   16      0\n.text.syscon_target_retained_set_battery             28      0\n.text.syscon_target_retained_battery                 12      0\n.text.syscon_target_retained_increment_boots         28      0\n.text.syscon_target_retained_boots                   12      0\n.text.packed_read                                    24      0\n.text.read64                                         40      0\n.text.write64                                        32      0\n.text.syscon_target_auto_boot                        12      0\n.text.syscon_target_wakeup_enabled                   12      0\n.text.syscon_target_log_color                        12      0\n.text.syscon_target_alt_powerkey                     12      0\n.text.syscon_target_factory_test                     12      0\n.text.syscon_target_modem_always_on                  12      0\n.text.syscon_target_powerkey_long_seconds            16      0\n.text.syscon_target_powerkey_extra_seconds           16      0\n.text.syscon_target_hwrevision_new                   56      0\n.text.syscon_target_diagnostics_enable               12      0\n.text.syscon_target_diagnostics_poll                432      0\n.text.syscon_target_queue_destructor                  2      0\n.text.modulo                                         14      0\n.text.syscon_target_queue_event                     100      0\n.text.syscon_target_wakeup_irq                       96      0\n.text.syscon_target_timestamp_constructor            16      0\n.text.syscon_target_queue_constructor                72      0\n.text.syscon_target_queue_count                      38      0\n.text.syscon_target_request_off                      32      0\n.text.syscon_target_diagnostic_write                 24      0\n.text.syscon_target_parser_poll                      16      0\n.text.syscon_target_log_enable                       12      0\n.text.syscon_target_application_gpio_init            44      0\n.text.syscon_target_wakeup_init                      24      0\n.text.syscon_target_wakeup_enable                    72      0\n.text.syscon_target_wakeup_poll                      24      0\n.text.syscon_target_main                            848      0\n.text.store32                                         4      0\n.text.syscon_logger_target_vformat                   22      0\n.text.syscon_logger_target_body                     260      0\n.text.syscon_logger_target_sg_body                   84      0\n.text.decode                                          2      0\n.text.encode                                          2      0\n.text.syscon_target_rgb_scale                        48      0\n.text.syscon_target_rgb_flush                        72      0\n.text.syscon_target_rgb_init                         92      0\n.text.syscon_target_rgb_brightness                   48      0\n.text.syscon_target_rgb_pattern                      84      0\n.text.syscon_target_rgb_configure                    72      0\n.text.syscon_target_rgb_preset                       72      0\n.text.syscon_target_rgb_tick                        400      0\n.text.syscon_target_rgb_state                        12      0\n.text.syscon_target_rgb_get_config                   80      0\n.text.syscon_target_rgb_state_name                   28      0\n.text.syscon_target_rgb_pattern_name                 24      0\n.text.syscon_target_rgb_key_feedback                 12      0\n.text.syscon_target_powerkey_edge                    52      0\n.text.attach                                         20      0\n.text.syscon_target_powerkey_poll                   240      0\n.text.syscon_target_powerkey_debounce               200      0\n.text.syscon_target_powerkey_callback                20      0\n.text.syscon_target_powerkey_mode                    76      0\n.text.syscon_target_powerkey_init                    46      0\n.text.table                                           8      0\n.text.syscon_target_power_report                    408      0\n.text.syscon_target_power_policy_init               156      0\n.text.syscon_target_power_minimum_update             24      0\n.text.syscon_target_power_minimum_reset              16      0\n.text.syscon_target_power_minimum                    24      0\n.text.syscon_target_shutdown_set                     84      0\n.text.syscon_target_shutdown_reason                  12      0\n.text.syscon_target_shutdown_elapsed                 60      0\n.text.syscon_target_shutdown_stale                   12      0\n.text.syscon_target_shutdown_active                  28      0\n.text.syscon_target_shutdown_poll                   128      0\n.text.begin                                          48      0\n.text.wait_status                                    60      0\n.text.i2c_assert                                     44      0\n.text.syscon_target_i2c_error                        60      0\n.text.syscon_target_i2c_init                        320      0\n.text.syscon_target_i2c_transmit                    324      0\n.text.syscon_target_i2c_receive                     284      0\n.text.syscon_target_i2c_irq                          64      0\n.text.pwm_assert                                     48      0\n.text.syscon_target_pwm_clock                        44      0\n.text.syscon_target_pwm_compare                      16      0\n.text.syscon_target_pwm_capture                      36      0\n.text.syscon_target_pwm_action                       32      0\n.text.syscon_target_pwm_output                       28      0\n.text.syscon_target_pwm_configure                   348      0\n.text.syscon_target_pwm_init                        176      0\n.text.syscon_target_pwm_write                        68      0\n.text.feed                                           12      0\n.text.syscon_cfg_compact_body                       500      0\n.text.syscon_cfg_store_init                         164      0\n.text.syscon_target_config_init                      32      0\n.text.syscon_cfg_runtime_update_body                224      0\n.text.io_assert                                      48      0\n.text.transmit                                       44      0\n.text.syscon_target_ioexpander_write16               32      0\n.text.syscon_target_ioexpander_write8                32      0\n.text.syscon_target_ioexpander_read8                 68      0\n.text.syscon_target_ioexpander_write_unchecked       68      0\n.text.syscon_target_ioexpander_reset                 36      0\n.text.syscon_target_ioexpander_init                  68      0\n.text.syscon_target_ioexpander_configure            144      0\n.text.syscon_target_ioexpander_write                108      0\n.text.syscon_target_ioexpander_read                 104      0\n.text.syscon_target_pin_read                         40      0\n.text.syscon_target_pin_write                        22      0\n.text.power_assert                                   44      0\n.text.selector                                       56      0\n.text.syscon_target_power_measure                    56      0\n.text.syscon_target_power_battery_route              16      0\n.text.syscon_target_power_vbus_route                 16      0\n.text.syscon_target_power_header_route               16      0\n.text.syscon_target_power_battery_id                 14      0\n.text.syscon_target_power_ntc                        14      0\n.text.syscon_target_power_boost                      14      0\n.text.syscon_target_power_battery_id_set             56      0\n.text.syscon_target_power_ntc_set                    48      0\n.text.syscon_target_power_boost_set                  12      0\n.text.syscon_target_power_battery_sense_set          16      0\n.text.syscon_target_power_battery_route_set         152      0\n.text.syscon_target_power_header_route_set          208      0\n.text.syscon_target_power_header_default             56      0\n.text.syscon_target_power_usb_isolate                68      0\n.text.syscon_target_power_usb_release_callback       84      0\n.text.syscon_target_power_usb_assert_callback        52      0\n.text.syscon_target_power_vbus_route_set            152      0\n.text.syscon_target_power_shutdown_busy              76      0\n.text.syscon_target_power_shutdown_request          168      0\n.text.syscon_target_power_battery_detect            232      0\n.text.syscon_target_protocol_poll                   580      0\n.text.get                                            76      0\n.text.erase                                          64      0\n.text.syscon_target_cmd_config_id_find               20      0\n.text.syscon_target_cmd_config_find                  20      0\n.text.syscon_target_cmd_config_id_get                20      0\n.text.syscon_target_cmd_config_get                   20      0\n.text.syscon_target_cmd_config_id_set                80      0\n.text.syscon_target_cmd_config_set                   80      0\n.text.syscon_target_cmd_config_id_erase              20      0\n.text.syscon_target_cmd_config_erase                 20      0\n.text.syscon_target_config_dump                     176      0\n.text.syscon_target_cmd_config_id_dump               12      0\n.text.syscon_target_cmd_config_dump                  12      0\n.text.syscon_target_cmd_config_internal             136      0\n.text.bad                                            16      0\n.text.equal                                          12      0\n.text.syscon_target_cmd_version                      24      0\n.text.syscon_target_cmd_help                         88      0\n.text.syscon_target_cmd_ioexp_read                   80      0\n.text.syscon_target_cmd_gpio_read                    60      0\n.text.syscon_target_cmd_pwrstatus                    12      0\n.text.syscon_target_cmd_wake_after                   84      0\n.text.syscon_target_cmd_mcu_sleep                    20      0\n.text.syscon_target_cmd_mcu_reboot                  144      0\n.text.syscon_target_cmd_shutdown_reason             132      0\n.text.syscon_target_cmd_modem_direct                 44      0\n.text.syscon_target_cmd_modem_on                    104      0\n.text.syscon_target_cmd_ledstatus                    72      0\n.text.syscon_target_cmd_set_pattern                  68      0\n.text.syscon_target_cmd_set_rgb                     140      0\n.text.syscon_target_cmd_read_pwr                     60      0\n.text.syscon_target_cmd_batcheck                     10      0\n.text.syscon_target_cmd_modem_dbg                    80      0\n.text.syscon_target_cmd_keys                         80      0\n.text.syscon_target_cmd_modem_off                    56      0\n.text.syscon_target_cmd_diag                         32      0\n.text.syscon_target_cmd_log                          32      0\n.text.syscon_target_cmd_error                       108      0\n.text.syscon_target_cmd_key_mode                     56      0\n.text.syscon_target_runtime_init                     16      0\n.text.invoke                                         12      0\n.text.syscon_target_format_digits                   132      0\n.text.syscon_target_format_forward                   16      0\n.text.syscon_target_vformat_callback                 40      0\n.text.check                                          48      0\n.text.syscon_target_modem_fct_complete               24      0\n.text.measure                                         8      0\n.text.syscon_target_modem_volume_release             32      0\n.text.syscon_target_modem_usbboot_release            32      0\n.text.syscon_target_modem_uart_stop                 120      0\n.text.syscon_target_modem_uart_start                 72      0\n.text.syscon_target_modem_power_check               476      0\n.text.syscon_target_modem_powerkey_release_task      32      0\n.text.syscon_target_modem_action_6230                 8      0\n.text.syscon_target_modem_action_6238                 8      0\n.text.syscon_target_modem_action_6240                 8      0\n.text.syscon_target_modem_pins_off                   58      0\n.text.syscon_target_modem_pins_on                   108      0\n.text.syscon_target_modem_retry_delay               140      0\n.text.syscon_target_modem_retry_schedule            164      0\n.text.syscon_target_modem_poweron                   124      0\n.text.syscon_target_modem_edl                       124      0\n.text.syscon_target_modem_special_boot              172      0\n.text.syscon_target_modem_fct_callback               12      0\n.text.syscon_target_modem_fct                        10      0\n.text.syscon_target_modem_fastboot                   10      0\n.text.syscon_target_modem_wake_schedule             108      0\n.text.syscon_target_modem_wake_remaining             68      0\n.text.syscon_target_modem_off                        16      0\n.text.syscon_target_modem_mode_name                  48      0\n.text.syscon_target_modem_set_mode                  100      0\n.text.syscon_target_modem_prepare_special           108      0\n.text.syscon_target_modem_prepare_edl                84      0\n.text.syscon_target_modem_prepare_normal             72      0\n.text.syscon_target_modem_poweroff                  276      0\n.text.syscon_target_modem_init                      228      0\n.text.syscon_target_modem_key_assert                 32      0\n.text.syscon_target_modem_key_release                32      0\n.text.syscon_target_modem_key_pulse                  32      0\n.text.syscon_target_modem_action_7488                32      0\n.text.syscon_target_modem_action_74a8                32      0\n.text.syscon_target_modem_action_74c8                32      0\n.text.syscon_target_modem_raw_send                   14      0\n.text.syscon_target_modem_poll                     2744      0\n.text.syscon_rt_strcmp                               22      0\n.text.syscon_rt_strlen                               16      0\n.text.syscon_rt_memcmp                               28      0\n.text.syscon_rt_memcpy                               18      0\n.text.syscon_rt_memset                               16      0\n.text.syscon_rt_strchr                               28      0\n.text.syscon_rt_strncmp                              32      0\n.text.syscon_rt_strncpy                              30      0\n.text.syscon_rt_strrchr                              38      0\n.text.syscon_rt_memchr                               28      0\n.text.lshift                                         44      0\n.text.rshift                                         44      0\n.text.cmp32                                          76      0\n.text.cmp64                                         140      0\n.text.syscon_rt_clz32                                16      0\n.text.__clzsi2                                        8      0\n.text.syscon_rt_clz64                                24      0\n.text.syscon_rt_udiv32                               60      0\n.text.syscon_rt_idiv32                               64      0\n.text.syscon_rt_mul64                                84      0\n.text.syscon_rt_udiv64                              240      0\n.text.syscon_rt_fcmp_low                             12      0\n.text.syscon_rt_fcmp_high                            12      0\n.text.syscon_rt_fne                                  16      0\n.text.syscon_rt_dcmp_low                             20      0\n.text.syscon_rt_dcmp_high                            16      0\n.text.syscon_rt_dne                                  20      0\n.text.syscon_rt_f_eq                                 16      0\n.text.syscon_rt_f_lt                                 12      0\n.text.syscon_rt_f_le                                 16      0\n.text.syscon_rt_f_gt                                 20      0\n.text.syscon_rt_f_ge                                 16      0\n.text.syscon_rt_d_eq                                 20      0\n.text.syscon_rt_d_lt                                 20      0\n.text.syscon_rt_d_le                                 24      0\n.text.syscon_rt_d_gt                                 24      0\n.text.syscon_rt_d_ge                                 24      0\n.text.syscon_rt_udivmod32                             8      0\n.text.syscon_rt_idivmod32                             8      0\n.text.word                                           72      0\n.text.syscon_flash_execute                           48      0\n.text.syscon_flash_erase                             52      0\n.text.syscon_flash_program                          120      0\n.text.syscon_flash_blank                             48      0\n.text.syscon_flash_unprotect_main                    56      0\n.text.syscon_flash_report                           116      0\n.text.byte                                           44      0\n.text.argument                                       18      0\n.text.long_argument                                  32      0\n.text.syscon_format_forward                          24      0\n.text.emit                                           50      0\n.text.number                                        106      0\n.text.syscon_vformat                                 36      0\n.text.syscon_vformat_callback                        54      0\n.text.syscon_vformat_target                          34      0\n.text.__aeabi_dadd                                 1840      0\n.text.__aeabi_fadd                                  832      0\n.text.__aeabi_fdiv                                  548      0\n.text.__aeabi_f2d                                   144      0\n.text.__aeabi_d2iz                                  120      0\n.text.__aeabi_f2iz                                   64      0\n.text.__aeabi_i2f                                   148      0\n.text.__aeabi_ui2f                                  132      0\n.text.__aeabi_fmul                                  640      0\n.text.__aeabi_dsub                                 1808      0\n.text.__aeabi_fsub                                  908      0\n.text.syscon_target_flash_report                    128      0\n.ram_original_flash                                  36      0\n.text.syscon_target_flash_veneer                     12      0\n.text.syscon_target_flash_erase                      32      0\n.text.syscon_target_flash_program                    64      0\n.text.syscon_target_flash_unprotect                  36      0\n.text.syscon_target_flash_blank                      28      0\n.text.copy                                           12      0\n.text.syscon_physical_uart0_irq                      16      0\n.text.syscon_physical_uart1_irq                      16      0\n.text.syscon_physical_reset                         120      0\n.rodata                                             180      0\n.rodata.keys.0                                       24      0\n.rodata.syscon_scan_integer.str1.1                   18      0\n.rodata.syscon_rt_vfscanf.str1.1                      4      0\n.rodata.str1.1                                        9      0\n.rodata.format_impl.str1.1                           17      0\n.rodata.syscon_rt_printf_integer.str1.1              34      0\n.rodata.formats.0                                    24      0\n.rodata.colors.0                                     20      0\n.rodata.low.1                                         9      0\n.rodata.syscon_target_commands                      518      0\n.rodata.boot_actions                                152      0\n.rodata.syscon_flash_report.str1.1                  196      0\n.rodata.__aeabi_fdiv                                124      0\n.vectors                                            192      0\n.fixed.ab20                                        6393      0\n.fixed.c61f                                        7353      0\n.physical.constructors                                8      0\n.physical.initial_data                              656      0\n.physical.version                                     7      0\n.data                                                 0      0\n.bss                                                  0      0\n.comment                                           4060      0\n.ARM.attributes                                      42      0\nTotal                                             63614\n\n\n",
+  "layout_audit": {
+    "sections": {
+      ".vectors": {
+        "address": 0,
+        "bytes": 192,
+        "flags": 2
+      },
+      ".ram_exec": {
+        "address": 536870912,
+        "bytes": 48,
+        "flags": 6
+      },
+      ".fixed_actions": {
+        "address": 43808,
+        "bytes": 6393,
+        "flags": 2
+      },
+      ".command_table": {
+        "address": 50201,
+        "bytes": 518,
+        "flags": 2
+      },
+      ".fixed_strings": {
+        "address": 50719,
+        "bytes": 7353,
+        "flags": 2
+      },
+      ".constructors": {
+        "address": 58072,
+        "bytes": 8,
+        "flags": 2
+      },
+      ".initial_data": {
+        "address": 58088,
+        "bytes": 656,
+        "flags": 2
+      },
+      ".version": {
+        "address": 63480,
+        "bytes": 7,
+        "flags": 2
+      },
+      ".text_early": {
+        "address": 240,
+        "bytes": 9920,
+        "flags": 6
+      },
+      ".legacy_format_nul": {
+        "address": 10521,
+        "bytes": 1,
+        "flags": 2
+      },
+      ".text": {
+        "address": 10524,
+        "bytes": 32964,
+        "flags": 6
+      }
+    },
+    "load_segments": [
+      {
+        "address": 0,
+        "load_address": 0,
+        "bytes": 192,
+        "memory_bytes": 192,
+        "flags": 4
+      },
+      {
+        "address": 536870912,
+        "load_address": 192,
+        "bytes": 48,
+        "memory_bytes": 48,
+        "flags": 5
+      },
+      {
+        "address": 0,
+        "load_address": 0,
+        "bytes": 0,
+        "memory_bytes": 0,
+        "flags": 7
+      },
+      {
+        "address": 240,
+        "load_address": 240,
+        "bytes": 9920,
+        "memory_bytes": 9920,
+        "flags": 5
+      },
+      {
+        "address": 10521,
+        "load_address": 10521,
+        "bytes": 1,
+        "memory_bytes": 1,
+        "flags": 4
+      },
+      {
+        "address": 10524,
+        "load_address": 10524,
+        "bytes": 32964,
+        "memory_bytes": 32964,
+        "flags": 5
+      },
+      {
+        "address": 43808,
+        "load_address": 43808,
+        "bytes": 14936,
+        "memory_bytes": 14936,
+        "flags": 4
+      },
+      {
+        "address": 63480,
+        "load_address": 63480,
+        "bytes": 7,
+        "memory_bytes": 7,
+        "flags": 4
+      },
+      {
+        "address": 0,
+        "load_address": 0,
+        "bytes": 0,
+        "memory_bytes": 0,
+        "flags": 6
+      }
+    ],
+    "symbols": {
+      "": 536872992,
+      "startup.c": 0,
+      "$t": 41628,
+      "copy": 42709,
+      "$d": 63480,
+      "flash_abi_target.c": 0,
+      "command_table_target.c": 0,
+      "callback_helpers.c": 0,
+      "config_helpers.c": 0,
+      "slot_blank": 269,
+      "failed_version": 305,
+      "config_read.c": 0,
+      "config_storage.c": 0,
+      "packed32": 1493,
+      "read_register.isra.0": 1509,
+      "keys.0": 42872,
+      "target_config_write_slot_abi.o": 0,
+      "core_helpers.c": 0,
+      "interface_bindings.c": 0,
+      "fault_control_target.c": 0,
+      "request_reset": 2641,
+      "fault_handlers.c": 0,
+      "fault_stop": 2905,
+      "hal_helpers.c": 0,
+      "mspm0_core_target.c": 0,
+      "arm_lsl": 3429,
+      "gpio_assert": 3449,
+      "uart_ring.c": 0,
+      "lookup_or_assert": 4417,
+      "target_runtime_arithmetic_abi.o": 0,
+      "runtime_heap.c": 0,
+      "runtime_scan.c": 0,
+      "scan_space": 5657,
+      "scan_memchr": 5673,
+      "scan_refill": 5695,
+      "scan_ungetc": 5703,
+      "target_runtime_scan_abi.o": 0,
+      "runtime_scan_printf.c": 0,
+      "find": 7325,
+      "format_impl": 34613,
+      "runtime_scan_wrappers.c": 0,
+      "runtime_stdio.c": 0,
+      "flags": 8361,
+      "next_word": 8365,
+      "runtime_support.c": 0,
+      "runtime_arithmetic_float.c": 0,
+      "target_uart_ring_abi.o": 0,
+      "adc_target.c": 0,
+      "adc_assert": 10537,
+      "uart_hal_target.c": 0,
+      "uart_assert": 11365,
+      "timers_target.c": 0,
+      "started_write": 12197,
+      "started_read": 12203,
+      "tasks_target.c": 0,
+      "retained_target.c": 0,
+      "diagnostics_target.c": 0,
+      "packed_read": 13493,
+      "read64": 27237,
+      "write64": 27261,
+      "application_target.c": 0,
+      "modulo": 14139,
+      "formats.0": 42988,
+      "logger_target.c": 0,
+      "store32": 15573,
+      "colors.0": 43024,
+      "target_logger_target_abi.o": 0,
+      "rgb_target.c": 0,
+      "decode": 16181,
+      "encode": 16183,
+      "power_key_target.c": 0,
+      "attach": 17281,
+      "power_policy_target.c": 0,
+      "table": 17883,
+      "low.1": 43044,
+      "i2c_target.c": 0,
+      "begin": 18857,
+      "wait_status": 18905,
+      "i2c_assert": 18965,
+      "pwm_target.c": 0,
+      "pwm_assert": 20061,
+      "config_update.c": 0,
+      "feed": 20857,
+      "target_config_update_abi.o": 0,
+      "ioexpander_target.c": 0,
+      "io_assert": 21825,
+      "transmit": 21873,
+      "power_manager_target.c": 0,
+      "power_assert": 22641,
+      "selector": 22685,
+      "protocol_target.c": 0,
+      "config_commands_target.c": 0,
+      "get": 24849,
+      "erase": 24925,
+      "control_commands_target.c": 0,
+      "bad": 25605,
+      "equal": 25621,
+      "runtime_init_target.c": 0,
+      "sg560d_target.c": 0,
+      "check": 27281,
+      "measure": 27353,
+      "boot_actions": 43152,
+      "runtime_memory.c": 0,
+      "runtime_arithmetic.c": 0,
+      "lshift": 33389,
+      "rshift": 33433,
+      "cmp32": 33477,
+      "cmp64": 33553,
+      "format.c": 0,
+      "byte": 34289,
+      "word": 34333,
+      "argument": 34383,
+      "long_argument": 34401,
+      "emit": 34457,
+      "number": 34507,
+      "adddf3.c": 0,
+      "addsf3.c": 0,
+      "divsf3.c": 0,
+      "extendsfdf2.c": 0,
+      "fixdfsi.c": 0,
+      "fixsfsi.c": 0,
+      "floatsisf.c": 0,
+      "floatunsisf.c": 0,
+      "mulsf3.c": 0,
+      "subdf3.c": 0,
+      "subsf3.c": 0,
+      "syscon_rt_d2u": 10105,
+      "syscon_target_color": 2633,
+      "syscon_target_cmd_shutdown_reason": 26145,
+      "syscon_target_i2c_irq": 19997,
+      "syscon_target_modem_key_assert": 30181,
+      "syscon_target_failure": 241,
+      "syscon_target_uart_available": 4641,
+      "syscon_target_modem_action_74a8": 30309,
+      "syscon_cfg_finish_slot": 1733,
+      "syscon_target_power_boost": 22873,
+      "syscon_target_uart_write_buffer_body": 4581,
+      "syscon_target_rgb_preset": 16601,
+      "syscon_target_power_header_default": 23381,
+      "syscon_target_queue_destructor": 14137,
+      "syscon_target_powerkey_edge": 17229,
+      "syscon_cfg_runtime_get": 683,
+      "syscon_target_config_dump": 25269,
+      "syscon_target_cmd_batcheck": 26765,
+      "syscon_target_modem_volume_release": 27361,
+      "syscon_target_powerkey_long_seconds": 13605,
+      "syscon_rt_case_shi": 5127,
+      "syscon_rt_printf_integer": 9397,
+      "syscon_target_uart_irq": 4737,
+      "syscon_cfg_identity_slot_count": 485,
+      "syscon_target_enable_mftick": 2873,
+      "syscon_target_pwm_clock": 20109,
+      "syscon_rt_malloc_usable_size_r": 5225,
+      "syscon_physical_uart0_irq": 42721,
+      "syscon_target_fault_stage_get": 2833,
+      "syscon_cfg_compact_body": 20869,
+      "syscon_target_modem_uart_stop": 27425,
+      "syscon_target_reset_cause": 3605,
+      "syscon_target_flash_blank": 42681,
+      "syscon_scan_sccl": 5711,
+      "syscon_target_cmd_error": 27057,
+      "syscon_target_watchdog_init": 3497,
+      "syscon_target_modem_prepare_normal": 29605,
+      "syscon_target_pwm_configure": 20265,
+      "syscon_cfg_identity_get": 643,
+      "syscon_rt_cxa_atexit": 9937,
+      "syscon_target_commands": 50201,
+      "syscon_target_config_init": 21533,
+      "syscon_rt_strchr": 33233,
+      "syscon_logger_target_mfg_frame": 15959,
+      "syscon_rt_idiv32": 33801,
+      "syscon_rt_clz64": 33717,
+      "syscon_physical_constructors": 58072,
+      "syscon_target_queue_count": 14437,
+      "syscon_cfg_bool_get": 1957,
+      "syscon_target_tasks_poll": 12873,
+      "syscon_target_cmd_keys": 26857,
+      "syscon_cfg_identity_indexed_get": 663,
+      "syscon_hal_i2c_flush_tx": 3233,
+      "syscon_target_power_battery_sense_set": 23005,
+      "syscon_target_gpio_irq": 4333,
+      "__aeabi_cdcmple": 5053,
+      "syscon_target_cmd_version": 25633,
+      "syscon_target_i2c_receive": 19713,
+      "__aeabi_fadd": 37193,
+      "syscon_target_flash_veneer": 42537,
+      "syscon_rt_uldivmod": 4991,
+      "syscon_rt_strncpy": 33293,
+      "syscon_target_cmd_config_id_dump": 25445,
+      "syscon_target_ioexpander_read": 22473,
+      "syscon_target_gpio_toggle": 3957,
+      "syscon_target_modem_key_pulse": 30245,
+      "syscon_target_modem_uart_start": 27545,
+      "syscon_target_retained_battery": 13441,
+      "syscon_target_modem_wake_remaining": 29181,
+      "syscon_target_watchdog_feed": 3565,
+      "syscon_cfg_prepare_slot": 1693,
+      "syscon_target_uart_rx_disable": 4477,
+      "syscon_hal_vref_clock": 3401,
+      "syscon_target_modem_mode_name": 29265,
+      "syscon_target_parser_poll": 14533,
+      "syscon_cfg_runtime_erase": 705,
+      "syscon_target_cmd_log": 27025,
+      "syscon_target_retained_boots": 13481,
+      "memcpy": 2601,
+      "syscon_target_shutdown_active": 18701,
+      "syscon_target_ioexpander_configure": 22221,
+      "__aeabi_cdrcmple": 5077,
+      "syscon_target_uart_init": 11517,
+      "syscon_target_modem_fct_complete": 27329,
+      "syscon_target_power_boost_set": 22993,
+      "syscon_rt_divzero": 4989,
+      "syscon_rt_d_ge": 34249,
+      "syscon_target_modem_powerkey_release_task": 28093,
+      "syscon_target_gpio_config": 3689,
+      "syscon_target_cmd_config_dump": 25457,
+      "syscon_rt_isalnum": 9969,
+      "syscon_target_modem_action_74c8": 30341,
+      "syscon_target_rgb_brightness": 16397,
+      "syscon_target_pwm_capture": 20169,
+      "__aeabi_uldivmod": 4991,
+      "syscon_hal_adc_clock": 3065,
+      "syscon_cfg_read_slot": 1069,
+      "syscon_rt_free_r": 5241,
+      "syscon_target_pin_write": 22617,
+      "syscon_target_uart_clock_config": 11413,
+      "syscon_rt_sbrk_r": 5189,
+      "syscon_cfg_store_append": 1817,
+      "syscon_target_cmd_modem_off": 26937,
+      "syscon_rt_dcmp_high": 34201,
+      "syscon_target_gpio_attach": 4065,
+      "syscon_cfg_checksum": 935,
+      "syscon_target_gpio_write": 3893,
+      "syscon_target_uart_line_config": 11441,
+      "__aeabi_i2f": 38901,
+      "syscon_rt_printf_common": 9187,
+      "syscon_target_modem_special_boot": 28869,
+      "syscon_target_powerkey_init": 17837,
+      "syscon_target_rgb_tick": 16673,
+      "syscon_target_wakeup_irq": 14253,
+      "syscon_target_modem_pins_off": 28149,
+      "syscon_cfg_find_slot": 1121,
+      "syscon_hal_adc_lookup": 2941,
+      "syscon_target_pwm_output": 20237,
+      "syscon_target_flash_erase": 42549,
+      "syscon_target_timer_delay": 12613,
+      "syscon_target_uart_write": 2609,
+      "syscon_target_uart_write_buffer": 10525,
+      "syscon_target_uart_put": 4537,
+      "syscon_target_cmd_wake_after": 25897,
+      "syscon_rt_f2u": 10059,
+      "syscon_target_cmd_ioexp_read": 25745,
+      "syscon_logger_target": 16071,
+      "__gnu_thumb1_case_uqi": 5109,
+      "syscon_target_cmd_config_id_find": 24989,
+      "syscon_rt_udiv32": 33741,
+      "syscon_target_modem_poll": 30389,
+      "syscon_core_log": 2593,
+      "syscon_target_snprintf": 16117,
+      "syscon_rt_fcmp_flags": 5037,
+      "syscon_target_cmd_read_pwr": 26705,
+      "syscon_target_cmd_set_pattern": 26497,
+      "syscon_target_uart_deinit": 11989,
+      "syscon_target_power_header_route_set": 23173,
+      "__ram_extra_start": 536872992,
+      "syscon_rt_case_sqi": 5091,
+      "syscon_cfg_runtime_update_body": 21565,
+      "syscon_rt_strtol": 8193,
+      "syscon_logger_target_body": 15601,
+      "syscon_target_cmd_config_get": 25049,
+      "__aeabi_lmul": 33865,
+      "syscon_rt_submore": 8865,
+      "syscon_hal_pwm_lookup": 2973,
+      "syscon_target_log_color": 13557,
+      "syscon_rt_sungetc_r": 8989,
+      "syscon_target_i2c_error": 19009,
+      "__ram_exec_load": 192,
+      "syscon_target_powerkey_mode": 17761,
+      "__ram_extra_load": 240,
+      "syscon_target_diagnostics_poll": 13705,
+      "syscon_target_rgb_get_config": 17085,
+      "syscon_target_cached_reason": 2893,
+      "syscon_cfg_runtime_slot_blank": 449,
+      "syscon_target_rgb_pattern": 16445,
+      "syscon_physical_uart1_irq": 42737,
+      "syscon_target_retained_commit": 13161,
+      "syscon_cfg_field_readable": 853,
+      "syscon_target_modem_prepare_edl": 29521,
+      "syscon_target_modem_fastboot": 29063,
+      "syscon_rt_malloc_r": 5389,
+      "syscon_target_ioexpander_init": 22153,
+      "syscon_target_power_usb_release_callback": 23505,
+      "syscon_rt_fcmp_high": 34189,
+      "syscon_target_now": 12213,
+      "__aeabi_fsub": 41629,
+      "syscon_cfg_runtime_slot_count": 481,
+      "syscon_cfg_identity_slot_blank": 465,
+      "syscon_target_shutdown_stale": 18689,
+      "syscon_target_cmd_modem_direct": 26277,
+      "syscon_target_retained_set_battery": 13413,
+      "syscon_target_assert": 2669,
+      "__aeabi_fcmpge": 34233,
+      "syscon_format_forward": 34433,
+      "syscon_rt_swrite": 8633,
+      "syscon_target_modem_fct": 29053,
+      "__aeabi_dadd": 35353,
+      "syscon_rt_sscanf": 8289,
+      "syscon_target_cmd_config_id_erase": 25229,
+      "syscon_target_timer_init": 12353,
+      "syscon_target_modem_edl": 28745,
+      "syscon_mcu_sleep": 2497,
+      "syscon_rt_malloc_lock": 5149,
+      "syscon_scan_integer": 6037,
+      "syscon_target_timer_tick": 12233,
+      "syscon_target_uart_rx_enable": 4509,
+      "__aeabi_idiv": 33801,
+      "syscon_hal_i2c_lookup": 3041,
+      "syscon_cfg_identity_append": 613,
+      "syscon_target_ioexpander_reset": 22117,
+      "syscon_target_power_shutdown_request": 23869,
+      "syscon_rt_drcmp_flags": 5077,
+      "syscon_rt_strlen": 33155,
+      "syscon_target_retained_modem": 13397,
+      "syscon_target_retained_clear_registers": 13341,
+      "syscon_physical_vectors": 0,
+      "syscon_rt_memcpy": 33199,
+      "syscon_cfg_compact": 21789,
+      "syscon_cfg_runtime_update": 21807,
+      "syscon_target_ioexpander_write8": 21949,
+      "syscon_target_cmd_diag": 26993,
+      "syscon_target_power_measure": 22741,
+      "__clzsi2": 33709,
+      "syscon_rt_vfprintf": 7193,
+      "syscon_target_wakeup_enabled": 13545,
+      "syscon_target_cmd_pwrstatus": 25885,
+      "syscon_rt_memchr": 33361,
+      "__gnu_thumb1_case_shi": 5127,
+      "__aeabi_dcmpge": 34249,
+      "syscon_cfg_indexed_get": 369,
+      "syscon_target_power_header_route": 22829,
+      "syscon_cycle_delay": 2569,
+      "__aeabi_dsub": 39821,
+      "syscon_target_adc_init": 10585,
+      "syscon_rt_memset": 33217,
+      "syscon_target_pin_read": 22577,
+      "syscon_target_queue_constructor": 14365,
+      "syscon_target_power_vbus_route": 22813,
+      "syscon_target_power_usb_isolate": 23437,
+      "syscon_target_cmd_modem_on": 26321,
+      "syscon_rt_snprintf": 7221,
+      "syscon_target_power_battery_route": 22797,
+      "syscon_target_wakeup_enable": 14629,
+      "__aeabi_f2iz": 38837,
+      "syscon_hal_uart_lookup": 3021,
+      "syscon_target_i2c_transmit": 19389,
+      "__extra_bss_start": 536872992,
+      "syscon_target_ioexpander_write16": 21917,
+      "__aeabi_fdiv": 38025,
+      "syscon_target_powerkey_extra_seconds": 13621,
+      "__physical_initial_data": 58088,
+      "syscon_target_modem_action_7488": 30277,
+      "syscon_target_diagnostic_write": 14509,
+      "syscon_target_pwm_action": 20205,
+      "syscon_scan_chars": 5833,
+      "syscon_target_timestamp_constructor": 14349,
+      "syscon_target_modem_poweron": 28621,
+      "syscon_target_flash_unprotect": 42645,
+      "__aeabi_ldiv0": 4989,
+      "syscon_rt_vfscanf": 6545,
+      "syscon_target_application_gpio_init": 14561,
+      "__aeabi_ui2f": 39049,
+      "syscon_target_cmd_config_id_set": 25069,
+      "syscon_hal_i2c_fill_tx": 3185,
+      "syscon_logger_target_sg560d": 16137,
+      "syscon_rt_lock_acquire": 10017,
+      "syscon_target_tasks_init": 12701,
+      "syscon_target_power_minimum_update": 18469,
+      "syscon_rt_memmove": 10021,
+      "syscon_target_sg560d_printf": 16137,
+      "syscon_target_diagnostics_enable": 13693,
+      "syscon_target_request_off": 14477,
+      "syscon_target_rgb_configure": 16529,
+      "syscon_target_powerkey_debounce": 17541,
+      "syscon_target_modem_action_6240": 28141,
+      "syscon_rt_arm_atexit": 9941,
+      "syscon_target_pwm_compare": 20153,
+      "syscon_logger_target_vformat": 15577,
+      "syscon_target_power_battery_id_set": 22889,
+      "memset": 2579,
+      "syscon_target_modem_prepare_special": 29413,
+      "syscon_target_modem_off": 29249,
+      "syscon_rt_getreent": 10005,
+      "syscon_rt_malloc_unlock": 5165,
+      "syscon_cfg_load": 2193,
+      "syscon_target_cmd_set_rgb": 26565,
+      "__aeabi_uidiv": 33741,
+      "syscon_target_rgb_key_feedback": 17217,
+      "syscon_target_ioexpander_write": 22365,
+      "syscon_target_flash_program": 42581,
+      "syscon_rt_case_uqi": 5109,
+      "syscon_target_ioexpander_write_unchecked": 22049,
+      "syscon_target_retained_increment_boots": 13453,
+      "syscon_target_i2c_init": 19069,
+      "syscon_target_log_enable": 14549,
+      "syscon_target_reset_cause_name": 3661,
+      "syscon_target_ioexpander_read8": 21981,
+      "syscon_target_adc_raw": 11121,
+      "syscon_logger_target_variadic_frame": 15949,
+      "syscon_rt_dcmp_flags": 5053,
+      "syscon_target_modem_fct_callback": 29041,
+      "syscon_hal_i2c_clock": 3137,
+      "syscon_rt_lock_release": 10019,
+      "syscon_target_fault_stage_name": 2845,
+      "__aeabi_cfcmple": 5037,
+      "syscon_hal_vref_config": 3361,
+      "syscon_rt_udiv64": 33949,
+      "syscon_target_power_minimum": 18509,
+      "syscon_rt_strcmp": 33133,
+      "syscon_target_wakeup_init": 14605,
+      "syscon_logger_target_mfg": 16091,
+      "syscon_target_runtime_init": 27221,
+      "syscon_target_modem_key_release": 30213,
+      "syscon_vformat_target": 35317,
+      "syscon_rt_strtol_core": 7909,
+      "syscon_rt_strrchr": 33323,
+      "syscon_hal_i2c_flush_rx": 3285,
+      "syscon_target_power_battery_route_set": 23021,
+      "syscon_target_rgb_state": 17073,
+      "syscon_target_cmd_ledstatus": 26425,
+      "syscon_target_retained_load": 13213,
+      "syscon_rt_memcmp": 33171,
+      "syscon_target_cmd_help": 25657,
+      "syscon_target_cmd_mcu_reboot": 26001,
+      "syscon_logger_target_sg_body": 15861,
+      "syscon_target_power_battery_id": 22845,
+      "syscon_cfg_store_erase": 1641,
+      "syscon_target_power_report": 17905,
+      "syscon_target_modem_wake_schedule": 29073,
+      "syscon_target_modem_retry_schedule": 28457,
+      "syscon_target_rgb_flush": 16233,
+      "__ram_exec_start": 536870912,
+      "syscon_target_shutdown_reason": 18617,
+      "syscon_rt_vfprintf_seeded": 7881,
+      "syscon_cfg_runtime_indexed_get": 833,
+      "syscon_rt_strtoul_r": 8377,
+      "syscon_target_cmd_modem_dbg": 26777,
+      "syscon_cfg_store_init": 21369,
+      "__aeabi_fcmpeq": 34217,
+      "syscon_target_power_minimum_reset": 18493,
+      "__aeabi_fmul": 39181,
+      "syscon_target_modem_init": 29953,
+      "syscon_target_tasks_active": 13133,
+      "syscon_rt_strncasecmp": 8217,
+      "__aeabi_cfrcmple": 5069,
+      "syscon_target_wakeup_poll": 14701,
+      "syscon_target_modem_always_on": 13593,
+      "syscon_rt_f_ge": 34233,
+      "syscon_target_shutdown_elapsed": 18629,
+      "syscon_target_cmd_config_erase": 25249,
+      "syscon_target_modem_retry_delay": 28317,
+      "syscon_cfg_write_slot": 2417,
+      "syscon_nmi": 2933,
+      "syscon_target_hal_noop": 3581,
+      "syscon_target_fault_stage_set": 2821,
+      "syscon_target_adc_temperature": 10825,
+      "syscon_rt_sbrk": 5181,
+      "syscon_target_gpio_detach": 4257,
+      "__aeabi_d2uiz": 10105,
+      "syscon_target_hwrevision_new": 13637,
+      "syscon_target_uart_read": 4877,
+      "syscon_target_alt_powerkey": 13569,
+      "syscon_rt_toupper": 9985,
+      "syscon_rt_idivmod32": 34281,
+      "syscon_target_modem_power_check": 27617,
+      "syscon_cfg_field_writable": 905,
+      "syscon_target_power_ntc_set": 22945,
+      "__aeabi_uidivmod": 34273,
+      "syscon_default_exception": 2917,
+      "__ram_extra_end": 536872992,
+      "syscon_target_logger": 16071,
+      "syscon_target_cmd_config_id_get": 25029,
+      "syscon_target_rgb_init": 16305,
+      "syscon_target_modem_action_6238": 28133,
+      "syscon_target_modem_action_6230": 28125,
+      "syscon_target_rgb_pattern_name": 17193,
+      "__extra_bss_end": 536872992,
+      "__gnu_thumb1_case_sqi": 5091,
+      "syscon_rt_atoi": 9955,
+      "syscon_target_cmd_config_internal": 25469,
+      "syscon_target_cmd_config_find": 25009,
+      "syscon_logger_target_vlog": 15945,
+      "syscon_target_power_usb_assert_callback": 23589,
+      "syscon_rt_seofread": 7903,
+      "syscon_target_shutdown_poll": 18729,
+      "syscon_target_gpio_lookup": 3585,
+      "syscon_target_protocol_poll": 24269,
+      "syscon_target_flash_ram_execute": 536870913,
+      "syscon_target_timer_wait_countflags": 12669,
+      "__aeabi_f2uiz": 10059,
+      "syscon_target_retained_set_modem": 13369,
+      "syscon_target_cmd_mcu_sleep": 25981,
+      "syscon_target_timer_register": 12441,
+      "syscon_cfg_store_get": 1413,
+      "syscon_target_power_shutdown_busy": 23793,
+      "syscon_rt_f_eq": 34217,
+      "syscon_target_cmd_gpio_read": 25825,
+      "syscon_target_modem_pins_on": 28209,
+      "__aeabi_d2iz": 38717,
+      "syscon_rt_clz32": 33693,
+      "syscon_target_power_vbus_route_set": 23641,
+      "__aeabi_cfcmpeq": 5037,
+      "syscon_target_modem_usbboot_release": 27393,
+      "syscon_target_cmd_config_set": 25149,
+      "syscon_target_rgb_scale": 16185,
+      "syscon_hal_uart_put_blocking": 3333,
+      "syscon_rt_strtol_r": 8185,
+      "syscon_target_power_battery_detect": 24037,
+      "syscon_rt_realloc_r": 5577,
+      "__aeabi_idiv0": 4989,
+      "syscon_hardfault": 2925,
+      "syscon_target_timer_unregister": 12577,
+      "syscon_target_power_policy_init": 18313,
+      "syscon_target_gpio_read": 4009,
+      "syscon_target_queue_event": 14153,
+      "syscon_target_cmd_key_mode": 27165,
+      "syscon_target_factory_test": 13581,
+      "syscon_target_powerkey_callback": 17741,
+      "syscon_logger_target_snprintf": 16117,
+      "syscon_rt_udivmod32": 34273,
+      "syscon_cfg_slot_valid": 957,
+      "syscon_target_modem_poweroff": 29677,
+      "__ram_exec_end": 536870960,
+      "syscon_target_auto_boot": 13533,
+      "syscon_target_rgb_state_name": 17165,
+      "syscon_cfg_flash_report": 1513,
+      "__aeabi_cdcmpeq": 5053,
+      "syscon_target_adc_millivolts": 11261,
+      "syscon_target_modem_raw_send": 30373,
+      "syscon_physical_reset": 42753,
+      "__aeabi_f2d": 38573,
+      "syscon_target_shutdown_set": 18533,
+      "__ram_exec_used_end": 536870948,
+      "syscon_cfg_u32_get": 2093,
+      "__clzdi2": 33717,
+      "syscon_target_modem_set_mode": 29313,
+      "syscon_cfg_assert": 2587,
+      "syscon_rt_strncmp": 33261,
+      "syscon_cfg_identity_erase": 489,
+      "__aeabi_idivmod": 34281,
+      "syscon_target_power_ntc": 22859,
+      "syscon_target_mfg_logger": 16091,
+      "syscon_target_main": 14725,
+      "syscon_rt_frcmp_flags": 5069,
+      "syscon_target_pwm_write": 20789,
+      "syscon_rt_mul64": 33865,
+      "syscon_target_powerkey_poll": 17301,
+      "syscon_rt_ssrefill_r": 9119,
+      "syscon_target_tasks_submit": 12721,
+      "syscon_target_pwm_init": 20613
+    },
+    "issues": [],
+    "flash_io_words": [],
+    "stack_headroom_bytes": 2016
+  },
+  "elf_sha256": "ae534a6640d592194d4aa86198e8b5d8cefbc94172bb07854c251e99e3a2335a",
+  "binary_sha256": "8b9a3cf653b32c374b21f3b89ccf0161fc54a30d018710e61eca9bbe989c9461",
+  "build_input_sha256": {
+    "target/callback_helpers.c": "264d68f65e4afba09fd5a30a7fb65d69bab7b4b4b2f80b1bed157b91b5542d6c",
+    "target/config_helpers.c": "1b3974aee539f3435f73cdbf0e2a247a5a9cabb84475bdbffa0ae68506f0de64",
+    "target/config_read.c": "2f512d609f71ed412008872af3ad3804c3a81e0b6b0f6d1706e1873263114a28",
+    "target/config_storage.c": "42962c86d60ffda27c25fdf6d0de359f2ab596328652e8780eb87617a23c7a2a",
+    "target/config_write_slot_abi.S": "d2c414946da10fe736f523db265bf02b32ea9f59f3bcbc5a282724ed7321b751",
+    "target/core_helpers.c": "281aa18dcc5d20ac43240f11618275103aff3acd4d88ae3d94f6fd46dbaae4aa",
+    "target/interface_bindings.c": "48074e950681c94add2e59c653098b8590631d9434c8358d0a2ccfb827e9558a",
+    "target/fault_control_target.c": "d32c8aeb5d59df5aa6fd8f516f685caf034dade23669fe817e9a13642834868a",
+    "target/fault_handlers.c": "30b900ef3bffabfb12cdecece015a335d86ea4212d900c739c641da40cc7ee92",
+    "target/hal_helpers.c": "0f6c7f18f87a91cc891e5efafeb1b59d5030d7003b2e2799af178b34347e1d1d",
+    "target/mspm0_core_target.c": "337610b8b2c74cbc11da1f8584d72761131263dc4d96174c948c2ee864b58d67",
+    "target/uart_ring.c": "1c21719a7d48ff7a06e506dcc2951bc6e49ad6998ec44fe9e963f1534cdcc1ba",
+    "target/uart_ring_abi.S": "8de3ec6c418741d805d8bd0794fdd56abc75aec0d6674e5511ad120c449266c2",
+    "target/runtime_arithmetic_abi.S": "77f6b178adb66b49b7d0c56285c76d72d1a8e0a06bf6f19482385e1f63f2b93b",
+    "target/runtime_heap.c": "faa09e955114fe47aad08971877ff22a6b0710b625d1636e6d3260d74d546f1d",
+    "target/runtime_scan.c": "2a67ec697346f5df7930695e5b8ec6b4989bfa1f1571eab42889cf748ac9f236",
+    "target/runtime_scan_abi.S": "5a0cd5030dbac2389ee07dda62fcb66c456f695dcd5222a6578a8ebc3080cb9b",
+    "target/runtime_scan_printf.c": "6b077cd518dda5edd55646369193e59a1421ef4437ac01b7fc99f0e27f416b2e",
+    "target/runtime_scan_wrappers.c": "add0aa7ee566cdd893665e2db124dce74540af6153eb824acf6c033862334046",
+    "target/runtime_stdio.c": "87470c581d9d303a835707da2e85eb3e45a8e30b1d89074cfba399287b895ceb",
+    "target/runtime_support.c": "2073e0e81c07b2a6edfc33479fe23c2a2a6e51df2f6be63b5da0701497cc102a",
+    "target/runtime_arithmetic_float.c": "027d34ea8ca7001dabf2135ae6e26d4e39c47f13bb9fea607b85df5e1ae8c71a",
+    "target/adc_target.c": "817700d70bb9ef89f8f40b5ff87c23aa6dd9623ae390a80c3226fa16abf4b79d",
+    "target/uart_hal_target.c": "de8099106c1b12fa3877bc2d34ced6dd20f526eeae7758a22ec1d5c2c0526adc",
+    "target/timers_target.c": "d96398e541a2cdc5effab73172b7dace724712055f81e99256c365b046fa553b",
+    "target/tasks_target.c": "33d43a1547e1f49fa2019cde5fc9548ff172ba7673a4a9383f62a2d0a72a1bbf",
+    "target/retained_target.c": "2a42f13f35f7ec61bc022eaab8b2b71369600f52e736272150f60b30a40e1af6",
+    "target/diagnostics_target.c": "1f6017d0fbc82f2e06cc04e80031e7919ae9d0aa3a0d72ffcd9156525b5914f4",
+    "target/application_target.c": "0276716d8ad63baf809ecd88193405ec712db13a515d8bbaa253e71d8da1f830",
+    "target/logger_target.c": "54462255b2a71111213d4a1ef74867f48e962039552f2ffff5814347ce89349d",
+    "target/logger_target_abi.S": "17591084a1f164f26c31212611846ffa8590a9da09d9acd3a8679649ccf3fd0e",
+    "target/rgb_target.c": "7b9557c46d02dd727528a3719460628a605b978246a45c3c4876fb46cadd194e",
+    "target/power_key_target.c": "3d222668a70ec818b7677f4867eef897377d07ed2eac5b5744ec06e9b4df5b79",
+    "target/power_policy_target.c": "9b59fa799da512513aec13de98cd037e72c1bfa6983b31baea8f10baf049f7f3",
+    "target/i2c_target.c": "1159f8296ee04699d1aadd224f45c185ce6a51212fd9a48406bad9ab86bc7ec3",
+    "target/pwm_target.c": "58d7dee62a0f90fcc864478cffc7fcd5a59e229dc9f26405ac4c530e836427d5",
+    "target/config_update.c": "bbb0defb246d12a6a0a718410167293767a8876fe3473bd0f3259591052b2add",
+    "target/config_update_abi.S": "92df2cfba40a971d60919654b5c13bc4cb6fe25c68aefa19e7799fd05856f26e",
+    "target/ioexpander_target.c": "7d53753ca79dc6a9837ecfc71c28fdb0907a1ea2c1606b9e74ab463b61190b45",
+    "target/power_manager_target.c": "ef91e1bd86da18f7ee0f65ff4687738085a72ceaba942c95530a69fa14e3c8b0",
+    "target/protocol_target.c": "3664220f043ed20b4f725c4f1993f5ce8d5139ba1daa5514bc3066f414db2f86",
+    "target/command_table_target.c": "0e87bcede11502f0ce18cc19d5de3e9153ee64a82342a12e4995a7b22148fe2c",
+    "target/config_commands_target.c": "b1468c7d2006017af3438b2af377e3c67fdd22b771d02f57cd0cde657793ac8d",
+    "target/control_commands_target.c": "0c94f8a2a7cb6a00a78e918b194840be51cf3562634aec5d5af7d733c4269afe",
+    "target/runtime_init_target.c": "a942a078f0814c110305a5c8c3d6b399960d64f62b7146e4150d28d2fccf3ac2",
+    "target/format_core_target.c": "13cbd57ec407c911eb949ab78f2fc675331098bd67f8feb4075bd0a6d388e507",
+    "target/sg560d_target.c": "a71f71ab162e9c1903053d2a11d2170e247ba45b75da3d9bfab6140fa3b4a5eb",
+    "src/runtime_memory.c": "0cda92323a7bc61be7fec82b869a3aa35c7a708194b5476f90374b66558bb1eb",
+    "src/runtime_arithmetic.c": "e0c9ca29f2f62cac95dcb010157481794009b325c9c89996ec3a70e615b2e106",
+    "src/flash_controller.c": "dd4998787bbd6db5178004d8b88a077d4ea5b10763ba43799d3c0be99057b8e0",
+    "src/format.c": "65440481fa0ad96a0adb073005603f6a980a28db3c1506ffdadfb5a2e9a5ff56",
+    "vendor/gcc-soft-fp/adddf3.c": "0a15c1aae008dac35acdbe81cce38b7ec19bc1cbc8f4c4764368a8d395903e51",
+    "vendor/gcc-soft-fp/addsf3.c": "f398056f91b5b1ee34f8b4c7134eb3959fa83d373c66d8b73e7b3d350ac70225",
+    "vendor/gcc-soft-fp/divsf3.c": "610d29ddd84fe9f900041fa31e080b6baa74f9492e7a91273186022ec38411ed",
+    "vendor/gcc-soft-fp/extendsfdf2.c": "f967705770eff0769756e09bdba7d93e7161c1dd1467343ece3d0976a59c28e2",
+    "vendor/gcc-soft-fp/fixdfsi.c": "e5cb3c339701a09b9c37390afbc72e37c311325654b65bc5b356853cc6542323",
+    "vendor/gcc-soft-fp/fixsfsi.c": "98ea2f6f22a81436025e7b7ec5801294a6f22bacf6398bf439f0fd09653dc97b",
+    "vendor/gcc-soft-fp/floatsisf.c": "06d3c7823e004d1a01d78fa2450616e9c0bd478cf69b8a4f623018874476f0d5",
+    "vendor/gcc-soft-fp/floatunsisf.c": "4c5bfadf624ff875d1244ab21d74c2d35d0d44bdcc661d346af94178f645f474",
+    "vendor/gcc-soft-fp/mulsf3.c": "a5cfc06946400053c3dc6b741e6b9d9baef3af50f4405d0ee52634e8dfead870",
+    "vendor/gcc-soft-fp/subdf3.c": "a43ef6b4d28b09652f4b6b676f2f3c4ee7f9c3d5b4f9721eef4b814bc3c87ec1",
+    "vendor/gcc-soft-fp/subsf3.c": "63a77ba7bcb465652d49f897688b109970ddfe713b1f54d3aafdd2ca148a7bca",
+    "target/flash_abi_target.c": "3e1e998b6dcb57244f1e91d7a896389a5b57d5feed4c13479123ce17b398470a",
+    "target/physical/startup.c": "7f0cbf4e737e5b923d5713e834c58607d70bd8386787eb3afb60746d528f15c6",
+    "target/physical/constants.S": "a8ec78286d5f5358e51c3867ea7b320561d3a2d26546de14eace6f96b382e474",
+    "include/timers.h": "b16cf2e43edb320ce781c0de83649c7637fb999f25f76f91b0b4403d6b1ba8a9",
+    "include/diagnostics_target.h": "e26f0372bf7f51d74840395c9230d48f4de3af23c2a86c8139baeffe90777558",
+    "include/protocol_target.h": "0eeb764ce62f55b6e0844cb219a5cfc69cec4d523bd416c70ce96ecd09a9c9fd",
+    "include/ioexpander_target.h": "02af728ce4128f89dde318f14ba3bd030c5b58d5ead1a863913ec1b4d46e53af",
+    "include/adc.h": "ceaa7639168528f91fd85af0ec5a15b7bdcec8f616905249fbbd5d634be24f52",
+    "include/rgb.h": "32fa7f8c8192017f32d72290d8846dc96afd579cd282c421f4e3ad2bf996ff81",
+    "include/flash_abi_target.h": "d2d43be09d214c32ffb67b8f68135d29639f67a50fc9a61802c0a50c950b879d",
+    "include/runtime_heap.h": "3c8d8a53a81b48f9c2156a58987ca24e5ecf09d329a4aad88e367a6bb5c286aa",
+    "include/application_glue.h": "6a4ba68e5808769b1d3f5bc20f5bdca7e9bb0494327804dd715eeffe0ae4e847",
+    "include/fault_control_target.h": "0613d19de7ceb2cc1a0a6908cbd0a0132168437a6a6265acdbfbe048520ac285",
+    "include/flash_controller.h": "691ebd67441ce95f88f903b5aa1be052183512c1db789be7c5fa3e0c1912e56c",
+    "include/power_policy_target.h": "85f7c6373c87c569e2595fa74364926a5762405195ad07c79d9063147f88b0fb",
+    "include/runtime_memory.h": "0be62cb07210eeea38903a946960acc02f9d2a48d3d0119ae62fb2c3252e0fbf",
+    "include/runtime_arithmetic.h": "be7497f3946e24ff3de4066df340ff24224a33f434f145eab0a927b325b66999",
+    "include/pwm_target.h": "860704f17adea4e6d96d300699f85ea040afabf71402581d06f8edab11e5abc7",
+    "include/sg560d_literals.h": "1ab6efe10c6af4695f7849ee403c82fc90ca229245efcef56eecff966be5fca9",
+    "include/application.h": "abe6a7b9d6de7715a8537ed7e023710360048c5288c4765ae346e92a8502089e",
+    "include/pwm.h": "ff4f9bc20afd0ab5c16a5776f0eabb91813a3412b793612c96a16e64c37d3eb1",
+    "include/uart_hal.h": "c6946b7afcca42a8ee2cd94aaaff97c8e2fca01fb9e069a76af56d55a674e55d",
+    "include/uart_hal_target.h": "4e7f3fb2cd7ec55e24d71c85e1468c7880db534b0b815882e2a6ced42362236b",
+    "include/fault_control.h": "f0dfaa1ce70819ec0a572d300ea7929089204e5bf2201079b2cc0c5abe54757c",
+    "include/runtime_scan.h": "a7cbdb4958fe5467de28be68e5836cca8dd9e301e17dd97df5ff25a8583a9360",
+    "include/config_helpers.h": "898b94a45c1cc7ba243f6c215daa17a05635d8f522490c78182f19d49f4d4da8",
+    "include/uart_ring_target.h": "809f38a9e37283c13701787365549a973daea1ad97fd4c41a2ee2145a3580066",
+    "include/control_commands.h": "0646441616f81bf31c401c2b3f2c81acda9b874400375ae64f8ff10924981ec8",
+    "include/runtime_stdio.h": "b1c5de1ceff0632da6e84af3db3d84c00dcfc7854fe3b44820a1711459e2b89f",
+    "include/power_key.h": "7c497f2ea5093818d2b78439c868f99db8925f7dae6c87e23d233df227a40b41",
+    "include/rgb_target.h": "905e05c7399c1d38045cb8498da8f78c683d683932713c22050b10b71d0f16f4",
+    "include/power_policy.h": "51c1dba9f73e4081ba0a52445edf133e0b94e4a8bc7561253a43a7d209a81389",
+    "include/sg560d_target.h": "971c8fd6bc90a8a03382f4256c083ff78c4b94003c987cb07da832bc7643900c",
+    "include/uart.h": "52efc38db948869f4bd23fd2a57dc65f25c297bbbedba92351f9a961bc45ca15",
+    "include/format_core_target.h": "3173fb17371ab8a0c3470fc139045adb8792d0b825d871b2eb47755de2c77ff1",
+    "include/power_key_target.h": "4bd578cb2e62e66ec89dcdec12088cc142fd6a55646bc81bf490f61da8d8bcd9",
+    "include/adc_target.h": "aa1af30e748e5f22ffbcbe7fdec8e2466b13097c77b3b7ae717ac0c1da7d53d3",
+    "include/logger_target.h": "1a6135c5b898c88efdb1959c590f09b7d5250ac462db7f322ab9f4f97ccdd104",
+    "include/mspm0_core.h": "b6398e6a96884658cd89a7f8f9456b12e2b2212eb5dad02bdd897e5898ebf74a",
+    "include/sg560d.h": "f60d9aee82c88fbe1f85d47f90ac8c3da09043cd7a1ada883fc9bb57d5277143",
+    "include/mspm0_core_target.h": "993ffa28b2b105d86da1dc446216a5742aa7d228df94993b2f07dd36d5d14ad6",
+    "include/scheduling_target.h": "9179f0d3a77c0eff097e2b00390d2bd85c331925aeb553fdd17a75a793cc7cb1",
+    "include/syscon.h": "62fbf401f22977757c367fe36029e77245aab29d9ac5002c201661751c93a62f",
+    "include/diagnostics.h": "8c2ebe0c93d7fb2d526a831c4c1505cdde304b158ca34eeaceccc6639871ed06",
+    "include/ioexpander.h": "0e880f50c28fc8d48836d809ac90f9d7dc53a6427421136fa20a4b655a89db5c",
+    "include/runtime_support.h": "bbb982abc5c75e8e2be3d653b5eee45e093ef3960e9bb0e2e886333290a578d1",
+    "include/power_manager_target.h": "d2ec5685a6dded9dc52064f3c1e76aa9c2f982f68eb594877ae2170910d680dc",
+    "include/hal_helpers.h": "4b69d57f29bf8c7d732e087df1a54a5afb9e11e0260c0a960381f09771ec6a48",
+    "include/syscon_config_commands.h": "e552ba8a56b948257e1e66bdc65442d68940eaae07928849bae787809b72e997",
+    "include/format.h": "54598bf2d60871f7e6daa9306d9bc2c1e6d53fea136eb70584841bab021dc798",
+    "include/i2c_target.h": "4f33a7367f43c862bf9d31a2264abae851d0168f311c0057d39a17014f5fec8b",
+    "include/callback_helpers.h": "2a1a21bf96282b0fb28e196b03032b29aeff7fe2f97cf3450ba1214fd64253ce",
+    "include/application_target.h": "d5f1ab987ed94ad195dc06918212d7564857593cb2590ea7e8fd2ca3b7df749c",
+    "include/config_commands_target.h": "173ee8ebafda09202ea48952b4be8a90e7c811d97a81d58c107c78b6a23e4bfd",
+    "include/power_manager.h": "456e8febea75bcfb7eaa74d682457991ba286259c010cee98bba4442cf305d88",
+    "include/i2c.h": "544bebe4f40731ed87c1ad194d952c130ecc42947377df5edc68fccced982b8d",
+    "target/physical/firmware.ld": "c9e24005b673fc4d3e18466be819e143825fa1ae47be9b721016584611d5ce8b",
+    "tools/build_physical_firmware.py": "7549125e12680a7e0898e92775238894bc54e6d087f663a87e59ee899003edb6"
+  },
+  "inputs_unchanged_during_build": true,
+  "status": "linked-experimental",
+  "compiler_stack_frames": [
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:384:1:syscon_rt_vfscanf",
+      "bytes": 680,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_update.c:8:10:syscon_cfg_compact_body",
+      "bytes": 584,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/protocol_target.c:14:6:syscon_target_protocol_poll",
+      "bytes": 184,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_printf.c:110:12:bounded",
+      "bytes": 152,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_printf.c:75:12:format_impl",
+      "bytes": 144,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_wrappers.c:133:5:syscon_rt_sscanf",
+      "bytes": 116,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:44:29:format_impl",
+      "bytes": 112,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:144:10:syscon_target_modem_special_boot",
+      "bytes": 112,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:42:6:syscon_target_diagnostics_poll",
+      "bytes": 104,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:42:6:syscon_target_config_dump",
+      "bytes": 96,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:241:6:syscon_target_modem_poll",
+      "bytes": 88,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:13:17:get",
+      "bytes": 80,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:38:10:syscon_target_cmd_config_id_set",
+      "bytes": 80,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:39:10:syscon_target_cmd_config_set",
+      "bytes": 80,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:60:10:syscon_target_cmd_config_internal",
+      "bytes": 80,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_update.c:64:10:syscon_cfg_runtime_update_body",
+      "bytes": 80,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:86:16:syscon_target_main",
+      "bytes": 64,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_read.c:44:10:syscon_cfg_find_slot",
+      "bytes": 64,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:73:6:syscon_cfg_u32_get",
+      "bytes": 64,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:107:10:syscon_target_cmd_set_rgb",
+      "bytes": 64,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:243:1:syscon_scan_integer",
+      "bytes": 64,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:119:5:syscon_rt_printf_integer",
+      "bytes": 64,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:36:13:number",
+      "bytes": 56,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/format_core_target.c:5:10:syscon_target_format_digits",
+      "bytes": 56,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:59:10:syscon_target_i2c_transmit",
+      "bytes": 56,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_hal_target.c:35:10:syscon_target_uart_init",
+      "bytes": 56,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:29:17:erase",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:66:6:syscon_cfg_bool_get",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:81:6:syscon_cfg_load",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_update.c:46:6:syscon_cfg_store_init",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:94:10:syscon_target_cmd_ledstatus",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_control_target.c:20:16:syscon_target_assert",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/format_core_target.c:31:10:syscon_target_vformat_callback",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:16:6:syscon_target_power_report",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:64:10:syscon_target_rgb_tick",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:35:5:syscon_rt_swrite",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/adddf3.c:33:1:__aeabi_dadd",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/subdf3.c:33:1:__aeabi_dsub",
+      "bytes": 48,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:117:22:syscon_vformat_callback",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:125:22:syscon_vformat_target",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/adc_target.c:37:10:syscon_target_adc_temperature",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:7:10:syscon_cfg_indexed_get",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:29:10:syscon_cfg_identity_erase",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:45:10:syscon_cfg_runtime_erase",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_read.c:21:10:syscon_cfg_slot_valid",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_read.c:76:10:syscon_cfg_store_get",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:57:10:syscon_cfg_store_append",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:123:10:syscon_target_cmd_read_pwr",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:84:10:syscon_target_i2c_receive",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:52:5:syscon_target_ioexpander_configure",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:101:10:syscon_target_gpio_attach",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:91:10:syscon_target_power_shutdown_request",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:71:6:syscon_target_shutdown_poll",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:53:10:syscon_target_pwm_init",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:9:6:syscon_target_retained_load",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_printf.c:116:5:syscon_rt_snprintf_seeded",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_wrappers.c:34:1:syscon_rt_strtol_core",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:8:10:syscon_rt_strtoul_r",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:111:6:syscon_target_modem_retry_schedule",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:136:10:syscon_target_modem_edl",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:166:10:syscon_target_modem_mode_name",
+      "bytes": 40,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/flash_controller.c:14:10:syscon_flash_program",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:113:22:syscon_vformat",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:51:10:syscon_rt_udiv64",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:32:10:syscon_target_cmd_ioexp_read",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:29:10:syscon_target_hwrevision_new",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:47:17:wait_status",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:23:10:syscon_target_i2c_init",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:14:13:transmit",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:76:5:syscon_target_ioexpander_read",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/logger_target.c:12:10:syscon_logger_target_vformat",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/logger_target.c:15:6:syscon_logger_target_body",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_key_target.c:29:6:syscon_target_powerkey_poll",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_key_target.c:74:5:syscon_target_powerkey_init",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:34:9:syscon_target_power_policy_init",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:33:10:syscon_target_pwm_configure",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:197:1:syscon_scan_chars",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_printf.c:115:5:syscon_rt_snprintf_checked",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_wrappers.c:121:5:syscon_rt_strncasecmp",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:60:5:syscon_rt_submore",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:99:5:syscon_rt_printf_common",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:35:6:syscon_target_modem_uart_stop",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:52:10:syscon_target_modem_power_check",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:93:6:syscon_target_modem_pins_on",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:101:10:syscon_target_modem_retry_delay",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:128:10:syscon_target_modem_poweron",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/tasks_target.c:6:5:syscon_target_tasks_submit",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/tasks_target.c:18:6:syscon_target_tasks_poll",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:43:5:syscon_target_timer_register",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/divsf3.c:33:1:__aeabi_fdiv",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/mulsf3.c:33:1:__aeabi_fmul",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/subsf3.c:33:1:__aeabi_fsub",
+      "bytes": 32,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:8:16:byte",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:14:17:word",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:38:10:syscon_rt_mul64",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/adc_target.c:15:10:syscon_target_adc_init",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:55:6:syscon_target_application_gpio_init",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:71:6:syscon_target_wakeup_init",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:27:10:syscon_target_cmd_help",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:40:10:syscon_target_cmd_gpio_read",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:26:10:syscon_target_ioexpander_read8",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:32:5:syscon_target_ioexpander_write_unchecked",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:44:5:syscon_target_ioexpander_init",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:67:5:syscon_target_ioexpander_write",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/logger_target.c:43:6:syscon_logger_target_sg_body",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:40:10:syscon_target_power_battery_route_set",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:68:10:syscon_target_power_vbus_route_set",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:68:10:syscon_target_pwm_write",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:52:7:syscon_rt_malloc_r",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:85:7:syscon_rt_realloc_r",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_printf.c:108:5:syscon_rt_vfprintf_seeded",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_printf.c:109:5:syscon_rt_vfprintf_checked",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:75:5:syscon_rt_sungetc_r",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:46:6:syscon_target_modem_uart_start",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:88:6:syscon_target_modem_pins_off",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:36:10:syscon_target_uart_write_buffer_body",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:48:10:syscon_target_uart_available",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/addsf3.c:33:1:__aeabi_fadd",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/fixdfsi.c:33:1:__aeabi_d2iz",
+      "bytes": 24,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:73:12:cmp64",
+      "bytes": 20,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:20:10:syscon_rt_udiv32",
+      "bytes": 20,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:102:1:syscon_scan_sccl",
+      "bytes": 20,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/flash_controller.c:3:10:syscon_flash_execute",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/flash_controller.c:9:10:syscon_flash_erase",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/flash_controller.c:22:10:syscon_flash_blank",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/flash_controller.c:27:6:syscon_flash_unprotect_main",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/flash_controller.c:32:6:syscon_flash_report",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:21:17:long_argument",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:31:6:syscon_format_forward",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:83:5:syscon_rt_dcmp_low",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:84:5:syscon_rt_dcmp_high",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:85:5:syscon_rt_dne",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:93:1:syscon_rt_d_eq",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:93:1:syscon_rt_d_lt",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:93:1:syscon_rt_d_le",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:93:1:syscon_rt_d_gt",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:93:1:syscon_rt_d_ge",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:45:7:syscon_rt_strrchr",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/adc_target.c:9:13:adc_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/adc_target.c:70:10:syscon_target_adc_raw",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:38:6:syscon_target_queue_event",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:50:6:syscon_target_diagnostic_write",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/callback_helpers.c:8:10:syscon_target_failure",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_read.c:8:10:syscon_cfg_field_readable",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_read.c:38:10:syscon_cfg_read_slot",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:33:10:syscon_cfg_store_erase",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:47:10:syscon_cfg_finish_slot",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:49:10:syscon_target_cmd_wake_after",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:59:10:syscon_target_cmd_mcu_reboot",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:69:10:syscon_target_cmd_shutdown_reason",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:79:10:syscon_target_cmd_modem_direct",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:85:10:syscon_target_cmd_modem_on",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:101:10:syscon_target_cmd_set_pattern",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:128:10:syscon_target_cmd_modem_dbg",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:135:10:syscon_target_cmd_keys",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:140:10:syscon_target_cmd_modem_off",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:162:10:syscon_target_cmd_key_mode",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:43:6:syscon_hal_i2c_fill_tx",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:10:13:i2c_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:8:13:io_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:19:10:syscon_target_ioexpander_write16",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:23:10:syscon_target_ioexpander_write8",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:85:10:syscon_target_pin_read",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:12:13:gpio_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:43:10:syscon_target_gpio_config",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:76:10:syscon_target_gpio_write",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:125:10:syscon_target_gpio_detach",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:137:6:syscon_target_gpio_irq",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_key_target.c:52:6:syscon_target_powerkey_debounce",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:11:13:power_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:24:17:selector",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:16:10:syscon_target_power_measure",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:50:10:syscon_target_power_header_route_set",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:64:10:syscon_target_power_usb_isolate",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:85:10:syscon_target_power_shutdown_busy",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:64:10:syscon_target_shutdown_elapsed",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:7:13:pwm_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:5:6:syscon_target_retained_commit",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_arithmetic_float.c:14:10:syscon_rt_d2u",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:17:7:syscon_rt_sbrk_r",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:28:6:syscon_rt_free_r",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_wrappers.c:120:9:syscon_rt_strtol",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:29:13:check",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:156:6:syscon_target_modem_wake_schedule",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:160:9:syscon_target_modem_wake_remaining",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:215:10:syscon_target_modem_init",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:233:10:syscon_target_modem_key_pulse",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:21:6:syscon_target_timer_tick",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:53:6:syscon_target_timer_delay",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_hal_target.c:17:13:uart_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_hal_target.c:27:6:syscon_target_uart_line_config",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_hal_target.c:78:10:syscon_target_uart_deinit",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:8:17:lookup_or_assert",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:30:10:syscon_target_uart_put",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:61:6:syscon_target_uart_irq",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:82:10:syscon_target_uart_read",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/extendsfdf2.c:35:1:__aeabi_f2d",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/floatsisf.c:33:1:__aeabi_i2f",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/floatunsisf.c:33:1:__aeabi_ui2f",
+      "bytes": 16,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:66:12:cmp32",
+      "bytes": 12,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:12:5:syscon_rt_memcmp",
+      "bytes": 12,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:32:5:syscon_rt_strncmp",
+      "bytes": 12,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:25:6:syscon_hal_adc_clock",
+      "bytes": 12,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:35:6:syscon_hal_i2c_clock",
+      "bytes": 12,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:72:6:syscon_hal_vref_config",
+      "bytes": 12,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:20:17:argument",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/format.c:25:13:emit",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:49:17:lshift",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:50:17:rshift",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:15:10:__clzsi2",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:16:10:syscon_rt_clz64",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:29:10:syscon_rt_idiv32",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:80:5:syscon_rt_fcmp_low",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:81:5:syscon_rt_fcmp_high",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:82:5:syscon_rt_fne",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:92:1:syscon_rt_f_eq",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:92:1:syscon_rt_f_lt",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:92:1:syscon_rt_f_le",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:92:1:syscon_rt_f_gt",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:92:1:syscon_rt_f_ge",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:94:10:syscon_rt_udivmod32",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:95:10:syscon_rt_idivmod32",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:2:5:syscon_rt_strcmp",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:17:7:syscon_rt_memcpy",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:39:7:syscon_rt_strncpy",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:51:7:syscon_rt_memchr",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/adc_target.c:86:10:syscon_target_adc_millivolts",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:37:17:modulo",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:61:6:syscon_target_wakeup_irq",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:25:6:syscon_target_timestamp_constructor",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:27:6:syscon_target_queue_constructor",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:46:6:syscon_target_request_off",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:53:6:syscon_target_parser_poll",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:74:6:syscon_target_wakeup_enable",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:82:6:syscon_target_wakeup_poll",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/callback_helpers.c:16:10:syscon_target_buffer_output",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:34:10:syscon_target_cmd_config_id_find",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:35:10:syscon_target_cmd_config_find",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:36:10:syscon_target_cmd_config_id_get",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:37:10:syscon_target_cmd_config_get",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:40:10:syscon_target_cmd_config_id_erase",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:41:10:syscon_target_cmd_config_erase",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:58:10:syscon_target_cmd_config_id_dump",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_commands_target.c:59:10:syscon_target_cmd_config_dump",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:23:13:failed_version",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:19:10:syscon_cfg_runtime_slot_blank",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:20:10:syscon_cfg_identity_slot_blank",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:37:10:syscon_cfg_identity_append",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:42:10:syscon_cfg_identity_get",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:43:10:syscon_cfg_identity_indexed_get",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:44:10:syscon_cfg_runtime_get",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:54:10:syscon_cfg_runtime_indexed_get",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_read.c:15:10:syscon_cfg_field_writable",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:23:6:syscon_cfg_flash_report",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:42:10:syscon_cfg_prepare_slot",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_update.c:61:6:syscon_target_config_init",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:22:17:bad",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:23:12:equal",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:24:10:syscon_target_cmd_version",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:46:10:syscon_target_cmd_pwrstatus",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:56:10:syscon_target_cmd_mcu_sleep",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:127:10:syscon_target_cmd_batcheck",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:144:10:syscon_target_cmd_diag",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:149:10:syscon_target_cmd_log",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/control_commands_target.c:154:10:syscon_target_cmd_error",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/core_helpers.c:4:6:syscon_mcu_sleep",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:22:17:packed_read",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:27:10:syscon_target_powerkey_long_seconds",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:28:10:syscon_target_powerkey_extra_seconds",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_handlers.c:9:16:syscon_default_exception",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_handlers.c:10:16:syscon_hardfault",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_handlers.c:11:16:syscon_nmi",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/flash_abi_target.c:4:6:syscon_target_flash_report",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/flash_abi_target.c:19:10:syscon_target_flash_veneer",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/flash_abi_target.c:22:10:syscon_target_flash_erase",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/flash_abi_target.c:26:10:syscon_target_flash_program",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/flash_abi_target.c:35:10:syscon_target_flash_blank",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/format_core_target.c:27:13:invoke",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/format_core_target.c:21:10:syscon_target_format_forward",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:54:6:syscon_hal_i2c_flush_tx",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:68:6:syscon_hal_uart_put_blocking",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:55:13:begin",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:16:10:syscon_target_i2c_error",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/i2c_target.c:108:6:syscon_target_i2c_irq",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/interface_bindings.c:10:7:memset",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/interface_bindings.c:14:16:syscon_cfg_assert",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/interface_bindings.c:17:6:syscon_core_log",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/interface_bindings.c:21:7:memcpy",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/interface_bindings.c:24:6:syscon_target_uart_write",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/interface_bindings.c:28:5:syscon_target_color",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:39:10:syscon_target_ioexpander_reset",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/ioexpander_target.c:90:10:syscon_target_pin_write",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:85:10:syscon_target_gpio_toggle",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:93:10:syscon_target_gpio_read",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/physical/startup.c:11:6:syscon_physical_uart0_irq",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/physical/startup.c:12:6:syscon_physical_uart1_irq",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/physical/startup.c:14:16:syscon_physical_reset",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_key_target.c:22:5:syscon_target_powerkey_edge",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_key_target.c:21:13:attach",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_key_target.c:69:6:syscon_target_powerkey_mode",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:30:10:syscon_target_power_battery_route",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:31:10:syscon_target_power_vbus_route",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:32:10:syscon_target_power_header_route",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:33:10:syscon_target_power_battery_id",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:34:10:syscon_target_power_ntc",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:35:10:syscon_target_power_boost",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:36:10:syscon_target_power_battery_id_set",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:37:10:syscon_target_power_ntc_set",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:38:10:syscon_target_power_boost_set",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:39:10:syscon_target_power_battery_sense_set",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:60:10:syscon_target_power_header_default",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:77:10:syscon_target_power_usb_release_callback",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:82:10:syscon_target_power_usb_assert_callback",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_manager_target.c:100:10:syscon_target_power_battery_detect",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:52:6:syscon_target_power_minimum_update",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:58:6:syscon_target_shutdown_set",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:21:6:syscon_target_pwm_capture",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:29:6:syscon_target_pwm_output",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:22:6:syscon_target_retained_set_modem",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:24:6:syscon_target_retained_set_battery",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:26:6:syscon_target_retained_increment_boots",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:17:10:syscon_target_rgb_scale",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:23:6:syscon_target_rgb_flush",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:28:5:syscon_target_rgb_init",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:35:5:syscon_target_rgb_brightness",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:41:5:syscon_target_rgb_pattern",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:52:5:syscon_target_rgb_configure",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:59:5:syscon_target_rgb_preset",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:103:6:syscon_target_rgb_key_feedback",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_arithmetic_float.c:9:10:syscon_rt_f2u",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:12:6:syscon_rt_malloc_lock",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:13:6:syscon_rt_malloc_unlock",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_init_target.c:4:6:syscon_target_runtime_init",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:61:12:scan_refill",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:62:12:scan_ungetc",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_wrappers.c:119:9:syscon_rt_strtol_r",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:90:5:syscon_rt_ssrefill_r",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:9:5:syscon_rt_arm_atexit",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:12:9:syscon_rt_atoi",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:23:10:syscon_rt_strtoul_alias",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:28:7:syscon_rt_memmove",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:81:10:syscon_target_modem_fct_complete",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:34:16:measure",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:82:10:syscon_target_modem_volume_release",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:83:10:syscon_target_modem_usbboot_release",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:84:10:syscon_target_modem_powerkey_release_task",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:85:10:syscon_target_modem_action_6230",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:86:10:syscon_target_modem_action_6238",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:87:10:syscon_target_modem_action_6240",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:154:10:syscon_target_modem_fct_callback",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:153:10:syscon_target_modem_fct",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:155:10:syscon_target_modem_fastboot",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:170:10:syscon_target_modem_set_mode",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:199:10:syscon_target_modem_prepare_special",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:205:10:syscon_target_modem_prepare_edl",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:210:10:syscon_target_modem_prepare_normal",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:182:10:syscon_target_modem_poweroff",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:231:6:syscon_target_modem_key_assert",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:232:6:syscon_target_modem_key_release",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:236:10:syscon_target_modem_action_7488",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:237:10:syscon_target_modem_action_74a8",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:238:10:syscon_target_modem_action_74c8",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:239:10:syscon_target_modem_raw_send",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/tasks_target.c:5:6:syscon_target_tasks_init",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:35:6:syscon_target_timer_init",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:50:6:syscon_target_timer_unregister",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:58:6:syscon_target_timer_wait_countflags",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:18:6:syscon_target_uart_rx_disable",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_ring.c:24:6:syscon_target_uart_rx_enable",
+      "bytes": 8,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/flash_controller.c:2:17:word",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_arithmetic.c:10:10:syscon_rt_clz32",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:7:10:syscon_rt_strlen",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:22:7:syscon_rt_memset",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/src/runtime_memory.c:27:7:syscon_rt_strchr",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:26:6:syscon_target_queue_destructor",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:31:10:syscon_target_queue_count",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/application_target.c:54:6:syscon_target_log_enable",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/callback_helpers.c:29:10:syscon_target_null_output",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:13:17:slot_blank",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:21:10:syscon_cfg_runtime_slot_count",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_helpers.c:22:10:syscon_cfg_identity_slot_count",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_read.c:18:10:syscon_cfg_checksum",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:80:13:packed32",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_storage.c:8:17:read_register.isra",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/config_update.c:7:13:feed",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/core_helpers.c:15:29:syscon_cycle_delay",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:35:17:read64",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:39:13:write64",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:16:10:syscon_target_auto_boot",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:17:10:syscon_target_wakeup_enabled",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:18:10:syscon_target_log_color",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:19:10:syscon_target_alt_powerkey",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:20:10:syscon_target_factory_test",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:21:10:syscon_target_modem_always_on",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/diagnostics_target.c:34:6:syscon_target_diagnostics_enable",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_control_target.c:14:23:request_reset",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_control_target.c:45:6:syscon_target_fault_stage_set",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_control_target.c:46:10:syscon_target_fault_stage_get",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_control_target.c:47:10:syscon_target_fault_stage_name",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_control_target.c:50:10:syscon_target_enable_mftick",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_control_target.c:54:10:syscon_target_cached_reason",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/fault_handlers.c:4:23:fault_stop",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/flash_abi_target.c:13:10:syscon_target_flash_ram_execute",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/flash_abi_target.c:32:10:syscon_target_flash_unprotect",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:7:10:syscon_hal_adc_lookup",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:13:10:syscon_hal_pwm_lookup",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:19:10:syscon_hal_uart_lookup",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:22:10:syscon_hal_i2c_lookup",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:61:6:syscon_hal_i2c_flush_rx",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/hal_helpers.c:81:6:syscon_hal_vref_clock",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/logger_target.c:11:13:store32",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:8:17:arm_lsl",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:18:10:syscon_target_watchdog_init",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:26:10:syscon_target_watchdog_feed",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:27:6:syscon_target_hal_noop",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:28:10:syscon_target_gpio_lookup",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:31:10:syscon_target_reset_cause",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/mspm0_core_target.c:40:10:syscon_target_reset_cause_name",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/physical/startup.c:13:13:copy",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_key_target.c:68:5:syscon_target_powerkey_callback",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:13:17:table",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:14:17:read64",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:15:13:write64",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:56:6:syscon_target_power_minimum_reset",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:57:10:syscon_target_power_minimum",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:63:10:syscon_target_shutdown_reason",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:69:10:syscon_target_shutdown_stale",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/power_policy_target.c:70:10:syscon_target_shutdown_active",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:13:6:syscon_target_pwm_clock",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:18:6:syscon_target_pwm_compare",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/pwm_target.c:25:6:syscon_target_pwm_action",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:21:6:syscon_target_retained_clear_registers",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:23:10:syscon_target_retained_modem",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:25:10:syscon_target_retained_battery",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/retained_target.c:27:10:syscon_target_retained_boots",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:13:14:decode",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:14:17:encode",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:95:10:syscon_target_rgb_state",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:96:10:syscon_target_rgb_get_config",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:101:10:syscon_target_rgb_state_name",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/rgb_target.c:102:10:syscon_target_rgb_pattern_name",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:16:38:syscon_rt_sbrk",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_heap.c:23:10:syscon_rt_malloc_usable_size_r",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:59:12:scan_space",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan.c:60:14:scan_memchr",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_printf.c:74:20:find",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_scan_wrappers.c:130:5:syscon_rt_seofread",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:34:18:flags",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_stdio.c:116:17:next_word",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:6:5:syscon_rt_cxa_atexit",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:13:5:syscon_rt_isalnum",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:16:9:syscon_rt_toupper",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:20:10:syscon_rt_getreent",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:26:6:syscon_rt_lock_acquire",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/runtime_support.c:27:6:syscon_rt_lock_release",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:27:17:read64",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:28:13:write64",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/sg560d_target.c:165:10:syscon_target_modem_off",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/tasks_target.c:41:5:syscon_target_tasks_active",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:13:13:started_write",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:17:17:started_read",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/timers_target.c:9:10:syscon_target_now",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/target/uart_hal_target.c:23:6:syscon_target_uart_clock_config",
+      "bytes": 0,
+      "classification": "static"
+    },
+    {
+      "function_location": "/Users/ian/tachyon/syscon-re/vendor/gcc-soft-fp/fixsfsi.c:33:1:__aeabi_f2iz",
+      "bytes": 0,
+      "classification": "static"
+    }
+  ],
+  "assembly_sources_without_compiler_stack_bounds": [
+    "target/config_write_slot_abi.S",
+    "target/uart_ring_abi.S",
+    "target/runtime_arithmetic_abi.S",
+    "target/runtime_scan_abi.S",
+    "target/logger_target_abi.S",
+    "target/config_update_abi.S",
+    "target/physical/constants.S"
+  ],
+  "limitations": [
+    "No hardware operations or flash approval.",
+    "MCU identity is the unconfirmed64KiB/4KiB profile.",
+    "Per-function stack-usage files are evidence inputs, not a whole-image stack bound.",
+    "Identity/config sectors are excluded; factory/NONMAIN inputs remain external.",
+    "Source-only link/layout success is not whole-firmware equivalence."
+  ]
+}

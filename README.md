@@ -29,6 +29,8 @@ and silicon revision still require physical identification or debug readback.
   UART command sessions, persistence and fault injection.
 - [Equivalence proof](docs/equivalence-proof.md): the first solver-checked module
   theorem, negative control, and concrete whole-image gaps.
+- [Physical checksum proof](docs/physical-checksum-proof.md): actual linked-symbol
+  register/read-event theorem, adversarial controls, and caller read-order fix.
 - [Target interface link](docs/target-interfaces.md): combined source link and
   explicit remaining dependencies.
 - [ARM execution](docs/arm-rebuild.md): freshly compiled Cortex-M0+ comparisons.

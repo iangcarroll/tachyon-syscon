@@ -1,0 +1,42 @@
+{
+  "scope": "Before-fix isolated ARM slot_valid comparison, not a physical-layout full image or reset/UART scenario.",
+  "witness_original_path": "/tmp/syscon-slot-read-order-before.json",
+  "original_reproducer": "/tmp/syscon-slot-read-order-witness.py",
+  "original_reproducer_warning": "This script rebuilds using current sources and overwrites its /tmp build; use the preserved-ELF replay instead.",
+  "preserved_elf_sha256": "7b125d471878d7ef11d2af9bcf0ac8a7fbf340380833e14624a70fcd6714cf5b",
+  "elf_hash_recorded_by_build_manifest": "7b125d471878d7ef11d2af9bcf0ac8a7fbf340380833e14624a70fcd6714cf5b",
+  "source_hash_recorded_by_build_manifest": "a81cb9f0589bc4dc31b2fe167889a47c82bf6e9a15aac94bbea0f8130fee6eb3",
+  "archived_source_sha256": "a81cb9f0589bc4dc31b2fe167889a47c82bf6e9a15aac94bbea0f8130fee6eb3",
+  "archived_source_recovered_from_git_head": "a76b13e2e9860fa3c35145cc3048ed7b69bcf2fd",
+  "source_identity_verified_against_original_build_manifest": true,
+  "original_firmware_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+  "compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "original_entry": "0x2840",
+  "candidate_symbol": "syscon_cfg_slot_valid",
+  "slot_base": "0x20000400",
+  "trigger": "At first checksum body byte-read (checksum entry+8), toggle stored value checksum byte slot+63; input data bytes unchanged.",
+  "observed_original_return": 1,
+  "observed_before_fix_return": 0,
+  "firmware_function_replacements": [],
+  "memory_environment_modification": "Explicit one-byte SRAM mutation in read observer, same trigger on both CPUs; this is an adversarial memory-environment test.",
+  "unresolved_assertion_stub": "syscon_cfg_assert trap linked but not reached by witness",
+  "original_executable_mapping_in_candidate": false,
+  "candidate_layout": "Relocated test ELF using ArmRebuildOracle; no association with separate eb47c941 physical ELF.",
+  "physical_hardware_accessed": false,
+  "harness_hashes_captured_at_packaging_not_original_execution": {
+    "tools/config_helpers_oracle.py": "59ba9bbea10ddf7501ed8008522ae26f1e54cdb58b9f5c8fdeee9e13b54a9005",
+    "tools/oracle.py": "715eaffddf14ca4ab714e0596ddcf0aaa9ba1f74ad51175280b9f7fcd72e69a2",
+    "tools/arm_rebuild_oracle.py": "d103e89757dbfecc32c6f97f8d22573a56aefd94d5e5da923c5d3a93f2d7af6c",
+    "tools/inventory.py": "ed83e8f665f49a33a671224a5628e0986fd3d37beb182322808e8629726c1a27"
+  },
+  "artifact_sha256": {
+    "original-witness.json": "38b513e813cdd9c724bb5633cc442a2bef6301e5134caefe5b300d3ba9fbf1a6",
+    "original-build-and-run.py": "e3471192192a6c1147a05909364939e139234cf19e583e2ba2d9e0a2630fbb6a",
+    "reconstructed-test.elf": "7b125d471878d7ef11d2af9bcf0ac8a7fbf340380833e14624a70fcd6714cf5b",
+    "build-manifest.json": "26ab622757c38917649b598c35d1fb5f650219275a11b5a4a11bc982f6df8bec",
+    "replay-preserved-elf.py": "8b90dcd04408c74824e2393adc67e0d8b2e48f65aff8e96e6e754cf080688e6e",
+    "config_read.before.c": "a81cb9f0589bc4dc31b2fe167889a47c82bf6e9a15aac94bbea0f8130fee6eb3",
+    "replay-result.json": "38b513e813cdd9c724bb5633cc442a2bef6301e5134caefe5b300d3ba9fbf1a6"
+  },
+  "preserved_elf_replay_matches_original_witness": true
+}
