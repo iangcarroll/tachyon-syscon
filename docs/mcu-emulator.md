@@ -13,16 +13,16 @@ harnesses deliberately have extra test memory; the system emulator has exactly
 
 ## Run a complete command session
 
-From `/Users/ian/tachyon`:
+From the repository root:
 
 ```sh
-syscon-re/.venv/bin/python syscon-re/tools/emulate.py \
-  --scenario syscon-re/fixtures/emulator/tachyon-synthetic.json \
+.venv/bin/python tools/emulate.py \
+  --scenario fixtures/emulator/tachyon-synthetic.json \
   --instructions 1000000 --stop-at 0x3c9a \
   --command VERSION \
   --command 'CONFIG_SET emu.key alpha' \
   --command 'CONFIG_GET emu.key' \
-  --report syscon-re/analysis/emulation-session.json
+  --report analysis/emulation-session.json
 ```
 
 `0x3c9a` is the application loop in the pinned 1.0.52 image. UART bytes enter a
@@ -127,8 +127,8 @@ unspecified write-only reads fail explicitly.
 
 `analysis/emulation-boot-version.json` is the standalone original-image run.
 `analysis/full-suite-checkpoint.json` records the combined test outcome and
-source hashes. Neither report means the reconstructed C has been linked into a
-physical-layout replacement image. No hardware was attached, erased or flashed.
+source hashes. The separate rebuilt-image comparison below exercises the
+source-only physical image. No hardware was attached, erased or flashed.
 
 ## Complete rebuilt-image comparison
 

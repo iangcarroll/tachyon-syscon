@@ -31,7 +31,7 @@ Tests compare low-32-bit returned values, the full global RAM region through off
 Validation checkpoint: the sixteen I2C groups and six ADC groups passed together: **22 passed in 2.19 seconds**. The I2C groups include large-length counter wrap and original-code nonprogress. Run:
 
 ```sh
-syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_i2c.py
+.venv/bin/python -m pytest -q tests/test_i2c.py
 ```
 
 This module is not a flashable replacement and does not establish complete board emulation.

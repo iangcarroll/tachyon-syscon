@@ -75,5 +75,5 @@ bodies have separate orchestration tests in [application.md](application.md).
 No hardware was accessed or programmed. Run:
 
 ```sh
-syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_mspm0_core.py
+.venv/bin/python -m pytest -q tests/test_mspm0_core.py
 ```

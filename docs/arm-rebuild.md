@@ -79,12 +79,12 @@ case rather than claiming equivalence.
 
 ## Reproduction and limits
 
-From `/Users/ian/tachyon`:
+From the repository root:
 
 ```sh
-syscon-re/.venv/bin/python syscon-re/tools/build_arm_test_image.py
-SYSCON_COVERAGE_OUTPUT=syscon-re/analysis/arm-rebuild-reference-coverage.json \
-  syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_arm_rebuild.py
+.venv/bin/python tools/build_arm_test_image.py
+SYSCON_COVERAGE_OUTPUT=analysis/arm-rebuild-reference-coverage.json \
+  .venv/bin/python -m pytest -q tests/test_arm_rebuild.py
 ```
 
 The source-only runtime integration checkpoint passed **21 tests**. This also

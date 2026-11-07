@@ -91,6 +91,6 @@ accessed or programmed.
 Run:
 
 ```sh
-SYSCON_COVERAGE_OUTPUT=syscon-re/analysis/application-test-instruction-coverage.json \
-  syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_application.py
+SYSCON_COVERAGE_OUTPUT=analysis/application-test-instruction-coverage.json \
+  .venv/bin/python -m pytest -q tests/test_application.py
 ```

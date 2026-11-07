@@ -44,7 +44,7 @@ Comparisons cover every ordered MMIO, wire-transaction, IRQ, diagnostic-event, a
 Millisecond delays, retained battery-state updates, and task submission remain explicit external dependencies in this test. ADC register samples are supplied inputs; analog voltages are not modeled. Direct MCU GPIO pins below 25 are outside its exercised routing domain. The model does not simulate load switching, physical rise times, arbitration, complete register-reset side effects, or boot/reset recovery. It proves these power-to-I2C and power-to-ADC software flows against a defined peripheral model, not whole-board end-to-end equivalence or flash safety.
 
 ```sh
-syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_power_io_integration.py
+.venv/bin/python -m pytest -q tests/test_power_io_integration.py
 ```
 
 Validation checkpoint: the integration suite and existing expander differential suite passed together: **53 passed in 2.35 seconds**. This includes the two fatal-boundary regressions and the deliberately mismatched stuck-output negative control.

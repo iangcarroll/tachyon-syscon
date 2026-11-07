@@ -13,5 +13,5 @@ Temperature conversion initializes VREF only once using RAM flag `0x694`, polls 
 Six differential groups passed in **1.29 seconds**. They compare returned values, all global RAM through offset `0x7ff`, complete ordered MMIO and delay traces, final modeled registers, and consumption of scripted read responses. Coverage includes every mapped pin, eight-bit pin truncation, arbitrary seven-byte configurations, raw channel selection, signed multiplication wrap/truncation, readiness transitions and timeout, invalid calibration values, and missing-register failure. The tests do not validate physical ADC accuracy, conversion completion timing, hardware reset side effects, or safety of flashing a replacement.
 
 ```sh
-syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_adc.py
+.venv/bin/python -m pytest -q tests/test_adc.py
 ```

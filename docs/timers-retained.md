@@ -101,7 +101,7 @@ The six tests passed on 2026-11-07. They cover:
 Run with:
 
 ```sh
-syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_timers.py syscon-re/tests/test_retained.py
+.venv/bin/python -m pytest -q tests/test_timers.py tests/test_retained.py
 ```
 
 ## Explicit substitutions and remaining limits

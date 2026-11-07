@@ -30,10 +30,10 @@ Initialization configures ADC pins 12, 13, 14, 15, 16, and 23 using the seven in
 
 `tools/power_policy_oracle.py` executes the original functions and substitutes typed calls for power-routing/ADC helpers, retained battery state, I/O-expander access, the monotonic clock, ADC and expander configuration, and output callbacks. Diagnostic UART logging at `0x8f88` is omitted. Real ADC conversion, electrical rails, retained registers, printf bytes, and MCU timing are not proven by this module.
 
-Five differential test groups passed in **1.15 seconds**, covering signed voltage limits, reason byte truncation, timestamp zero and wrap, 299999/300000 ms expiration boundaries, stale flags, report thresholds, dependency order, exact initialization payloads, and ignored dependency failures. Tests compare all global RAM in offsets `0x000..0x7ff` and ordered typed dependency traces; original stack scratch space is deliberately outside the comparison. Run from the workspace root:
+Five differential test groups passed in **1.15 seconds**, covering signed voltage limits, reason byte truncation, timestamp zero and wrap, 299999/300000 ms expiration boundaries, stale flags, report thresholds, dependency order, exact initialization payloads, and ignored dependency failures. Tests compare all global RAM in offsets `0x000..0x7ff` and ordered typed dependency traces; original stack scratch space is deliberately outside the comparison. Run from the repository root:
 
 ```sh
-syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_power_policy.py
+.venv/bin/python -m pytest -q tests/test_power_policy.py
 ```
 
 Integration with the reconstructed power-routing helpers remains a separate step. This evidence does not establish full firmware or hardware end-to-end equivalence.

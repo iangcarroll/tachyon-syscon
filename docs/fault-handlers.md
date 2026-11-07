@@ -31,6 +31,6 @@ accessed or programmed.
 Run:
 
 ```sh
-SYSCON_COVERAGE_OUTPUT=syscon-re/analysis/fault-test-instruction-coverage.json \
-  syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_fault_handlers.py
+SYSCON_COVERAGE_OUTPUT=analysis/fault-test-instruction-coverage.json \
+  .venv/bin/python -m pytest -q tests/test_fault_handlers.py
 ```

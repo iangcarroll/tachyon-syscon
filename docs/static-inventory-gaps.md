@@ -41,11 +41,11 @@ indirect-target or function discovery elsewhere in the image.
 
 ## Reproduce
 
-From `/Users/ian/tachyon`:
+From the repository root:
 
 ```sh
-syscon-re/.venv/bin/python syscon-re/tools/static_inventory_gaps.py
-syscon-re/.venv/bin/python syscon-re/tools/reconstruction_ledger.py
+.venv/bin/python tools/static_inventory_gaps.py
+.venv/bin/python tools/reconstruction_ledger.py
 ```
 
 The reports hash the static listing/ranges and the exact successful coverage

@@ -43,7 +43,7 @@ The erase loop requests a **sector erase at every 64-byte slot address**. Each r
 
 ## Validation
 
-Run `syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_config_updates.py` from the workspace root. The test groups compare complete 1 KiB flash contents, ordered flash operations and statuses, return outcomes, and packed runtime RAM with the original machine code. Scenarios include repeated writes until compaction/full capacity, corrupt records, legacy delimiters, sector-tail erasure, injected failures at individual flash operations, initialization failures, empty keys and values, and numerical parsing boundaries.
+Run `.venv/bin/python -m pytest -q tests/test_config_updates.py` from the repository root. The test groups compare complete 1 KiB flash contents, ordered flash operations and statuses, return outcomes, and packed runtime RAM with the original machine code. Scenarios include repeated writes until compaction/full capacity, corrupt records, legacy delimiters, sector-tail erasure, injected failures at individual flash operations, initialization failures, empty keys and values, and numerical parsing boundaries.
 
 ## Serial command integration
 
@@ -55,4 +55,4 @@ The commands preserve the original fixed `sscanf` scanset behavior: up to 31 non
 
 `tests/test_config_commands.py` connects the reconstructed UART parser to those C handlers and compares every emitted response/echo event, both 1 KiB flash sectors, ordered controller operations, and all 22 runtime bytes against `tools/config_protocol_oracle.py`. The ARM side executes the original UART parser **and actual configuration handlers**; only the output transport and the explicitly described peripheral boundaries are substituted. It includes fragmented input, echo on/off, repeated updates through compaction, corrupt latest records, dump rejection behavior, malformed and oversized fields, both erase paths, and flash-failure responses. An assertion/reset is still represented by an explicit host exception/callback boundary, not by simulated boot/recovery.
 
-Validation checkpoint: the nine configuration-core groups and seven UART integration groups passed together: **16 passed in 23.74 seconds**. The UART groups are separately runnable with `syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_config_commands.py`.
+Validation checkpoint: the nine configuration-core groups and seven UART integration groups passed together: **16 passed in 23.74 seconds**. The UART groups are separately runnable with `.venv/bin/python -m pytest -q tests/test_config_commands.py`.
