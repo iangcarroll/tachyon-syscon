@@ -141,7 +141,8 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     machines=[boot(image)[0] for image in [load_image(),(output/'firmware.bin').read_bytes()]]
     poison=b'\xa5'*22
     machines[1].cpu.mem_write(0x20000030,poison)
-    obsolete=[(0x200000da,3),(0x20000534,216),(0x20000610,112)]
+    obsolete=[(0x200000da,3),(0x20000534,216),(0x20000610,112),
+              (0x200000b4,36),(0x200000d8,2),(0x20000390,24)]
     for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
     ticks=manifest['layout_audit']['symbols']['syscon_timer_state']+104
     clock_before=int.from_bytes(machines[1].read(ticks,8),'little')
@@ -154,6 +155,17 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     assert machines[0].flash[0xf800:]==machines[1].flash[0xf800:]
     assert int.from_bytes(machines[1].read(ticks,8),'little')>clock_before
     for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
+
+    # GPIO edges reach the real interrupt, debounce timer and application queue
+    # after both code and button data move. No handler is replaced or invoked
+    # directly. The accelerated external clock is synthetic, not cycle timing.
+    from power_key_session import exercise_short_press
+    original_button=exercise_short_press(machines[0],0x3a8c)
+    rebuilt_button=exercise_short_press(machines[1],
+        manifest['layout_audit']['symbols']['syscon_target_queue_event'])
+    assert original_button==rebuilt_button
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
+    assert machines[1].minimum_msp>=manifest['layout_audit']['symbols']['__extra_bss_end']
 
     # Legacy values must also remain literal after recompilation moves code,
     # constants and SRAM. No reserved byte at a private return address is needed.

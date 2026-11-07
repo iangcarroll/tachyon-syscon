@@ -77,6 +77,23 @@ return-address dependency; normal commands still reject `%`. Fixed global state
 and remaining recovered data blocks still need migration; they are not approved
 exceptions to this requirement.
 
+Start with these production source groups when making a change:
+
+| Behavior | Implementation | State and data |
+| --- | --- | --- |
+| Configuration and persistent slots | `target/config_*.c` | `include/config_state.h`, `include/config_text.h` |
+| Power-button debounce and press/release events | `target/power_key_target.c` | `include/power_key_state.h`, `include/power_key_text.h` |
+| Timers, scheduled tasks and retained boot state | `target/timers_target.c`, `target/tasks_target.c`, `target/retained_target.c` | `include/scheduling_state.h` |
+| Main loop and command dispatch | `target/application_target.c`, `target/config_commands_target.c` | Remaining fixed state is still being migrated |
+| Modem power, ADC and RGB | `target/sg560d_target.c`, `target/power_policy_target.c`, `target/power_manager_target.c`, `target/adc_target.c`, `target/rgb_target.c` | Remaining fixed state/tables are still being migrated |
+| Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
+
+Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide
+isolated test environments and are excluded from the physical image. The build
+script's source list is authoritative while directory consolidation continues.
+The original addresses in differential tests identify oracle inputs; they are
+not a requirement on production object placement.
+
 The [function ledger](docs/reconstruction-ledger.md) maps implementations and
 tests; it is an inventory, not a completion percentage. The [MCU emulator
 notes](docs/mcu-emulator.md) describe modeled regions, interrupts and peripherals.

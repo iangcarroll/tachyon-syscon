@@ -16,11 +16,13 @@ instructions are copied into these implementations.
 | 5aa8 / 5ac4 / 5ad4 / 5af0 | retained_set_modem / retained_modem / retained_set_battery / retained_battery |
 | 5afc / 5b14 | retained_increment_boots / retained_boots |
 
-The two task records occupy 216 bytes at `0x20000534`. Four 24-byte timer
+In the original image and isolated differential fixtures, the two task records occupy 216 bytes at `0x20000534`. Four 24-byte timer
 records start at `0x20000610`; the initialized byte is at `0x20000670` and
 the clock is at `0x20000678`. Three retained bytes occupy `0x200000da` and
 are copied to/from SYSCTL scratch registers `0x400b0400`, `404`, and `408`.
 Existing `syscon.h` / `timers.h` layout assertions also apply to target builds.
+Production objects are allocated by the linker through `scheduling_state.h`;
+these private fixture addresses are not production placement requirements.
 
 `syscon_target_now` deliberately reads the low word before the high word,
 without masking interrupts or retrying. The original can return a torn value
@@ -79,3 +81,37 @@ every possible asynchronous interleaving or prove cycle timing; the MCU model
 uses explicit virtual instruction time. Neither ELF is a production flash
 image: the exception fixture uses a synthetic vector table and reserved test
 RAM, and does not boot the complete application.
+
+## Editable power-button implementation
+
+`target/power_key_target.c` owns the production button state and timing ranges.
+Its declarations are in `include/power_key_state.h`, and its editable log text
+is in `include/power_key_text.h`. No private numeric address remains in this
+module. The physical linker places the objects normally; only the differential
+fixture linker places them at the original addresses to compare ordered writes.
+
+GPIO input is active low. An edge schedules a one-shot 10 ms debounce callback;
+a held button then polls every 10 ms. The default press intervals are
+[50, 3000), [3000, 8000), and [8000, UINT32_MAX) ms. Starting a new press replaces
+the two higher boundaries using the configured long/extra timer and a 5000 ms
+extension. Even-numbered events describe a press; the next odd-numbered event
+confirms release after more than 200 ms of released input. In passthrough mode,
+the modem key is forcibly released once the held duration reaches 6000 ms.
+These are original behaviors, including unsigned timer wrap.
+
+The callback may mutate button state. Polling reads volatile state in the
+original order and preserves the completion decision made before invoking the
+callback. Named constants and comments explain these constraints without
+preserving compiler register choices or private code addresses.
+
+`test_power_key_target.py` compares all six entry points against original ARM
+instructions, including threshold boundaries, overflow, callback mutations,
+invalid callback faults, both modes and a complete long-press/release sequence.
+Logger comparisons use string contents; pointer-like integer arguments are not
+normalized. `test_config_relocation.py` additionally moves code and initialized
+RAM, poisons the obsolete button RAM, then drives GPIO edges through the full
+image's interrupt/timer/main-loop path. It requires press and release events,
+application consumption, matching UART messages and ordered power transitions.
+Its external clock advancement is synthetic, not a silicon cycle model.
+`test_warm_reset.py` poisons the new state before SYSRESETREQ and compares its
+restored initial contents with the original image.

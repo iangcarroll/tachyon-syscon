@@ -12,7 +12,7 @@ def build(destination):
         '-I',str(ROOT/'include'),*[str(ROOT/s) for s in SOURCES],'-Wl,-T,'+str(ROOT/'target/emulation.ld'),
         '-Wl,-e,syscon_target_powerkey_init','-o',str(destination)]
     subprocess.run(command,check=True)
-    inputs=SOURCES+['include/power_key_target.h','include/scheduling_target.h','include/mspm0_core_target.h',
+    inputs=SOURCES+['include/power_key_target.h','include/power_key_state.h','include/power_key_text.h','include/scheduling_state.h','include/scheduling_target.h','include/mspm0_core_target.h',
         'include/diagnostics_target.h','include/runtime_memory.h','include/syscon.h','include/timers.h',
         'target/emulation.ld','tools/build_power_key_target.py']
     destination.with_suffix('.json').write_text(json.dumps({'command':command,
