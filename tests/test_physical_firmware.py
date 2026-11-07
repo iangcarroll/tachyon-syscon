@@ -60,8 +60,11 @@ def test_reset_initializes_globals_and_flash_busy_executes_only_sram(physical_fi
     u.mem_map(0x20000000,4096);u.mem_write(0x20000000,b'\xa5'*4096)
     u.mem_map(0x400cd000,0x2000)
     busy=False;polls=0;visits=[];data_reads=[];main=audit['symbols']['syscon_target_main']&~1
-    initialized=[]
+    initialized=[];entries=[]
+    executor=audit['symbols']['syscon_target_flash_ram_execute']&~1
     def code(uc,address,size,_):
+        assert not 0x20000000<=address<executor,'Execution entered obsolete flash executor address'
+        if address==executor:entries.append(address)
         if address==main:
             initialized.append(bytes(uc.mem_read(0x20000000,4096)))
         if busy:
@@ -80,7 +83,7 @@ def test_reset_initializes_globals_and_flash_busy_executes_only_sram(physical_fi
     u.hook_add(UC_HOOK_CODE,code);u.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,memory)
     sp,reset=struct.unpack_from('<II',data);u.reg_write(UC_ARM_REG_SP,sp)
     u.emu_start(reset,0,count=20000)
-    assert polls==4 and visits and data_reads and len(initialized)==1
+    assert polls==4 and visits and data_reads and len(initialized)==1 and entries==[executor]
     state=initialized[0]
     assert state[0x30:0x2c0]==data[0xe2e8:0xe578]
     assert state[0x2cc:0x2d0]==struct.pack('<I',0x11223344)
@@ -129,7 +132,7 @@ def test_recovered_constant_bytes_except_explicit_pointer_relocations(physical_f
         lo,hi=int(segment['start'],16),int(segment['end_exclusive'],16)
         assert all(image[a]==reference[a] for a in range(lo,hi) if a not in relocated)
 
-def test_audit_rejects_wrong_fixed_ram_executor_address(physical_fixture,tmp_path):
+def test_audit_rejects_flash_executor_outside_copied_sram(physical_fixture,tmp_path):
     elf,_,audit=physical_fixture
     bad=tmp_path/'invalid-test-only.elf';data=bytearray(elf.read_bytes())
     with elf.open('rb') as stream:
@@ -137,7 +140,7 @@ def test_audit_rejects_wrong_fixed_ram_executor_address(physical_fixture,tmp_pat
         index=next(i for i,s in enumerate(table.iter_symbols()) if s.name=='syscon_target_flash_ram_execute')
         offset=table['sh_offset']+index*table['sh_entsize']+4
     struct.pack_into('<I',data,offset,audit['symbols']['syscon_target_main']);bad.write_bytes(data)
-    assert 'Original-ABI flash executor is not at SRAM20000001' in elf_audit(bad)['issues']
+    assert 'Flash executor is not a Thumb entry in the copied executable SRAM section' in elf_audit(bad)['issues']
 
 
 def test_all_known_original_code_pointers_in_imported_data_are_relocations():
@@ -239,3 +242,44 @@ def test_initialized_data_load_is_aligned_after_halfword_text(physical_fixture,t
         *map(str,elf.parent.glob('*.o')),'-Wl,--gc-sections','-Wl,-T,'+str(linker),
         '-o',str(tmp_path/'misaligned.elf')],capture_output=True,text=True)
     assert result.returncode and 'Reset data copy requires word alignment' in result.stderr
+
+
+@pytest.mark.parametrize('stale_call',[False,True])
+def test_linker_moved_flash_executor_is_copied_and_executes_only_sram(physical_fixture,tmp_path,stale_call):
+    elf,_,original_audit=physical_fixture
+    script=(ROOT/'target/physical/firmware.ld').read_text()
+    needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
+    assert script.count(needle)==1
+    script=script.replace(needle,'__ram_exec_start = .; '+4*'SHORT(0xde00); '+'KEEP(*(.ram_original_flash))')
+    linker=tmp_path/'moved-executor.ld';linker.write_text(script)
+    moved=tmp_path/'moved-executor.elf'
+    objects=[str(p) for p in elf.parent.glob('*.o')]
+    if stale_call:
+        # Reintroduce the removed defect in source, then compile and link it.
+        # A test that merely allows zero-padding fallthrough must fail this
+        # negative control rather than report a successful moved executor.
+        source=(ROOT/'target/flash_abi_target.c').read_text()
+        call='return syscon_target_flash_ram_execute(base);'
+        assert source.count(call)==1
+        source=source.replace(call,'return ((uint32_t (*)(uint32_t))(uintptr_t)0x20000001u)(base);')
+        broken=tmp_path/'stale-flash.c';broken.write_text(source)
+        obj=tmp_path/'stale-flash.o'
+        subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb',
+                        '-Os','-ffreestanding','-fno-builtin','-fno-inline',
+                        '-ffunction-sections','-fdata-sections','-I'+str(ROOT/'include'),
+                        '-c',str(broken),'-o',str(obj)],check=True)
+        objects=[path for path in objects if Path(path).name!='flash.o']+[str(obj)]
+    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
+                    '-Wl,--gc-sections','-Wl,-T,'+str(linker),'-o',str(moved)],check=True)
+    audit=elf_audit(moved)
+    assert not audit['issues']
+    assert audit['symbols']['syscon_target_flash_ram_execute']==original_audit['symbols']['syscon_target_flash_ram_execute']+8
+    binary=tmp_path/'moved-executor.bin';emit_binary(moved,binary)
+    # UDF instructions make the obsolete entry trapping, not harmless padding.
+    # Independently check the attempted entry before running any instruction.
+    fixture=(moved,binary,audit)
+    if stale_call:
+        with pytest.raises(AssertionError,match='obsolete flash executor address'):
+            test_reset_initializes_globals_and_flash_busy_executes_only_sram(fixture)
+    else:
+        test_reset_initializes_globals_and_flash_busy_executes_only_sram(fixture)

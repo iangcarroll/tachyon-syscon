@@ -20,7 +20,7 @@ def build(destination,physical_fixture=False):
              '-I',str(ROOT/'include'),*[str(ROOT/s) for s in SOURCES],
              '-Wl,-T,'+str(ROOT/linker),'-Wl,-e,fixture_thread','-o',str(destination)]
     subprocess.run(command,check=True)
-    files=SOURCES+['include/scheduling_target.h','include/syscon.h','include/timers.h',
+    files=SOURCES+['include/scheduling_target.h','include/scheduling_state.h','include/syscon.h','include/timers.h',
                    'include/runtime_memory.h',linker,'tools/build_scheduling_target.py']
     manifest={'description':'Non-production original-ABI test image with compiled test environment',
               'physical_exception_fixture':physical_fixture,

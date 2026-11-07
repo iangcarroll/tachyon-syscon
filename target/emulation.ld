@@ -6,15 +6,29 @@ MEMORY {
     /* Per-function fixtures intentionally share the oracle's cache location.
        The physical linker has no such placement constraint. */
     TEST_CONFIG (rw) : ORIGIN = 0x20000030, LENGTH = 22
+    TEST_RETAINED (rw) : ORIGIN = 0x200000da, LENGTH = 3
+    TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
+    TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
+}
+PHDRS {
+    code PT_LOAD FLAGS(5);
+    config PT_LOAD FLAGS(6);
+    retained PT_LOAD FLAGS(6);
+    tasks PT_LOAD FLAGS(6);
+    timers PT_LOAD FLAGS(6);
+    data PT_LOAD FLAGS(6);
 }
 SECTIONS {
     .text : {
         *(.text*)
         *(.rodata*)
-    } > TEST_CODE
-    .ARM.exidx : { *(.ARM.exidx*) } > TEST_CODE
-    .config_state : { *(.data.syscon_config_state) } > TEST_CONFIG AT> TEST_CODE
-    .data : { *(.data*) } > TEST_DATA AT> TEST_CODE
-    .bss (NOLOAD) : { *(.bss*) *(COMMON) } > TEST_DATA
+    } > TEST_CODE :code
+    .ARM.exidx : { *(.ARM.exidx*) } > TEST_CODE :code
+    .config_state : { *(.data.syscon_config_state) } > TEST_CONFIG AT> TEST_CODE :config
+    .retained (NOLOAD) : { *(.bss.syscon_retained_state) } > TEST_RETAINED :retained
+    .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
+    .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers
+    .data : { *(.data*) } > TEST_DATA AT> TEST_CODE :data
+    .bss (NOLOAD) : { *(.bss*) *(COMMON) } > TEST_DATA :data
     /DISCARD/ : { *(.comment) *(.note*) }
 }

@@ -105,17 +105,28 @@ developer checks (`make proof-test`, requires Z3) rather than the default
 functional test suite. Their explicit contracts are documented in
 [the proof notes](docs/equivalence-proof.md).
 
-## Hardware gates
+## Hardware validation
 
-Before considering a replacement flash, identify the actual MCU, obtain
-repeatable MAIN/NONMAIN/factory/configuration readbacks, and demonstrate recovery
-independent of the firmware being replaced. Linux-based updating is not sufficient
-if broken syscon power control prevents Linux from running.
+A controlled Linux-only round trip on 2026-11-07 flashed rebuilt commit
+`295015f0f4cada173339aa97291fcb0aa979e8a7`, verified its programmed CRC, obtained
+VERSION/configuration/identity/rail responses, and restored the original 1.0.52
+image with CRC verification. Linux kept the same boot ID throughout. The owner
+explicitly authorized testing without SWD after local validation. The board is
+back on the original firmware; later source revisions are not covered by that
+hardware observation.
 
-The [debug and recovery notes](docs/debug-probe.md) describe the probe constraints
-and offline audit of Particle's packaged UART bootloader updater. Its behavior
-must not be assumed identical to public upstream tools. Hardware identification,
-readback permissions, security configuration and independent recovery remain open.
+This proves the ordinary Linux update-and-restore path on the attached board.
+It does not prove recovery after the app cuts Linux power, after a power cycle
+with a broken app, or without functioning UART/GPIO access. Exact MCU identity,
+raw MAIN/NONMAIN/factory readbacks, security configuration and independent SWD
+recovery remain unverified. These are open evidence gaps, not a requirement to
+re-request the owner's authorization for the agreed Linux-only experiment.
+
+The [debug and recovery notes](docs/debug-probe.md) record the tested artifact,
+checks, updater limits and remaining recovery boundaries. Further experimental
+updates retain the known original image, verify hashes and padded flash bounds,
+and avoid power-cycling before the intended restore/checks finish. Never assume
+public upstream programmers behave like Particle's packaged executable.
 
 The oracle is the 63,487-byte packaged `tachyon_syscon.dvt.bin`, embedded version
 `1.0.52`, from `particle-tachyon-syscon_1.1.1-1_arm64`. Its SHA-256 is

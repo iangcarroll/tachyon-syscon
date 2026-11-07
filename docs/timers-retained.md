@@ -110,7 +110,7 @@ The oracle maps only the relevant SCS and SYSCTL pages as passive register
 storage, records accesses, and hooks diagnostic logging at `0x8f88`. Test callback
 addresses are hooks instead of real application callbacks. Delay tests hook
 watchdog feeding and script time progression; COUNTFLAG progression is scripted.
-The production C reconstruction exposes these dependencies as callbacks and
+The historical host adapter exposes these dependencies as callbacks and
 omits the original diagnostic log text.
 
 These tests establish function-level equivalence for the exercised inputs and
@@ -118,3 +118,23 @@ external events. They do not validate interrupt entry/exit, preemption, torn
 64-bit accesses, physical clock rate, voltage/reset domains, watchdog timing,
 the electrical persistence of retained registers, or complete power sequencing.
 No hardware was connected, read, erased, or programmed by this work.
+
+
+## Linked runtime state
+
+The production `target/` implementation uses the named objects declared in
+`include/scheduling_state.h`: timer slots and clock words, task queues, and the
+three-byte retained-state mirror. The physical linker allocates these objects;
+reset clears their ordinary BSS before application initialization. PMU scratch
+registers remain authoritative for retained values and are loaded afterward.
+The low/high clock words remain separate volatile accesses, preserving the
+original interrupt-visible torn-read behavior.
+
+The per-function test linker deliberately places these objects at the oracle's
+old addresses so existing mutation and ordered-memory tests still compare the
+same field layout. Those addresses are not production placement requirements.
+`tests/test_scheduling_target.py` executes real compiled callbacks and MSP/PSP
+SysTick exception entry/return. Whole-image warm-reset tests use the candidate's
+linked mirror address, while layout-change tests move the objects and poison
+the obsolete state locations. These tests do not establish physical PMU
+retention or worst-case whole-image stack bounds.

@@ -36,7 +36,10 @@ def elf_audit(path):
             a,n=segment['load_address'],segment['bytes']
             if n and (a>=0xf800 or a+n>0xf800):issues.append('Load segment overlaps identity/config or exceeds physical flash')
         executor=symbols.get('syscon_target_flash_ram_execute',0)
-        if executor!=0x20000001:issues.append('Original-ABI flash executor is not at SRAM20000001')
+        ram=sections.get('.ram_exec',{})
+        if (not executor&1 or not ram.get('flags',0)&4 or
+                not ram.get('address',0)<=(executor&~1)<ram.get('address',0)+ram.get('bytes',0)):
+            issues.append('Flash executor is not a Thumb entry in the copied executable SRAM section')
         if 'syscon_flash_execute' in symbols:issues.append('Generic callback executor unexpectedly retained in direct physical image')
         callbacks=[]
         return {'sections':sections,'load_segments':loads,'symbols':symbols,'issues':issues,'flash_io_words':callbacks,'stack_headroom_bytes':0x20001000-symbols.get('__extra_bss_end',0x20001000)}

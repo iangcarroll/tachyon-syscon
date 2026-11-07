@@ -1,13 +1,14 @@
-/* Physical RAM/MMIO ABI, reconstructed from 76f8..78a4. No IRQ masking:
+/* Linker-allocated timer state. No IRQ masking:
  * even the 64-bit time read deliberately consists of low then high word. */
 #include "scheduling_target.h"
-#include "timers.h"
+#include "scheduling_state.h"
 #include "runtime_memory.h"
 #define WORD(a) (*(volatile uint32_t *)(uintptr_t)(a))
-#define BYTE(a) (*(volatile uint8_t *)(uintptr_t)(a))
-#define SLOTS ((volatile syscon_timer_slot *)(uintptr_t)0x20000610)
+#define STATE syscon_timer_state
+volatile syscon_timer_state_t syscon_timer_state __attribute__((section(".bss.syscon_timer_state")));
+#define SLOTS (STATE.slots)
 uint64_t syscon_target_now(void) {
-    uint32_t low=WORD(0x20000678),high=WORD(0x2000067c);
+    uint32_t low=STATE.ticks_low,high=STATE.ticks_high;
     return ((uint64_t)high<<32)|low;
 }
 static void started_write(volatile syscon_timer_slot *s,uint64_t time) {
@@ -20,7 +21,7 @@ static uint64_t started_read(volatile syscon_timer_slot *s) {
 }
 void syscon_target_timer_tick(void) {
     uint64_t time=syscon_target_now()+1;
-    WORD(0x20000678)=(uint32_t)time;WORD(0x2000067c)=(uint32_t)(time>>32);
+    STATE.ticks_low=(uint32_t)time;STATE.ticks_high=(uint32_t)(time>>32);
     for(unsigned i=0;i<4;++i) {
         volatile syscon_timer_slot *s=&SLOTS[i];
         if(!s->callback)continue;
@@ -33,12 +34,12 @@ void syscon_target_timer_tick(void) {
     }
 }
 void syscon_target_timer_init(void) {
-    if(BYTE(0x20000670))return;
+    if(STATE.initialized)return;
     WORD(0xe000e014)=0x7cff;
     WORD(0xe000ed20)=(WORD(0xe000ed20)&0xffffff)|0xc0000000;
     WORD(0xe000e018)=0;WORD(0xe000e010)=7;
-    syscon_rt_memset((void *)(uintptr_t)0x20000610,0,96);
-    BYTE(0x20000670)=1;
+    syscon_rt_memset((void *)SLOTS,0,sizeof(STATE.slots));
+    STATE.initialized=1;
 }
 int syscon_target_timer_register(uint32_t interval,uint32_t once,uint32_t callback,uint32_t argument) {
     unsigned i;for(i=0;i<4;++i)if(SLOTS[i].callback==callback)break;

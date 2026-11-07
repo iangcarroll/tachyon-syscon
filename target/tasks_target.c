@@ -1,8 +1,10 @@
 #include "scheduling_target.h"
 #include "runtime_memory.h"
-#define TASKS ((volatile syscon_tasks *)(uintptr_t)0x20000534)
+#include "scheduling_state.h"
+volatile syscon_tasks syscon_task_state __attribute__((section(".bss.syscon_task_state")));
+#define TASKS (&syscon_task_state)
 #define LOG(level,format,...) syscon_target_logger(level,(const char *)0xdc17,(const char *)(format),##__VA_ARGS__)
-void syscon_target_tasks_init(void) {syscon_rt_memset((void *)TASKS,0,216);}
+void syscon_target_tasks_init(void) {syscon_rt_memset((void *)TASKS,0,sizeof(*TASKS));}
 int syscon_target_tasks_submit(const syscon_action *actions,uint32_t count) {
     if(count>12){LOG(1,0xdc1c);return -1;}
     unsigned index=0;
