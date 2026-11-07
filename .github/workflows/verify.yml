@@ -15,6 +15,10 @@ jobs:
   differential:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [core, cold-start]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -46,8 +50,16 @@ jobs:
           SYSCON_COVERAGE_OUTPUT: build/ci/test-checkpoint.json
           SYSCON_FETCH_NETWORK: '1'
           SYSCON_SCENARIO_OUTPUT: build/ci/scenarios
-        run: python -m pytest -q tests --junitxml=build/ci/functional-tests.xml
+        # Complete-image cold starts can take over 17 minutes on slower runners.
+        # Keep the two selections disjoint; together they run every default test.
+        run: |
+          if [ "${{ matrix.suite }}" = "cold-start" ]; then
+            python -m pytest -q tests/test_functional_scenarios.py --durations=15 --junitxml=build/ci/functional-tests.xml
+          else
+            python -m pytest -q tests --ignore=tests/test_functional_scenarios.py --durations=15 --junitxml=build/ci/functional-tests.xml
+          fi
       - name: Audit the packaged updater offline
+        if: ${{ matrix.suite == 'core' }}
         env:
           SYSCON_UPDATER_BINARY: build/reference-tools/mspm0flash
           PYTHONPATH: tools
@@ -55,16 +67,17 @@ jobs:
           python tools/audit_packaged_updater.py --binary "$SYSCON_UPDATER_BINARY" --output build/ci/updater-audit.json
           python -m pytest -q tools/tests/test_audit_packaged_updater.py --junitxml=build/ci/updater-tests.xml
       - name: Optional scoped proof tests
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_proofs }}
+        if: ${{ matrix.suite == 'core' && github.event_name == 'workflow_dispatch' && inputs.run_proofs }}
         env:
           PYTHONPATH: tools
         run: python -m pytest -q tools/tests/test_proof_checksum.py tools/tests/test_proof_physical_checksum.py --junitxml=build/ci/proof-tests.xml
       - name: Build the experimental physical image
+        if: ${{ matrix.suite == 'core' }}
         run: python tools/build_physical_firmware.py --output build/ci/physical
       - name: Preserve test evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: local-emulation-evidence
+          name: local-emulation-evidence-${{ matrix.suite }}
           path: build/ci/
           if-no-files-found: ignore
