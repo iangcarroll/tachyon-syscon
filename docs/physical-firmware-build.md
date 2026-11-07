@@ -75,3 +75,23 @@ source image. The named synthetic scenario passes with matching normalized
 command output and persistent sectors. A separate I2C failure injection reaches
 matching assertion output. See `analysis/rebuilt-system-session.json` and
 [the emulator documentation](mcu-emulator.md) for the observation limits.
+
+
+## Configuration data migration
+
+Configuration messages, keys, command formats and default values now come from
+ordinary C constants in `include/config_text.h` and `target/config_storage.c`.
+The linker collects configuration objects' read-only data into `.config_data`
+within the spare application-flash region. Code references compiler/linker
+symbols rather than original string addresses; identity/configuration sectors
+remain excluded from the load image.
+
+`tests/test_config_relocation.py` poisons the original configuration text in the
+isolated oracle, edits a diagnostic to a longer string and checks its real UART
+output, then builds a whole-image variant with early/late code shifted by 16/32 bytes
+and configuration data shifted by 256 bytes, exercising reset, UART commands
+and persistence. These tests cover
+configuration text relocation, not completion of the broader address migration.
+Fixed global state, other modules' recovered constants and the numeric legacy
+return-address workaround remain outstanding. New private fixed addresses are
+not part of the intended source architecture.

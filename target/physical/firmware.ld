@@ -21,6 +21,7 @@ PHDRS {
  legacy PT_LOAD FLAGS(4);
  text PT_LOAD FLAGS(5);
  fixed PT_LOAD FLAGS(4);
+ config_data PT_LOAD FLAGS(4);
  version PT_LOAD FLAGS(4);
  auxiliary PT_LOAD FLAGS(6);
 }
@@ -69,6 +70,9 @@ SECTIONS {
  /* Legacy missing %s vararg is the numeric original LR 0x2919.
     Preserve only its observed NUL data byte, never original instructions. */
  .legacy_format_nul 0x2919 (READONLY) : { BYTE(0) } > CODE :legacy
+ /* Configuration constants are independently relocatable C data. Other modules
+    still use recovered fixed data until their own source migration. */
+ .config_data : { *target_config*.o(.rodata*) } > SPARE :config_data
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
  .extra_bss (NOLOAD) : {__extra_bss_start = .;*(.bss*) *(COMMON) .  =  ALIGN(4);__extra_bss_end = .;} > RAM_AUX :auxiliary

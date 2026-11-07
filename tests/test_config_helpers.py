@@ -1,7 +1,7 @@
 import random
 import struct
 import pytest
-from config_helpers_oracle import build,ConfigHelperPair
+from config_helpers_oracle import build,ConfigHelperPair,logger_arguments
 KEY=0x20000500
 VALUE=0x20000580
 OUT=0x20000600
@@ -37,9 +37,7 @@ def slot(key,value):
 
 def bind_logger(p):
     def log(cpu,events):
-        args=tuple(cpu.arg(i) for i in range(3))
-        if cpu.arg(2)==0xadd4:args+=tuple(cpu.arg(i) for i in [3,4])
-        events.append(('log',args));return 0
+        events.append(('log',logger_arguments(cpu)));return 0
     p.bind(0x8f88,'syscon_target_logger',log)
 
 def test_namespace_blank_scans_every_byte_and_does_not_read_invalid_indices(config_elf):
@@ -74,14 +72,17 @@ def test_indexed_get_original_fifth_argument_and_status_forwarding(config_elf):
 def test_namespace_get_append_and_erase_dependency_sequences(config_elf):
     p=ConfigHelperPair(config_elf);bind_logger(p);responses={'erase':0,'append':0,'get':0}
     for address,symbol,label,n in [(0x27a8,'syscon_cfg_store_erase','erase',2),(0x2f0c,'syscon_cfg_store_append','append',4)]:
-        def dependency(cpu,events,label=label,n=n):events.append((label,tuple(cpu.arg(i) for i in range(n))));return responses[label]
+        def dependency(cpu,events,label=label,n=n):
+            args=tuple(cpu.arg(i) for i in range(n))
+            if label=='append':args=args[:2]+(string(cpu,args[2]),string(cpu,args[3]))
+            events.append((label,args));return responses[label]
         p.bind(address,symbol,dependency)
     def get(cpu,events):
-        target=cpu.arg(3);events.append(('get',tuple(cpu.arg(i) for i in range(3)),target if target==OUT else 'local32'))
+        target=cpu.arg(3);events.append(('get',(cpu.arg(0),cpu.arg(1),string(cpu,cpu.arg(2))),target if target==OUT else 'local32'))
         cpu.put(target,b'V'*32);return responses['get']
     p.bind(0x2cb8,'syscon_cfg_store_get',get)
     p.bind(0x2df8,'syscon_cfg_load',lambda cpu,events:events.append(('load',)) or 0)
-    def assertion(cpu,events):events.append(('assert',string(cpu,cpu.arg(0)),cpu.arg(1),cpu.arg(2)));return 0
+    def assertion(cpu,events):events.append(('assert',string(cpu,cpu.arg(0)),cpu.arg(1),string(cpu,cpu.arg(2))));return 0
     p.bind(0x2678,'syscon_cfg_assert',assertion)
     p.put(KEY,b'key\0');p.put(VALUE,b'value\0')
     for status in [0,1,2,0xffffffff]:

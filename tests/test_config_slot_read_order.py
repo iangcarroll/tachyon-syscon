@@ -3,7 +3,7 @@ import gc
 import pytest
 from unicorn import UC_HOOK_MEM_READ,UC_HOOK_CODE
 from unicorn.arm_const import UC_ARM_REG_PC
-from config_helpers_oracle import build,ConfigHelperPair
+from config_helpers_oracle import build,ConfigHelperPair,logger_arguments
 
 class ReadBoundary(Exception):
     """Explicit environment failure at an attempted byte read, not MCU reset."""
@@ -40,8 +40,7 @@ def run_pair(image,owners,slot,base=0x20000400,mutation=None,fault_read=None):
                 offset,replacement=mutation;uc.mem_write(base+offset,bytes([replacement]));changed=True
         def log(uc,address,size,user):
             # Observe the real disabled logger's defined arguments only.
-            count=5 if cpu.arg(2)==0xadd4 else 3
-            logs.append(tuple(cpu.arg(i) for i in range(count)))
+            logs.append(logger_arguments(cpu))
         cpu.cpu.hook_add(UC_HOOK_MEM_READ,read,begin=base,end=base+63)
         cpu.cpu.hook_add(UC_HOOK_CODE,log,begin=logger,end=logger)
         try:result=('return',cpu.call(entry,base))

@@ -1,9 +1,9 @@
 /* Original config storage path; exposed write-slot frame lives in ARM ABI glue. */
 #include "config_helpers.h"
+#include "config_text.h"
 #include "runtime_memory.h"
 #include "runtime_scan.h"
 #include "flash_controller.h"
-#define PTR(a) ((const char *)(uintptr_t)(a))
 #define FLASH 0x400cd000u
 static uint32_t read_register(void *ctx,uint32_t address){(void)ctx;return *(volatile uint32_t *)(uintptr_t)address;}
 #ifdef SYSCON_DIRECT_FLASH_ABI
@@ -21,14 +21,14 @@ static const syscon_flash_controller_io io={0,read_register,write_register};
 #define CTL_PROGRAM(address,data) syscon_flash_program(&io,FLASH,(address),(data))
 #endif
 void syscon_cfg_flash_report(void){
-    uint32_t text;
+    const char *text;
     switch(read_register(0,FLASH+0x13d0)&0x10f0){
-    case 0:text=0xacfa;break;case 0x10:text=0xad11;break;
-    case 0x20:text=0xad34;break;case 0x40:text=0xad50;break;
-    case 0x80:text=0xad6f;break;case 0x1000:text=0xad8e;break;
-    default:text=0xada7;break;
+    case 0:text=SYSCON_CFG_FLASH_SUCCESS;break;case 0x10:text=SYSCON_CFG_FLASH_PROTECTED;break;
+    case 0x20:text=SYSCON_CFG_FLASH_VERIFY_FAILED;break;case 0x40:text=SYSCON_CFG_FLASH_ADDRESS_FAILED;break;
+    case 0x80:text=SYSCON_CFG_FLASH_BANK_FAILED;break;case 0x1000:text=SYSCON_CFG_FLASH_UNDEFINED_FAILED;break;
+    default:text=SYSCON_CFG_FLASH_UNKNOWN_FAILED;break;
     }
-    syscon_target_logger(1,PTR(0xad0c),PTR(text));
+    syscon_target_logger(1,SYSCON_CFG_LOG_TAG,text);
 }
 uint32_t syscon_cfg_store_erase(uint32_t base,uint32_t bytes){
     uint32_t offset=0;
@@ -56,39 +56,41 @@ uint32_t syscon_cfg_finish_slot(uint32_t address,uint8_t *slot){
 }
 uint32_t syscon_cfg_store_append(uint32_t base,uint32_t bytes,const char *key,const char *value){
     if(!syscon_cfg_field_writable((const uint8_t *)key)||!syscon_cfg_field_writable((const uint8_t *)value)){
-        syscon_target_logger(1,PTR(0xad0c),PTR(0xb0e8),key);return 0;
+        syscon_target_logger(1,SYSCON_CFG_LOG_TAG,SYSCON_CFG_UNREADABLE_FIELD,key);return 0;
     }
-    if(syscon_rt_strlen(key)>=31||syscon_rt_strlen(value)>=31){syscon_target_logger(1,PTR(0xad0c),PTR(0xb10e));return 0;}
+    if(syscon_rt_strlen(key)>=31||syscon_rt_strlen(value)>=31){syscon_target_logger(1,SYSCON_CFG_LOG_TAG,SYSCON_CFG_FIELD_TOO_LONG);return 0;}
     uint32_t slot=0;
-    if(!syscon_cfg_find_slot(base,bytes,(char *)key,0,&slot)){syscon_target_logger(1,PTR(0xad0c),PTR(0xb124));return 0;}
+    if(!syscon_cfg_find_slot(base,bytes,(char *)key,0,&slot)){syscon_target_logger(1,SYSCON_CFG_LOG_TAG,SYSCON_CFG_NO_FREE_SLOT);return 0;}
     return syscon_cfg_write_slot(slot,key,value);
 }
 void syscon_cfg_bool_get(uint32_t base,char *key,uint8_t *out){
     char value[32]={0};
     if(!syscon_cfg_store_get(base,960,key,value))return;
-    if(!syscon_rt_strcmp(value,PTR(0xafed))||!syscon_rt_strcmp(value,PTR(0xb3c1)))*out=1;
-    else if(!syscon_rt_strcmp(value,PTR(0xae64))||!syscon_rt_strcmp(value,PTR(0xb422)))*out=0;
-    else syscon_target_logger(1,PTR(0xad0c),PTR(0xaff2),key);
+    if(!syscon_rt_strcmp(value,SYSCON_CFG_TRUE)||!syscon_rt_strcmp(value,SYSCON_CFG_ONE))*out=1;
+    else if(!syscon_rt_strcmp(value,SYSCON_CFG_FALSE)||!syscon_rt_strcmp(value,SYSCON_CFG_ZERO))*out=0;
+    else syscon_target_logger(1,SYSCON_CFG_LOG_TAG,SYSCON_CFG_INVALID_BOOLEAN,key);
 }
 void syscon_cfg_u32_get(uint32_t base,char *key,uint32_t *out){
     char value[32]={0},*end=0;
     if(!syscon_cfg_store_get(base,960,key,value))return;
     int32_t result=syscon_rt_strtol(value,&end,10);
-    if(end==value||*end||result<0)syscon_target_logger(1,PTR(0xad0c),PTR(0xb014),key);
+    if(end==value||*end||result<0)syscon_target_logger(1,SYSCON_CFG_LOG_TAG,SYSCON_CFG_INVALID_INTEGER,key);
     else *out=(uint32_t)result;
 }
 static void packed32(uint8_t *p,uint32_t value){for(unsigned i=0;i<4;i++)p[i]=(uint8_t)(value>>(8*i));}
 void syscon_cfg_load(void){
     uint8_t *state=(uint8_t *)(uintptr_t)0x20000030;
-    syscon_rt_memcpy(state,PTR(0xb236),22);
-    static const uint32_t keys[]={0xb036,0xb044,0xb058,0xb06f,0xb084,0xb095};
-    for(unsigned i=0;i<6;i++)syscon_cfg_bool_get(0xfc00,(char *)PTR(keys[i]),state+i);
+    /* Six booleans, two little-endian 32-bit timers and eight revision bytes. */
+    static const uint8_t defaults[22]={0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0};
+    syscon_rt_memcpy(state,defaults,sizeof(defaults));
+    static const char *const keys[]={SYSCON_CFG_KEY_AUTO_BOOT,SYSCON_CFG_KEY_WAKE_PIN,SYSCON_CFG_KEY_COLOR_DEBUG,SYSCON_CFG_KEY_FASTBOOT,SYSCON_CFG_KEY_DEMO,SYSCON_CFG_KEY_KEEP_5V};
+    for(unsigned i=0;i<6;i++)syscon_cfg_bool_get(0xfc00,(char *)keys[i],state+i);
     for(unsigned i=0;i<2;i++){
-        uint32_t value=3;syscon_cfg_u32_get(0xfc00,(char *)PTR(i?0xb0ba:0xb0ac),&value);
+        uint32_t value=3;syscon_cfg_u32_get(0xfc00,(char *)(i?SYSCON_CFG_KEY_SHUTDOWN_TIMER:SYSCON_CFG_KEY_EDL_TIMER),&value);
         if(value<3)value=3;else if(value>30)value=30;
         packed32(state+6+4*i,value);
     }
     char hardware[32];
-    if(!syscon_cfg_store_get(0xf800,1024,(char *)PTR(0xb0dc),hardware))syscon_target_logger(1,PTR(0xad0c),PTR(0xb0cd));
+    if(!syscon_cfg_store_get(0xf800,1024,(char *)SYSCON_CFG_KEY_HARDWARE_REVISION,hardware))syscon_target_logger(1,SYSCON_CFG_LOG_TAG,SYSCON_CFG_MISSING_HARDWARE_REVISION);
     else{syscon_rt_strncpy(state+14,hardware,8);state[21]=0;}
 }

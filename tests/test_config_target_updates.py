@@ -175,4 +175,6 @@ def test_compaction_no_restore_slot_and_raw_return_status_boundaries(elf):
             p.bind(0x29a0,'syscon_cfg_find_slot',find)
             def write(cpu,events):events.append(('write',cpu.arg(0),string(cpu,cpu.arg(1),31),string(cpu,cpu.arg(2),31)));return write_status
             p.bind(0x28d4,'syscon_cfg_write_slot',write)
-            p.call(0x2abc,'syscon_cfg_compact',0xfc00,KEY,VALUE)
+            # The logger trace includes the stack-usage value; use the same
+            # physical incoming SP rather than discarding that diagnostic.
+            p.call(0x2abc,'syscon_cfg_compact',0xfc00,KEY,VALUE,same_stack=True)

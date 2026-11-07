@@ -56,6 +56,14 @@ behavior tests working, replace fixed string/data addresses with named objects,
 and preserve addresses only where a hardware, boot/update or persistent-data
 contract requires them. That migration is not complete yet.
 
+Private code, strings, tables and global state must use linker-resolved symbols,
+not numeric original-image addresses. Fixed addresses are reserved for documented
+hardware, MCU memory-region and persistent-storage contracts. Layout-change tests
+must exercise moved data/code and changed string lengths. The current numeric
+return-address workaround for malformed legacy format data, fixed global state
+and remaining recovered data blocks still need migration; they are not approved
+exceptions to this requirement.
+
 The [function ledger](docs/reconstruction-ledger.md) maps implementations and
 tests; it is an inventory, not a completion percentage. The [MCU emulator
 notes](docs/mcu-emulator.md) describe modeled regions, interrupts and peripherals.
