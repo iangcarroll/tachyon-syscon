@@ -130,19 +130,25 @@
       "address": "0x282c",
       "symbol": "syscon_cfg_checksum",
       "source": "target/config_read.c",
-      "tests": "tests/test_config_helpers.py",
+      "tests": [
+        "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py"
+      ],
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
-      "proof_scope": "tested-original-ABI-boundaries"
+      "proof_scope": "bounded direct ABI tests plus physical-symbol full-register/read-event theorem; caller and hardware relations remain open"
     },
     {
       "address": "0x2840",
       "symbol": "syscon_cfg_slot_valid",
       "source": "target/config_read.c",
-      "tests": "tests/test_config_helpers.py",
+      "tests": [
+        "tests/test_config_helpers.py",
+        "tests/test_config_slot_read_order.py"
+      ],
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
-      "proof_scope": "tested-original-ABI-boundaries"
+      "proof_scope": "original-ABI boundaries plus ordered checksum snapshots, changing-memory inputs and first-read-failure prefixes"
     },
     {
       "address": "0x296c",
