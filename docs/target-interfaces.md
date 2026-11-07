@@ -19,7 +19,7 @@ combined archive currently has zero unresolved symbols. The authoritative list i
 `build/target-interfaces/manifest.json`, regenerated with:
 
 ```sh
-make -C syscon-re target-interfaces
+make target-interfaces
 ```
 
 The manifest records compiler flags, input hashes, artifact hashes and every

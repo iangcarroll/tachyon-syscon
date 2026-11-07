@@ -77,7 +77,7 @@ readback after a fresh boot match after timestamp normalization, with identical
 persistent sectors and no firmware-function replacements. Injected I2C NACKs
 also reach matching assertion output and interrupt-disable behavior.
 
-`make -C syscon-re arm` cross-compiles all current reconstructed modules for
+`make arm` cross-compiles all current reconstructed modules for
 Cortex-M0+ into a static archive. This does not link a complete firmware image.
 
 The original parser-only tests intercept command handlers; separate handler and
@@ -117,6 +117,7 @@ write is a historical boundary, not the current system-model result.
    replacement firmware is considered a flash candidate.
 
 No device flashing, erase, factory reset, or debug attachment is performed by the
-offline tools in this directory. The local repository is configured for
-`https://github.com/iangcarroll/tachyon-syscon.git`. Publication is pending the
-requested completion/verification gates; no push or pull request has been made.
+offline tools in this directory. Source, references, and verification evidence
+are published at [iangcarroll/tachyon-syscon](https://github.com/iangcarroll/tachyon-syscon).
+Publication is an experimental checkpoint, not completion of the equivalence
+or hardware validation requirements above.
