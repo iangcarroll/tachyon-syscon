@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-07T17:45:48.083960+00:00",
+  "generated_utc": "2026-11-07T18:53:42.487538+00:00",
   "reference_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
   "summary": {
     "identified_functions": 389,
@@ -14,7 +14,7 @@
     "exact_reconstructed_function_matches": 9,
     "hardware_validated_functions": 0,
     "newly_audited_target_entries": 292,
-    "scoped_solver_proofs": 1
+    "scoped_solver_proofs": 2
   },
   "snapshot_inputs": [
     {
@@ -31,7 +31,7 @@
     },
     {
       "path": "analysis/full-suite-checkpoint.json",
-      "sha256": "20202af29d8b4b9bd2c15d5fc908b8ddb67597ba8a2069f1ecdd4de20f08f047"
+      "sha256": "451d37613204b5db1abb364ee2b1e7c96a355b501547023028e327007b484048"
     },
     {
       "path": "analysis/runtime-fingerprints.json",
@@ -55,7 +55,7 @@
     },
     {
       "path": "analysis/config-helpers-mapping.json",
-      "sha256": "2cf1e8524afdf79ab8d8cccf2c76fa09ed1396247145ce334585aaf60d10c5f7"
+      "sha256": "3f8da31e7792abfd3a42e8886e8b2348cd2b06b6be60b34fa36215b60790ae5f"
     },
     {
       "path": "analysis/uart-ring-target-mapping.json",
@@ -147,15 +147,19 @@
     },
     {
       "path": "analysis/proof-checksum/report.json",
-      "sha256": "fef7376b53030dfe4948fa2a2e8f816b716ebb0aa795342b74baba5f6307170d"
+      "sha256": "c1a037e520291e2ae1e6a7b11477724264d69bfd52a586aa2bc518686fbcac44"
+    },
+    {
+      "path": "analysis/proof-physical-checksum/report.json",
+      "sha256": "2e56b6d45c40f0465a662e1d0f416a6dc1ee32305aaffb59cd89aa58417e3465"
     },
     {
       "path": "analysis/proof-checksum-negative/report.json",
-      "sha256": "b5b7d79e4b4ee3fafffed72beda5d6aca5a727f572928ff68ba6a6f46a4c5e7f"
+      "sha256": "a95d996ef058357b7c224778192d1026ccde2654de0c9863a8053ac36a4df4e2"
     },
     {
       "path": "analysis/proof-checksum-checkpoint.json",
-      "sha256": "06056f25a86adab273fd1c012f1c71fa5aa79f0d5b73fc520cb5806555fa8f46"
+      "sha256": "8475ac5afd25dfc89716fa03e195b2ddfdb8dd669f62f0414ae1a22c3e99e1d4"
     },
     {
       "path": "analysis/core-helper-binary-comparison.json",
@@ -395,7 +399,7 @@
     },
     {
       "path": "target/config_read.c",
-      "sha256": "a81cb9f0589bc4dc31b2fe167889a47c82bf6e9a15aac94bbea0f8130fee6eb3"
+      "sha256": "2f512d609f71ed412008872af3ad3804c3a81e0b6b0f6d1706e1873263114a28"
     },
     {
       "path": "target/config_storage.c",
@@ -670,6 +674,10 @@
       "sha256": "bf4107ab06af9f544e1853a0870a173c6d6cdbc4ce1c6cccb2b951df72e083db"
     },
     {
+      "path": "tests/test_config_slot_read_order.py",
+      "sha256": "dad7c69b801e83df60f2cf5244df83b506b4089372aa07561c427cebfddfe9be"
+    },
+    {
       "path": "tests/test_config_target_updates.py",
       "sha256": "671b0797675ebd6f7bf179e1816e66dbce8219f39cf04b8018457c9ba6fe2ff1"
     },
@@ -798,6 +806,10 @@
       "sha256": "8324cfac26b7a33f3da7343209a86f6847d34d2c1de534a5cb614a1a06877894"
     },
     {
+      "path": "tests/test_proof_physical_checksum.py",
+      "sha256": "1083cee58fa496c88dd672a031dd476e7f36b8f7a6a40c48987fcd71527b48f5"
+    },
+    {
       "path": "tests/test_protocol_target.py",
       "sha256": "0f98722d63ef94eff5ba011dacc9e9705e5594f4050a077b84e828247c70d804"
     },
@@ -895,7 +907,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "552f5072ff3c696b5dc649156dfa4a8f6e5f7372c29f06b96659442b022568c4"
+      "sha256": "a679c656a9efef700cf7ded76c017fc1efaae27398fb3eb21f5633fc786f77f9"
     },
     {
       "path": "docs/adc.md",
@@ -1020,19 +1032,19 @@
   ],
   "coverage_checkpoint": {
     "path": "analysis/full-suite-checkpoint.json",
-    "sha256": "20202af29d8b4b9bd2c15d5fc908b8ddb67597ba8a2069f1ecdd4de20f08f047",
+    "sha256": "451d37613204b5db1abb364ee2b1e7c96a355b501547023028e327007b484048",
     "pytest_exitstatus": 0,
     "test_counts": {
-      "passed": 894,
+      "passed": 990,
       "failed": 0,
       "skipped": 0,
       "error": 0,
       "xfailed": 0,
       "xpassed": 0,
-      "collected": 894
+      "collected": 990
     },
     "initial_input_sha256": {
-      "Makefile": "5ca875ea8ec851c9e044b4175cceac86ff2abab6b5c93cb8fb2903040b45b3ed",
+      "Makefile": "b312ae342ac19e789a0e585912dc1668a51cde76a5bc6bf1acddde7e674cc7fa",
       "fixtures/emulator/tachyon-synthetic.json": "28c46a9bce5de442da9e77b55799dced452bed6fc86d02d7180ad076070d4866",
       "include/adc.h": "ceaa7639168528f91fd85af0ec5a15b7bdcec8f616905249fbbd5d634be24f52",
       "include/adc_target.h": "aa1af30e748e5f22ffbcbe7fdec8e2466b13097c77b3b7ae717ac0c1da7d53d3",
@@ -1150,7 +1162,7 @@
       "target/command_table_target.c": "0e87bcede11502f0ce18cc19d5de3e9153ee64a82342a12e4995a7b22148fe2c",
       "target/config_commands_target.c": "b1468c7d2006017af3438b2af377e3c67fdd22b771d02f57cd0cde657793ac8d",
       "target/config_helpers.c": "1b3974aee539f3435f73cdbf0e2a247a5a9cabb84475bdbffa0ae68506f0de64",
-      "target/config_read.c": "a81cb9f0589bc4dc31b2fe167889a47c82bf6e9a15aac94bbea0f8130fee6eb3",
+      "target/config_read.c": "2f512d609f71ed412008872af3ad3804c3a81e0b6b0f6d1706e1873263114a28",
       "target/config_storage.c": "42962c86d60ffda27c25fdf6d0de359f2ab596328652e8780eb87617a23c7a2a",
       "target/config_update.c": "bbb0defb246d12a6a0a718410167293767a8876fe3473bd0f3259591052b2add",
       "target/config_update_abi.S": "92df2cfba40a971d60919654b5c13bc4cb6fe25c68aefa19e7799fd05856f26e",
@@ -1217,6 +1229,7 @@
       "tests/test_config_commands.py": "394d3fd00e69fa6933971ae9bc3b4bff1ffc63683c140f31998314c6605b1144",
       "tests/test_config_commands_target.py": "890b831a09ada7787c3552a37d8aa9d140bd9f3a31e01a9fb2392ade8a6a1c89",
       "tests/test_config_helpers.py": "bf4107ab06af9f544e1853a0870a173c6d6cdbc4ce1c6cccb2b951df72e083db",
+      "tests/test_config_slot_read_order.py": "dad7c69b801e83df60f2cf5244df83b506b4089372aa07561c427cebfddfe9be",
       "tests/test_config_target_updates.py": "671b0797675ebd6f7bf179e1816e66dbce8219f39cf04b8018457c9ba6fe2ff1",
       "tests/test_config_updates.py": "ecbfee061a37f7eb8a1abb20ae7d5e0b73043f58b3738c81a053111703ab34ac",
       "tests/test_control_commands.py": "61fd81ec9a6ded7a204e9ec2842e9060247200fba3332cea9e66e74fed1726e6",
@@ -1258,6 +1271,7 @@
       "tests/test_power_policy.py": "f86e80673d67595bdffd701a9d532c96ce8847492bba421c56b4bcc158223490",
       "tests/test_power_policy_target.py": "8324cfac26b7a33f3da7343209a86f6847d34d2c1de534a5cb614a1a06877894",
       "tests/test_proof_checksum.py": "37affd4695d36e555533c6eaa899336e684982bd05a5769f96b0fbfeeaf3f5b0",
+      "tests/test_proof_physical_checksum.py": "1083cee58fa496c88dd672a031dd476e7f36b8f7a6a40c48987fcd71527b48f5",
       "tests/test_protocol_target.py": "0f98722d63ef94eff5ba011dacc9e9705e5594f4050a077b84e828247c70d804",
       "tests/test_pwm.py": "b4a61936d740801ada94a3d5bbb9ff56db2d15e0615803292543110746f8d5c0",
       "tests/test_pwm_target.py": "8c677b06bd357aebb86db661c9f861bb5d3205e95d5d147a20616e838233fa00",
@@ -1338,11 +1352,12 @@
       "tools/power_oracle.py": "0280107edc454071ecc4e5fe398b6c231bcd967bd9929d653db57e0126086532",
       "tools/power_policy_oracle.py": "09802afb1725abbc276728d447e4a05a9f5029afa1b18d103a09fc44c19d17f7",
       "tools/power_policy_target_oracle.py": "02c10315c8efcd1f7b01bf2c8562ec81915d1e51c0b4baef3b3163d9bdd1c16a",
-      "tools/proof_checksum.py": "329a4bf241317cae0031b02bf9f3c594fa264fe4220d3f6ffafb4118f6174a21",
+      "tools/proof_checksum.py": "887d47bdb2169d88c44c6282e1b4c994095e64b30d29740021946a3074b13607",
+      "tools/proof_physical_checksum.py": "6d9e0f2dcd751798881d4d6ec06572434dbd3fceacfec32ad7a1522f74718d77",
       "tools/protocol_target_oracle.py": "dda6058940a61346c5690aa9d201c78e5a0af25430190dda86e05f1ac50b7e51",
       "tools/pwm_oracle.py": "9badd00535ed2a66ecdce0335da7b42146c36d16b6514ab0093d72de67efd5f0",
       "tools/rebuilt_system.py": "3d071f6a6a18eaeb50bd16a253a2ecc3776cb1cb7d9fe3c5ce47f89d73e80505",
-      "tools/reconstruction_ledger.py": "1dfbc39d7145db113da22b76cb2bc7fadd07bc0ba760559a2197788693d17620",
+      "tools/reconstruction_ledger.py": "376f60e90f7ab9f422e6fcf3d18d2beb579ca0767b6b17d79185a0d0af99b570",
       "tools/rgb_oracle.py": "e1832b2424caf9c1d6ed5d03883dfa34beee371db40d16b00a3af70ab42c9082",
       "tools/rgb_target_oracle.py": "9bfca62fc39476637b36aad277b9f7ddf25ff7d455b524d3b6665871c7400221",
       "tools/runtime_arithmetic_mappings.py": "082e86d2f938b0e5f1a023b8ff936570a65cbe00daba9bf2451f9d4d1c8dc270",
@@ -1393,7 +1408,7 @@
     "changed_since_checkpoint": [],
     "current_code_matches_passed_snapshot": true,
     "invocation": [
-      ".venv/bin/pytest",
+      "/Users/ian/tachyon/syscon-re/.venv/lib/python3.14/site-packages/pytest/__main__.py",
       "-q",
       "tests"
     ],
@@ -2230,6 +2245,62 @@
             "0x20000028",
             "0x2000002a"
           ]
+        },
+        {
+          "report": "analysis/coverage-runs/1794075147047405000-56820.json",
+          "sha256": "8fa190bdced32347a9900f1aa7c8e007a02fe891e4a5c99f23300d8e6ae4cd9a",
+          "executed_ram_addresses": [
+            "0x20000000",
+            "0x20000002",
+            "0x20000004",
+            "0x20000006",
+            "0x20000008",
+            "0x2000000a",
+            "0x2000000c",
+            "0x2000000e",
+            "0x20000010",
+            "0x20000012",
+            "0x20000014",
+            "0x20000016",
+            "0x20000018",
+            "0x2000001a",
+            "0x2000001c",
+            "0x2000001e",
+            "0x20000020",
+            "0x20000022",
+            "0x20000024",
+            "0x20000026",
+            "0x20000028",
+            "0x2000002a"
+          ]
+        },
+        {
+          "report": "analysis/coverage-runs/1794076648936333000-60906.json",
+          "sha256": "451d37613204b5db1abb364ee2b1e7c96a355b501547023028e327007b484048",
+          "executed_ram_addresses": [
+            "0x20000000",
+            "0x20000002",
+            "0x20000004",
+            "0x20000006",
+            "0x20000008",
+            "0x2000000a",
+            "0x2000000c",
+            "0x2000000e",
+            "0x20000010",
+            "0x20000012",
+            "0x20000014",
+            "0x20000016",
+            "0x20000018",
+            "0x2000001a",
+            "0x2000001c",
+            "0x2000001e",
+            "0x20000020",
+            "0x20000022",
+            "0x20000024",
+            "0x20000026",
+            "0x20000028",
+            "0x2000002a"
+          ]
         }
       ]
     },
@@ -2259,6 +2330,16 @@
       "source": "src/config.c",
       "evidence": "analysis/proof-checksum/report.json",
       "contract": "checksum31 ABI function; readable SRAM; ordinary Thumb return into flash; no interrupts/concurrent mutation",
+      "status": "unsat",
+      "whole_domain_equivalence": false,
+      "whole_firmware_equivalence": false
+    },
+    {
+      "address": "0x282c",
+      "symbol": "syscon_cfg_checksum",
+      "source": "target/config_read.c",
+      "evidence": "analysis/proof-physical-checksum/report.json",
+      "contract": "checksum function, full R0-R14/NZCV at every instruction boundary, relative PC, ordered byte reads and ordinary return target",
       "status": "unsat",
       "whole_domain_equivalence": false,
       "whole_firmware_equivalence": false
@@ -4833,6 +4914,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -4888,6 +4971,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -4943,6 +5028,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -4998,6 +5085,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5005,11 +5094,14 @@
       "target_abi": {
         "symbol": "syscon_cfg_checksum",
         "source": "target/config_read.c",
-        "tests": "tests/test_config_helpers.py",
+        "tests": [
+          "tests/test_config_helpers.py",
+          "tests/test_proof_physical_checksum.py"
+        ],
         "documentation": "docs/config-helpers.md",
         "mapping": "analysis/config-helpers-mapping.json",
         "status": "tested_standalone_entry",
-        "scope": "tested-original-ABI-boundaries",
+        "scope": "bounded direct ABI tests plus physical-symbol full-register/read-event theorem; caller and hardware relations remain open",
         "whole_domain_equivalence": false,
         "physical_image_integration": false
       },
@@ -5056,6 +5148,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5063,11 +5157,14 @@
       "target_abi": {
         "symbol": "syscon_cfg_slot_valid",
         "source": "target/config_read.c",
-        "tests": "tests/test_config_helpers.py",
+        "tests": [
+          "tests/test_config_helpers.py",
+          "tests/test_config_slot_read_order.py"
+        ],
         "documentation": "docs/config-helpers.md",
         "mapping": "analysis/config-helpers-mapping.json",
         "status": "tested_standalone_entry",
-        "scope": "tested-original-ABI-boundaries",
+        "scope": "original-ABI boundaries plus ordered checksum snapshots, changing-memory inputs and first-read-failure prefixes",
         "whole_domain_equivalence": false,
         "physical_image_integration": false
       },
@@ -5111,6 +5208,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5166,6 +5265,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5221,6 +5322,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5276,6 +5379,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5333,6 +5438,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5388,6 +5495,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5443,6 +5552,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5498,6 +5609,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5553,6 +5666,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -5608,6 +5723,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",
@@ -6683,6 +6800,8 @@
         "tests/test_differential.py",
         "tests/test_config_updates.py",
         "tests/test_config_helpers.py",
+        "tests/test_proof_physical_checksum.py",
+        "tests/test_config_slot_read_order.py",
         "tests/test_config_target_updates.py"
       ],
       "documentation": "docs/config-reconstruction.md",

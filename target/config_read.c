@@ -20,11 +20,19 @@ uint32_t syscon_cfg_checksum(const uint8_t *field) {
 }
 uint32_t syscon_cfg_slot_valid(const uint8_t *slot) {
     if(!syscon_cfg_field_readable(slot)||!syscon_cfg_field_readable(slot+32))return 0;
-    if(slot[31]!=syscon_cfg_checksum(slot)){
+    /* Original snapshots both stored bytes before either checksum loop. These
+     * accesses must remain byte reads in this order even if memory changes. */
+    uint8_t key_checksum=*(const volatile uint8_t *)(slot+31);
+    uint8_t value_checksum=*(const volatile uint8_t *)(slot+63);
+    if(key_checksum!=syscon_cfg_checksum(slot)){
         syscon_target_logger(1,CONF,TEXT(0xadbe));return 0;
     }
     uint32_t checksum=syscon_cfg_checksum(slot+32);
-    if(slot[63]!=checksum){syscon_target_logger(1,CONF,TEXT(0xadd4),checksum,slot[63]);return 0;}
+    if(value_checksum!=checksum){
+        /* The failure diagnostic deliberately rereads the live stored byte. */
+        syscon_target_logger(1,CONF,TEXT(0xadd4),checksum,
+                             *(const volatile uint8_t *)(slot+63));return 0;
+    }
     return 1;
 }
 uint32_t syscon_cfg_read_slot(const uint8_t *slot,char *out) {

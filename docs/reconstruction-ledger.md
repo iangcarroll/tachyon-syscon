@@ -15,12 +15,12 @@ The current static inventory contains 389 identified functions. Their semantic s
 - Semantic mapping points to actual C sources, module tests, and scope documentation. Unreviewed Ghidra output and endpoint hooks do not count as replacement code.
 - Original instruction exercise uses observed addresses from the pinned successful `analysis/full-suite-checkpoint.json` invocation, recomputed against the current hashed listing/ranges. Counts can differ from that report after static-analysis corrections. The snapshot may precede recent additions: a reconstructed routine with zero exercise at that checkpoint is not automatically unimplemented. Module tests and later scoped reports supply separate evidence.
 - Nine rebuilt bodies have exact bytes: checksum `0x282c` (20 bytes), delay `0x7ae8` (10), memset `0x975a` (16), strchr `0x9828` (28), switch dispatch `0xc0` (18), `0xd4` (18), `0x2660` (20), divide-by-zero `0x3d0` (2), and float-to-int `0x135c` (64). Unresolved relocations disqualify strrchr. These isolated matches do not establish whole-firmware binary equivalence. Runtime archive fragments are listed separately; a short relocation-masked match does not establish identity. In particular, matches identifying `0x8f88` and `0x92f4` as newlib I/O routines are rejected generic-wrapper matches.
-- The `target_abi` records identify newly audited standalone target interfaces; they do not certify all input domains or complete target linkage. The checksum has a solver-checked theorem under the explicit SRAM/sequential/AAPCS contract in `docs/equivalence-proof.md`; that theorem does not prove all firmware calls or the whole image.
-- Hardware validation is `not_performed` for every ledger entry. No complete target image or safe flash candidate is produced.
+- The `target_abi` records identify standalone target interfaces, not universal input-domain equivalence. Two checksum theorems have distinct scopes: the host adapter uses a SRAM/sequential/AAPCS contract; the actual physical symbol has a full-register/read-event relation documented in `docs/physical-checksum-proof.md`. Neither proves all callers or the whole image.
+- Hardware validation is `not_performed` for every ledger entry. A complete experimental target image links and boots in the model; no safe flash candidate is established.
 
 The JSON includes hashes of every mapped source/test/document and static/coverage inputs. When the test checkpoint records initial code/test/tool hashes, the ledger checks whether inputs stayed unchanged during the run and still match current files; a missing historical hash record remains unverified.
 
-Checkpoint test counts: `{'passed': 894, 'failed': 0, 'skipped': 0, 'error': 0, 'xfailed': 0, 'xpassed': 0, 'collected': 894}`. Inputs unchanged during the run: `True`. Current code matches that passed snapshot: `True`.
+Checkpoint test counts: `{'passed': 990, 'failed': 0, 'skipped': 0, 'error': 0, 'xfailed': 0, 'xpassed': 0, 'collected': 990}`. Inputs unchanged during the run: `True`. Current code matches that passed snapshot: `True`.
 
 ## Known application and HAL gaps
 

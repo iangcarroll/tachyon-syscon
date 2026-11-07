@@ -16,11 +16,14 @@ def eq(a,b):return f'(= {a} {b})'
 def op(name,*args):return '('+name+' '+' '.join(args)+')'
 
 class Problem:
-    def __init__(self):
+    def __init__(self, *, read_events=False):
+        self.read_events=read_events
+        self.declared_read_events=set()
         self.lines=['(set-logic QF_AUFBV)','(set-option :produce-models true)',
                     '(set-option :timeout 15000)','(declare-const memory (Array (_ BitVec 32) (_ BitVec 8)))',
-                    '(declare-const pointer (_ BitVec 32))',
-                    f'(assert (and (bvuge pointer {bv(0x20000000)}) (bvule pointer {bv(0x20000fe1)})))']
+                    '(declare-const pointer (_ BitVec 32))']
+        if not read_events:
+            self.lines.append(f'(assert (and (bvuge pointer {bv(0x20000000)}) (bvule pointer {bv(0x20000fe1)})))')
         for i in range(1,15):self.lines.append(f'(declare-const initial_r{i} (_ BitVec 32))')
         for flag in 'NZCV':self.lines.append(f'(declare-const initial_{flag} Bool)')
         self.lines.append(f'(assert (and (= (bvand initial_r14 {bv(1)}) {bv(1)}) (bvuge initial_r14 {bv(0x101)}) (bvult initial_r14 {bv(0xfff8)})))')
@@ -42,14 +45,26 @@ class Problem:
     def require(self,condition,label):
         status,_=self.query(f'(not {condition})')
         if status!='unsat':raise ProofError('Unproved obligation: '+label)
+    def read_byte(self,address,index):
+        if self.read_events:
+            # A shared response stream does not assume equal addresses. The
+            # caller must prove address/width/order equality independently.
+            name=f'input_read_byte{index}'
+            if name not in self.declared_read_events:
+                self.lines.append(f'(declare-const {name} (_ BitVec 8))')
+                self.declared_read_events.add(name)
+            return self.bind(f'((_ zero_extend 24) {name})')
+        self.require(f'(and (bvuge {address} {bv(0x20000000)}) (bvult {address} {bv(0x20001000)}))','read remains in physical SRAM')
+        return self.bind(f'((_ zero_extend 24) (select memory {address}))')
 
 class Thumb:
     """Small fail-closed ARMv6-M subset, only the instructions observed here."""
-    def __init__(self,problem,code,base):
+    def __init__(self,problem,code,base, *, trace_states=False):
         self.p=problem;self.code=code;self.base=base;self.pc=base
         self.r=['pointer']+[f'initial_r{i}' for i in range(1,15)]
         self.f={k:'initial_'+k for k in 'NZCV'};self.reads=[];self.steps=0;self.branches=[]
         self.return_target=None
+        self.trace_states=trace_states;self.states=[]
     def nz(self,value):
         self.f['N']=self.p.bind(eq(f'((_ extract 31 31) {value})','#b1'),'Bool')
         self.f['Z']=self.p.bind(eq(value,bv(0)),'Bool')
@@ -63,6 +78,9 @@ class Thumb:
     def run(self):
         for _ in range(1000):
             if not self.base<=self.pc<=self.base+len(self.code)-2:raise ProofError('Control escaped audited function')
+            if self.trace_states:
+                self.states.append({'offset':self.pc-self.base,'registers':tuple(self.r),
+                    'flags':tuple(self.f[k] for k in 'NZCV'),'reads_completed':len(self.reads)})
             h=struct.unpack_from('<H',self.code,self.pc-self.base)[0];address=self.pc;self.pc+=2;self.steps+=1
             if h&0xffc0==0: # LSLS #0, disassembler alias MOVS Rd,Rm; C/V unchanged.
                 rd=h&7;rm=(h>>3)&7;self.r[rd]=self.p.bind(self.r[rm]);self.nz(self.r[rd])
@@ -73,8 +91,7 @@ class Thumb:
             elif h&0xf800==0x7800: # LDRB immediate
                 rd=h&7;rn=(h>>3)&7;offset=(h>>6)&31
                 at=self.p.bind(op('bvadd',self.r[rn],bv(offset)))
-                self.p.require(f'(and (bvuge {at} {bv(0x20000000)}) (bvult {at} {bv(0x20001000)}))','read remains in physical SRAM')
-                value=self.p.bind(f'((_ zero_extend 24) (select memory {at}))')
+                value=self.p.read_byte(at,len(self.reads))
                 self.reads.append((at,value));self.r[rd]=value
             elif h&0xffc0 in (0x4040,0x4300): # EORS / ORRS register
                 rd=h&7;rm=(h>>3)&7

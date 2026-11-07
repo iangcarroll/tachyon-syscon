@@ -144,7 +144,7 @@ leading logger timestamps, and matched both persistent sectors byte-for-byte.
 Its evidence is `analysis/rebuilt-system-session.json`. Different compiled
 instruction counts produce different virtual elapsed times and interrupt counts;
 this comparison does not assert cycle equivalence. The reference executed
-1,107,734 instructions and the rebuilt image 1,392,151 through the first command
+1,107,734 instructions and the rebuilt image 1,392,644 through the first command
 session. Their boot-only minimum MSP values were `0x20000c98` and `0x20000c80`.
 Those observed peaks are not maximum stack bounds. During the current command
 session, minimum MSP was `0x20000b58` for the original and `0x20000b48` for the
