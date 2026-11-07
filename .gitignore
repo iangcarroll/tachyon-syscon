@@ -5,3 +5,12 @@ __pycache__/
 .DS_Store
 analysis/coverage-runs/
 analysis/proof-physical-checksum/physical-image/
+/references/**
+!/references/README.md
+!/references/fetch-manifest.json
+!/references/ti-mspm0/
+!/references/ti-mspm0/manifest.json
+!/references/ti-mspm0/pack-manifest.json
+!/references/ti-mspm0/source-paths.json
+/firmware/*.bin
+/firmware/*.hex

@@ -7,10 +7,6 @@
 #include <stddef.h>
 #include <stdint.h>
 extern void syscon_target_logger(uint32_t level, const char *tag, const char *format, ...);
-void *memset(void *destination, int value, size_t size) {
-    _Static_assert(sizeof(size_t)==4, "ARM32 size_t required");
-    return syscon_rt_memset(destination,value,(uint32_t)size);
-}
 _Noreturn void syscon_cfg_assert(const char *file,uint32_t line,const char *expression) {
     syscon_target_assert((uint32_t)(uintptr_t)file,line,(uint32_t)(uintptr_t)expression);
 }

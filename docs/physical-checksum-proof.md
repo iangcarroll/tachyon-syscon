@@ -44,7 +44,7 @@ objects remain local.
 make proof-physical-checksum
 z3 analysis/proof-physical-checksum/equivalence.smt2
 z3 analysis/proof-physical-checksum/obligations.smt2
-.venv/bin/python -m pytest -q tests/test_proof_physical_checksum.py
+PYTHONPATH=tools .venv/bin/python -m pytest -q tools/tests/test_proof_physical_checksum.py
 ```
 
 ## Independent checks and counterexamples

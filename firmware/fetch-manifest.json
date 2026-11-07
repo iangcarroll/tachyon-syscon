@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "package": {
+    "url": "https://packages.particle.io/debian/pool/latest/p/pa/particle-tachyon-syscon_1.1.1-1_arm64.deb",
+    "bytes": 111720,
+    "sha256": "626394bdecf470d20336a1abd5d18d477da4d36a252144a4d024903f33573358"
+  },
+  "data_archive": {
+    "member": "data.tar.xz",
+    "bytes": 110148,
+    "sha256": "17c4c9f4c928e2c6aef02d74e3d5807a8ed73f8f36846902e5122e107a8d472f",
+    "uncompressed_bytes": 317440
+  },
+  "files": [
+    {
+      "role": "firmware",
+      "member": "usr/lib/firmware/tachyon_syscon.dvt.bin",
+      "path": "firmware/syscon-1.0.52.bin",
+      "bytes": 63487,
+      "sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6"
+    },
+    {
+      "role": "firmware",
+      "member": "usr/lib/firmware/tachyon_syscon.dvt.hex",
+      "path": "firmware/syscon-1.0.52.hex",
+      "bytes": 165298,
+      "sha256": "a07e82e4e98590f94df2b69c97f209f828950f54da4c2cf1309cabf19a966b25"
+    },
+    {
+      "role": "updater",
+      "member": "usr/bin/mspm0flash",
+      "path": "build/reference-tools/mspm0flash",
+      "bytes": 26992,
+      "sha256": "a64185e0623d773c51fa933f82e394375801bd2cfd3a8d49606c3708ec0d48de"
+    }
+  ]
+}

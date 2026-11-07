@@ -1,124 +1,105 @@
 # Tachyon syscon reconstruction
 
-Work in progress. A complete source image now links and boots in the local MCU
-emulator. Universal equivalence and hardware safety are not established; do not
-flash this experimental image.
+The goal is maintainable source that can be modified while initially preserving
+the original firmware's functional behavior. A source-built image already boots
+in the local MCU emulator. It is experimental and is not yet a hardware-validated
+flash candidate.
 
-The reference is the 63,487-byte `tachyon_syscon.dvt.bin` distributed in
-`particle-tachyon-syscon_1.1.1-1_arm64`, whose embedded version is `1.0.52`.
-SHA-256: `5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6`.
-It is a packaged firmware image, not a readback of the MCU. The image omits live
-configuration, factory data, NONMAIN, and the chip's ROM.
+Compatibility covers command/protocol behavior, persistent configuration and
+identity, power sequencing, watchdog/reset behavior and externally visible
+peripheral effects. Timing-sensitive behavior needs an explicit timing contract.
+Private instruction addresses, scratch registers and identical compiler output
+are not the acceptance goal. Intentional functional changes need documented
+expectations and regression tests.
 
-The target is consistent with the TI MSPM0 family and 4 KiB SRAM. The exact part
-and silicon revision still require physical identification or debug readback.
+## Build and test
 
-## Layout
-
-- `src/`, `include/`: reviewed C reconstruction, developed subsystem by subsystem.
-- `tests/`: differential tests comparing C with the original Thumb instructions.
-- `tools/oracle.py`: original ARM execution under Unicorn; unmapped peripherals fail.
-- `analysis/decompiled/`: **unreviewed**, automatically generated Ghidra output.
-- `analysis/listing.txt`, `functions.tsv`, `function-ranges.tsv`: static analysis.
-- `analysis/manifest.json`: firmware hash, vectors, segments, and 37 command records.
-- [Reference collection](references/README.md): public Particle schematics, CAD and datasheets.
-- [Debug probe notes](docs/debug-probe.md): connection constraints and pending readback.
-- [Reconstruction ledger](docs/reconstruction-ledger.md): per-function source,
-  testing, byte-match evidence, and remaining gaps.
-- [MCU emulator](docs/mcu-emulator.md): physical address map, real reset/interrupts,
-  UART command sessions, persistence and fault injection.
-- [Equivalence proof](docs/equivalence-proof.md): the first solver-checked module
-  theorem, negative control, and concrete whole-image gaps.
-- [Physical checksum proof](docs/physical-checksum-proof.md): actual linked-symbol
-  register/read-event theorem, adversarial controls, and caller read-order fix.
-- [Target interface link](docs/target-interfaces.md): combined source link and
-  explicit remaining dependencies.
-- [ARM execution](docs/arm-rebuild.md): freshly compiled Cortex-M0+ comparisons.
-
-## Verification
-
-From this repository, with Python, Clang, ARM GNU tools and the Z3 CLI installed:
+Install Python, Clang and the pinned
+[Arm GNU Toolchain 13.3.Rel1](https://gitlab.arm.com/tooling/gnu-toolchains-for-arm/-/tree/releases/13.3.rel1), then run:
 
 ```sh
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-make inventory test binary-check
-make emulate
+make inputs
+make test
+make physical-firmware
 make rebuilt-system
 ```
 
-The validated compiler is [Arm GNU Toolchain 13.3.Rel1](https://gitlab.arm.com/tooling/gnu-toolchains-for-arm/-/tree/releases/13.3.rel1). CI pins and verifies its Linux archive; build manifests record the compiler and flags.
+`make inputs` fetches hash-pinned TI emulator inputs and the original firmware
+oracle. It does not install packages or run a device updater. Optional CAD and
+schematics are fetched separately; see [references](references/README.md).
 
-Unicorn needs executable memory for its JIT. The macOS restricted execution
-environment may terminate it; the tests have been run with local execution
-permission. They do not access the Tachyon hardware.
+`make arm` builds a static archive. `make physical-firmware` links the complete
+experimental image under `build/physical-firmware/`. `make rebuilt-system` runs
+both images from reset, exercises UART/configuration commands and checks
+persistence across a fresh emulated boot. No hardware is accessed.
 
-The reconstructed modules cover application/control state machines, all command
-handler groups, configuration stores, scheduler/timers, retained state, power
-policy/button control, GPIO/expander, RGB/PWM, ADC, I2C, UART, FLASHCTL, formatting,
-fault/reset helpers, and all currently identified arithmetic, memory, support,
-heap, stdio, scanning and printf runtime entries. These are scoped
-implementations with explicit dependencies and unsupported domains; coverage of
-the module names does not establish complete behavior or original binary ABI.
+Unicorn needs executable memory for its JIT; restricted macOS execution can
+block it. The tests compare the original Thumb instructions with reconstructed
+source and run both complete images in the same MCU model. Protocol output,
+persistent data, power actions and failure outcomes are functional observations;
+finite scenarios do not establish every possible behavior.
 
-`analysis/full-suite-checkpoint.json` pins the latest combined test invocation,
-outcome counts, original instruction addresses, replaced dependency endpoints,
-and source/test/tool hashes. It verifies whether those inputs remained unchanged
-during the run. `analysis/test-instruction-coverage.json` may instead represent a
-later partial invocation; each run also has a unique archived report.
+## Production source and test scaffolding
 
-Integration tests include UART IRQ through real VERSION/HELP responses and
-formatted UART output; power routing through GPIO expander, I2C IRQ and MMIO;
-power measurement through ADC; configuration updates through FLASHCTL and its
-copied SRAM executor; application power flows; and SysTick through RGB/PWM.
-Negative controls and injected faults test termination, timeouts, stuck outputs,
-and rejection of unsupported emulator operations. These modeled flows are not
-physical end-to-end validation. The system emulator additionally boots both the original and the complete
-source-only physical image from reset. VERSION, configuration set/get, and
-readback after a fresh boot match after timestamp normalization, with identical
-persistent sectors and no firmware-function replacements. Injected I2C NACKs
-also reach matching assertion output and interrupt-disable behavior.
+The current physical build is defined by
+[build_physical_firmware.py](tools/build_physical_firmware.py). It links production
+code from `target/`, shared implementations from `src/`, headers, linker data and
+the retained runtime source. It includes no original executable payload or
+firmware-function replacement hooks.
 
-`make -C syscon-re arm` cross-compiles all current reconstructed modules for
-Cortex-M0+ into a static archive. This does not link a complete firmware image.
+This linked implementation is the starting point for consolidation into one
+maintainable tree. Duplicate host adapters in `src/` are test scaffolding, not a
+second product implementation to evolve independently. Consolidation must keep
+behavior tests working, replace fixed string/data addresses with named objects,
+and preserve addresses only where a hardware, boot/update or persistent-data
+contract requires them. That migration is not complete yet.
 
-The original parser-only tests intercept command handlers; separate handler and
-integration suites execute their bodies. Hooks and command-triggered register
-models are not complete physical peripheral models. Differential tests prove
-agreement for exercised inputs, not every possible execution. Successful Ghidra
-decompilation is not evidence of semantic reconstruction or full function discovery.
+The [function ledger](docs/reconstruction-ledger.md) maps implementations and
+tests; it is an inventory, not a completion percentage. The [MCU emulator
+notes](docs/mcu-emulator.md) describe modeled regions, interrupts and peripherals.
+Older analysis reports are historical snapshots, not assertions about every
+later source revision. Current CI runs upload their test reports, updater audit
+and physical-build artifacts instead of rewriting those reports in Git.
 
-The ledger now maps 389 identified entries to scoped source implementations.
-All 27 previously caller-folded helpers have standalone target interfaces.
-Direct target interfaces now cover the application, modem, commands, power,
-peripherals, helpers and runtime. The ledger records each mapping separately. No identified runtime entry remains
-unmapped. These mappings do not establish universal equivalence. Nine isolated rebuilt bodies match the reference bytes exactly; the
-binary reports distinguish these from behavioral agreement. This is not a
-100% reconstruction claim: discovery, complete input domains, full observable
-ABIs, worst-case stack bounds and hardware correspondence remain open.
+## Validation priorities
 
-The system emulator's original reset → main loop → UART VERSION session passes
-with the named synthetic board inputs. Configuration set/get persists across a
-fresh emulated boot. The older `tools/boot_probe.py` is a deliberately minimal
-fail-closed probe, not the new system emulator; its first unsupported watchdog
-write is a historical boundary, not the current system-model result.
+The current whole-image corpus exercises command and persistent-configuration
+cold starts, missing-rail failures and UART readiness, with reproducible mutations
+of rail delay, UART spacing and USB ADC input. It compares ordered power outputs,
+protocol replies and persistent flash, and requires an independent expected
+outcome so two stuck images cannot pass. Broader stateful UART/ADC/I2C/button
+fuzzing remains work to do. See the [scenario commands](docs/mcu-emulator.md#replayable-cold-start-scenarios).
 
-## Completion requirements still open
+Battery and power tests must include time-varying supply inputs, routing changes,
+brownout/recovery paths, thermal behavior and externally reported shutdowns.
+Synthetic ADC curves test firmware responses; they are not a validated charging
+or battery-chemistry model. Charging responsibilities outside the syscon need
+separate evidence.
 
-1. Account for all executable/data regions, indirect call targets, interrupt
-   handlers, startup and linked runtime code; review every function.
-2. Reconstruct all application state machines, HAL drivers, protocol handlers,
-   persistent storage, failure paths and timing behavior.
-3. Build an explicit peripheral/environment model and exercise full boot, command
-   sessions, shutdown/wake, battery/USB transitions, resets and injected faults.
-4. Reproduce ARM ABI, image layout, vectors and immutable tables; measure and
-   explain binary differences, including compiler/runtime differences.
-5. Acquire repeatable, hashed live MAIN/NONMAIN/factory/configuration readbacks
-   after identifying the hardware and validating voltage and debug access.
-6. Establish a recovery path and compare real hardware traces before any
-   replacement firmware is considered a flash candidate.
+Formal methods remain available for targeted invariants, especially protected
+flash, power safety and watchdog behavior. Existing checksum proofs are optional
+developer checks (`make proof-test`, requires Z3) rather than the default
+functional test suite. Their explicit contracts are documented in
+[the proof notes](docs/equivalence-proof.md).
 
-No device flashing, erase, factory reset, or debug attachment is performed by the
-offline tools in this directory. The local repository is configured for
-`https://github.com/iangcarroll/tachyon-syscon.git`. Publication is pending the
-requested completion/verification gates; no push or pull request has been made.
+## Hardware gates
+
+Before considering a replacement flash, identify the actual MCU, obtain
+repeatable MAIN/NONMAIN/factory/configuration readbacks, and demonstrate recovery
+independent of the firmware being replaced. Linux-based updating is not sufficient
+if broken syscon power control prevents Linux from running.
+
+The [debug and recovery notes](docs/debug-probe.md) describe the probe constraints
+and offline audit of Particle's packaged UART bootloader updater. Its behavior
+must not be assumed identical to public upstream tools. Hardware identification,
+readback permissions, security configuration and independent recovery remain open.
+
+The oracle is the 63,487-byte packaged `tachyon_syscon.dvt.bin`, embedded version
+`1.0.52`, from `particle-tachyon-syscon_1.1.1-1_arm64`. Its SHA-256 is
+`5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6`.
+It is not a live MCU readback and omits the board's actual NONMAIN/factory data.
+The firmware fetch manifest pins the upstream package and extracted members.
+
+Source and pull requests: [iangcarroll/tachyon-syscon](https://github.com/iangcarroll/tachyon-syscon).
