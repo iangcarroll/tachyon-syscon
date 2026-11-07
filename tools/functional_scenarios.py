@@ -180,7 +180,7 @@ class PowerTransitions:
             if expander[2:] != device.expander.expander[2:]:
                 raise AssertionError('Expander output observer disagrees with peripheral state')
 
-        machine.cpu.hook_add(UC_HOOK_MEM_WRITE, observe, begin=0x40000000, end=0xffffffff)
+        return machine.cpu.hook_add(UC_HOOK_MEM_WRITE, observe, begin=0x40000000, end=0xffffffff)
 
 
 def expected_outcome(spec, result):

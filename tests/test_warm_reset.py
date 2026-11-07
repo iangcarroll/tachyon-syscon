@@ -27,6 +27,12 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
         # normal data. The retained SRAM mirror must come from PMU, not these bytes.
         m.write_ram(retained_address,b'\xa5'*3)
         m.write_ram(cache,b'\xa5'*22)
+        button_blocks=([(0x200000b4,36),(0x200000d8,2),(0x20000390,24)]
+                       if image==load_image() else
+                       [(symbols['syscon_powerkey_ranges'],36),
+                        (symbols['syscon_powerkey_control'],2),
+                        (symbols['syscon_powerkey_runtime'],24)])
+        for address,size in button_blocks:m.write_ram(address,b'\xa5'*size)
         reset_count=m.reset_count
         loaded=[];return_pc=None;loop=False
         def writes(cpu,kind,address,size,value,unused):
@@ -39,7 +45,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
             elif address==return_pc and not loaded:
                 loaded.append((bytes(m.read(retained_address,3)),
                                tuple(m.read_register(0x400b0400+4*i) for i in range(3)),
-                               bytes(m.read(cache,22))))
+                               bytes(m.read(cache,22)),
+                               tuple(m.read(address,size) for address,size in button_blocks)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)

@@ -27,11 +27,24 @@ class KeyPair(Pair):
             value=struct.unpack_from('<I',state,offset)[0]
             struct.pack_into('<I',state,offset,self.norm_pointer(value))
         return state
-    def norm_events(self,events):
-        events=bytearray(events)
-        for i in range(0,len(events),24):
-            if struct.unpack_from('<I',events,i)[0]==0x8148:
-                v=struct.unpack_from('<I',events,i+12)[0];struct.pack_into('<I',events,i+12,self.norm_pointer(v))
+    def norm_events(self,machine):
+        def string(address):
+            value=bytearray()
+            for i in range(256):
+                byte=machine.read(address+i,1)
+                if byte==b'\0':return bytes(value)
+                value.extend(byte)
+            raise AssertionError('Unterminated logger string')
+        events=[]
+        for record in struct.iter_unpack('<6I',self.events(machine)):
+            kind,a,b,c,d,e=record
+            if kind==0x8148:
+                c=self.norm_pointer(c)
+            elif kind==0x8f88:
+                # Logger pointers are compared by string content. Integer
+                # arguments and callback/context pointers stay exact.
+                b,c,d=string(b),string(c),string(d)
+            events.append((kind,a,b,c,d,e))
         return events
     def norm_writes(self,writes):
         return [(a,n,self.norm_pointer(v) if a in range(T+16,T+96,24) else v) for a,n,v in writes]
@@ -46,12 +59,22 @@ class KeyPair(Pair):
         rebuilt=self.a.call(self.entries[entry],*args)
         if returns:assert original==rebuilt
         assert self.norm_state(self.o.read(0x20000000,0xd00))==self.a.read(0x20000000,0xd00)
-        assert self.norm_events(self.events(self.o))==self.events(self.a)
+        assert self.norm_events(self.o)==self.norm_events(self.a)
         assert self.norm_writes(self.ram_writes[0])==self.ram_writes[1]
         assert self.traces[0]==self.traces[1]
         assert all(m.cpu.reg_read(UC_ARM_REG_PRIMASK)==1 for m in self.machines)
         for m in self.machines:assert [m.cpu.reg_read(r) for r in CALLEE]==[0xa1234567+i for i in range(len(CALLEE))]
         return original
+
+def test_powerkey_logging_does_not_read_original_private_strings(power_key_elf):
+    p=KeyPair(power_key_elf)
+    p.a.put(0xcd7b,b'\xa5'*(0xcdab-0xcd7b))
+    p.put(T,bytes(112))
+    # Both modes and a nonzero input that truncates to zero must retain the
+    # original messages, while candidate strings live in its relocated ELF.
+    for mode in (0,1,256):
+        p.run(0x591c,mode)
+
 
 def test_powerkey_init_mode_original_input_word_logging_and_callback_registration(power_key_elf):
     for mode in (0,1,255,256,0xffffffff):
