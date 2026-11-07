@@ -114,7 +114,7 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     script=script.replace('.data : ALIGN(4) {','.data ORIGIN(RAM_AUX)+64 : ALIGN(4) {')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
     assert script.count(needle)==1
-    script=script.replace(needle,'__ram_exec_start = .; . += 8; KEEP(*(.ram_original_flash))')
+    script=script.replace(needle,'__ram_exec_start = .; '+4*'SHORT(0xde00); '+'KEEP(*(.ram_original_flash))')
     linker.write_text(script)
     output=tmp_path/'physical'
     subprocess.run([sys.executable,str(tree/'tools/build_physical_firmware.py'),
