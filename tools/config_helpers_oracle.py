@@ -1,12 +1,36 @@
 """Build original-ABI config bodies, source-backed runtime and FLASHCTL path."""
 from pathlib import Path
 import struct
+import re
 from unicorn import UC_HOOK_MEM_WRITE
 from unicorn.arm_const import UC_ARM_REG_SP,UC_ARM_REG_LR,UC_ARM_REG_PC
 from arm_rebuild_oracle import REGISTERS
 from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
 import build_runtime_scan_image as runtime
+
+def read_string(cpu, address, limit=1024):
+    """Read a defined string argument; never normalize arbitrary integer values."""
+    value=bytearray()
+    for offset in range(limit):
+        byte=cpu.cpu.mem_read(address+offset,1)[0]
+        if not byte:return bytes(value)
+        value.append(byte)
+    raise AssertionError('Unterminated string argument')
+
+
+def logger_arguments(cpu):
+    """Compare logger text and typed varargs independently of linker placement."""
+    fmt=read_string(cpu,cpu.arg(2))
+    tokens=re.findall(rb'%(?:%|[-+ #0]*[0-9]*(?:\.[0-9]+)?[diuxXscp])',fmt)
+    assert b'%' not in re.sub(rb'%(?:%|[-+ #0]*[0-9]*(?:\.[0-9]+)?[diuxXscp])',b'',fmt),fmt
+    args=[]
+    for token in tokens:
+        if token==b'%%':continue
+        value=cpu.arg(3+len(args))
+        args.append(read_string(cpu,value) if token[-1:]==b's' else value)
+    return (cpu.arg(0),read_string(cpu,cpu.arg(1)),fmt,*args)
+
 
 TRAPS=('syscon_cfg_assert',)
 def build(destination):
