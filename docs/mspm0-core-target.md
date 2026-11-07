@@ -30,7 +30,7 @@ The IRQ handler accepts CPUSS group index exactly one. It computes `(GPIO_IIDX -
 
 Assertions call `syscon_target_assert(file, line, expression)` after performing the original basename search using the source-linked `syscon_rt_strrchr`. GPIO configuration checks null config before invalid pin; assertion line numbers and expression/file addresses match the original. The assertion implementation is a separate dependency, not replaced by an error return in this source.
 
-The module retains the original absolute-address RAM ABI and read-only data ABI: the GPIO source path at `0xdf49`, assertion strings, reset category bytes at `0xdeb2`, and reset name pointer table at `0xdec8`. Tests supply those immutable bytes from the pinned image with execution disabled in the reconstructed process. They are **data dependencies**, not executable fallbacks. A complete physical image still needs the corresponding data/layout, vectors, startup, assertion/logger dependencies, and integration validation. This relocated test ELF is not a flash candidate.
+The module retains the original absolute-address RAM ABI and read-only data ABI: the GPIO source path at `0xdf49`, assertion strings, reset category bytes at `0xdeb2`, and reset name pointer table at `0xdec8`. Tests supply those immutable bytes from the pinned image with execution disabled in the reconstructed process. They are **data dependencies**, not executable fallbacks. The separate [physical image](physical-firmware-build.md) integrates this data/layout with source vectors, startup, assertions and logging. Neither its bounded emulator sessions nor this relocated test ELF establish flash readiness.
 
 ## Local validation
 

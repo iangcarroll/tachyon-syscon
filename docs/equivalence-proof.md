@@ -1,10 +1,10 @@
 # Equivalence proof boundary and first solver-checked module
 
-The workspace currently contains extensive differential tests and an original-
-firmware MCU emulator. Those are not a universal equivalence proof, and the
-original firmware booting in the emulator is not a rebuilt firmware booting.
-There is still no single source-built image linked for the physical flash and
-4 KiB SRAM layout.
+The workspace contains differential tests and an MCU emulator that boots both
+the original firmware and a complete source-built image in the physical flash
+and 4 KiB SRAM layout. These finite executions are not a universal equivalence
+proof. The current integration evidence and remaining obligations are detailed
+below.
 
 ## First scoped theorem
 

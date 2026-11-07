@@ -106,8 +106,9 @@ therefore establish subsystem behavior at the HAL boundary, not physical LED
 output or end-to-end timer-interrupt operation.
 
 The C interface adds explicit state and I/O-context pointers. It retains the
-observed RAM layout but is not yet linked with the original function ABI or
-fixed addresses. Binary32 arithmetic is used without fast-math; the tested
+observed RAM layout but this host adapter does not use the original function ABI
+or fixed addresses. The separate target modules are integrated in the
+[physical image](physical-firmware-build.md). Binary32 arithmetic is used without fast-math; the tested
 normal operating sequences match the original level bits exactly. Arbitrary
 corrupted float state during animation, interrupt reentrancy, electrical PWM
 behavior, and a full-board boot have not been validated by this suite. No live

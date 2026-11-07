@@ -8,7 +8,8 @@ debounce callback `0x5844`, callback registration `0x5908`, and mode selection
 The state preserves the three 12-byte threshold records at original RAM
 `0x200000b4`, mode/event bytes at `0x200000d8`, and counter/callback/pin state
 at `0x20000390`. The host representation joins those two regions explicitly;
-it is not yet linked at the target firmware's RAM addresses.
+this host adapter does not use the target firmware's RAM addresses. The separate
+[target implementation](power-key-target.md) uses the original split SRAM layout.
 
 The edge callback disables GPIO edge notification and schedules a 10 ms debounce
 callback. The debounce callback selects the long-press threshold from EDL or
@@ -29,5 +30,6 @@ registration, SG560D button forwarding, configuration getters and diagnostics.
 The tests do not validate electrical debounce, actual interrupt timing, or SG560D
 power-state effects. Initialization compares the 12-byte GPIO configuration and
 call order through mode selection and timer initialization. The callback dispatch mechanism uses original 32-bit addresses
-through a host adapter; native ARM linking and exact machine-code reproduction
-are still pending. Initial validation: two differential tests passed.
+through a host adapter. Native ARM integration is covered by the separate target
+implementation; exact machine-code reproduction remains unproven. Initial
+validation of this host adapter: two differential tests passed.

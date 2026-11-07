@@ -20,8 +20,9 @@ links the reconstructed descriptor lookup and blocking UART transmitter from
 `target/hal_helpers.c`, plus source runtime string functions for the invalid-port
 assertion path. Invalid public port indices invoke the original assertion
 interface with the same file pointer, line number and expression. Assertion
-behavior is an explicit unresolved link dependency of this module, not replaced
-with a normal error return. Tests stop and compare that boundary.
+behavior is a separate link dependency, not replaced with a normal error return.
+The isolated tests stop and compare that boundary; the combined target and
+physical image link the source assertion implementation.
 
 Unsigned ring counts, nonzero full/disabled bytes, and the signed available-count
 test in read are preserved. The receive handler prefers descriptor 1 when both

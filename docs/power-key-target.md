@@ -36,8 +36,8 @@ helpers. `syscon_target_modem_off` is the original 6690 predicate (positive
 means off); its positive branch selects 315c, not 3178. These helpers remain
 independent modules rather than duplicated inline hardware logic.
 
-Production integration still needs the initial source-defined range table
-and the mode-log string addresses `0xcd7b`, `0xcd84`, `0xcd8b`, `0xcda6`.
+The [physical image](physical-firmware-build.md) supplies the initialized range
+table and mode-log strings at `0xcd7b`, `0xcd84`, `0xcd8b`, `0xcda6`.
 The key initializer configures GPIO and mode but does not initialize all
 range-table/counter fields; the original depends on reset data/BSS contents.
 
