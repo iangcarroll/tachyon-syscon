@@ -5,8 +5,14 @@ ARM_FLAGS = -std=c11 -mcpu=cortex-m0plus -mthumb -Os -ffreestanding -ffunction-s
 SOURCES := $(wildcard src/*.c)
 OBJECTS := $(patsubst src/%.c,build/arm/%.o,$(SOURCES))
 HEADERS := $(wildcard include/*.h)
+# Daily feedback: helpers plus real ARM configuration, ADC and power subsystems.
+# Full image cold starts and exhaustive fault sweeps remain in `make test` / CI.
+QUICK_TESTS := tests/test_differential.py tests/test_uart.py \
+	tests/test_config_commands_target.py tests/test_config_slot_read_order.py \
+	tests/test_adc_target.py tests/test_power_curves.py tests/test_runtime_memory.py \
+	tests/test_firmware_fetch.py tests/test_reference_fetch.py
 
-.PHONY: all arm test inputs firmware-fetch inventory binary-check boot-probe references-fetch references-check ledger emulate target-interfaces physical-firmware rebuilt-system proof-checksum proof-physical-checksum proof-test
+.PHONY: all arm test quick-test inputs firmware-fetch inventory binary-check boot-probe references-fetch references-check ledger emulate target-interfaces physical-firmware rebuilt-system proof-checksum proof-physical-checksum proof-test
 all: arm
 arm: build/arm/libsyscon-reconstruction.a
 
@@ -24,6 +30,9 @@ firmware-fetch:
 
 test: inputs
 	$(PYTHON) -m pytest -q tests
+
+quick-test: inputs
+	SYSCON_COVERAGE_OUTPUT=build/quick-test-coverage.json $(PYTHON) -m pytest -q $(QUICK_TESTS) --durations=10
 
 inventory: firmware-fetch
 	$(PYTHON) tools/inventory.py

@@ -87,7 +87,21 @@ TI documents ROM BSL for the MSPM0L family. Memory readback requires authenticat
 
 The GPIO/reset sequence is consistent with the MSPM0L1306 hardware BSL entry path, which does not require a functioning application, provided BSL and GPIO invocation remain enabled. Fast boot or changed NONMAIN settings can prevent that entry. [TI datasheet, section8.27](https://www.ti.com/lit/ds/symlink/mspm0l1306.pdf) Whether the actual board uses ROM BSL directly, a registered plugin, or an alternate flash BSL has not been established from its NONMAIN configuration.
 
-Linux-based recovery additionally requires Linux, its UART, the two GPIOs, and board power to remain available while syscon is reset or broken. That dependency has not been demonstrated. The independent SWD path is therefore still a necessary recovery gate, not a proven fallback. The exact MCU identity, probe electrical compatibility, SWD protection state, repeatable MAIN/NONMAIN/factory readback, and a recovery path independent of the replaced application remain unverified. The existing attachment/reset caveats above still apply. Particle's adapter does not power the board. [Particle debug-board documentation](https://developer.particle.io/tachyon/accessories/debug-board)
+The packaged updater keeps executing on Linux while the syscon is in BSL and its application region is erased and reprogrammed. A successful official update therefore implies that Linux and board power survive that interval. This is an inference from the update mechanism, not a captured recovery test on this board. It substantially narrows the remaining questions: whether Linux can start after a power cycle with a broken syscon application, and whether recovery remains possible after that application actively cuts SoC power. Neither follows from a successful ordinary update.
+
+Linux-based recovery needs Linux, its UART, the two GPIOs and board power. The independent SWD path remains necessary for the two failure cases above. The exact MCU identity, probe electrical compatibility, SWD protection state, repeatable MAIN/NONMAIN/factory readback and recovery without the replaced application remain unverified. The existing attachment/reset caveats above still apply. Particle's adapter does not power the board. [Particle debug-board documentation](https://developer.particle.io/tachyon/accessories/debug-board)
+
+### First replacement round trip (planned, not executed)
+
+After identifying the MCU, preserving repeatable device readbacks and validating the independent SWD connection and restore procedure:
+
+1. Connect the verified SWD probe before programming. Keep stable board power and a Linux console available. Save the running application's VERSION reply and configuration/identity contents for comparison.
+2. Stage the original restore image and the tested source-built image locally on the board. Check their hashes and ensure each padded programming interval ends before `0xf800`. Use the exact hash-verified Particle `mspm0flash` executable and audited control script; do not substitute upstream mass-erase tooling or install a package to launch the experiment.
+3. Program the initially equivalent candidate through the packaged BSL path. Record updater verification, Linux availability and the resumed application's VERSION reply. If a step fails, stop normal testing and use the prepared restore path; do not power-cycle to troubleshoot or repeatedly guess authentication.
+4. While Linux is still running, reflash the original with the same updater. Require successful verification, its VERSION reply and unchanged configuration/identity. This round trip tests the Linux restore path before relying on it.
+5. Only after the original restore succeeds consider a separate power-cycle test with the independent recovery path ready. Record power-cycle recovery and recovery from an app-driven power cut as separate outcomes; the BSL round trip alone proves neither.
+
+The candidate still needs the private-address migration and broader stateful input/fault tests. This protocol records the hardware experiment to perform when those prerequisites and the physical recovery gates are met; no replacement has been flashed.
 
 ### Immutable audit inputs
 
