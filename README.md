@@ -21,6 +21,7 @@ Install Python, Clang and the pinned
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 make inputs
+make quick-test
 make test
 make physical-firmware
 make rebuilt-system
@@ -29,6 +30,16 @@ make rebuilt-system
 `make inputs` fetches hash-pinned TI emulator inputs and the original firmware
 oracle. It does not install packages or run a device updater. Optional CAD and
 schematics are fetched separately; see [references](references/README.md).
+
+Use `make quick-test` for daily feedback after setup. It runs helper and ARM
+differential tests for UART parsing, configuration writes, ADC conversion,
+time-varying power inputs and runtime memory, plus input-fetch validation.
+With fetched inputs it measured 25.5 seconds locally (200 passed, one optional
+network check skipped); elapsed time depends on the host.
+It writes a separate partial-coverage report under `build/`. `make test` retains
+the full suite, including complete-image cold starts and extensive fault cases;
+CI runs that complete suite in parallel core and cold-start jobs. The quick
+selection is not a replacement for whole-image validation before a firmware PR.
 
 `make arm` builds a static archive. `make physical-firmware` links the complete
 experimental image under `build/physical-firmware/`. `make rebuilt-system` runs
