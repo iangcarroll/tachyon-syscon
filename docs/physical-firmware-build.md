@@ -8,25 +8,24 @@ The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L
 |---|---|
 | Flash `0x0000..0x00bf` | 48 source-defined vectors, initial MSP `0x20001000` |
 | Flash `0x00c0..0x00ef` | Load image for the new source-built RAM executor, padded to its original 48-byte slot |
-| Flash `0x00f0..0x279f` | Early reconstructed code prefix, ending before the compatibility data |
+| Flash below `0x2919` | Linker-sized early reconstructed code, after the RAM executor load image |
 | Flash `0x2919` | Source-defined zero byte for the original missing `%s` argument; read-only and non-executable ELF section/load segment |
-| Flash `0x291c..0xa9df` | Remaining source-built code and new source constants |
-| Flash `0xa9e0..0xab1f` | Current low-region headroom: 320 bytes |
+| Flash `0x291c..0xab1f` | Remaining code, constants and initialized-data load image; actual sizes/headroom are in the build manifest |
 | Flash `0xab20..0xc418` | Data-only recovered actions/configuration constants/strings, with explicit source-symbol pointer relocations |
 | Flash `0xc419..0xc61e` | Source-defined 37×14-byte command descriptors |
 | Flash `0xc61f..0xe2d7` | Remaining recovered strings and immutable data |
 | Flash `0xe2d8..0xe2df` | Relocated timestamp and queue constructor pointers |
 | Flash `0xe2e0..0xe2e7` | Original code-relative unwind entry excluded |
 | Flash `0xe2e8..0xe577` | 656-byte initialized SRAM image, with relocated printer pointers |
-| Flash `0xe578..0xf7f7` | Reserved spare region; the linker does not silently spill code here |
+| Flash `0xe578..0xf7f7` | Linker-resolved configuration constants; code does not silently spill here |
 | Flash `0xf7f8..0xf7fe` | Original version string retained as a comparison-data dependency |
 | Flash `0xf800..0xffff` | Identity/config sectors excluded from emitted binary |
 | SRAM `0x20000000..0x2000002f` | New 36-byte original-ABI flash executor, padded to 48 bytes and copied at reset |
-| SRAM `0x20000030..0x200002bf` | Original initialized-global ABI |
+| SRAM `0x20000030..0x200002bf` | Remaining legacy initialized globals; the old configuration-cache bytes are unused |
 | SRAM `0x200002c0..0x2000081f` | Original zeroed-global ABI |
-| SRAM `0x20000820..0x20000fff` | 2016 bytes above globals; no added globals in the current link |
+| SRAM `0x20000820..0x20000fff` | Linker-allocated `.data`/BSS, followed by available stack space |
 
-These sizes describe the current checkpoint and are checked again on every link. The emitted binary is 63487 bytes because fixed-address constants and version data retain their original addresses; this length is not the amount of executable code. No factory/NONMAIN contents or persistent identity/configuration are invented.
+These region boundaries describe the transitional layout; the manifest records actual section sizes on every link. The emitted binary is 63487 bytes because fixed-address constants and version data retain their original addresses; this length is not the amount of executable code. No factory/NONMAIN contents or persistent identity/configuration are invented.
 
 ## Reset and original-ABI flash execution
 
@@ -60,7 +59,7 @@ Staged whole-image tests booted both original and rebuilt firmware, submitted `C
 
 ## Stack and validation boundaries
 
-The current image has **2016 bytes above fixed globals**. This is available space, not a proven maximum stack allowance. Compiler reports identify a 680-byte `syscon_rt_vfscanf` frame, a 584-byte `syscon_cfg_compact_body` frame and a 184-byte protocol poll frame. They must be composed with call chains, assembly ABI frames, interrupt stacking/nesting and callback paths. The builder records `.su` evidence and lists assembly sources without compiler frame bounds. It does not present these numbers as a whole-image bound. A linker minimum-headroom assertion is a rejection guard, not a stack-safety proof.
+The manifest reports `stack_headroom_bytes` after all fixed and linker-allocated globals. This is available space, not a proven maximum stack allowance. Compiler reports identify a 680-byte `syscon_rt_vfscanf` frame, a 584-byte `syscon_cfg_compact_body` frame and a 184-byte protocol poll frame. They must be composed with call chains, assembly ABI frames, interrupt stacking/nesting and callback paths. The builder records `.su` evidence and lists assembly sources without compiler frame bounds. It does not present these numbers as a whole-image bound. A linker minimum-headroom assertion is a rejection guard, not a stack-safety proof.
 
 `tests/test_physical_firmware.py` uses a separate, plainly labelled test-only fixture. It verifies reset from dirty SRAM, initialized-global/BSS effects, constructor order, vectors and relocated data pointers, actual SRAM polling through nonterminal statuses, wrong-entry audit rejection and deliberate RAM-slot overflow rejection. The original reset comparison traps constructors/main at declared fixture boundaries and normalizes only the two relocated printer pointers. UART wrappers directly compare their dependency arguments with original instructions.
 
@@ -89,9 +88,15 @@ remain excluded from the load image.
 `tests/test_config_relocation.py` poisons the original configuration text in the
 isolated oracle, edits a diagnostic to a longer string and checks its real UART
 output, then builds a whole-image variant with early/late code shifted by 16/32 bytes
-and configuration data shifted by 256 bytes, exercising reset, UART commands
-and persistence. These tests cover
-configuration text relocation, not completion of the broader address migration.
-Fixed global state, other modules' recovered constants and the numeric legacy
+configuration constants shifted by 256 bytes and initialized SRAM shifted by 64
+bytes, exercising reset, UART commands and persistence. The configuration cache
+is now a named `syscon_configuration_state` object whose load/runtime addresses
+come from the linker. Reset copies the ordinary `.data` range before constructors.
+A dirty-SRAM startup test checks the copy against the ELF load image, including
+a build with no initialized data. The whole-image variant poisons the old cache
+location and compares CONFIG_INTERNAL, a timer update and persistent flash with
+the original. Per-function oracle fixtures deliberately retain the old cache
+location only in the test linker; the physical linker has no such constraint.
+Other fixed global state, recovered constants and the numeric legacy
 return-address workaround remain outstanding. New private fixed addresses are
 not part of the intended source architecture.

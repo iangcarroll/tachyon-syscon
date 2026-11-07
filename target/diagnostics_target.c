@@ -1,5 +1,6 @@
 /* Original target configuration accessors and diagnostic loop. */
 #include "diagnostics_target.h"
+#include "config_state.h"
 #include "runtime_scan.h"
 #include "scheduling_target.h"
 #include "power_manager_target.h"
@@ -13,22 +14,22 @@
 #define U32(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 #define TEXT(a) ((const char *)(uintptr_t)(uint32_t)(a))
 
-uint32_t syscon_target_auto_boot(void){return U8(0x20000030u);}
-uint32_t syscon_target_wakeup_enabled(void){return U8(0x20000031u);}
-uint32_t syscon_target_log_color(void){return U8(0x20000032u);}
-uint32_t syscon_target_alt_powerkey(void){return U8(0x20000033u);}
-uint32_t syscon_target_factory_test(void){return U8(0x20000034u);}
-uint32_t syscon_target_modem_always_on(void){return U8(0x20000035u);}
-static uint32_t packed_read(uint32_t base){
+uint32_t syscon_target_auto_boot(void){return syscon_config_state.flags[SYSCON_CONFIG_AUTO_BOOT];}
+uint32_t syscon_target_wakeup_enabled(void){return syscon_config_state.flags[SYSCON_CONFIG_WAKE_PIN];}
+uint32_t syscon_target_log_color(void){return syscon_config_state.flags[SYSCON_CONFIG_COLOR_DEBUG];}
+uint32_t syscon_target_alt_powerkey(void){return syscon_config_state.flags[SYSCON_CONFIG_FASTBOOT];}
+uint32_t syscon_target_factory_test(void){return syscon_config_state.flags[SYSCON_CONFIG_DEMO];}
+uint32_t syscon_target_modem_always_on(void){return syscon_config_state.flags[SYSCON_CONFIG_KEEP_5V];}
+static uint32_t packed_read(const volatile uint8_t *base){
     /* Preserve the original nonmonotonic byte read order at unaligned fields. */
-    uint32_t second=U8(base+1u),first=U8(base),third=U8(base+2u),fourth=U8(base+3u);
+    uint32_t second=base[1],first=base[0],third=base[2],fourth=base[3];
     return first|(second<<8)|(third<<16)|(fourth<<24);
 }
-uint32_t syscon_target_powerkey_long_seconds(void){return packed_read(0x20000036u);}
-uint32_t syscon_target_powerkey_extra_seconds(void){return packed_read(0x2000003au);}
+uint32_t syscon_target_powerkey_long_seconds(void){return packed_read(syscon_config_state.edl_timer_le);}
+uint32_t syscon_target_powerkey_extra_seconds(void){return packed_read(syscon_config_state.shutdown_timer_le);}
 uint32_t syscon_target_hwrevision_new(void){
     uint32_t major,minor,patch=0;
-    int fields=syscon_rt_sscanf(TEXT(0x2000003e),TEXT(0xb1a8),&major,&minor,&patch);
+    int fields=syscon_rt_sscanf(syscon_config_state.hardware_revision,"%u.%u.%u",&major,&minor,&patch);
     return fields==3 && major==1 && minor>1;
 }
 void syscon_target_diagnostics_enable(uint32_t enabled){U8(0x20000046u)=(uint8_t)enabled;}

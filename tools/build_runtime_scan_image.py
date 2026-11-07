@@ -4,7 +4,7 @@ import json
 import subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-SOURCES=['target/runtime_scan.c','target/runtime_scan_wrappers.c','target/runtime_scan_printf.c',
+SOURCES=['target/config_state.c','target/runtime_scan.c','target/runtime_scan_wrappers.c','target/runtime_scan_printf.c',
          'target/runtime_scan_abi.S','target/runtime_stdio.c','target/runtime_heap.c',
          'target/runtime_support.c','src/runtime_memory.c','src/runtime_arithmetic.c',
          'target/runtime_arithmetic_abi.S','target/emulation_runtime.c']

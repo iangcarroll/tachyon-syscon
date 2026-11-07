@@ -3,6 +3,9 @@ ENTRY(syscon_rgb_scale)
 MEMORY {
     TEST_CODE (rx) : ORIGIN = 0x01000000, LENGTH = 512K
     TEST_DATA (rw) : ORIGIN = 0x21000000, LENGTH = 32K
+    /* Per-function fixtures intentionally share the oracle's cache location.
+       The physical linker has no such placement constraint. */
+    TEST_CONFIG (rw) : ORIGIN = 0x20000030, LENGTH = 22
 }
 SECTIONS {
     .text : {
@@ -10,6 +13,7 @@ SECTIONS {
         *(.rodata*)
     } > TEST_CODE
     .ARM.exidx : { *(.ARM.exidx*) } > TEST_CODE
+    .config_state : { *(.data.syscon_config_state) } > TEST_CONFIG AT> TEST_CODE
     .data : { *(.data*) } > TEST_DATA AT> TEST_CODE
     .bss (NOLOAD) : { *(.bss*) *(COMMON) } > TEST_DATA
     /DISCARD/ : { *(.comment) *(.note*) }

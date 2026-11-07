@@ -91,7 +91,8 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     import shutil
     import subprocess
     import sys
-    from rebuilt_system import compare
+    from rebuilt_system import compare,boot,command_reply,normalized_log
+    from inventory import load_image
 
     # Build a real source variant in isolation, including its own linker script.
     # No current-tree edits, guest patches, reused binary or function stubs.
@@ -109,6 +110,8 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     assert script.count('.text_early : {')==1 and script.count('.text : {')==1
     script=script.replace('.text_early : {','.text_early : { . += 16;')
     script=script.replace('.text : {','.text : { . += 32;')
+    assert script.count('.data : {')==1
+    script=script.replace('.data : {','.data ORIGIN(RAM_AUX)+64 : {')
     linker.write_text(script)
     output=tmp_path/'physical'
     subprocess.run([sys.executable,str(tree/'tools/build_physical_firmware.py'),
@@ -120,7 +123,25 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     section=manifest['layout_audit']['sections']['.config_data']
     assert section['address']==0xe578+256 and section['flags']==2
     assert section['address']+section['bytes']<=0xf7f8
+    cache=manifest['layout_audit']['symbols']['syscon_config_state']
+    data=manifest['layout_audit']['sections']['.data']
+    assert data['address']<=cache<data['address']+data['bytes']
+    assert cache>=0x20000820+64
     result=compare((output/'firmware.bin').read_bytes())
     assert result['persistent_flash_equal']
     assert all(session['equal_after_timestamp_normalization'] for session in result['sessions'])
     assert not result['firmware_function_replacements']
+    assert result['rebuilt']['minimum_msp_during_session']>=manifest['layout_audit']['symbols']['__extra_bss_end']
+
+    # Exercise the actual cache consumers through UART after moving SRAM and
+    # poisoning the old cache. No handler replacement or guest code patching.
+    machines=[boot(image)[0] for image in [load_image(),(output/'firmware.bin').read_bytes()]]
+    poison=b'\xa5'*22
+    machines[1].cpu.mem_write(0x20000030,poison)
+    for command in ['CONFIG_INTERNAL','CONFIG_SET sys.edl_timer 17','CONFIG_INTERNAL']:
+        replies=[command_reply(machine,command) for machine in machines]
+        assert all(b'PASS\r\n' in reply for reply in replies)
+        assert normalized_log(replies[0])==normalized_log(replies[1])
+    assert b'sys.edl_timer: 17' in replies[1]
+    assert bytes(machines[1].cpu.mem_read(0x20000030,len(poison)))==poison
+    assert machines[0].flash[0xf800:]==machines[1].flash[0xf800:]

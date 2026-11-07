@@ -9,7 +9,7 @@ import json
 import subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-TARGETS=['callback_helpers.c','config_helpers.c','config_read.c','config_storage.c','config_write_slot_abi.S',
+TARGETS=['callback_helpers.c','config_state.c','config_helpers.c','config_read.c','config_storage.c','config_write_slot_abi.S',
     'core_helpers.c','interface_bindings.c','fault_control_target.c','fault_handlers.c','hal_helpers.c',
     'mspm0_core_target.c','uart_ring.c','uart_ring_abi.S','runtime_arithmetic_abi.S','runtime_heap.c',
     'runtime_scan.c','runtime_scan_abi.S','runtime_scan_printf.c','runtime_scan_wrappers.c',
