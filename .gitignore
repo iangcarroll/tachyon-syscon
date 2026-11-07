@@ -5,6 +5,8 @@ __pycache__/
 .DS_Store
 analysis/coverage-runs/
 analysis/proof-physical-checksum/physical-image/
+analysis/**/*.elf
+analysis/**/*.o
 /references/**
 !/references/README.md
 !/references/fetch-manifest.json
