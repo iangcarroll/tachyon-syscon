@@ -66,3 +66,12 @@ def test_pwm_each_mask_bit_and_dynamic_read_modify_write(elf):
             p.word(BASE+0x1880,old);p.run(0x9470,BASE,0,value,0)
     p.put(CFG,struct.pack('<I4B',256,32,1,0xff,0))
     p.script(BASE+0x1804,[0x12345678,0xabcdef01]);p.run(0x948c,BASE,CFG)
+
+
+def test_pwm_assertions_do_not_read_original_private_strings(elf):
+    p=Pair(elf)
+    p.candidate.put(0xe04c,b'\xa5'*(0xe0af-0xe04c))
+    for entry in (0x87dc,0x88c0):
+        assert p.run(entry,255,1)[0]=='assert'
+    p.put(0x20000148,b'\x1f')
+    assert p.run(0x87dc,31)[0]=='assert'

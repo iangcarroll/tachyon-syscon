@@ -1,4 +1,4 @@
-# Original-ABI PWM target drivers
+# PWM timer drivers and board routing
 
 `target/pwm_target.c` and `include/pwm_target.h` reconstruct eight entries with direct target memory/MMIO operations.
 
@@ -17,8 +17,18 @@ Initialization performs both lookups before validating either result. The PWM lo
 
 Configuration preserves all three mode classes: zero, `0x20`, and every other byte. The first two use period minus one with unsigned wrap; other modes use period shifted right one. Extra-channel setup reads mode before its writes; main setup rereads mode afterward, so aliasing configuration memory with affected registers is observable. It reads control byte 6, mode byte 4 and period word in original order. Final control uses mask `0x3000ffbf`. Return R0 is the input base and R1 is the captured control byte, represented by a `uint64_t` target return.
 
-The descriptor table at `0x20000148`, GPIO table and original assertion strings are fixed-layout data dependencies. These bodies call source-reconstructed descriptor lookup and string helpers. Assertions are explicit nonreturning dependency boundaries in direct tests. There is no original executable fallback or installed runtime library.
+The three channels are named `syscon_pwm_channels` objects defined in
+`target/hal_helpers.c` and declared in `include/pwm_state.h`. The linker chooses
+their addresses. Assertion strings are ordinary C text. Only isolated oracle
+fixtures retain the original table placement to compare ordered accesses.
+GPIO lookup is still a dependency on the remaining GPIO migration. Assertions
+are explicit nonreturning dependency boundaries in direct tests. There is no
+original executable fallback or installed runtime library.
 
 `tests/test_pwm_target.py` compares original versus source-compiled ARM with the shared builder in `tools/i2c_pwm_target_oracle.py`. It covers every mode byte and every control byte, extra channels, period underflow/high-bit boundaries, each register-mask bit, full-width/wrapping channel indices, changing register read values, register/configuration aliases, every descriptor, timer-already-powered paths, invalid mappings and injected bus faults. All RAM/MMIO access widths, ordering and values are compared alongside returns and RAM effects.
 
-The combined checkpoint is **24 passing groups, 833/833 identified original instructions across 13 I2C/PWM entries**. See `analysis/i2c-pwm-target-reference-coverage.json`, `analysis/i2c-pwm-target-mapping.json`, and [I2C target dependencies](i2c-target.md). This does not establish universal equivalence, exact code bytes, hardware PWM waveforms, private stack-alias behavior, or flash readiness.
+An assertion-string poisoning test rejects old ROM dependencies. The complete
+image LED test in `tests/test_firmware_relocation.py` moves the PWM table and
+checks real compare-register writes from UART-driven animation. See also
+[RGB tests and source edits](rgb-target.md) and [I2C dependencies](i2c-target.md).
+This does not establish universal equivalence or physical PWM waveforms.

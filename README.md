@@ -86,7 +86,8 @@ Start with these production source groups when making a change:
 | Timers, scheduled tasks and retained boot state | `target/timers_target.c`, `target/tasks_target.c`, `target/retained_target.c` | `include/scheduling_state.h` |
 | Main loop and command dispatch | `target/application_target.c`, `target/config_commands_target.c` | Remaining fixed state is still being migrated |
 | ADC conversion and calibration | `target/adc_target.c`, ADC lookup in `target/hal_helpers.c` | `include/adc_state.h` |
-| Modem power and RGB | `target/sg560d_target.c`, `target/power_policy_target.c`, `target/power_manager_target.c`, `target/rgb_target.c` | Remaining fixed state/tables are still being migrated |
+| RGB animation and PWM | `target/rgb_target.c`, `target/pwm_target.c`, PWM routing in `target/hal_helpers.c` | `include/rgb_state.h`, editable presets/palette in `include/rgb_data.h`, `include/pwm_state.h` |
+| Modem power | `target/sg560d_target.c`, `target/power_policy_target.c`, `target/power_manager_target.c` | Remaining fixed state/tables are still being migrated |
 | Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
 
 Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide
@@ -94,6 +95,16 @@ isolated test environments and are excluded from the physical image. The build
 script's source list is authoritative while directory consolidation continues.
 The original addresses in differential tests identify oracle inputs; they are
 not a requirement on production object placement.
+
+For a first edit, change a preset's color or brightness in `include/rgb_data.h`.
+Run `make quick-test`, then `make physical-firmware`. The RGB tests include a
+source-edit example that rebuilds a changed preset and checks its PWM output.
+Intentional behavior changes need explicit new expectations; unchanged paths
+should continue to match the original oracle. Run
+`python -m pytest -q tests/test_firmware_relocation.py tests/test_warm_reset.py`
+to exercise the complete image with moved objects, UART input and reset. Build
+artifacts live under `build/`; generated reports and binaries do not belong in
+source commits. Hardware validation is a separate step described below.
 
 The [function ledger](docs/reconstruction-ledger.md) maps implementations and
 tests; it is an inventory, not a completion percentage. The [MCU emulator

@@ -35,6 +35,9 @@ def relocated_image(tmp_path_factory):
     script=script.replace('.text : {','.text : { . += 32;')
     assert script.count('.data : ALIGN(4) {')==1
     script=script.replace('.data : ALIGN(4) {','.data ORIGIN(RAM_AUX)+64 : ALIGN(4) {')
+    assert script.count('.peripheral_data : ALIGN(4) {')==1
+    script=script.replace('.peripheral_data : ALIGN(4) {',
+                          '.peripheral_data ORIGIN(RAM_PERIPHERALS)+8 : ALIGN(4) {')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
     assert script.count(needle)==1
     script=script.replace(needle,'__ram_exec_start = .; '+4*'SHORT(0xde00); '+'KEEP(*(.ram_original_flash))')
@@ -84,7 +87,11 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     # it is live memory, so only genuinely vacant locations are poisoned.
     obsolete=[(0x200000da,3),
               (0x200000b4,36),(0x200000d8,2),(0x20000390,24),
-              (0x200000f4,72),(0x20000685,11),(0x20000694,1)]
+              (0x20000685,11),(0x20000694,1)]
+    # The old ADC table now holds relocated LED/PWM objects. Poison only the
+    # unallocated prefix; a stale ADC lookup would instead encounter LED data.
+    peripheral_start=manifest['layout_audit']['sections']['.peripheral_data']['address']
+    obsolete.append((0x200000f4,peripheral_start-0x200000f4))
     for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
     ticks=manifest['layout_audit']['symbols']['syscon_timer_state']+104
     clock_before=int.from_bytes(machines[1].read(ticks,8),'little')
@@ -134,13 +141,17 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     assert persisted[64:128]==bytes(slot(b'legacy',literal))
 
 
-def test_stack_guard_rejects_unreclaimed_storage_during_compaction(relocated_image,tmp_path):
+@pytest.mark.parametrize('objects_to_duplicate',[
+    ['.bss.syscon_retained_state','.bss.syscon_timer_state','.bss.syscon_task_state'],
+    ['.data.syscon_pwm_channels','.bss.syscon_rgb_runtime'],
+],ids=['scheduler','led'])
+def test_stack_guard_rejects_unreclaimed_storage_during_compaction(relocated_image,tmp_path,objects_to_duplicate):
     output,manifest,script=relocated_image
-    # Reproduce the actual migration defect: allocate a second scheduler copy
+    # Reproduce the actual migration defect: allocate a second state copy
     # above the old state instead of reclaiming its now-unused SRAM. Firmware
     # source, callbacks, emulator behavior and input values remain unchanged.
-    for section in ('syscon_retained_state','syscon_timer_state','syscon_task_state'):
-        pattern='*(.bss.'+section+')'
+    for section in objects_to_duplicate:
+        pattern='*('+section+')'
         assert script.count(pattern)==1
         script=script.replace(pattern,'')
     linker=tmp_path/'unreclaimed.ld';linker.write_text(script)
@@ -168,3 +179,53 @@ def test_stack_bound_rejects_a_manifest_for_different_firmware(relocated_image,t
     shutil.copyfile(output/'manifest.json',tmp_path/'manifest.json')
     with pytest.raises(ValueError,match='does not match the layout manifest'):
         candidate_stack_floor(tmp_path/'firmware.bin')
+
+
+def test_relocated_rgb_animation_reaches_pwm_outputs(relocated_image):
+    """UART -> RGB state -> timer IRQ -> three real timer compare registers."""
+    from unicorn import UC_HOOK_CODE,UC_HOOK_MEM_WRITE
+    from unicorn.arm_const import UC_ARM_REG_R0
+    output,manifest,_=relocated_image
+    machines=[boot(load_image())[0],
+              boot((output/'firmware.bin').read_bytes(),
+                   stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
+    obsolete=[(0x20000148,36),(0x200003a8,28)]
+    for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
+    entries=[0x5c38,manifest['layout_audit']['symbols']['syscon_target_rgb_configure']&~1]
+    # Observe output values, not instruction timestamps. The external tick
+    # advance is synthetic, while firmware handlers and callbacks run normally.
+    ports=(0x40085814,0x40085810,0x40089814)  # red, green, blue
+    results=[]
+    for machine,entry in zip(machines,entries):
+        armed=False
+        writes=[]
+        def code(cpu,address,size,unused):
+            nonlocal armed
+            if address==entry:
+                argument=cpu.reg_read(UC_ARM_REG_R0)
+                if bytes(cpu.mem_read(argument,5))==bytes([12,34,56,78,1]):
+                    armed=True
+        def memory(cpu,kind,address,size,value,unused):
+            if armed and address in ports and len(writes)<24:
+                assert size==4
+                writes.append((address,value))
+        hooks=[machine.cpu.hook_add(UC_HOOK_CODE,code),
+               machine.cpu.hook_add(UC_HOOK_MEM_WRITE,memory)]
+        try:
+            reply=command_reply(machine,'SET_RGB 12:34:56:78:1:')
+            assert b'PASS\r\n' in reply
+            for _ in range(200):
+                if len(writes)==24:break
+                machine.advance(machine.systick_load+1)
+                machine.run(2000)
+        finally:
+            for hook in hooks:machine.cpu.hook_del(hook)
+        assert armed and len(writes)==24,writes
+        assert [address for address,value in writes]==list(ports)*8
+        frames=[tuple(value for address,value in writes[i:i+3]) for i in range(0,24,3)]
+        assert len(set(frames))>1,frames  # Equal but stuck images must fail.
+        status=command_reply(machine,'LEDSTATUS')
+        assert b'breathing' in status and b'PASS\r\n' in status
+        results.append((writes,normalized_log(reply),normalized_log(status)))
+    assert results[0]==results[1]
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
