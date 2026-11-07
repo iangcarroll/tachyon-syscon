@@ -70,7 +70,7 @@
   "source_sha256": {
     "target/callback_helpers.c": "264d68f65e4afba09fd5a30a7fb65d69bab7b4b4b2f80b1bed157b91b5542d6c",
     "target/config_helpers.c": "1b3974aee539f3435f73cdbf0e2a247a5a9cabb84475bdbffa0ae68506f0de64",
-    "target/config_read.c": "a81cb9f0589bc4dc31b2fe167889a47c82bf6e9a15aac94bbea0f8130fee6eb3",
+    "target/config_read.c": "2f512d609f71ed412008872af3ad3804c3a81e0b6b0f6d1706e1873263114a28",
     "target/config_storage.c": "42962c86d60ffda27c25fdf6d0de359f2ab596328652e8780eb87617a23c7a2a",
     "target/core_helpers.c": "281aa18dcc5d20ac43240f11618275103aff3acd4d88ae3d94f6fd46dbaae4aa",
     "target/interface_bindings.c": "48074e950681c94add2e59c653098b8590631d9434c8358d0a2ccfb827e9558a",
@@ -2143,6 +2143,6 @@
     "conflicts": {},
     "errors": []
   },
-  "physical_elf_sha256": "eb47c94142e5eb6eabeec2ba6c4161cb725753a1747828583db8541b7382eb97",
-  "physical_binary_sha256": "0054a5c333e1fe8f76ded06ed75590b2ab834941c61eb055bda346d8bf0c06c2"
+  "physical_elf_sha256": "ae534a6640d592194d4aa86198e8b5d8cefbc94172bb07854c251e99e3a2335a",
+  "physical_binary_sha256": "8b9a3cf653b32c374b21f3b89ccf0161fc54a30d018710e61eca9bbe989c9461"
 }

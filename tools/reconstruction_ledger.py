@@ -174,6 +174,13 @@ def main():
     assert proof['proof_tool_sha256']==sha(ROOT/'tools/proof_checksum.py')
     assert proof['project_header_sha256']==sha(ROOT/'include/syscon.h')
     assert proof['status']=='unsat' and proof['contract_satisfiable']
+    physical_proof_path='analysis/proof-physical-checksum/report.json'
+    physical_proof=json.loads((ROOT/physical_proof_path).read_text())
+    assert physical_proof['reference_sha256']==coverage['reference_sha256']
+    assert physical_proof['status']=='unsat' and physical_proof['physical_symbol_bound']
+    for key in ['physical_build_inputs_sha256','build_tools_sha256','proof_inputs_sha256']:
+        for source,digest in physical_proof[key].items():
+            assert sha(ROOT/source)==digest, f'stale physical checksum proof: {source}'
     assert coverage['pytest_exitstatus']==0, 'coverage checkpoint is not successful'
     for _,comparison in comparisons:
         if comparison['exact_bytes']:
@@ -216,7 +223,7 @@ def main():
     assert len({r['address'] for r in rows})==len(functions)
     assert not(set(MAP)-{int(f['address'],16) for f in functions}), 'curated entries missing from current static inventory'
     inputs=['analysis/functions.tsv','analysis/function-ranges.tsv','analysis/listing.txt','analysis/full-suite-checkpoint.json','analysis/runtime-fingerprints.json','analysis/binary-comparison.json']
-    inputs += ['analysis/runtime-scan-mapping.json',*TARGET_MAPPING_FILES,proof_path,'analysis/proof-checksum-negative/report.json','analysis/proof-checksum-checkpoint.json']
+    inputs += ['analysis/runtime-scan-mapping.json',*TARGET_MAPPING_FILES,proof_path,physical_proof_path,'analysis/proof-checksum-negative/report.json','analysis/proof-checksum-checkpoint.json']
     inputs += [evidence for evidence,_ in comparisons if evidence not in inputs]
     inputs+=sorted({r['source'] for r in rows if r['source']})
     inputs+=sorted({p for r in rows for p in r.get('additional_sources',[])})
@@ -234,7 +241,7 @@ def main():
     artifact=dict(schema_version=1,generated_utc=datetime.now(timezone.utc).isoformat(),reference_sha256=coverage['reference_sha256'],
         summary=dict(identified_functions=len(rows),semantic_status_counts=dict(Counter(r['semantic_status'] for r in rows)),
             exercise_status_counts=dict(Counter(r['original_instruction_exercise']['status'] for r in rows)),
-            exact_reconstructed_function_matches=sum(r['exact_binary']['reconstructed_function_match'] for r in rows),hardware_validated_functions=0,newly_audited_target_entries=sum('target_abi' in r for r in rows),scoped_solver_proofs=1),
+            exact_reconstructed_function_matches=sum(r['exact_binary']['reconstructed_function_match'] for r in rows),hardware_validated_functions=0,newly_audited_target_entries=sum('target_abi' in r for r in rows),scoped_solver_proofs=2),
         snapshot_inputs=[dict(path=p,sha256=sha(ROOT/p)) for p in dict.fromkeys(inputs)],
         coverage_checkpoint=dict(path='analysis/full-suite-checkpoint.json',sha256=sha(ROOT/'analysis/full-suite-checkpoint.json'),pytest_exitstatus=coverage['pytest_exitstatus'],
             test_counts=coverage.get('test_counts'),initial_input_sha256=initial_inputs,
@@ -252,7 +259,9 @@ def main():
             dict(kind='previously_missing_formatter_block',addresses=[hex(a) for a in [0x9256,0x9258,0x925a,0x925c,0x925e,0x9260,0x9262,0x9266,0x9268]],owner='0x9038',source='src/format.c',
                  currently_missing_from_listing=[hex(a) for a in [0x9256,0x9258,0x925a,0x925c,0x925e,0x9260,0x9262,0x9266,0x9268] if a not in listing],
                  note='Original %p branch discovered by execution; static inventory refresh may include it after this checkpoint.')],
-        scoped_solver_proofs=[dict(address='0x282c',symbol='syscon_checksum31',source='src/config.c',evidence=proof_path,contract=proof['scope'],status=proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False)],
+        scoped_solver_proofs=[
+            dict(address='0x282c',symbol='syscon_checksum31',source='src/config.c',evidence=proof_path,contract=proof['scope'],status=proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False),
+            dict(address='0x282c',symbol='syscon_cfg_checksum',source='target/config_read.c',evidence=physical_proof_path,contract=physical_proof['scope'],status=physical_proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False)],
         runtime_matches_without_identified_function_entry=unidentified_matches,
         global_limitations=['No completion percentage is calculated. Semantic reconstruction, instruction exercise, byte matches, and hardware validation are different evidence axes.',
             'Identified runtime entries now have scoped source replacements; full target image integration, complete board emulation, and physical validation remain incomplete. No flash candidate exists.',
@@ -278,8 +287,8 @@ def write_markdown(ledger):
         '- Semantic mapping points to actual C sources, module tests, and scope documentation. Unreviewed Ghidra output and endpoint hooks do not count as replacement code.',
         '- Original instruction exercise uses observed addresses from the pinned successful `analysis/full-suite-checkpoint.json` invocation, recomputed against the current hashed listing/ranges. Counts can differ from that report after static-analysis corrections. The snapshot may precede recent additions: a reconstructed routine with zero exercise at that checkpoint is not automatically unimplemented. Module tests and later scoped reports supply separate evidence.',
         '- Nine rebuilt bodies have exact bytes: checksum `0x282c` (20 bytes), delay `0x7ae8` (10), memset `0x975a` (16), strchr `0x9828` (28), switch dispatch `0xc0` (18), `0xd4` (18), `0x2660` (20), divide-by-zero `0x3d0` (2), and float-to-int `0x135c` (64). Unresolved relocations disqualify strrchr. These isolated matches do not establish whole-firmware binary equivalence. Runtime archive fragments are listed separately; a short relocation-masked match does not establish identity. In particular, matches identifying `0x8f88` and `0x92f4` as newlib I/O routines are rejected generic-wrapper matches.',
-        '- The `target_abi` records identify newly audited standalone target interfaces; they do not certify all input domains or complete target linkage. The checksum has a solver-checked theorem under the explicit SRAM/sequential/AAPCS contract in `docs/equivalence-proof.md`; that theorem does not prove all firmware calls or the whole image.',
-        '- Hardware validation is `not_performed` for every ledger entry. No complete target image or safe flash candidate is produced.','',
+        '- The `target_abi` records identify standalone target interfaces, not universal input-domain equivalence. Two checksum theorems have distinct scopes: the host adapter uses a SRAM/sequential/AAPCS contract; the actual physical symbol has a full-register/read-event relation documented in `docs/physical-checksum-proof.md`. Neither proves all callers or the whole image.',
+        '- Hardware validation is `not_performed` for every ledger entry. A complete experimental target image links and boots in the model; no safe flash candidate is established.','',
         'The JSON includes hashes of every mapped source/test/document and static/coverage inputs. When the test checkpoint records initial code/test/tool hashes, the ledger checks whether inputs stayed unchanged during the run and still match current files; a missing historical hash record remains unverified.','',
         f'Checkpoint test counts: `{ledger["coverage_checkpoint"]["test_counts"]}`. Inputs unchanged during the run: `{ledger["coverage_checkpoint"]["inputs_unchanged_during_run"]}`. Current code matches that passed snapshot: `{ledger["coverage_checkpoint"]["current_code_matches_passed_snapshot"]}`.','',
         '## Known application and HAL gaps','',

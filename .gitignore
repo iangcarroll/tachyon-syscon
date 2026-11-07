@@ -4,3 +4,4 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 analysis/coverage-runs/
+analysis/proof-physical-checksum/physical-image/

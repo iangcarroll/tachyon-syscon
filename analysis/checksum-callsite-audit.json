@@ -1,0 +1,34 @@
+{
+  "original_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+  "elf_sha256": "eb47c94142e5eb6eabeec2ba6c4161cb725753a1747828583db8541b7382eb97",
+  "original_entry": "0x282c",
+  "physical_entry": "0x3a6",
+  "physical_symbol_size": 20,
+  "body_hex": "0200030000201f321978013348409342fad17047",
+  "original_body_hex": "0200030000201f321978013348409342fad17047",
+  "body_identical": true,
+  "original_direct_calls": [
+    "0x2890",
+    "0x28aa",
+    "0x2924",
+    "0x292e",
+    "0x2b3a",
+    "0x2b46"
+  ],
+  "physical_calls_pre_fix": [
+    "0x3da",
+    "0x3f2",
+    "0x6bc",
+    "0x6c6",
+    "0x51f2",
+    "0x5204"
+  ],
+  "caller_witness": "analysis/config-slot-read-order-counterexample/original-witness.json",
+  "caller_fix": "target/config_read.c",
+  "test_file": "tests/test_config_slot_read_order.py",
+  "isolated_read_order_tests_passed": 82,
+  "combined_config_regression_passed": 188,
+  "combined_seconds": 23.15,
+  "report": "docs/checksum-callsite-audit.md",
+  "caller_witness_provenance": "analysis/config-slot-read-order-counterexample/provenance.json"
+}
