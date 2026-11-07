@@ -69,7 +69,7 @@ identical output. These are logical configuration/identity backups, not raw MAIN
 or NONMAIN dumps. Device identifiers and raw output remain in a private local
 capture outside Git. VERSION, CONFIG_INTERNAL and READ_PWR all answered through
 the packaged UART client. No BSL entry, GPIO operation, reset or flash operation
-was requested. The original-only rehearsal and SWD recovery gates remain open.
+was requested during that read-only capture. Subsequent rehearsals are recorded below.
 
 ### Exact packaged erase/program boundary
 
@@ -104,23 +104,35 @@ TI documents ROM BSL for the MSPM0L family. Memory readback requires authenticat
 
 The GPIO/reset sequence is consistent with the MSPM0L1306 hardware BSL entry path, which does not require a functioning application, provided BSL and GPIO invocation remain enabled. Fast boot or changed NONMAIN settings can prevent that entry. [TI datasheet, section8.27](https://www.ti.com/lit/ds/symlink/mspm0l1306.pdf) Whether the actual board uses ROM BSL directly, a registered plugin, or an alternate flash BSL has not been established from its NONMAIN configuration.
 
-The packaged updater keeps executing on Linux while the syscon is in BSL and its application region is erased and reprogrammed. A successful official update therefore implies that Linux and board power survive that interval. This is an inference from the update mechanism, not a captured recovery test on this board. It substantially narrows the remaining questions: whether Linux can start after a power cycle with a broken syscon application, and whether recovery remains possible after that application actively cuts SoC power. Neither follows from a successful ordinary update.
+The packaged updater keeps executing on Linux while the syscon is in BSL and its application region is erased and reprogrammed. A successful official update therefore implies that Linux and board power survive that interval. The original-only rehearsal and controlled replacement round trip below subsequently demonstrated that interval on this board. It substantially narrows the remaining questions: whether Linux can start after a power cycle with a broken syscon application, and whether recovery remains possible after that application actively cuts SoC power. Neither follows from a successful ordinary update.
 
-Linux-based recovery needs Linux, its UART, the two GPIOs and board power. The independent SWD path remains necessary for the two failure cases above. The exact MCU identity, probe electrical compatibility, SWD protection state, repeatable MAIN/NONMAIN/factory readback and recovery without the replaced application remain unverified. The existing attachment/reset caveats above still apply. Particle's adapter does not power the board. [Particle debug-board documentation](https://developer.particle.io/tachyon/accessories/debug-board)
+Linux-based recovery needs Linux, its UART, the two GPIOs and board power. An independent recovery path would be needed if Linux cannot run; SWD recovery for those cases remains untested. The owner explicitly authorized controlled Linux-only candidate tests without making SWD a prerequisite. The exact MCU identity, probe electrical compatibility, SWD protection state, repeatable MAIN/NONMAIN/factory readback and recovery without the replaced application remain unverified. The existing attachment/reset caveats above still apply. Particle's adapter does not power the board. [Particle debug-board documentation](https://developer.particle.io/tachyon/accessories/debug-board)
 
-### First replacement round trip (planned, not executed)
+### Controlled replacement round trip
 
-0. **Original-only rehearsal:** before introducing a candidate, stage and hash-check the original firmware already intended for this board and the exact packaged updater/control script. Confirm the currently installed versions, a working Linux console, stable power and a padded programming interval below `0xf800`. Reflash that original image through Particle's existing update path, require successful verification and the original VERSION reply, and compare configuration/identity before and after. This rehearses staging and the vendor procedure without requiring candidate-image SWD/readback gates first. It is still a flash operation; do not use retries to discover an unknown BSL authentication policy. This rehearsal has not been executed.
+0. **Original-only rehearsal:** before introducing a candidate, stage and hash-check the original firmware already intended for this board and the exact packaged updater/control script. Confirm the currently installed versions, a working Linux console, stable power and a padded programming interval below `0xf800`. Reflash that original image through Particle's existing update path, require successful verification and the original VERSION reply, and compare configuration/identity before and after. This rehearses staging and the vendor procedure without requiring candidate-image SWD/readback gates first. It is still a flash operation; do not use retries to discover an unknown BSL authentication policy. The original-only rehearsal completed on 2026-11-07: one programmer invocation, CRC verification, VERSION 1.0.52, unchanged logical configuration/identity and an unchanged Linux boot ID.
 
-After identifying the MCU, preserving repeatable device readbacks and validating the independent SWD connection and restore procedure:
+Under the owner-authorized Linux-only protocol, after local validation and the original-only rehearsal:
 
-1. Connect the verified SWD probe before programming. Keep stable board power and a Linux console available. Save the running application's VERSION reply and configuration/identity contents for comparison.
+1. Keep stable board power and a Linux console available. Save the running application's VERSION reply and configuration/identity contents for comparison. SWD is not required for this authorized experiment; the limits of Linux-only recovery above still apply.
 2. Stage the original restore image and the tested source-built image locally on the board. Check their hashes and ensure each padded programming interval ends before `0xf800`. Use the exact hash-verified Particle `mspm0flash` executable and audited control script; do not substitute upstream mass-erase tooling or install a package to launch the experiment.
 3. Program the initially equivalent candidate through the packaged BSL path. Record updater verification, Linux availability and the resumed application's VERSION reply. If a step fails, stop normal testing and use the prepared restore path; do not power-cycle to troubleshoot or repeatedly guess authentication.
 4. While Linux is still running, reflash the original with the same updater. Require successful verification, its VERSION reply and unchanged configuration/identity. This round trip tests the Linux restore path before relying on it.
-5. Only after the original restore succeeds consider a separate power-cycle test with the independent recovery path ready. Record power-cycle recovery and recovery from an app-driven power cut as separate outcomes; the BSL round trip alone proves neither.
+5. Do not combine this experiment with a power-cycle or intentional app-driven power cut. Those are separate recovery experiments; the BSL round trip proves neither.
 
-The candidate still needs the private-address migration and broader stateful input/fault tests. This protocol records the hardware experiment to perform when those prerequisites and the physical recovery gates are met; no replacement has been flashed.
+The original-only rehearsal was followed by a successful replacement round trip:
+
+- Rebuilt source commit: `295015f0f4cada173339aa97291fcb0aa979e8a7` (PR #8), with 1,145 local tests passing, unchanged tested inputs, and both CI suites green.
+- Candidate SHA256: `59e6ba29bdd0229b763115fe0bcde2787f36b3468f71acb6d1b333197437182d`; 63,487 bytes, padded to 63,488.
+- One candidate program and one original restore through the exact packaged executable. Each completed with exit status zero and a CRC verification acknowledgement. Captured wire packets show one range erase of `0x0000..0xf7ff` and 248 program packets per image.
+- The rebuilt app returned VERSION 1.0.52. CONFIG_DUMP, CONFIG_ID_DUMP and CONFIG_INTERNAL matched the original baseline exactly. READ_PWR reported VPH 4308, header 4971, VBAT 4206, 1V8 1806 and VUSB 5176 mV; differences from the immediately preceding original readings were at most 3 mV.
+- The original was restored immediately. Its version/configuration/identity/settings matched the pre-test values; Linux retained the same boot ID across the complete 21-second round trip.
+
+Raw UART dumps and updater logs remain in private local captures outside Git.
+This was a boot/read-only smoke test, not a power-cycle, brownout, sustained
+charging or exhaustive functional validation. The board is back on the original.
+The private-address migration and broader stateful input/fault tests remain
+required project work; later source commits have not inherited hardware proof.
 
 ### Immutable audit inputs
 
