@@ -76,7 +76,7 @@ SECTIONS {
  .config_data : { *target_config*.o(.rodata*) } > SPARE :config_data
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
- .data : {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
+ .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
  __data_load = LOADADDR(.data);
  .extra_bss (NOLOAD) : {__extra_bss_start = .;*(.bss*) *(COMMON) .  =  ALIGN(4);__extra_bss_end = .;} > RAM_AUX :auxiliary
  /DISCARD/ : {*(.comment) *(.note*) *(.ARM.attributes)}
@@ -89,7 +89,7 @@ SECTIONS {
  ASSERT(SIZEOF(.constructors)==8,"Constructor list must contain2source pointers")
  ASSERT(SIZEOF(.initial_data)==656,"Initialized RAM image must remain656bytes")
  ASSERT(__extra_bss_end<=0x20000c00,"Less than1KiB stack remains; whole-image stack bound required")
- ASSERT((__data_start & 3)==0 && (__data_end & 3)==0,"Reset data copy requires word alignment")
+ ASSERT((__data_load & 3)==0 && (__data_start & 3)==0 && (__data_end & 3)==0,"Reset data copy requires word alignment")
  ASSERT(SIZEOF(.data)==0 || __data_load+SIZEOF(.data)<=ORIGIN(CODE)+LENGTH(CODE),"Initialized data load image exceeds code region")
  ASSERT(SIZEOF(.version)<=8,"Version must not enter identity sector")
 }

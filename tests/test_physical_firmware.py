@@ -243,3 +243,45 @@ def test_audit_rejects_executable_legacy_load_segment(physical_fixture,tmp_path)
         struct.pack_into('<I',data,offset,5)
     bad=tmp_path/'invalid-exec-nul.elf';bad.write_bytes(data)
     assert 'Legacy format NUL must have a read-only non-executable load segment' in elf_audit(bad)['issues']
+
+
+def test_initialized_data_load_is_aligned_after_halfword_text(physical_fixture,tmp_path):
+    elf,_,_=physical_fixture
+    script=(ROOT/'target/physical/firmware.ld').read_text()
+    old='.text : { *(.text*) *(.rodata*) }'
+    assert old in script
+    script=script.replace(old,'.text : { *(.text*) *(.rodata*) . = ALIGN(4); SHORT(0); }')
+    linker=tmp_path/'halfword-text.ld';linker.write_text(script)
+    variant=tmp_path/'halfword-text.elf'
+    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',
+        *map(str,elf.parent.glob('*.o')),'-Wl,--gc-sections','-Wl,-T,'+str(linker),
+        '-o',str(variant)],check=True,capture_output=True,text=True)
+    audit=elf_audit(variant)
+    code=audit['sections']['.text']
+    assert (code['address']+code['bytes'])%4==2
+    assert audit['symbols']['__data_load']%4==0
+
+    binary=tmp_path/'halfword-text.bin';emit_binary(variant,binary)
+    image=binary.read_bytes();cpu=Uc(UC_ARCH_ARM,UC_MODE_THUMB|UC_MODE_MCLASS)
+    cpu.ctl_set_cpu_model(UC_CPU_ARM_CORTEX_M0)
+    cpu.mem_map(0,65536);cpu.mem_write(0,image)
+    cpu.mem_map(0x20000000,4096);cpu.mem_write(0x20000000,b'\xa5'*4096)
+    reached=[]
+    def step(uc,address,size,unused):
+        if address==audit['symbols']['syscon_target_main']&~1:
+            reached.append(True);uc.emu_stop()
+    cpu.hook_add(UC_HOOK_CODE,step)
+    sp,pc=struct.unpack_from('<II',image);cpu.reg_write(UC_ARM_REG_SP,sp);cpu.emu_start(pc,0,count=20000)
+    assert reached
+    symbols=audit['symbols'];size=symbols['__data_end']-symbols['__data_start']
+    assert bytes(cpu.mem_read(symbols['__data_start'],size))==image[symbols['__data_load']:symbols['__data_load']+size]
+
+    # Deliberately remove automatic LMA alignment while retaining SRAM alignment.
+    # The explicit assertion must reject this independently of compiler choices.
+    script=script.replace('.data : ALIGN(4)', '.data : AT(LOADADDR(.text)+SIZEOF(.text)) ALIGN(4)')
+    script=script.replace('> RAM_AUX AT> CODE :initialized','> RAM_AUX :initialized')
+    linker.write_text(script)
+    result=subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',
+        *map(str,elf.parent.glob('*.o')),'-Wl,--gc-sections','-Wl,-T,'+str(linker),
+        '-o',str(tmp_path/'misaligned.elf')],capture_output=True,text=True)
+    assert result.returncode and 'Reset data copy requires word alignment' in result.stderr

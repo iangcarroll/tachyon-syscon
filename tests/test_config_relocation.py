@@ -110,8 +110,8 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     assert script.count('.text_early : {')==1 and script.count('.text : {')==1
     script=script.replace('.text_early : {','.text_early : { . += 16;')
     script=script.replace('.text : {','.text : { . += 32;')
-    assert script.count('.data : {')==1
-    script=script.replace('.data : {','.data ORIGIN(RAM_AUX)+64 : {')
+    assert script.count('.data : ALIGN(4) {')==1
+    script=script.replace('.data : ALIGN(4) {','.data ORIGIN(RAM_AUX)+64 : ALIGN(4) {')
     linker.write_text(script)
     output=tmp_path/'physical'
     subprocess.run([sys.executable,str(tree/'tools/build_physical_firmware.py'),
