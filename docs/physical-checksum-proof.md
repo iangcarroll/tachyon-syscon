@@ -32,8 +32,13 @@ match, or that fault handlers, interrupts and physical timing are equivalent.
 Exception entry is deliberately not part of the first-read-failure theorem.
 The instruction semantics and SMT solver remain trusted components.
 
-`analysis/proof-physical-checksum/` retains the replayable SMT obligations,
-report, and physical build manifest. Intermediate image objects remain local.
+`analysis/proof-physical-checksum/` retains the report and physical build
+manifest. The commands below regenerate the replayable SMT obligations.
+The captured solver files and coverage archives are preserved in the
+[complete evidence checkpoint](https://github.com/iangcarroll/tachyon-syscon/tree/b569b1f4f83eb6aec85deddb136d29dd8127ae7b),
+also retained by branch `evidence/checksum-proof-b569b1f`. Keeping generated bulk
+there lets automated review inspect the source change. Intermediate image
+objects remain local.
 
 ```sh
 make proof-physical-checksum
