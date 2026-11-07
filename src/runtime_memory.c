@@ -24,6 +24,14 @@ void *syscon_rt_memset(void *destination,int value,uint32_t size) {
     for(uint32_t i=0;i<size;++i)out[i]=(uint8_t)value;
     return destination;
 }
+#if defined(__arm__)
+#include <stddef.h>
+_Static_assert(sizeof(size_t)==4,"ARM32 memset ABI required");
+/* Compiler-generated fills must enter the same leaf, without a wrapper frame.
+ * Weak binding permits isolated test runtimes to supply their own strong name. */
+extern void *memset(void *,int,size_t)
+    __attribute__((weak,alias("syscon_rt_memset")));
+#endif
 void *syscon_rt_strchr(const void *text,int value) {
     const uint8_t *s=text;uint8_t c=(uint8_t)value;
     while(*s && *s!=c)++s;

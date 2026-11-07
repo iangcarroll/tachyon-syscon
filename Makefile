@@ -6,7 +6,7 @@ SOURCES := $(wildcard src/*.c)
 OBJECTS := $(patsubst src/%.c,build/arm/%.o,$(SOURCES))
 HEADERS := $(wildcard include/*.h)
 
-.PHONY: all arm test inventory binary-check boot-probe references-check ledger emulate target-interfaces physical-firmware rebuilt-system proof-checksum proof-physical-checksum
+.PHONY: all arm test inputs firmware-fetch inventory binary-check boot-probe references-fetch references-check ledger emulate target-interfaces physical-firmware rebuilt-system proof-checksum proof-physical-checksum proof-test
 all: arm
 arm: build/arm/libsyscon-reconstruction.a
 
@@ -17,13 +17,18 @@ build/arm/%.o: src/%.c $(HEADERS)
 build/arm/libsyscon-reconstruction.a: $(OBJECTS)
 	$(ARM_AR) rcs $@ $(OBJECTS)
 
-test:
+inputs: references-fetch firmware-fetch
+
+firmware-fetch:
+	$(PYTHON) tools/fetch_firmware.py
+
+test: inputs
 	$(PYTHON) -m pytest -q tests
 
-inventory:
+inventory: firmware-fetch
 	$(PYTHON) tools/inventory.py
 
-binary-check:
+binary-check: firmware-fetch
 	$(PYTHON) tools/verify_binary.py
 	$(PYTHON) tools/verify_runtime_binary.py
 	$(PYTHON) tools/verify_runtime_arithmetic_binary.py
@@ -31,14 +36,17 @@ binary-check:
 boot-probe:
 	$(PYTHON) tools/boot_probe.py
 
+references-fetch:
+	$(PYTHON) tools/fetch_references.py
+
 references-check:
-	$(PYTHON) tools/catalog_references.py
+	$(PYTHON) tools/fetch_references.py --check
 
 ledger:
 	$(PYTHON) tools/reconstruction_ledger.py
 
-emulate:
-	$(PYTHON) tools/emulate.py --scenario fixtures/emulator/tachyon-synthetic.json --instructions 1000000 --stop-at 0x3c9a --command VERSION --report analysis/emulation-boot-version.json
+emulate: inputs
+	$(PYTHON) tools/emulate.py --scenario fixtures/emulator/tachyon-synthetic.json --instructions 1000000 --stop-at 0x3c9a --command VERSION --report build/emulation-boot-version.json
 
 target-interfaces:
 	$(PYTHON) tools/build_target_interfaces.py
@@ -46,12 +54,15 @@ target-interfaces:
 physical-firmware:
 	$(PYTHON) tools/build_physical_firmware.py
 
-rebuilt-system: physical-firmware
+rebuilt-system: physical-firmware inputs
 	$(PYTHON) tools/rebuilt_system.py
 
-proof-checksum:
+proof-checksum: firmware-fetch
 	$(PYTHON) tools/proof_checksum.py
 	$(PYTHON) tools/proof_checksum.py --mutant --output analysis/proof-checksum-negative
 
-proof-physical-checksum:
+proof-physical-checksum: firmware-fetch
 	$(PYTHON) tools/proof_physical_checksum.py
+
+proof-test: firmware-fetch
+	PYTHONPATH=tools $(PYTHON) -m pytest -q tools/tests/test_proof_checksum.py tools/tests/test_proof_physical_checksum.py
