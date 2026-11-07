@@ -1,10 +1,10 @@
 /* Source-backed read/search path; mode1 intentionally ignores validity result. */
 #include "config_helpers.h"
+#include "config_text.h"
 #include "runtime_memory.h"
 #include "runtime_support.h"
 #include "runtime_scan.h"
-#define TEXT(a) ((const char *)(uintptr_t)(a))
-#define CONF TEXT(0xad0c)
+#define CONF SYSCON_CFG_LOG_TAG
 uint32_t syscon_cfg_field_readable(const uint8_t *field) {
     for(unsigned i=0;i<31;i++){
         uint32_t c=field[i];if(!c||c==';')return 1;
@@ -25,12 +25,12 @@ uint32_t syscon_cfg_slot_valid(const uint8_t *slot) {
     uint8_t key_checksum=*(const volatile uint8_t *)(slot+31);
     uint8_t value_checksum=*(const volatile uint8_t *)(slot+63);
     if(key_checksum!=syscon_cfg_checksum(slot)){
-        syscon_target_logger(1,CONF,TEXT(0xadbe));return 0;
+        syscon_target_logger(1,CONF,SYSCON_CFG_KEY_CHECKSUM_MISMATCH);return 0;
     }
     uint32_t checksum=syscon_cfg_checksum(slot+32);
     if(value_checksum!=checksum){
         /* The failure diagnostic deliberately rereads the live stored byte. */
-        syscon_target_logger(1,CONF,TEXT(0xadd4),checksum,
+        syscon_target_logger(1,CONF,SYSCON_CFG_VALUE_CHECKSUM_MISMATCH,checksum,
                              *(const volatile uint8_t *)(slot+63));return 0;
     }
     return 1;
@@ -53,12 +53,12 @@ uint32_t syscon_cfg_find_slot(uint32_t base,uint32_t bytes,char *key,uint32_t mo
         }while(slot!=end);
     }else if(mode==1){
         if(!key||!length){
-            const char *path=TEXT(0xadf5),*file=path;
+            const char *path=SYSCON_CFG_ORIGINAL_SOURCE_PATH,*file=path;
             if(syscon_rt_strrchr(path,'/'))file=(const char *)syscon_rt_strrchr(path,'/')+1;
-            syscon_cfg_assert(file,0x174,TEXT(0xae64));
+            syscon_cfg_assert(file,0x174,SYSCON_CFG_FALSE);
         }else do{
             count--;const uint8_t *slot=(const uint8_t *)(uintptr_t)(base+(count<<6));
-            char diagnostic[32];syscon_rt_snprintf(diagnostic,32,TEXT(0xae3f),count);
+            char diagnostic[32];syscon_rt_snprintf(diagnostic,32,SYSCON_CFG_SLOT_DIAGNOSTIC,count);
             (void)syscon_cfg_slot_valid(slot);
             uint32_t i=0;while(i<length+1u&&slot[i]==(uint8_t)key[i])i++;
             if(i>=length+1u){*out=(uint32_t)(uintptr_t)slot;return 1;}
@@ -69,12 +69,12 @@ uint32_t syscon_cfg_find_slot(uint32_t base,uint32_t bytes,char *key,uint32_t mo
             const uint8_t *slot=(const uint8_t *)(uintptr_t)(base+(index<<6));
             uint32_t valid=syscon_cfg_slot_valid(slot);
             if(valid){syscon_rt_strncpy(key,slot,32);key[30]=0;char *delimiter=syscon_rt_strchr(key,';');if(delimiter)*delimiter=0;*out=(uint32_t)(uintptr_t)slot;return valid;}
-        }else syscon_target_logger(1,CONF,TEXT(0xae52));
+        }else syscon_target_logger(1,CONF,SYSCON_CFG_INVALID_INDEX);
     }
     return 0;
 }
 uint32_t syscon_cfg_store_get(uint32_t base,uint32_t bytes,char *key,char *out) {
-    if(syscon_rt_strlen(key)>=31){syscon_target_logger(1,CONF,TEXT(0xafe0));return 0;}
+    if(syscon_rt_strlen(key)>=31){syscon_target_logger(1,CONF,SYSCON_CFG_KEY_TOO_LONG);return 0;}
     uint32_t slot=0;
     return syscon_cfg_find_slot(base,bytes,key,1,&slot)?syscon_cfg_read_slot((const uint8_t *)(uintptr_t)slot,out):0;
 }
