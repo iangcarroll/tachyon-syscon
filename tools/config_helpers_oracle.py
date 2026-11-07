@@ -40,7 +40,7 @@ def build(destination):
         f'.global {name}\n.type {name},%function\n.thumb_func\n{name}:\n bkpt #0\n bx lr\n' for name in TRAPS))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['target/config_helpers.c','target/config_read.c','target/config_storage.c','target/config_write_slot_abi.S','target/config_update.c','target/config_update_abi.S','src/flash_controller.c','src/format.c','src/logging.c','target/format_wrappers.c','target/logger_target.c','target/logger_target_abi.S',str(traps)]
+        runtime.SOURCES=old+['target/config_helpers.c','target/config_read.c','target/config_storage.c','target/config_update.c','target/config_update_abi.S','src/flash_controller.c','src/format.c','src/logging.c','target/format_wrappers.c','target/logger_target.c','target/logger_target_abi.S',str(traps)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old
 

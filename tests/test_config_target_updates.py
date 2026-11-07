@@ -111,17 +111,18 @@ def test_enabled_compaction_and_initialization_diagnostic_output(elf):
     compare_controllers(p)
 
 
-def test_legacy_format_compaction_uses_original_live_argument_frame(elf):
-    # Semicolon terminates field validation but the legacy key retains its
-    # suffix. Both format strings therefore consume the omitted variadic word.
-    # Pointer-valued output must be compared at the same physical incoming SP.
+def test_legacy_compaction_preserves_text_instead_of_consuming_missing_arguments(elf):
+    # This is an approved behavioral correction for legacy data that current
+    # commands reject. The executed original remains a witness to the old bug.
     for key,value in [(b'legacy',b'%u'),(b'legacy;%u',b'literal')]:
         p=controller_pair(elf)
         p.put(0xfc00,bytes(slot(key,value))*15+b'\xff'*64)
         p.put(KEY,b'new\0');p.put(VALUE,b'value\0')
-        p.call(0x32c8,'syscon_cfg_runtime_update',KEY,VALUE,same_stack=True)
-        compare_controllers(p)
-        assert bytes(p.original.cpu.mem_read(0xfc00,1024))==p.candidate.read(0xfc00,1024)
+        assert p.original.call(0x32c8,KEY,VALUE,count=1000000)==1
+        assert p.candidate.call('syscon_cfg_runtime_update',KEY,VALUE,count=1000000)==1
+        expected=bytes(slot(b'new',b'value'))+bytes(slot(key,value))+b'\xff'*(1024-128)
+        assert p.candidate.read(0xfc00,1024)==expected
+        assert bytes(p.original.cpu.mem_read(0xfc00,1024))!=expected
 
 
 def test_initializer_ignores_intermediate_failures_and_asserts_after_lookup(elf):

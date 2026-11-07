@@ -70,8 +70,10 @@ contract requires them. That migration is not complete yet.
 Private code, strings, tables and global state must use linker-resolved symbols,
 not numeric original-image addresses. Fixed addresses are reserved for documented
 hardware, MCU memory-region and persistent-storage contracts. Layout-change tests
-must exercise moved data/code and changed string lengths. The current numeric
-return-address workaround for malformed legacy format data, fixed global state
+must exercise moved data/code and changed string lengths. Configuration storage
+now preserves legacy values literally, including `%` characters, instead of
+interpreting them as printf formats. This approved bug fix removes the private
+return-address dependency; normal commands still reject `%`. Fixed global state
 and remaining recovered data blocks still need migration; they are not approved
 exceptions to this requirement.
 

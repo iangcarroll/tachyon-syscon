@@ -2,7 +2,7 @@
 
 This is a conservative static diagnostic, not a whole-image stack proof. The frozen input snapshot is `build/physical-stack-audit/`: ELF, 58 compiler `.su` files, build manifest, and `snapshot.json` hashes. `tools/audit_physical_stack.py` writes `analysis/physical-stack-audit.json`. It never accesses hardware or writes a firmware image.
 
-The refreshed snapshot includes the source scanner EOF callback and FILE `_read` handling, the inlined CONFIG_SET logging helper, and the source-defined NUL data byte at `0x2919`. The final refresh also includes the UART original-frame ABI adapter, logger output-register preservation, and corrected config-slot checksum-byte read order. These changes are reflected in the current ELF and `.su` inputs.
+This historical snapshot includes the source scanner EOF callback and FILE `_read` handling, the inlined CONFIG_SET logging helper, and the source-defined NUL data byte at `0x2919`. The final refresh also includes the UART original-frame ABI adapter, logger output-register preservation, and corrected config-slot checksum-byte read order. These were the ELF and `.su` inputs at that checkpoint. The current implementation has removed the compatibility byte and slot-writing assembly adapter; use freshly generated build/stack reports for current frame sizes.
 
 The snapshot ELF SHA-256 is `ae534a6640d592194d4aa86198e8b5d8cefbc94172bb07854c251e99e3a2335a`. The corresponding canonical binary SHA-256 is `8b9a3cf653b32c374b21f3b89ccf0161fc54a30d018710e61eca9bbe989c9461`. Its initial MSP is `0x20001000`; fixed RAM and additional globals end at `0x20000820`. The nominal available stack span is 2,016 bytes. That address subtraction does not prove that all paths fit.
 

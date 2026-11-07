@@ -11,14 +11,13 @@ MEMORY {
  RAM_FIXED (rw) : ORIGIN = 0x20000030, LENGTH = 0x7f0
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
-/* Separate PT_LOAD flags keep compatibility data out of executable ELF segments.
+/* Separate PT_LOAD flags distinguish code and read-only data in the ELF.
    The MCU does not acquire memory protection from ELF program headers. */
 PHDRS {
  vectors PT_LOAD FLAGS(4);
  ram_exec PT_LOAD FLAGS(5);
  ram_extra PT_LOAD FLAGS(7);
  early PT_LOAD FLAGS(5);
- legacy PT_LOAD FLAGS(4);
  text PT_LOAD FLAGS(5);
  fixed PT_LOAD FLAGS(4);
  config_data PT_LOAD FLAGS(4);
@@ -50,7 +49,6 @@ SECTIONS {
    *target_config_helpers.o(.text*)
    *target_config_read.o(.text*)
    *target_config_storage.o(.text*)
-   *target_config_write_slot_abi.o(.text*)
    *target_core_helpers.o(.text*)
    *target_interface_bindings.o(.text*)
    *target_fault_control_target.o(.text*)
@@ -68,9 +66,6 @@ SECTIONS {
    *target_runtime_support.o(.text*)
    *target_runtime_arithmetic_float.o(.text*)
  } > CODE :early
- /* Legacy missing %s vararg is the numeric original LR 0x2919.
-    Preserve only its observed NUL data byte, never original instructions. */
- .legacy_format_nul 0x2919 (READONLY) : { BYTE(0) } > CODE :legacy
  /* Configuration constants are independently relocatable C data. Other modules
     still use recovered fixed data until their own source migration. */
  .config_data : { *target_config*.o(.rodata*) } > SPARE :config_data
@@ -80,8 +75,6 @@ SECTIONS {
  __data_load = LOADADDR(.data);
  .extra_bss (NOLOAD) : {__extra_bss_start = .;*(.bss*) *(COMMON) .  =  ALIGN(4);__extra_bss_end = .;} > RAM_AUX :auxiliary
  /DISCARD/ : {*(.comment) *(.note*) *(.ARM.attributes)}
- ASSERT(ADDR(.text_early)+SIZEOF(.text_early)<=0x2919,"Early text overlaps legacy format NUL")
- ASSERT(ADDR(.legacy_format_nul)==0x2919 && SIZEOF(.legacy_format_nul)==1,"Legacy format NUL must remain one byte at2919")
  ASSERT(SIZEOF(.vectors)==192,"Vector table must contain48entries")
  ASSERT(__ram_exec_used_end>__ram_exec_start,"RAM executor missing")
  ASSERT(__ram_exec_used_end-__ram_exec_start<=48,"RAM executor exceeds original48byte slot")

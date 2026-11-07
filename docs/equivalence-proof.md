@@ -163,28 +163,13 @@ No hardware was accessed, no firmware was flashed, and no whole-image proof is
 claimed by these artifacts. The integrated candidate exists; its universal
 proof remains outstanding work.
 
-## Fixed physical-image counterexample: legacy `%s`
+## Approved behavior correction: literal legacy configuration
 
-The first complete source image did not satisfy universal equivalence. A sector
-containing valid-checksum legacy `%s` values triggered an observable difference
-during real UART configuration compaction. Both formatter calls used the omitted
-argument `R3=0x2919`; the original byte there was NUL, while relocated source code
-began with `42 03 d1 80 20`. The original persisted an empty value and the source
-image persisted those bytes. `analysis/physical-legacy-percent-s-counterexample.json`
-retains this historical witness.
+Historical whole-image testing found that the original interprets a stored `%s` value as a printf format with missing arguments. A numeric saved-return value (`0x2919`) then becomes a data pointer, so relocating code changes the corrupted persisted value. The historical witness remains in `analysis/physical-legacy-percent-s-counterexample.json`.
 
-The linker now reserves one source-defined, read-only, non-executable data byte
-at `0x2919`. It is a declared data-read dependency, not copied executable code.
-Numeric missing-argument behavior still uses the original value 10521. The
-CONFIG_SET helper also had an extra eight-byte call frame, changing the printed
-stack use from 1008 to 1016; inlining that helper restores the observed frame.
-The complete UART output, persisted sectors, and readback now match for `%s`
-and `%u`, with only timestamps normalized. Mutating the reserved byte makes
-actual persistence/readback differ again. Evidence is in
-`analysis/physical-legacy-format-regression.json` and `tests/test_rebuilt_system.py`.
+The maintainable implementation no longer reproduces this bug. It copies legacy keys and values literally, using the existing slot size, padding and checksums. Normal configuration commands still reject `%`. This approved difference removes the assembly argument-frame adapter and reserved compatibility byte; no numerical return address participates in slot serialization. The former compatibility reports are historical, not proofs of the current implementation.
 
-This resolves the concrete witness, not every possible code-as-data or private
-stack observation. Those remain part of the open whole-image proof obligation.
+`tests/test_rebuilt_system.py` exercises actual UART compaction and readback, then boots a fresh CPU from the persisted candidate sector. It checks the literal result and keeps the original corruption as a differential witness. Ordinary-value cases still compare original and rebuilt behavior. Neither this correction nor those cases constitute a universal whole-image proof.
 
 ## Fixed register-output counterexample
 

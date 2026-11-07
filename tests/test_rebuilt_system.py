@@ -77,19 +77,28 @@ def legacy_compaction(image,value,engines):
 
 
 @pytest.mark.parametrize('value',[b'%s',b'%u'])
-def test_legacy_compaction_full_uart_output_and_persistence(rebuilt_image,legacy_engines,value):
+def test_legacy_compaction_preserves_literal_uart_output_and_persistence(rebuilt_image,legacy_engines,value):
     original=legacy_compaction((ROOT/'firmware/syscon-1.0.52.bin').read_bytes(),value,legacy_engines)
     rebuilt=legacy_compaction(rebuilt_image,value,legacy_engines)
-    # Include the stack-usage diagnostic, not just the restored value. A C
-    # wrapper formerly added eight bytes and changed this observable number.
-    assert rebuilt==original
+    assert rebuilt[1]==value and original[1]!=value
+    from test_config_helpers import slot
+    assert rebuilt[0][64:128]==bytes(slot(b'legacy',value))
+    # A fresh CPU must read the literal value from the persisted sector as well.
+    persisted=bytearray(rebuilt_image.ljust(65536,b'\xff'));persisted[0xfc00:]=rebuilt[0]
+    machine,_=boot(bytes(persisted));legacy_engines.append(machine)
+    reply=command_reply(machine,'CONFIG_GET legacy')
+    assert b'legacy = '+value+b'\r\n' in reply and b'PASS\r\n' in reply
 
 
-def test_changed_legacy_nul_byte_is_detected_through_actual_persistence(rebuilt_image,legacy_engines):
-    original=legacy_compaction((ROOT/'firmware/syscon-1.0.52.bin').read_bytes(),b'%s',legacy_engines)
-    mutant=bytearray(rebuilt_image);mutant[0x2919]=1
-    changed=legacy_compaction(bytes(mutant),b'%s',legacy_engines)
-    assert changed[0]!=original[0] and changed[1]!=original[1]
+def test_public_configuration_still_rejects_format_metacharacters(rebuilt_image,legacy_engines):
+    machines=[boot(image)[0] for image in [(ROOT/'firmware/syscon-1.0.52.bin').read_bytes(),rebuilt_image]]
+    legacy_engines.extend(machines)
+    before=[bytes(machine.flash[0xf800:]) for machine in machines]
+    for value in ['%s','%u','%n']:
+        replies=[command_reply(machine,'CONFIG_SET rejected '+value) for machine in machines]
+        assert all(b'FAIL\r\n' in reply for reply in replies)
+        assert normalized_log(replies[0])==normalized_log(replies[1])
+    assert [bytes(machine.flash[0xf800:]) for machine in machines]==before
 
 
 def test_raw_rgb_format_commands_preserve_real_logger_register_effects(rebuilt_image,legacy_engines):

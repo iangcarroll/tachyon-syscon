@@ -10,7 +10,7 @@
       "original_abi": true,
       "additional_sources": [
         "target/config_update_abi.S",
-        "target/config_write_slot_abi.S"
+        "target/config_storage.c"
       ]
     },
     {
@@ -23,7 +23,7 @@
       "original_abi": true,
       "additional_sources": [
         "target/config_update_abi.S",
-        "target/config_write_slot_abi.S"
+        "target/config_storage.c"
       ]
     },
     {
@@ -36,7 +36,7 @@
       "original_abi": true,
       "additional_sources": [
         "target/config_update_abi.S",
-        "target/config_write_slot_abi.S"
+        "target/config_storage.c"
       ]
     },
     {
@@ -49,7 +49,7 @@
       "original_abi": true,
       "additional_sources": [
         "target/config_update_abi.S",
-        "target/config_write_slot_abi.S"
+        "target/config_storage.c"
       ]
     }
   ],

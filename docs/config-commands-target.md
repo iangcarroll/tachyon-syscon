@@ -10,7 +10,9 @@ Internal-config reporting snapshots all eight getters before printing.
 The integration tests compare original and rebuilt commands through the actual
 FLASHCTL model: setting/getting/indexed lookup, duplicate keys, repeated
 compactions, record rejection, blank records, erase passwords, malformed and
-31-byte-boundary inputs, and legacy format-bearing values during compaction.
+31-byte-boundary inputs. Legacy format-bearing values have separate correction
+tests: compaction preserves their literal bytes, intentionally differing from
+the original printf bug. Public commands continue to reject `%`.
 They compare printed formats and consumed arguments, full flash/controller
 traces, runtime RAM and watchdog MMIO. Getter leaves for CONFIG_INTERNAL are
 explicit endpoints; the compiler fixture watchdog executes a direct MMIO write.

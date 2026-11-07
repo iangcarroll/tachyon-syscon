@@ -199,52 +199,6 @@ def test_original_reset_global_initialization_and_constructor_order(physical_fix
     assert left==right
 
 
-def test_legacy_format_nul_is_source_defined_read_only_non_executable(physical_fixture):
-    elf,binary,audit=physical_fixture
-    compatibility=audit['sections']['.legacy_format_nul']
-    assert compatibility=={'address':0x2919,'bytes':1,'flags':2}
-    assert binary.read_bytes()[0x2919]==0
-    assert not any(s['flags']&4 and s['address']<=0x2919<s['address']+s['bytes'] for s in audit['sections'].values())
-    with elf.open('rb') as stream:
-        parsed=ELFFile(stream)
-        containing=[p for p in parsed.iter_segments() if p['p_type']=='PT_LOAD' and p['p_vaddr']<=0x2919<p['p_vaddr']+p['p_filesz']]
-        assert len(containing)==1 and containing[0]['p_flags']==4
-
-
-@pytest.mark.parametrize('mutation',['byte','address','write','execute'])
-def test_audit_rejects_broken_legacy_format_data(physical_fixture,tmp_path,mutation):
-    elf,_,_=physical_fixture;data=bytearray(elf.read_bytes())
-    with elf.open('rb') as stream:
-        parsed=ELFFile(stream)
-        index=next(i for i,s in enumerate(parsed.iter_sections()) if s.name=='.legacy_format_nul')
-        section=parsed.get_section(index);header=parsed['e_shoff']+index*parsed['e_shentsize']
-        if mutation=='byte':data[section['sh_offset']]=1
-        elif mutation=='address':struct.pack_into('<I',data,header+12,0x2918)
-        else:struct.pack_into('<I',data,header+8,section['sh_flags']|({'write':1,'execute':4}[mutation]))
-    bad=tmp_path/'invalid-nul.elf';bad.write_bytes(data)
-    assert 'Legacy format NUL must be read-only non-executable zero byte at2919' in elf_audit(bad)['issues']
-
-
-def test_linker_rejects_early_text_overlapping_legacy_data(physical_fixture,tmp_path):
-    elf,_,_=physical_fixture
-    source=tmp_path/'overflow.S';source.write_text('.section .text.physical_test_early_overflow,"ax",%progbits\n.global physical_test_early_overflow\nphysical_test_early_overflow:\n.space 0x2900\n')
-    obj=tmp_path/'target_runtime_arithmetic_float.o'
-    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-c',str(source),'-o',str(obj)],check=True)
-    result=subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*map(str,elf.parent.glob('*.o')),str(obj),'-Wl,--undefined=physical_test_early_overflow','-Wl,--gc-sections','-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-o',str(tmp_path/'invalid-overlap.elf')],text=True,capture_output=True)
-    assert result.returncode!=0 and 'Early text overlaps legacy format NUL' in result.stderr
-
-
-def test_audit_rejects_executable_legacy_load_segment(physical_fixture,tmp_path):
-    elf,_,_=physical_fixture;data=bytearray(elf.read_bytes())
-    with elf.open('rb') as stream:
-        parsed=ELFFile(stream)
-        index=next(i for i,p in enumerate(parsed.iter_segments()) if p['p_type']=='PT_LOAD' and p['p_vaddr']<=0x2919<p['p_vaddr']+p['p_filesz'])
-        offset=parsed['e_phoff']+index*parsed['e_phentsize']+24
-        struct.pack_into('<I',data,offset,5)
-    bad=tmp_path/'invalid-exec-nul.elf';bad.write_bytes(data)
-    assert 'Legacy format NUL must have a read-only non-executable load segment' in elf_audit(bad)['issues']
-
-
 def test_initialized_data_load_is_aligned_after_halfword_text(physical_fixture,tmp_path):
     elf,_,_=physical_fixture
     script=(ROOT/'target/physical/firmware.ld').read_text()
