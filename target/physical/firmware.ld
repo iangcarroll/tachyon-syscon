@@ -9,6 +9,9 @@ MEMORY {
  CONFIG (r) : ORIGIN = 0xfc00, LENGTH = 0x400
  RAM_EXEC (rwx) : ORIGIN = 0x20000000, LENGTH = 0x30
  RAM_FIXED (rw) : ORIGIN = 0x20000030, LENGTH = 0x7f0
+ /* Reuse the now-vacant task/timer SRAM instead of reserving a second copy.
+    This partition is transitional until remaining fixed-state users migrate. */
+ RAM_STATE (rw) : ORIGIN = 0x20000534, LENGTH = 0x14c
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
 /* Separate PT_LOAD flags distinguish code and read-only data in the ELF.
@@ -22,6 +25,7 @@ PHDRS {
  fixed PT_LOAD FLAGS(4);
  config_data PT_LOAD FLAGS(4);
  version PT_LOAD FLAGS(4);
+ state PT_LOAD FLAGS(6);
  auxiliary PT_LOAD FLAGS(6);
  initialized PT_LOAD FLAGS(6);
 }
@@ -73,6 +77,12 @@ SECTIONS {
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
  __data_load = LOADADDR(.data);
+ .state_bss ORIGIN(RAM_STATE) (NOLOAD) : {
+   __state_bss_start = .;
+   *(.bss.syscon_retained_state)
+   *(.bss.syscon_timer_state) *(.bss.syscon_task_state)
+   . = ALIGN(4); __state_bss_end = .;
+ } > RAM_STATE :state
  .extra_bss (NOLOAD) : {__extra_bss_start = .;*(.bss*) *(COMMON) .  =  ALIGN(4);__extra_bss_end = .;} > RAM_AUX :auxiliary
  /DISCARD/ : {*(.comment) *(.note*) *(.ARM.attributes)}
  ASSERT(SIZEOF(.vectors)==192,"Vector table must contain48entries")

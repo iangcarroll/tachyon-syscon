@@ -4,7 +4,7 @@
 
 | Original entry | Reconstructed symbol | Behavior |
 |---|---|---|
-| `0x7a68` | `syscon_hal_adc_lookup` | Scan six 12-byte RAM descriptors at `0x200000f4` by byte identifier; first match wins. |
+| `0x7a68` | `syscon_hal_adc_lookup` | Scan the six linker-allocated `syscon_adc_channels` descriptors by byte identifier; first match wins. |
 | `0x7a90` | `syscon_hal_pwm_lookup` | Scan three 12-byte descriptors at `0x20000148`; first match wins. |
 | `0x7ac0` | `syscon_hal_uart_lookup` | Return `0x20000234 + 16*index` for unsigned indices 0 and 1, otherwise null. |
 | `0x7ad4` | `syscon_hal_i2c_lookup` | Return `0x2000013c` only for index 0. |

@@ -21,7 +21,7 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
     observations=[]
     for image,load_entry,cache,retained_address in [(load_image(),0x59d8,0x20000030,0x200000da),
                                    (candidate,symbols['syscon_target_retained_load']&~1,symbols['syscon_config_state'],symbols['syscon_retained_state'])]:
-        m,_=boot(image)
+        m,_=boot(image,stack_floor=0x20000820 if image==load_image() else symbols['__extra_bss_end'])
         for i,value in enumerate(retained):m.write_register(0x400b0400+4*i,value)
         # Warm reset preserves physical SRAM, but startup intentionally reloads
         # normal data. The retained SRAM mirror must come from PMU, not these bytes.
@@ -33,6 +33,12 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                         (symbols['syscon_powerkey_control'],2),
                         (symbols['syscon_powerkey_runtime'],24)])
         for address,size in button_blocks:m.write_ram(address,b'\xa5'*size)
+        adc_blocks=([(0x200000f4,72),(0x20000685,11),(0x20000694,1)]
+                    if image==load_image() else
+                    [(symbols['syscon_adc_channels'],72),
+                     (symbols['syscon_adc_state'],11),
+                     (symbols['syscon_adc_vref_initialized'],1)])
+        for address,size in adc_blocks:m.write_ram(address,b'\xa5'*size)
         reset_count=m.reset_count
         loaded=[];return_pc=None;loop=False
         def writes(cpu,kind,address,size,value,unused):
@@ -46,7 +52,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                 loaded.append((bytes(m.read(retained_address,3)),
                                tuple(m.read_register(0x400b0400+4*i) for i in range(3)),
                                bytes(m.read(cache,22)),
-                               tuple(m.read(address,size) for address,size in button_blocks)))
+                               tuple(m.read(address,size) for address,size in button_blocks),
+                               tuple(m.read(address,size) for address,size in adc_blocks)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)

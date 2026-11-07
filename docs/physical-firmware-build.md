@@ -20,14 +20,16 @@ The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L
 | Flash `0xf800..0xffff` | Identity/config sectors excluded from emitted binary |
 | SRAM `0x20000000..0x2000002f` | New 36-byte original-ABI flash executor, padded to 48 bytes and copied at reset |
 | SRAM `0x20000030..0x200002bf` | Remaining legacy initialized globals; the old configuration-cache bytes are unused |
-| SRAM `0x200002c0..0x2000081f` | Original zeroed-global ABI |
+| SRAM `0x200002c0..0x20000533` | Remaining original zeroed globals and vacant migrated locations |
+| SRAM `0x20000534..0x2000067f` | Reclaimed task/timer storage; linker-allocated scheduling/retained objects in `.state_bss` |
+| SRAM `0x20000680..0x2000081f` | Remaining original zeroed globals and vacant migrated ADC storage |
 | SRAM `0x20000820..0x20000fff` | Linker-allocated `.data`/BSS, followed by available stack space |
 
 These region boundaries describe the transitional layout; the manifest records actual section sizes on every link. The emitted binary is 63487 bytes because fixed-address constants and version data retain their original addresses; this length is not the amount of executable code. No factory/NONMAIN contents or persistent identity/configuration are invented.
 
 ## Reset and original-ABI flash execution
 
-`target/physical/startup.c` copies initialized globals, copies the new RAM executor, clears exactly the original BSS range, and initializes any explicitly allocated auxiliary SRAM. It calls reconstructed `syscon_target_runtime_init`, which performs the original no-op init hook and timestamp/queue constructors in order, then enters `syscon_target_main`. UART vector wrappers call source UART IRQ code with original bases `0x40108000` and `0x40100000`. Other populated vectors preserve their roles; originally null vectors remain null.
+`target/physical/startup.c` copies initialized globals, copies the new RAM executor, clears exactly the original BSS range, and initializes linker-allocated `.data`, `.state_bss` and auxiliary BSS. It calls reconstructed `syscon_target_runtime_init`, which performs the original no-op init hook and timestamp/queue constructors in order, then enters `syscon_target_main`. UART vector wrappers call source UART IRQ code with original bases `0x40108000` and `0x40100000`. Other populated vectors preserve their roles; originally null vectors remain null.
 
 The production builder defines `SYSCON_DIRECT_FLASH_ABI` for `target/config_storage.c`. That narrow binding routes erase, program, blank and protection operations to `target/flash_abi_target.c`. Its helpers call `syscon_target_flash_ram_execute` through a linker-resolved reference. The RAM body performs direct volatile FLASHCTL accesses and has no callback or flash-resident data dependency. The generic callback controller remains available for existing standalone tests but is garbage-collected from the physical image. The callback API is not silently changed or implemented by ignoring an arbitrary callback argument.
 
@@ -73,16 +75,39 @@ retention or ROM boot behavior on the attached MCU.
 
 Historical startup and flash-ABI reports under `analysis/` describe their recorded revisions. Current validation comes from the tests and CI artifacts; obsolete compatibility-byte checks are no longer part of the layout contract. Whole-image emulator reset/CLI comparisons remain separate from hardware evidence.
 
-The production artifact paths are `build/physical-firmware/firmware.elf`, `firmware.bin`, `firmware.map` and `manifest.json`. The manifest deliberately retains `flash_candidate=false` and `whole_firmware_equivalence=false`. No device has been flashed.
+The production artifact paths are `build/physical-firmware/firmware.elf`, `firmware.bin`, `firmware.map` and `manifest.json`. The manifest deliberately retains `flash_candidate=false` and `whole_firmware_equivalence=false`. The [README](../README.md) identifies the earlier source revision tested on hardware; that result does not automatically validate later builds.
 
 The complete-image regression now exists in `tests/test_rebuilt_system.py`.
 `make rebuilt-system` reproduces reset, real UART IRQ/command handling and
 persistent configuration readback across a fresh boot for both the original and
 source image. The named synthetic scenario passes with matching normalized
 command output and persistent sectors. A separate I2C failure injection reaches
-matching assertion output. See `analysis/rebuilt-system-session.json` and
+matching assertion output. See `build/rebuilt-system-session.json` and
 [the emulator documentation](mcu-emulator.md) for the observation limits.
 
+
+## Reclaiming SRAM during source migration
+
+Keeping both every old state reservation and every new C object eventually
+exhausted stack space: a relocated ADC build collided with live BSS during
+configuration-compaction logging. The prior fixed `0x20000820` emulator guard
+could not detect that collision with newer objects above its boundary.
+
+The linker now allocates scheduler/retained objects in the freed task/timer
+region instead of reserving a second copy in auxiliary RAM. Object addresses
+remain linker-resolved, and the whole-image regression changes their order.
+This split SRAM layout is transitional while other modules still depend on
+legacy locations; it must not become a permanent private-address ABI. Remaining
+migration should converge on ordinary contiguous data/BSS allocation.
+
+The build manifest supplies `stack_floor_address`, the highest allocated state
+end. `make rebuilt-system` reads it from a manifest whose binary hash must match
+the image. A raw image without a manifest requires an explicit `--stack-floor`.
+Full-image relocation and compaction tests pass this bound to the emulator
+and check startup and later stack use against it. Only vacant legacy locations
+are poisoned: the reclaimed scheduling arena is now live storage. A negative control relinks the same objects with the duplicate allocation restored,
+boots successfully and must hit the allocation guard during compaction. These dynamic
+checks establish the exercised paths, not a maximum over all possible paths.
 
 ## Configuration data migration
 
@@ -95,7 +120,8 @@ remain excluded from the load image.
 
 `tests/test_config_relocation.py` poisons the original configuration text in the
 isolated oracle, edits a diagnostic to a longer string and checks its real UART
-output, then builds a whole-image variant with early/late code shifted by 16/32 bytes
+output. `tests/test_firmware_relocation.py` builds a shared whole-image variant
+with early/late code shifted by 16/32 bytes
 configuration constants shifted by 256 bytes and initialized SRAM shifted by 64
 bytes, exercising reset, UART commands and persistence. The configuration cache
 is now a named `syscon_configuration_state` object whose load/runtime addresses

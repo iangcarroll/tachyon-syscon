@@ -1,95 +1,173 @@
+/* ADC setup, raw conversion, voltage scaling and factory-calibrated temperature. */
 #include "adc_target.h"
+#include "adc_state.h"
 #include "hal_helpers.h"
 #include "mspm0_core_target.h"
 #include "runtime_memory.h"
 #include "runtime_arithmetic.h"
-#define U8(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
-#define U32(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
+
+#define BYTE(address) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(address))
+#define REGISTER(address) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(address))
+#define STATE syscon_adc_state
+#define ADC_BASE 0x40004000u
+#define VREF_BASE 0x40030000u
+#define FACTORY_ACCESS 0x40401300u
+#define FACTORY_TEMPERATURE_CALIBRATION 0x41c4003cu
+#define ADC_RESULT_ALIAS 0x556280u
+
+enum {
+    ADC_CLOCK_SOURCE = 1,
+    ADC_CLOCK_FREQUENCY_RANGE = 5,
+    ADC_CLOCK_DIVIDER_ENCODING = 2,
+    REFERENCE_READY_ATTEMPTS = 100,
+    REFERENCE_WAIT_CYCLES = 320,
+    CONVERSION_CYCLES = 32000,
+    SETTLE_CYCLES = 3200,
+};
+
+volatile syscon_adc_state_t syscon_adc_state
+    __attribute__((section(".bss.syscon_adc_state")));
+volatile uint8_t syscon_adc_vref_initialized
+    __attribute__((section(".bss.syscon_adc_vref_initialized")));
+
 extern void syscon_cycle_delay(uint32_t);
-static void adc_assert(uint32_t line,uint32_t expression) {
-    uint32_t file=0xdee4u;
-    if(syscon_rt_strrchr((const void *)(uintptr_t)file,'/'))
-        file=(uint32_t)(uintptr_t)syscon_rt_strrchr((const void *)(uintptr_t)file,'/')+1u;
-    syscon_target_assert(file,line,expression);
+
+static void adc_assert(uint32_t original_line, const char *expression)
+{
+    /* Preserve the public diagnostic text and original line identifiers. */
+    syscon_target_assert((uint32_t)(uintptr_t)"hal_adc.cpp", original_line,
+                         (uint32_t)(uintptr_t)expression);
 }
-uint64_t syscon_target_adc_init(uint32_t pin,uint32_t config) {
-    uint32_t descriptor=syscon_hal_adc_lookup((uint8_t)pin);
-    if(!descriptor)adc_assert(0x15u,0xdf28u);
-    if(!config)adc_assert(0x16u,0xdf37u);
-    uint32_t base=U32(descriptor+4u);
-    U32(base+0x804u)=0xb1000003u;
-    U32(base+0x800u)=0x26000001u;
-    uint32_t clock[2];clock[0]=U32(0xabe0u);clock[1]=U32(0xabe4u);
-    syscon_hal_adc_clock(base,(uint32_t)(uintptr_t)clock);
-    base=U32(descriptor+4u);
-    uint32_t old=U32(base+0x1104u);
-    U32(base+0x1104u)=old^((old^0x100000u)&0x130001u);
-    old=U32(base+0x1108u);U32(base+0x1108u)=old&0xe0e0fff8u;
-    U32(base+0x1114u)=0x1au;
-    old=U32(base+0x1100u);U32(base+0x1100u)=old|0x10000u;
-    syscon_rt_memcpy((void *)0x20000685u,(const void *)(uintptr_t)config,7);
-    uint32_t high=U8(config+5u),low=U8(config+4u);
-    U8(0x2000068du)=(uint8_t)high;
-    U8(0x2000068cu)=(uint8_t)low;
-    U8(0x2000068eu)=0;U8(0x2000068fu)=0;
-    return (uint64_t)clock[0]<<32;
+
+uint64_t syscon_target_adc_init(uint32_t pin, uint32_t config)
+{
+    volatile syscon_adc_channel_t *descriptor =
+        (volatile syscon_adc_channel_t *)(uintptr_t)syscon_hal_adc_lookup((uint8_t)pin);
+    if (!descriptor)
+        adc_assert(21, "adc != nullptr");
+    if (!config)
+        adc_assert(22, "config != nullptr");
+
+    uint32_t base = descriptor->peripheral;
+    REGISTER(base + 0x804u) = 0xb1000003u;
+    REGISTER(base + 0x800u) = 0x26000001u;
+    uint32_t clock[2] = {
+        ADC_CLOCK_SOURCE | (ADC_CLOCK_FREQUENCY_RANGE << 8),
+        ADC_CLOCK_DIVIDER_ENCODING << 24,
+    };
+    syscon_hal_adc_clock(base, (uint32_t)(uintptr_t)clock);
+    base = descriptor->peripheral;
+    uint32_t old = REGISTER(base + 0x1104u);
+    REGISTER(base + 0x1104u) = old ^ ((old ^ 0x100000u) & 0x130001u);
+    old = REGISTER(base + 0x1108u);
+    REGISTER(base + 0x1108u) = old & 0xe0e0fff8u;
+    REGISTER(base + 0x1114u) = 0x1au;
+    old = REGISTER(base + 0x1100u);
+    REGISTER(base + 0x1100u) = old | 0x10000u;
+
+    syscon_rt_memcpy((void *)STATE.configuration, (const void *)(uintptr_t)config,
+                    sizeof(STATE.configuration));
+    /* Read the caller again after copying. It may alias the retained buffer. */
+    uint32_t high = BYTE(config + 5u);
+    uint32_t low = BYTE(config + 4u);
+    STATE.scale_le[1] = (uint8_t)high;
+    STATE.scale_le[0] = (uint8_t)low;
+    STATE.scale_le[2] = 0;
+    STATE.scale_le[3] = 0;
+    return (uint64_t)clock[0] << 32;
 }
-uint32_t syscon_target_adc_temperature(void) {
-    uint32_t initialized=U8(0x20000694u);
-    if(!initialized) {
-        U32(0x40030804u)=0xb1000001u;U32(0x40030800u)=0x26000001u;
-        uint8_t clock[2]={8,0};
-        syscon_hal_vref_clock(0x40030000u,(uint32_t)(uintptr_t)clock);
-        union {uint32_t words[3];uint16_t halves[6];} configuration;
-        syscon_rt_memset(&configuration,0,12);configuration.halves[0]=0x8001u;
-        syscon_hal_vref_config(0x40030000u,(uint32_t)(uintptr_t)&configuration);
-        U8(0x20000694u)=1;
+
+uint32_t syscon_target_adc_temperature(void)
+{
+    if (!syscon_adc_vref_initialized) {
+        REGISTER(VREF_BASE + 0x804u) = 0xb1000001u;
+        REGISTER(VREF_BASE + 0x800u) = 0x26000001u;
+        uint8_t clock[2] = {8, 0};
+        syscon_hal_vref_clock(VREF_BASE, (uint32_t)(uintptr_t)clock);
+        union { uint32_t words[3]; uint16_t halves[6]; } configuration;
+        syscon_rt_memset(&configuration, 0, sizeof(configuration));
+        configuration.halves[0] = 0x8001u;
+        syscon_hal_vref_config(VREF_BASE, (uint32_t)(uintptr_t)&configuration);
+        syscon_adc_vref_initialized = 1;
     }
-    uint32_t remaining=100;
+
+    uint32_t remaining = REFERENCE_READY_ATTEMPTS;
     do {
-        if(U32(0x40031104u)&1u)break;
-        --remaining;syscon_cycle_delay(320);
-    } while(remaining);
-    if(!(U32(0x40031104u)&1u))return 0x80000000u;
-    uint32_t old=U32(0x40005100u);U32(0x40005100u)=old&~1u;
-    U32(0x40005180u)=0x100020bu;
-    old=U32(0x40005100u);U32(0x40005100u)=old|1u;
-    old=U32(0x40005104u);U32(0x40005104u)=old|0x100u;
-    syscon_cycle_delay(32000);
-    old=U32(0x40005104u);U32(0x40005104u)=old&~0x100u;
-    syscon_cycle_delay(3200);
-    uint32_t measured=U32(0x4055a280u)&0xffffu;
-    uint32_t access=U32(0x40401300u)&7u;
-    U32(0x40401300u)=5;
-    uint32_t calibration=U32(0x41c4003cu);
-    U32(0x40401300u)=access;
-    if(!calibration || calibration==0xfffu)return 0x80000000u;
-    uint32_t product=(measured-calibration)*14000u;
-    return (uint32_t)syscon_rt_idiv32(product,0xffffe400u)+300u;
+        if (REGISTER(VREF_BASE + 0x1104u) & 1u)
+            break;
+        --remaining;
+        syscon_cycle_delay(REFERENCE_WAIT_CYCLES);
+    } while (remaining);
+    /* This final read is intentional: READY may change after the loop check. */
+    if (!(REGISTER(VREF_BASE + 0x1104u) & 1u))
+        return 0x80000000u;
+
+    uint32_t old = REGISTER(ADC_BASE + 0x1100u);
+    REGISTER(ADC_BASE + 0x1100u) = old & ~1u;
+    REGISTER(ADC_BASE + 0x1180u) = 0x100020bu;
+    old = REGISTER(ADC_BASE + 0x1100u);
+    REGISTER(ADC_BASE + 0x1100u) = old | 1u;
+    old = REGISTER(ADC_BASE + 0x1104u);
+    REGISTER(ADC_BASE + 0x1104u) = old | 0x100u;
+    syscon_cycle_delay(CONVERSION_CYCLES);
+    old = REGISTER(ADC_BASE + 0x1104u);
+    REGISTER(ADC_BASE + 0x1104u) = old & ~0x100u;
+    syscon_cycle_delay(SETTLE_CYCLES);
+
+    uint32_t measured = REGISTER(ADC_BASE + ADC_RESULT_ALIAS) & 0xffffu;
+    uint32_t access = REGISTER(FACTORY_ACCESS) & 7u;
+    REGISTER(FACTORY_ACCESS) = 5;
+    uint32_t calibration = REGISTER(FACTORY_TEMPERATURE_CALIBRATION);
+    REGISTER(FACTORY_ACCESS) = access;
+    if (!calibration || calibration == 0xfffu)
+        return 0x80000000u;
+
+    /* Deliberate 32-bit wrapping subtraction/product, then signed division.
+     * The result is in tenths of a degree C, referenced to 30 degrees C. */
+    uint32_t product = (measured - calibration) * 14000u;
+    return (uint32_t)syscon_rt_idiv32(product, (uint32_t)-7168) + 300u;
 }
-uint32_t syscon_target_adc_raw(uint32_t pin) {
-    uint32_t descriptor=syscon_hal_adc_lookup((uint8_t)pin);
-    if(!descriptor)adc_assert(0x83u,0xdf28u);
-    uint32_t base=U32(descriptor+4u);
-    uint32_t old=U32(base+0x1100u);U32(base+0x1100u)=old&~1u;
-    uint32_t channel=U8(descriptor+8u);
-    uint32_t slot=U8(descriptor+9u);
-    U32(base+0x1180u+slot*4u)=channel|0x1000000u;
-    old=U32(base+0x1100u);U32(base+0x1100u)=old|1u;
-    old=U32(base+0x1104u);U32(base+0x1104u)=old|0x100u;
-    syscon_cycle_delay(32000);
-    base=U32(descriptor+4u);old=U32(base+0x1104u);U32(base+0x1104u)=old&~0x100u;
-    syscon_cycle_delay(3200);
-    slot=U8(descriptor+9u);base=U32(descriptor+4u);
-    return U32(base+0x556280u+slot*4u)&0xffffu;
+
+uint32_t syscon_target_adc_raw(uint32_t pin)
+{
+    volatile syscon_adc_channel_t *descriptor =
+        (volatile syscon_adc_channel_t *)(uintptr_t)syscon_hal_adc_lookup((uint8_t)pin);
+    if (!descriptor)
+        adc_assert(131, "adc != nullptr");
+    uint32_t base = descriptor->peripheral;
+    uint32_t old = REGISTER(base + 0x1100u);
+    REGISTER(base + 0x1100u) = old & ~1u;
+    uint32_t channel = descriptor->channel;
+    uint32_t slot = descriptor->result_slot;
+    REGISTER(base + 0x1180u + slot * 4u) = channel | 0x1000000u;
+    old = REGISTER(base + 0x1100u);
+    REGISTER(base + 0x1100u) = old | 1u;
+    old = REGISTER(base + 0x1104u);
+    REGISTER(base + 0x1104u) = old | 0x100u;
+    syscon_cycle_delay(CONVERSION_CYCLES);
+    /* A delay can expose descriptor changes. Reload both base and slot. */
+    base = descriptor->peripheral;
+    old = REGISTER(base + 0x1104u);
+    REGISTER(base + 0x1104u) = old & ~0x100u;
+    syscon_cycle_delay(SETTLE_CYCLES);
+    slot = descriptor->result_slot;
+    base = descriptor->peripheral;
+    return REGISTER(base + ADC_RESULT_ALIAS + slot * 4u) & 0xffffu;
 }
-uint32_t syscon_target_adc_millivolts(uint32_t pin) {
-    uint32_t raw=syscon_target_adc_raw(pin);
-    if(raw&0x80000000u)return raw;
-    uint32_t high=U8(0x2000068du),low=U8(0x2000068cu),third=U8(0x2000068eu);
-    uint32_t fourth=U8(0x2000068fu);
-    uint32_t product=raw*(low|(high<<8)|(third<<16)|(fourth<<24));
-    /* Defined unsigned reconstruction of signed division by 4096 toward zero. */
-    uint32_t rounded=product+((product&0x80000000u)?4095u:0u);
-    return (rounded>>12)|((rounded&0x80000000u)?0xfff00000u:0u);
+
+uint32_t syscon_target_adc_millivolts(uint32_t pin)
+{
+    uint32_t raw = syscon_target_adc_raw(pin);
+    if (raw & 0x80000000u)
+        return raw;
+    /* Keep byte access order, including the high byte read before the low. */
+    uint32_t high = STATE.scale_le[1];
+    uint32_t low = STATE.scale_le[0];
+    uint32_t third = STATE.scale_le[2];
+    uint32_t fourth = STATE.scale_le[3];
+    uint32_t product = raw * (low | (high << 8) | (third << 16) | (fourth << 24));
+    /* Signed division by 4096 toward zero without implementation-defined
+     * signed shifts or overflow. */
+    uint32_t rounded = product + ((product & 0x80000000u) ? 4095u : 0u);
+    return (rounded >> 12) | ((rounded & 0x80000000u) ? 0xfff00000u : 0u);
 }

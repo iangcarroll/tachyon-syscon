@@ -85,7 +85,8 @@ Start with these production source groups when making a change:
 | Power-button debounce and press/release events | `target/power_key_target.c` | `include/power_key_state.h`, `include/power_key_text.h` |
 | Timers, scheduled tasks and retained boot state | `target/timers_target.c`, `target/tasks_target.c`, `target/retained_target.c` | `include/scheduling_state.h` |
 | Main loop and command dispatch | `target/application_target.c`, `target/config_commands_target.c` | Remaining fixed state is still being migrated |
-| Modem power, ADC and RGB | `target/sg560d_target.c`, `target/power_policy_target.c`, `target/power_manager_target.c`, `target/adc_target.c`, `target/rgb_target.c` | Remaining fixed state/tables are still being migrated |
+| ADC conversion and calibration | `target/adc_target.c`, ADC lookup in `target/hal_helpers.c` | `include/adc_state.h` |
+| Modem power and RGB | `target/sg560d_target.c`, `target/power_policy_target.c`, `target/power_manager_target.c`, `target/rgb_target.c` | Remaining fixed state/tables are still being migrated |
 | Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
 
 Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide

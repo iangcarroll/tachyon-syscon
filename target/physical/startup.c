@@ -3,6 +3,7 @@
 extern uint32_t __ram_exec_load[],__ram_exec_start[],__ram_exec_end[];
 extern uint32_t __ram_extra_load[],__ram_extra_start[],__ram_extra_end[];
 extern uint32_t __physical_initial_data[],__extra_bss_start[],__extra_bss_end[];
+extern uint32_t __state_bss_start[],__state_bss_end[];
 extern uint32_t __data_load[],__data_start[],__data_end[];
 extern void syscon_target_runtime_init(void);
 extern void syscon_target_timestamp_constructor(void),syscon_target_queue_constructor(void);
@@ -19,6 +20,7 @@ _Noreturn void syscon_physical_reset(void){
     copy(__ram_extra_start,__ram_extra_load,__ram_extra_end);
     copy(__data_start,__data_load,__data_end);
     for(volatile uint32_t *p=__extra_bss_start;p<__extra_bss_end;p++)*p=0;
+    for(volatile uint32_t *p=__state_bss_start;p<__state_bss_end;p++)*p=0;
     /* The original preinit list is empty and its init hook at7a50 returns. */
     syscon_target_runtime_init();
     syscon_target_main();syscon_hardfault();for(;;){}

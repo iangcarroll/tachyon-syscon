@@ -61,11 +61,11 @@ def legacy_engines():
     engines.clear()
 
 
-def legacy_compaction(image,value,engines):
+def legacy_compaction(image,value,engines,stack_floor=0x20000820):
     from test_config_helpers import slot
     image=bytearray(image.ljust(65536,b'\xff'))
     image[0xfc00:]=slot(b'confVersion',b'1')+slot(b'legacy',value)*14+b'\xff'*64
-    machine,_=boot(bytes(image));engines.append(machine)
+    machine,_=boot(bytes(image),stack_floor=stack_floor);engines.append(machine)
     before=bytes(machine.flash[0xfc00:])
     output=command_reply(machine,'CONFIG_SET new value')
     assert b'Compaction complete:' in output and b'[MFGD] PASS\r\n' in output
