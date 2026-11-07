@@ -129,7 +129,7 @@ def test_recovered_constant_bytes_except_explicit_pointer_relocations(physical_f
         lo,hi=int(segment['start'],16),int(segment['end_exclusive'],16)
         assert all(image[a]==reference[a] for a in range(lo,hi) if a not in relocated)
 
-def test_audit_rejects_wrong_fixed_ram_executor_address(physical_fixture,tmp_path):
+def test_audit_rejects_flash_executor_outside_copied_sram(physical_fixture,tmp_path):
     elf,_,audit=physical_fixture
     bad=tmp_path/'invalid-test-only.elf';data=bytearray(elf.read_bytes())
     with elf.open('rb') as stream:
@@ -137,7 +137,7 @@ def test_audit_rejects_wrong_fixed_ram_executor_address(physical_fixture,tmp_pat
         index=next(i for i,s in enumerate(table.iter_symbols()) if s.name=='syscon_target_flash_ram_execute')
         offset=table['sh_offset']+index*table['sh_entsize']+4
     struct.pack_into('<I',data,offset,audit['symbols']['syscon_target_main']);bad.write_bytes(data)
-    assert 'Original-ABI flash executor is not at SRAM20000001' in elf_audit(bad)['issues']
+    assert 'Flash executor is not a Thumb entry in the copied executable SRAM section' in elf_audit(bad)['issues']
 
 
 def test_all_known_original_code_pointers_in_imported_data_are_relocations():
@@ -239,3 +239,23 @@ def test_initialized_data_load_is_aligned_after_halfword_text(physical_fixture,t
         *map(str,elf.parent.glob('*.o')),'-Wl,--gc-sections','-Wl,-T,'+str(linker),
         '-o',str(tmp_path/'misaligned.elf')],capture_output=True,text=True)
     assert result.returncode and 'Reset data copy requires word alignment' in result.stderr
+
+
+def test_linker_moved_flash_executor_is_copied_and_executes_only_sram(physical_fixture,tmp_path):
+    elf,_,original_audit=physical_fixture
+    script=(ROOT/'target/physical/firmware.ld').read_text()
+    needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
+    assert script.count(needle)==1
+    script=script.replace(needle,'__ram_exec_start = .; . += 8; KEEP(*(.ram_original_flash))')
+    linker=tmp_path/'moved-executor.ld';linker.write_text(script)
+    moved=tmp_path/'moved-executor.elf'
+    objects=[str(p) for p in elf.parent.glob('*.o')]
+    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
+                    '-Wl,--gc-sections','-Wl,-T,'+str(linker),'-o',str(moved)],check=True)
+    audit=elf_audit(moved)
+    assert not audit['issues']
+    assert audit['symbols']['syscon_target_flash_ram_execute']==original_audit['symbols']['syscon_target_flash_ram_execute']+8
+    binary=tmp_path/'moved-executor.bin';emit_binary(moved,binary)
+    # Execute reset, copy, invocation and the real busy polling loop. A stale
+    # numeric call would execute the padding instead of the moved executor.
+    test_reset_initializes_globals_and_flash_busy_executes_only_sram((moved,binary,audit))

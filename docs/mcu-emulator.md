@@ -217,11 +217,23 @@ Its [battery-manager client](https://github.com/particle-iot/tachyon-ubuntu-24.0
 forwards charge-current and USB-input-current limits; the
 [transport locates ADSP `charger_pd`](https://github.com/particle-iot/tachyon-ubuntu-24.04-kernel/blob/5d96749f260a789339a6803cca8fd21312d73e4a/drivers/soc/qcom/pmic_glink.c#L344).
 This supports remote charging control, but does not reveal the complete CC/CV
-or JEITA state machine. The installed kernel/DT binding and charging silicon
-have not been matched to this public source. Syscon tests cannot stand in for
-that missing charging evidence.
+or JEITA state machine. Read-only ADB probing on 2026-11-07 verified that the installed
+`6.8.0-1058-particle` kernel binds `qcom_battmgr.pmic_glink_power_supply` to
+`pmic_glink.power-supply.0`; its DT compatibility is `qcom,qcm6490-pmic-glink`.
+The running ADSP uses `qcom/qcm6490/adsp.mdt` (file SHA256
+`a6b94d449dbaaad4bf5b625cb5c00717f3055285881aa5d5e76a9fd88f43266d`). This confirms
+the live Linux transport boundary, not a match to every line of the public
+kernel commit or identification of charging silicon/remote charging policy.
+Syscon tests cannot stand in for that missing charging evidence.
 
-Next charging evidence should identify the live kernel/driver/DT and ADSP
-firmware, then record existing battery voltage, current, temperature, status,
-health and current-limit telemetry over normal charging and supply changes.
+The attached battery reported full charge, good health, 100%, approximately
+4.19 V, zero current and 20 C with USB online. Syscon READ_PWR separately
+reported VBAT 4212 mV, VUSB 5176 mV, VPH 4311 mV, header 4974 mV and 1V8 1806 mV.
+These are snapshots from two measurement paths, not calibrated analog truth or
+a charging curve. The Linux `power_now` value was inconsistent with the reported
+zero battery current; do not use that field as validated wattage.
+
+Next charging evidence should identify charging silicon and remote policy, then
+record voltage, current, temperature, status, health and current-limit telemetry
+over normal charging and supply changes. No charge-limit writes were performed.
 Do not infer charging thresholds from the synthetic syscon voltage curves.

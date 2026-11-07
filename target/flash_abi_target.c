@@ -17,7 +17,7 @@ uint32_t syscon_target_flash_ram_execute(uint32_t base) {
     return status;
 }
 uint32_t syscon_target_flash_veneer(uint32_t base) {
-    return ((uint32_t (*)(uint32_t))(uintptr_t)0x20000001u)(base);
+    return syscon_target_flash_ram_execute(base);
 }
 uint32_t syscon_target_flash_erase(uint32_t base,uint32_t address,uint32_t size) {
     W(base+0x1104u)=size|2u;W(base+0x1120u)=address;

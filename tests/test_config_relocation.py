@@ -112,6 +112,9 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     script=script.replace('.text : {','.text : { . += 32;')
     assert script.count('.data : ALIGN(4) {')==1
     script=script.replace('.data : ALIGN(4) {','.data ORIGIN(RAM_AUX)+64 : ALIGN(4) {')
+    needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
+    assert script.count(needle)==1
+    script=script.replace(needle,'__ram_exec_start = .; . += 8; KEEP(*(.ram_original_flash))')
     linker.write_text(script)
     output=tmp_path/'physical'
     subprocess.run([sys.executable,str(tree/'tools/build_physical_firmware.py'),
@@ -138,6 +141,10 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     machines=[boot(image)[0] for image in [load_image(),(output/'firmware.bin').read_bytes()]]
     poison=b'\xa5'*22
     machines[1].cpu.mem_write(0x20000030,poison)
+    obsolete=[(0x200000da,3),(0x20000534,216),(0x20000610,112)]
+    for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
+    ticks=manifest['layout_audit']['symbols']['syscon_timer_state']+104
+    clock_before=int.from_bytes(machines[1].read(ticks,8),'little')
     for command in ['CONFIG_INTERNAL','CONFIG_SET sys.edl_timer 17','CONFIG_INTERNAL']:
         replies=[command_reply(machine,command) for machine in machines]
         assert all(b'PASS\r\n' in reply for reply in replies)
@@ -145,6 +152,8 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     assert b'sys.edl_timer: 17' in replies[1]
     assert bytes(machines[1].cpu.mem_read(0x20000030,len(poison)))==poison
     assert machines[0].flash[0xf800:]==machines[1].flash[0xf800:]
+    assert int.from_bytes(machines[1].read(ticks,8),'little')>clock_before
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
 
     # Legacy values must also remain literal after recompilation moves code,
     # constants and SRAM. No reserved byte at a private return address is needed.

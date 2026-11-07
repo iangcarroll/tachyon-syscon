@@ -54,6 +54,23 @@ Audited files are under `../re/pkg/particle-tachyon-syscon_1.1.1-1_arm64/` relat
 - `data/lib/systemd/system/particle-tachyon-syscon.service:7` runs upgrade and identity backup; `control/postinst:21-29` starts/restarts that service during package configuration. Installing the package can initiate an update.
 - `particle-tachyon-syscon.sh:277-289` skips the ordinary upgrade if the running application cannot answer its version query; `--force` bypasses that gate. That option does not prove that recovery will work. Lines319-330 retry the programmer up to10 times.
 
+### Read-only observation on the attached board (2026-11-07)
+
+ADB provided a root Linux shell on Ubuntu 24.04.5, distro 1.2.29, kernel
+`6.8.0-1058-particle`, board setting `formfactor_dvt`. The installed syscon package
+is `1.1.1-1`; `dpkg --verify` reported no changed package files. The programmer,
+GPIO control script, UART client, wrapper script and firmware file hashes match
+the locally audited package. A direct UART VERSION command returned `1.0.52`.
+The normal boot service independently read the same version and skipped its
+upgrade, then completed successfully.
+
+CONFIG_DUMP, CONFIG_ID_DUMP and CONFIG_INTERNAL were each read twice with
+identical output. These are logical configuration/identity backups, not raw MAIN
+or NONMAIN dumps. Device identifiers and raw output remain in a private local
+capture outside Git. VERSION, CONFIG_INTERNAL and READ_PWR all answered through
+the packaged UART client. No BSL entry, GPIO operation, reset or flash operation
+was requested. The original-only rehearsal and SWD recovery gates remain open.
+
 ### Exact packaged erase/program boundary
 
 The packaged executable identifies itself as `0.4.2-0-g20a0bb62`. Both retained package versions contain the same executable. Its corresponding fork source was not located; the conclusions here come from the actual AArch64 binary, not an assumed upstream implementation.

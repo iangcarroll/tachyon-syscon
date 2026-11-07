@@ -2,7 +2,7 @@
 #define SYSCON_SCHEDULING_TARGET_H
 #include <stdint.h>
 #include "syscon.h"
-/* Original ABI: no host context or RAM argument. Fixed firmware 1.0.52 layout. */
+/* Original entry signatures; production state is allocated by the linker. */
 void syscon_target_timer_tick(void);                 /* 76f8 */
 void syscon_target_timer_init(void);                 /* 776c */
 uint64_t syscon_target_now(void);                    /* 77b4 */

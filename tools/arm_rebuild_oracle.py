@@ -40,9 +40,12 @@ class ArmRebuildOracle:
             for segment in elf.iter_segments():
                 if segment['p_type']!='PT_LOAD':continue
                 address=segment['p_vaddr'];size=segment['p_memsz']
+                assert segment['p_filesz']<=size
+                if not size:continue  # Explicit optional fixture PHDR with no section.
                 assert ((self.CODE<=address and address+size<=self.CODE+0x80000) or
                         (self.DATA<=address and address+size<=self.DATA+0x8000) or
-                        (address==self.STATE+0x30 and size<=22 and not segment['p_flags']&1))
+                        (any(address==self.STATE+offset and size<=limit for offset,limit in
+                             [(0x30,22),(0xda,3),(0x534,216),(0x610,112)]) and not segment['p_flags']&1))
                 if segment['p_filesz']:self.cpu.mem_write(address,segment.data())
             for symbol in elf.get_section_by_name('.symtab').iter_symbols():
                 if symbol['st_shndx']!='SHN_UNDEF':self.symbols[symbol.name]=symbol['st_value']
