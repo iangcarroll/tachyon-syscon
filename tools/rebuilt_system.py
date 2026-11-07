@@ -16,8 +16,10 @@ from inventory import ROOT, load_image
 SCENARIO=ROOT/'fixtures/emulator/tachyon-synthetic.json'
 
 
-def boot(image,scenario=SCENARIO,budget=2000000):
+def boot(image,scenario=SCENARIO,budget=2000000,observer=None):
     machine,inputs=from_scenario(scenario,image)
+    if observer is not None:
+        observer(machine)  # Install read-only observers before the first instruction.
     observation={'minimum_msp':0x20001000,'main_loop_reached':False}
     pending=False
     def memory(cpu,kind,address,size,value,unused):
@@ -109,8 +111,9 @@ def compare(candidate_image,scenario=SCENARIO):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--firmware',type=Path,default=ROOT/'build/physical-firmware/firmware.bin')
-    parser.add_argument('--report',type=Path,default=ROOT/'analysis/rebuilt-system-session.json')
+    parser.add_argument('--report',type=Path,default=ROOT/'build/rebuilt-system-session.json')
     args=parser.parse_args();result=compare(args.firmware.read_bytes())
+    args.report.parent.mkdir(parents=True,exist_ok=True)
     args.report.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'report':str(args.report),'persistent_flash_equal':result['persistent_flash_equal'],
         'sessions':[{k:row[k] for k in ('command','equal_after_timestamp_normalization')} for row in result['sessions']]},indent=2))

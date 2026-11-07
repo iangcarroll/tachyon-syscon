@@ -42,10 +42,10 @@ def write_report(executed,hooks,exitstatus,initial_inputs=None,test_counts=None)
                             'Executing a reference instruction is not proof that its C replacement is correct.',
                             'No branch/path completeness or hardware equivalence is claimed.'])
     encoded=json.dumps(report,indent=2)+'\n'
-    runs=ROOT/'analysis/coverage-runs'
-    runs.mkdir(exist_ok=True)
+    runs=ROOT/'build/coverage-runs'
+    runs.mkdir(parents=True,exist_ok=True)
     (runs/f'{time.time_ns()}-{os.getpid()}.json').write_text(encoded)
-    destination=Path(os.environ.get('SYSCON_COVERAGE_OUTPUT',str(ROOT/'analysis/test-instruction-coverage.json')))
+    destination=Path(os.environ.get('SYSCON_COVERAGE_OUTPUT',str(ROOT/'build/test-instruction-coverage.json')))
     destination.parent.mkdir(parents=True,exist_ok=True)
     temporary=destination.with_name(destination.name+f'.{os.getpid()}.tmp')
     temporary.write_text(encoded)

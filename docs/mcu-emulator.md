@@ -125,10 +125,10 @@ and read it again after a fresh boot from mutated emulated flash. A NACK
 negative control changes the firmware's failure path; missing factory data and
 unspecified write-only reads fail explicitly.
 
-`analysis/emulation-boot-version.json` is the standalone original-image run.
-`analysis/full-suite-checkpoint.json` records the combined test outcome and
-source hashes. Neither report means the reconstructed C has been linked into a
-physical-layout replacement image. No hardware was attached, erased or flashed.
+The reports under `analysis/` are historical snapshots. Current runs write
+under `build/`, and CI uploads artifacts for its exact revision. The physical
+build now links a complete experimental image; emulator results do not establish
+hardware compatibility. No hardware is attached, erased or flashed by these tests.
 
 ## Complete rebuilt-image comparison
 
@@ -146,7 +146,7 @@ instruction counts produce different virtual elapsed times and interrupt counts;
 this comparison does not assert cycle equivalence. The reference executed
 1,107,734 instructions and the rebuilt image 1,392,644 through the first command
 session. Their boot-only minimum MSP values were `0x20000c98` and `0x20000c80`.
-Those observed peaks are not maximum stack bounds. During the current command
+Those observed peaks are not maximum stack bounds. During that recorded command
 session, minimum MSP was `0x20000b58` for the original and `0x20000b48` for the
 source image; commands wait for an actual PASS/FAIL reply, not a fixed delay.
 
@@ -161,3 +161,67 @@ Physical layout and source provenance are documented in
 in [physical-stack-audit.md](physical-stack-audit.md) independently records
 unresolved indirect calls, recursion and exception nesting. Successful sessions
 cannot replace those missing proof obligations.
+
+
+## Replayable cold-start scenarios
+
+Build a fresh candidate, then run a bounded original/rebuilt comparison:
+
+```sh
+make inputs physical-firmware
+.venv/bin/python tools/functional_scenarios.py fixtures/emulator/scenarios/cold-command.json --original firmware/syscon-1.0.52.bin --candidate build/physical-firmware/firmware.bin --seed 73 --output build/scenarios/command-73
+```
+
+The other small fixtures cover saved `sys.auto_boot` across a fresh reset, a
+missing modem rail and an explicitly readiness-paced UART peer. The default
+peer starts after power-key release plus a settling interval, then sends at a
+fixed virtual spacing; it does not wait for each RX interrupt to be unmasked.
+The adaptive peer is a separate contract. Neither represents physical baud or
+cycle accuracy. Seed mutation currently varies rail rise delay, UART spacing
+and USB ADC samples within narrow ranges; this is an initial corpus, not a
+comprehensive stateful fuzzer.
+
+Each run retains `replay.json`, per-image results/traces and `summary.json` under
+the output directory. Replay the saved JSON as the scenario argument without
+`--seed` to reuse the exact input. Comparisons include ordered effective GPIO
+and expander output/direction changes from reset, protocol replies and persistent
+flash. Logger timestamps are normalized; power-action ordering is not. Both
+images must also reach the scenario's expected outcome. A missing rail must
+produce the expected error and power cut, not simply match a stuck peer.
+Instruction, virtual-step and wall-time budgets bound execution. CI retains
+these artifacts without committing generated traces.
+
+## Battery and power curves
+
+`tests/test_power_curves.py` runs sequential synthetic ADC inputs through the
+original and rebuilt SG560D, power-manager, power-policy and ADC routines
+together. It checks battery/NTC presence boundaries, USB/header/battery routing,
+remembered VPH dips followed by rail loss, thermal retry delays, five-second USB
+debounce, battery-low retry gating, stuck-output assertions, and the 49/50 ms
+handover from generated battery supply to the real battery. The last case checks
+break-before-make output order and restoration of real NTC/ID signals.
+
+These are subsystem comparisons: clock, GPIO/expander, UART and task execution
+have explicit test ports, and prior ON state is initialized where needed. The
+cold-start scenarios above are the separate whole-image tests. ADC curves test
+firmware decisions, not electrochemical behavior or analog rail settling. The
+baseline preserves observed quirks: the syscon die-temperature threshold delays
+automatic retry rather than disabling it, and invalid temperature calibration is
+not treated as a hot reading. These are compatibility observations, not safety
+endorsements or battery-temperature measurements.
+
+Charging requires a separate integration boundary. Particle's public kernel at
+commit `5d96749f260a789339a6803cca8fd21312d73e4a` binds PMIC GLINK in the
+[Tachyon DTS](https://github.com/particle-iot/tachyon-ubuntu-24.04-kernel/blob/5d96749f260a789339a6803cca8fd21312d73e4a/arch/arm64/boot/dts/qcom/qcm6490-tachyon.dts#L274).
+Its [battery-manager client](https://github.com/particle-iot/tachyon-ubuntu-24.04-kernel/blob/5d96749f260a789339a6803cca8fd21312d73e4a/drivers/power/supply/qcom_battmgr.c)
+forwards charge-current and USB-input-current limits; the
+[transport locates ADSP `charger_pd`](https://github.com/particle-iot/tachyon-ubuntu-24.04-kernel/blob/5d96749f260a789339a6803cca8fd21312d73e4a/drivers/soc/qcom/pmic_glink.c#L344).
+This supports remote charging control, but does not reveal the complete CC/CV
+or JEITA state machine. The installed kernel/DT binding and charging silicon
+have not been matched to this public source. Syscon tests cannot stand in for
+that missing charging evidence.
+
+Next charging evidence should identify the live kernel/driver/DT and ADSP
+firmware, then record existing battery voltage, current, temperature, status,
+health and current-limit telemetry over normal charging and supply changes.
+Do not infer charging thresholds from the synthetic syscon voltage curves.
