@@ -1,7 +1,14 @@
 name: Local reconstruction checks
 on:
   push:
+    branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      run_proofs:
+        description: Run optional checksum proof tests
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -30,14 +37,34 @@ jobs:
           mkdir -p arm-gnu
           tar -xJf "$toolchain_archive" --strip-components=1 -C arm-gnu
           echo "$RUNNER_TEMP/arm-gnu/bin" >> "$GITHUB_PATH"
+      - name: Fetch and verify pinned test inputs
+        run: |
+          python tools/fetch_references.py
+          python tools/fetch_firmware.py --with-updater
       - name: Run differential and complete-image emulation tests
         env:
-          SYSCON_COVERAGE_OUTPUT: analysis/ci-test-checkpoint.json
-        run: python -m pytest -q tests
+          SYSCON_COVERAGE_OUTPUT: build/ci/test-checkpoint.json
+          SYSCON_FETCH_NETWORK: '1'
+          SYSCON_SCENARIO_OUTPUT: build/ci/scenarios
+        run: python -m pytest -q tests --junitxml=build/ci/functional-tests.xml
+      - name: Audit the packaged updater offline
+        env:
+          SYSCON_UPDATER_BINARY: build/reference-tools/mspm0flash
+          PYTHONPATH: tools
+        run: |
+          python tools/audit_packaged_updater.py --binary "$SYSCON_UPDATER_BINARY" --output build/ci/updater-audit.json
+          python -m pytest -q tools/tests/test_audit_packaged_updater.py --junitxml=build/ci/updater-tests.xml
+      - name: Optional scoped proof tests
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_proofs }}
+        env:
+          PYTHONPATH: tools
+        run: python -m pytest -q tools/tests/test_proof_checksum.py tools/tests/test_proof_physical_checksum.py --junitxml=build/ci/proof-tests.xml
+      - name: Build the experimental physical image
+        run: python tools/build_physical_firmware.py --output build/ci/physical
       - name: Preserve test evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: local-emulation-evidence
-          path: analysis/ci-test-checkpoint.json
+          path: build/ci/
           if-no-files-found: ignore

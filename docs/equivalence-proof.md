@@ -78,7 +78,7 @@ ELF in Unicorn. Both results must match the solver's prediction and differ.
 This checks that the pipeline can reject incorrect rebuilt source, rather
 than merely emit successful reports.
 
-`tests/test_proof_checksum.py` also compares the subset's general-register and
+`tools/tests/test_proof_checksum.py` also compares the subset's general-register and
 NZCV semantics with independent Unicorn execution for MOVS, ADDS, EORS, ORRS,
 CMP and LDRB, including overflow/sign boundaries. These semantic checks are
 finite validation of the trusted interpreter, not a separate universal ISA
@@ -91,7 +91,7 @@ temporary directory, while the commands below regenerate persistent evidence.
 .venv/bin/python tools/proof_checksum.py --mutant --output analysis/proof-checksum-negative
 z3 analysis/proof-checksum/equivalence.smt2
 z3 analysis/proof-checksum/obligations.smt2
-.venv/bin/python -m pytest -q tests/test_proof_checksum.py
+PYTHONPATH=tools .venv/bin/python -m pytest -q tools/tests/test_proof_checksum.py
 ```
 
 This is a scoped, solver-checked ABI-function theorem under an explicit model

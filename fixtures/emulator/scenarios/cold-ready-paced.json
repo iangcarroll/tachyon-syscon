@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "name": "cold-ready-paced",
+  "initial": {
+    "reset_cause": 1,
+    "gpio_inputs": 1,
+    "adc_inputs": {
+      "1": 1423,
+      "2": 3035,
+      "3": 3793,
+      "5": 3035,
+      "8": 1821,
+      "9": 0,
+      "11": 2000
+    },
+    "temperature_reference": 2000,
+    "assumption": "Constructed cold/OFF inputs, not hardware captures: USB5V, header5V, battery/VPH4V, synthetic factory trim and zero NONMAIN; GPIO ICLR readback0. RESETCAUSE1 is TI PORHWFAIL and exercises firmware POR branch."
+  },
+  "startup": "command",
+  "rail_event": {
+    "enabled": true,
+    "after_key_ms": 100,
+    "sample": 2048
+  },
+  "uart": {
+    "ready_settle_ms": 10,
+    "ticks_per_byte": 10000,
+    "policy": "readiness-paced"
+  },
+  "limits": {
+    "tick_pumps": 4000,
+    "instructions_per_pump": 2000,
+    "instructions": 14000000,
+    "wall_seconds": 180
+  },
+  "expect": "on"
+}
