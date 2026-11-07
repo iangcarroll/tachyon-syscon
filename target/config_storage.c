@@ -1,4 +1,4 @@
-/* Original config storage path; exposed write-slot frame lives in ARM ABI glue. */
+/* Configuration storage with literal key/value encoding. */
 #include "config_helpers.h"
 #include "config_text.h"
 #include "config_state.h"
@@ -54,6 +54,20 @@ uint32_t syscon_cfg_finish_slot(uint32_t address,uint8_t *slot){
     }
     (void)syscon_cfg_slot_valid((const uint8_t *)(uintptr_t)address);
     return 1;
+}
+static void literal_field(uint8_t *out,const char *text){
+    unsigned i=0;
+    while(i<30 && text[i]){out[i]=(uint8_t)text[i];i++;}
+    out[i]=0;
+}
+uint32_t syscon_cfg_write_slot(uint32_t address,const char *key,const char *value){
+    if(!syscon_cfg_prepare_slot(address))return 0;
+    uint8_t slot[64];
+    syscon_rt_memset(slot,255,sizeof(slot));
+    /* Legacy flash may contain printf metacharacters that current commands
+       reject. Preserve those bytes; never interpret stored data as a format. */
+    literal_field(slot,key);literal_field(slot+32,value);
+    return syscon_cfg_finish_slot(address,slot);
 }
 uint32_t syscon_cfg_store_append(uint32_t base,uint32_t bytes,const char *key,const char *value){
     if(!syscon_cfg_field_writable((const uint8_t *)key)||!syscon_cfg_field_writable((const uint8_t *)value)){

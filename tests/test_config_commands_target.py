@@ -92,20 +92,32 @@ def test_config_internal_snapshots_getters_before_output_callbacks(commands_elf)
         assert p.reads[0]==list(GETTERS)
 
 
-def test_config_compaction_preserves_legacy_missing_argument_value_and_live_slot_aliases(commands_elf):
-    p=Pair(commands_elf)
-    for legacy in [b'%u',b'%x',b'%08X',b'%d/%u/%x',b'[%u]%u%u%u',b'%%-%u']:
-        p.p.put(0xfc00,bytes(slot(b'legacy',legacy))*15+b'\xff'*64)
-        p.call(0x4760,b'new:value:')
-        p.call(0x4714,b'legacy:')
+def test_config_compaction_preserves_legacy_values_literally(commands_elf):
+    for legacy in [b'%s',b'%u',b'%x',b'%08X',b'%d/%u/%x',b'[%u]%u%u%u',b'%%-%u',b'%n']:
+        p=Pair(commands_elf)
+        p.p.put(0xf800,b'\x5a'*1024)
+        p.p.put(0xfc00,bytes(slot(b'legacy',legacy))*15+b'\xa5'*64)
+        p.p.candidate.put(ARGS,b'new:value:\0')
+        assert p.p.candidate.call('syscon_target_cmd_config_set',ARGS,p.printers[1],count=3000000)==1
+        p.p.candidate.put(ARGS,b'legacy:\0');p.outputs[1].clear()
+        assert p.p.candidate.call('syscon_target_cmd_config_get',ARGS,p.printers[1],count=3000000)==1
+        assert any(args==(b'legacy',legacy) for _,args in p.outputs[1])
+        assert p.p.candidate.read(0xfc40,64)==bytes(slot(b'legacy',legacy))
+        # Erase is sector-wide even though only 15 records are usable.
+        expected=bytes(slot(b'new',b'value'))+bytes(slot(b'legacy',legacy))+b'\xff'*896
+        assert p.p.candidate.read(0xfc00,1024)==expected
+        assert p.p.candidate.read(0xf800,1024)==b'\x5a'*1024
 
 
-def test_direct_write_slot_uses_original_missing_first_argument_at_same_stack_address(commands_elf):
-    # Pointer-valued formatting requires the same physical stack placement;
-    # comparing relocated pointer text would hide a real ABI dependency.
+def test_direct_slot_encoding_is_literal_and_bounded(commands_elf):
     from test_config_helpers import KEY,VALUE
     p=controller_pair(commands_elf)
-    for key,value in [(b'%u',b'literal'),(b'%08x',b'%u/%u/%u'),(b'%%-%u',b'%%-%u')]:
+    rng=random.Random(0x51a7)
+    generated=[tuple(bytes(rng.randrange(1,128) for _ in range(rng.randrange(41)))
+                     for _ in range(2)) for _ in range(100)]
+    for key,value in [(b'%s',b'%n'),(b'%08x',b'%u/%u/%u'),(b'%%-%u',b'%%-%u'),
+                      (b'',b''),(b'k'*30,b'v'*30),(b'k'*31,b'v'*40),*generated]:
         p.put(0xf800,b'\xff'*2048);p.put(KEY,key+b'\0');p.put(VALUE,value+b'\0')
-        p.call(0x28d4,'syscon_cfg_write_slot',0xf800,KEY,VALUE,same_stack=True)
-        compare_controllers(p)
+        assert p.candidate.call('syscon_cfg_write_slot',0xf800,KEY,VALUE)==1
+        assert p.candidate.read(0xf800,64)==bytes(slot(key[:30],value[:30]))
+        assert p.candidate.read(0xf840,2048-64)==b'\xff'*(2048-64)

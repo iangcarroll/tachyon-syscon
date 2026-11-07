@@ -8,9 +8,7 @@ The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L
 |---|---|
 | Flash `0x0000..0x00bf` | 48 source-defined vectors, initial MSP `0x20001000` |
 | Flash `0x00c0..0x00ef` | Load image for the new source-built RAM executor, padded to its original 48-byte slot |
-| Flash below `0x2919` | Linker-sized early reconstructed code, after the RAM executor load image |
-| Flash `0x2919` | Source-defined zero byte for the original missing `%s` argument; read-only and non-executable ELF section/load segment |
-| Flash `0x291c..0xab1f` | Remaining code, constants and initialized-data load image; actual sizes/headroom are in the build manifest |
+| Flash after the RAM executor load image, through `0xab1f` | Linker-sized code, constants and initialized-data load image; actual sizes/headroom are in the build manifest |
 | Flash `0xab20..0xc418` | Data-only recovered actions/configuration constants/strings, with explicit source-symbol pointer relocations |
 | Flash `0xc419..0xc61e` | Source-defined 37×14-byte command descriptors |
 | Flash `0xc61f..0xe2d7` | Remaining recovered strings and immutable data |
@@ -49,13 +47,11 @@ Command descriptors come from reconstructed C and relocate their handlers. SG ca
 
 The raw disassembler listing contains false instruction interpretations inside strings such as `DIAG` and diagnostic messages. Data-boundary checks use identified function-owned ranges rather than falsely classifying every raw listing line as executable code. Imported data has non-executable ELF section flags; this MCU has no MPU enforcing flash data nonexecution in hardware.
 
-## Legacy format-string compatibility byte
+## Literal legacy configuration values
 
-Whole-image boot and UART compaction exposed a concrete mismatch for a valid-checksum legacy configuration value `%s`. The original missing variadic argument is logical `R3=0x2919`; reading that address yields a NUL. Newly relocated code originally put nonzero instruction bytes there, which the formatter persisted and later returned through `CONFIG_GET`.
+Configuration compaction now copies stored keys and values literally. The original used stored text as a printf format with omitted arguments, corrupting legacy values such as `%s` and `%u`. Public configuration commands already reject `%`; retaining existing legacy text is the approved correction to that bug.
 
-The linker now splits the source text before this address and defines exactly one `BYTE(0)` at `0x2919`, in its own read-only, non-executable section and `PF_R` load segment. This is a source-defined compatibility constant, not copied original instructions. The numeric argument remains `10521`, preserving `%u` behavior. The early text must fit before it; later code starts after it. Address, size, value, section flags, load flags and executable overlap are independently audited. The ELF flags describe the artifact and do not provide MCU memory protection.
-
-Staged whole-image tests booted both original and rebuilt firmware, submitted `CONFIG_SET` through actual UART interrupts to compact a full legacy store, and compared the resulting persistent sector and `CONFIG_GET` value. Both `%s` and `%u` matched. Deliberately changing the compatibility byte to one changed both persistence and readback, establishing a behavioral negative control. These checks do not claim arbitrary malformed format strings or all diagnostic timing match. A separate eight-byte stack diagnostic difference was traced to an extra CONFIG_SET helper frame; original and rebuilt reset/main SP already matched. Inlining that helper restores the original call-path SP. The final canonical image probe matched persistent sectors and both command replies after removing timestamps only, including the original `1008 bytes of stack in use` diagnostic. Entry SP matched at main (`0x20000ff8`), CONFIG_SET (`0x20000ef8`), runtime update (`0x20000ea8`) and compaction (`0x20000e58`).
+The old assembly argument-frame adapter, numeric return address and reserved flash byte are removed. Code can grow across the former `0x2919` hole without a private format-string data dependency. Slot bounds, NUL termination, erased padding, checksums and flash operation ordering remain tested against the original for ordinary values. Candidate regressions cover format metacharacters as literal data, including `%n`, and whole-image UART compaction, readback and persistence across a fresh boot. Those legacy cases intentionally differ from the executed original and are tested as corrections, not declared equivalent.
 
 ## Stack and validation boundaries
 
@@ -75,7 +71,7 @@ according to the original behavior. Ordinary configuration data is reinitialized
 in both images. This exercises the modeled warm-reset domain, not physical PMU
 retention or ROM boot behavior on the attached MCU.
 
-The latest direct-flash/startup checkpoint passed **24 tests in 1.11 seconds**: eight original flash-ABI groups and sixteen physical startup/placement groups, including wrong compatibility byte/address/flags, executable load segment and early-text overflow rejection. Reports are `analysis/flash-abi-target-reference-coverage.json`, `analysis/flash-abi-target-mapping.json` and `analysis/physical-startup-mapping.json`. Whole-image emulator reset/CLI comparisons are separate evidence managed by the parent task.
+Historical startup and flash-ABI reports under `analysis/` describe their recorded revisions. Current validation comes from the tests and CI artifacts; obsolete compatibility-byte checks are no longer part of the layout contract. Whole-image emulator reset/CLI comparisons remain separate from hardware evidence.
 
 The production artifact paths are `build/physical-firmware/firmware.elf`, `firmware.bin`, `firmware.map` and `manifest.json`. The manifest deliberately retains `flash_candidate=false` and `whole_firmware_equivalence=false`. No device has been flashed.
 
@@ -109,6 +105,5 @@ a build with no initialized data. The whole-image variant poisons the old cache
 location and compares CONFIG_INTERNAL, a timer update and persistent flash with
 the original. Per-function oracle fixtures deliberately retain the old cache
 location only in the test linker; the physical linker has no such constraint.
-Other fixed global state, recovered constants and the numeric legacy
-return-address workaround remain outstanding. New private fixed addresses are
+Other fixed global state and recovered constants remain outstanding. New private fixed addresses are
 not part of the intended source architecture.

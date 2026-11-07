@@ -35,14 +35,6 @@ def elf_audit(path):
         for segment in loads:
             a,n=segment['load_address'],segment['bytes']
             if n and (a>=0xf800 or a+n>0xf800):issues.append('Load segment overlaps identity/config or exceeds physical flash')
-        legacy=elf.get_section_by_name('.legacy_format_nul')
-        if legacy is None or legacy['sh_addr']!=0x2919 or legacy['sh_size']!=1 or legacy.data()!=b'\0' or legacy['sh_flags']!=2:
-            issues.append('Legacy format NUL must be read-only non-executable zero byte at2919')
-        if any(section['sh_flags']&4 and section['sh_addr']<=0x2919<section['sh_addr']+section['sh_size'] for section in elf.iter_sections()):
-            issues.append('Executable section overlaps legacy format NUL')
-        containing=[p for p in loads if p['address']<=0x2919<p['address']+p['bytes']]
-        if len(containing)!=1 or containing[0]['flags']!=4:
-            issues.append('Legacy format NUL must have a read-only non-executable load segment')
         executor=symbols.get('syscon_target_flash_ram_execute',0)
         if executor!=0x20000001:issues.append('Original-ABI flash executor is not at SRAM20000001')
         if 'syscon_flash_execute' in symbols:issues.append('Generic callback executor unexpectedly retained in direct physical image')

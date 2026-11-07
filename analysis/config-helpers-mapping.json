@@ -202,7 +202,7 @@
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
-      "proof_scope": "direct-format-with-absent-varargs-not-equivalent"
+      "proof_scope": "approved-literal-preservation-correction; ordinary fields differentially tested"
     },
     {
       "address": "0x2d08",
@@ -269,7 +269,7 @@
   "assigned_exercised_instructions": 230,
   "coverage_source": "analysis/config-helpers-test-instruction-coverage.json",
   "remaining_boundaries": [
-    "Direct write_slot absent variadic arguments depend on original private stack, not reproduced.",
+    "Legacy format interpretation is intentionally corrected: slot encoding preserves text literally; see docs/config-helpers.md.",
     "Original-ABI compaction/init/runtime-update are outside this target set.",
     "Assertion/reset and enabled diagnostic transport remain external boundaries.",
     "No exhaustive path/input, silicon flash/ECC, binary identity or flash safety proof."

@@ -145,3 +145,11 @@ def test_changed_text_and_relocated_linked_data_keep_reset_uart_and_persistence(
     assert b'sys.edl_timer: 17' in replies[1]
     assert bytes(machines[1].cpu.mem_read(0x20000030,len(poison)))==poison
     assert machines[0].flash[0xf800:]==machines[1].flash[0xf800:]
+
+    # Legacy values must also remain literal after recompilation moves code,
+    # constants and SRAM. No reserved byte at a private return address is needed.
+    from test_rebuilt_system import legacy_compaction
+    literal=b"%s/%u/%n"
+    persisted,value,_=legacy_compaction((output/'firmware.bin').read_bytes(),literal,machines)
+    assert value==literal
+    assert persisted[64:128]==bytes(slot(b'legacy',literal))
