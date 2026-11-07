@@ -5,7 +5,7 @@ import pytest
 from elftools.elf.elffile import ELFFile
 from unicorn import *
 from unicorn.arm_const import *
-from build_physical_firmware import ROOT,elf_audit,PHYSICAL
+from build_physical_firmware import ROOT,elf_audit,emit_binary,PHYSICAL
 
 @pytest.fixture(scope='module')
 def physical_fixture(tmp_path_factory):
@@ -17,22 +17,23 @@ def physical_fixture(tmp_path_factory):
     source='''/* TEST ONLY endpoint fixture. Not a firmware implementation. */
 #include <stdint.h>
 #include "flash_abi_target.h"
+#include "config_state.h"
 #define W(a) (*(volatile uint32_t *)(a))
 void syscon_target_timestamp_constructor(void){W(0x200002cc)=0x11223344;}
 void syscon_target_queue_constructor(void){W(0x200002d8)=W(0x200002cc)^0x55667788;}
 void syscon_target_uart_irq(uint32_t base){W(0x200002e0)=base;}
-void syscon_target_main(void){W(0x200002e4)=syscon_target_flash_veneer(0x400cd000);for(;;){}}
+void syscon_target_main(void){syscon_config_state.flags[SYSCON_CONFIG_AUTO_BOOT]^=1;W(0x200002e4)=syscon_target_flash_veneer(0x400cd000);for(;;){}}
 __attribute__((section(".rodata.syscon_target_commands"),used)) const uint8_t syscon_target_commands[518]={0};
 '''+''.join('void '+name+'(void){}\n' for name in sorted(names))
     fixture=out/'fixture.c';fixture.write_text(source)
-    inputs=[(ROOT/'target/physical/startup.c','startup.o'),(ROOT/'target/physical/constants.S','constants.o'),(ROOT/'target/runtime_init_target.c','runtime-init.o'),(ROOT/'target/flash_abi_target.c','flash.o'),(fixture,'target_config_storage.o')]
+    inputs=[(ROOT/'target/config_state.c','config-state.o'),(ROOT/'target/physical/startup.c','startup.o'),(ROOT/'target/physical/constants.S','constants.o'),(ROOT/'target/runtime_init_target.c','runtime-init.o'),(ROOT/'target/flash_abi_target.c','flash.o'),(fixture,'target_config_storage.o')]
     objects=[]
     for source,name in inputs:
         obj=out/name;objects.append(str(obj))
         subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-fno-inline','-ffunction-sections','-fdata-sections','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'fixture-only.elf'
     subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,--gc-sections','-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-o',str(elf)],check=True)
-    binary=out/'fixture-only.bin';subprocess.run(['arm-none-eabi-objcopy','-O','binary','--gap-fill=0xff',str(elf),str(binary)],check=True)
+    binary=out/'fixture-only.bin';emit_binary(elf,binary)
     return elf,binary,elf_audit(elf)
 
 def test_fixed_layout_vectors_relocated_data_and_sram_busy_dependencies(physical_fixture):
@@ -40,7 +41,8 @@ def test_fixed_layout_vectors_relocated_data_and_sram_busy_dependencies(physical
     assert audit['issues']==[]
     assert audit['sections']['.ram_exec']['bytes']==48
     assert audit['sections'].get('.ram_extra',{}).get('bytes',0)==0
-    assert audit['stack_headroom_bytes']==2016
+    assert audit['stack_headroom_bytes']==0x20001000-audit['symbols']['__extra_bss_end']
+    assert audit['stack_headroom_bytes']>=1024
     data=binary.read_bytes();assert len(data)<0xf800
     vectors=struct.unpack_from('<48I',data);assert vectors[0]==0x20001000
     assert all(v==0 or v&1 for v in vectors[1:])
@@ -61,7 +63,7 @@ def test_reset_initializes_globals_and_flash_busy_executes_only_sram(physical_fi
     initialized=[]
     def code(uc,address,size,_):
         if address==main:
-            initialized.append(bytes(uc.mem_read(0x20000000,0x834)))
+            initialized.append(bytes(uc.mem_read(0x20000000,4096)))
         if busy:
             assert 0x20000000<=address<0x20001000,hex(address)
             visits.append(address)
@@ -84,9 +86,12 @@ def test_reset_initializes_globals_and_flash_busy_executes_only_sram(physical_fi
     assert state[0x2cc:0x2d0]==struct.pack('<I',0x11223344)
     assert state[0x2d8:0x2dc]==struct.pack('<I',0x11223344^0x55667788)
     assert state[0x2c0:0x2cc]==bytes(12) and state[0x2e8:0x820]==bytes(0x538)
-    for section in ['.ram_exec']:
+    for section in ['.ram_exec','.data']:
         info=audit['sections'][section];load=next(s for s in audit['load_segments'] if s['address']==info['address'])
         assert state[info['address']-0x20000000:info['address']-0x20000000+info['bytes']]==data[load['load_address']:load['load_address']+info['bytes']]
+    cache=audit['symbols']['syscon_config_state']
+    assert cache>=audit['symbols']['__data_start'] and cache<audit['symbols']['__data_end']
+    assert cache!=0x20000030
 
 def test_constant_source_whitelist_contains_no_original_instructions():
     meta=json.loads((ROOT/'analysis/physical-data-manifest.json').read_text())
@@ -98,6 +103,23 @@ def test_constant_source_whitelist_contains_no_original_instructions():
     assert all('test_fixture' not in source and 'emulation_runtime' not in source for source in PHYSICAL)
     text=(ROOT/'tools/build_physical_firmware.py').read_text()
     assert "'-Wl,--unresolved-symbols=ignore-all'" not in text
+
+
+def test_empty_initialized_data_does_not_emit_an_sram_sized_binary(physical_fixture,tmp_path):
+    elf,_,_=physical_fixture
+    # This fixture variant has no .data input. Its cache symbol is a
+    # test binding; this binary is not executed or accepted as production.
+    objects=[str(p) for p in elf.parent.glob('*.o') if p.name!='config-state.o']
+    empty=tmp_path/'empty-data.elf'
+    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
+        '-Wl,--defsym,syscon_config_state=0x20000030','-Wl,--gc-sections',
+        '-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-o',str(empty)],check=True)
+    with empty.open('rb') as stream:
+        parsed=ELFFile(stream)
+        assert parsed.get_section_by_name('.data')['sh_size']==0
+    binary=tmp_path/'empty-data.bin'
+    emit_binary(empty,binary)
+    assert binary.stat().st_size<=0xf800
 
 def test_recovered_constant_bytes_except_explicit_pointer_relocations(physical_fixture):
     _,binary,_=physical_fixture;image=binary.read_bytes();reference=(ROOT/'firmware/syscon-1.0.52.bin').read_bytes()
@@ -221,3 +243,45 @@ def test_audit_rejects_executable_legacy_load_segment(physical_fixture,tmp_path)
         struct.pack_into('<I',data,offset,5)
     bad=tmp_path/'invalid-exec-nul.elf';bad.write_bytes(data)
     assert 'Legacy format NUL must have a read-only non-executable load segment' in elf_audit(bad)['issues']
+
+
+def test_initialized_data_load_is_aligned_after_halfword_text(physical_fixture,tmp_path):
+    elf,_,_=physical_fixture
+    script=(ROOT/'target/physical/firmware.ld').read_text()
+    old='.text : { *(.text*) *(.rodata*) }'
+    assert old in script
+    script=script.replace(old,'.text : { *(.text*) *(.rodata*) . = ALIGN(4); SHORT(0); }')
+    linker=tmp_path/'halfword-text.ld';linker.write_text(script)
+    variant=tmp_path/'halfword-text.elf'
+    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',
+        *map(str,elf.parent.glob('*.o')),'-Wl,--gc-sections','-Wl,-T,'+str(linker),
+        '-o',str(variant)],check=True,capture_output=True,text=True)
+    audit=elf_audit(variant)
+    code=audit['sections']['.text']
+    assert (code['address']+code['bytes'])%4==2
+    assert audit['symbols']['__data_load']%4==0
+
+    binary=tmp_path/'halfword-text.bin';emit_binary(variant,binary)
+    image=binary.read_bytes();cpu=Uc(UC_ARCH_ARM,UC_MODE_THUMB|UC_MODE_MCLASS)
+    cpu.ctl_set_cpu_model(UC_CPU_ARM_CORTEX_M0)
+    cpu.mem_map(0,65536);cpu.mem_write(0,image)
+    cpu.mem_map(0x20000000,4096);cpu.mem_write(0x20000000,b'\xa5'*4096)
+    reached=[]
+    def step(uc,address,size,unused):
+        if address==audit['symbols']['syscon_target_main']&~1:
+            reached.append(True);uc.emu_stop()
+    cpu.hook_add(UC_HOOK_CODE,step)
+    sp,pc=struct.unpack_from('<II',image);cpu.reg_write(UC_ARM_REG_SP,sp);cpu.emu_start(pc,0,count=20000)
+    assert reached
+    symbols=audit['symbols'];size=symbols['__data_end']-symbols['__data_start']
+    assert bytes(cpu.mem_read(symbols['__data_start'],size))==image[symbols['__data_load']:symbols['__data_load']+size]
+
+    # Deliberately remove automatic LMA alignment while retaining SRAM alignment.
+    # The explicit assertion must reject this independently of compiler choices.
+    script=script.replace('.data : ALIGN(4)', '.data : AT(LOADADDR(.text)+SIZEOF(.text)) ALIGN(4)')
+    script=script.replace('> RAM_AUX AT> CODE :initialized','> RAM_AUX :initialized')
+    linker.write_text(script)
+    result=subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',
+        *map(str,elf.parent.glob('*.o')),'-Wl,--gc-sections','-Wl,-T,'+str(linker),
+        '-o',str(tmp_path/'misaligned.elf')],capture_output=True,text=True)
+    assert result.returncode and 'Reset data copy requires word alignment' in result.stderr

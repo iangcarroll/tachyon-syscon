@@ -10,9 +10,18 @@ from build_target_interfaces import SOURCES,FLAGS,ROOT
 EXTRA=['target/power_manager_target.c','target/ioexpander_target.c','target/protocol_target.c','target/command_table_target.c','target/runtime_init_target.c','target/flash_abi_target.c']
 PHYSICAL=['target/physical/startup.c','target/physical/constants.S']
 LINKER_SYMBOLS={'__extra_bss_end','__extra_bss_start','__physical_initial_data','__ram_exec_end','__ram_exec_load','__ram_exec_start','__ram_extra_end','__ram_extra_load','__ram_extra_start'}
+LINKER_SYMBOLS.update({'__data_load','__data_start','__data_end'})
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def run(command):return subprocess.run(command,text=True,capture_output=True)
+def emit_binary(elf_path,binary_path):
+    # GNU objcopy can use an empty allocated section's SRAM VMA as its LMA,
+    # padding the raw image up to SRAM even though that section has no bytes.
+    with Path(elf_path).open('rb') as stream:
+        empty=['--remove-section='+section.name for section in ELFFile(stream).iter_sections()
+               if section['sh_flags']&2 and section['sh_size']==0]
+    subprocess.run(['arm-none-eabi-objcopy','-O','binary','--gap-fill=0xff',*empty,
+                    str(elf_path),str(binary_path)],check=True)
 def elf_audit(path):
     with Path(path).open('rb') as stream:
         elf=ELFFile(stream);symbols={s.name:s['st_value'] for s in elf.get_section_by_name('.symtab').iter_symbols()}
@@ -74,7 +83,7 @@ def build(output):
         else:
             report['layout_audit']=elf_audit(output/'firmware.elf')
             if not report['layout_audit']['issues'] and not report['unresolved_symbols']:
-                subprocess.run(['arm-none-eabi-objcopy','-O','binary','--gap-fill=0xff',str(output/'firmware.elf'),str(output/'firmware.bin')],check=True)
+                emit_binary(output/'firmware.elf',output/'firmware.bin')
                 report['elf_sha256']=digest(output/'firmware.elf');report['binary_sha256']=digest(output/'firmware.bin')
     after={str(p.relative_to(ROOT)):digest(p) for p in tracked if p.exists()}
     report['build_input_sha256']=before;report['inputs_unchanged_during_build']=before==after

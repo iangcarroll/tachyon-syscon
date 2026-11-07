@@ -24,6 +24,7 @@ PHDRS {
  config_data PT_LOAD FLAGS(4);
  version PT_LOAD FLAGS(4);
  auxiliary PT_LOAD FLAGS(6);
+ initialized PT_LOAD FLAGS(6);
 }
 SECTIONS {
  .vectors : {KEEP(*(.vectors))} > CODE :vectors
@@ -75,8 +76,9 @@ SECTIONS {
  .config_data : { *target_config*.o(.rodata*) } > SPARE :config_data
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
+ .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
+ __data_load = LOADADDR(.data);
  .extra_bss (NOLOAD) : {__extra_bss_start = .;*(.bss*) *(COMMON) .  =  ALIGN(4);__extra_bss_end = .;} > RAM_AUX :auxiliary
- .unplaced_data : {*(.data*)} > RAM_AUX AT> CODE :auxiliary
  /DISCARD/ : {*(.comment) *(.note*) *(.ARM.attributes)}
  ASSERT(ADDR(.text_early)+SIZEOF(.text_early)<=0x2919,"Early text overlaps legacy format NUL")
  ASSERT(ADDR(.legacy_format_nul)==0x2919 && SIZEOF(.legacy_format_nul)==1,"Legacy format NUL must remain one byte at2919")
@@ -86,7 +88,8 @@ SECTIONS {
  ASSERT(SIZEOF(.command_table)==518,"Command descriptor layout must remain37x14")
  ASSERT(SIZEOF(.constructors)==8,"Constructor list must contain2source pointers")
  ASSERT(SIZEOF(.initial_data)==656,"Initialized RAM image must remain656bytes")
- ASSERT(SIZEOF(.unplaced_data)==0,"New initialized SRAM data requires explicit reset copy")
  ASSERT(__extra_bss_end<=0x20000c00,"Less than1KiB stack remains; whole-image stack bound required")
+ ASSERT((__data_load & 3)==0 && (__data_start & 3)==0 && (__data_end & 3)==0,"Reset data copy requires word alignment")
+ ASSERT(SIZEOF(.data)==0 || __data_load+SIZEOF(.data)<=ORIGIN(CODE)+LENGTH(CODE),"Initialized data load image exceeds code region")
  ASSERT(SIZEOF(.version)<=8,"Version must not enter identity sector")
 }

@@ -93,6 +93,8 @@ Linux-based recovery needs Linux, its UART, the two GPIOs and board power. The i
 
 ### First replacement round trip (planned, not executed)
 
+0. **Original-only rehearsal:** before introducing a candidate, stage and hash-check the original firmware already intended for this board and the exact packaged updater/control script. Confirm the currently installed versions, a working Linux console, stable power and a padded programming interval below `0xf800`. Reflash that original image through Particle's existing update path, require successful verification and the original VERSION reply, and compare configuration/identity before and after. This rehearses staging and the vendor procedure without requiring candidate-image SWD/readback gates first. It is still a flash operation; do not use retries to discover an unknown BSL authentication policy. This rehearsal has not been executed.
+
 After identifying the MCU, preserving repeatable device readbacks and validating the independent SWD connection and restore procedure:
 
 1. Connect the verified SWD probe before programming. Keep stable board power and a Linux console available. Save the running application's VERSION reply and configuration/identity contents for comparison.

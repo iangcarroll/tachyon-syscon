@@ -1,6 +1,7 @@
 /* Original config storage path; exposed write-slot frame lives in ARM ABI glue. */
 #include "config_helpers.h"
 #include "config_text.h"
+#include "config_state.h"
 #include "runtime_memory.h"
 #include "runtime_scan.h"
 #include "flash_controller.h"
@@ -79,18 +80,25 @@ void syscon_cfg_u32_get(uint32_t base,char *key,uint32_t *out){
 }
 static void packed32(uint8_t *p,uint32_t value){for(unsigned i=0;i<4;i++)p[i]=(uint8_t)(value>>(8*i));}
 void syscon_cfg_load(void){
-    uint8_t *state=(uint8_t *)(uintptr_t)0x20000030;
-    /* Six booleans, two little-endian 32-bit timers and eight revision bytes. */
-    static const uint8_t defaults[22]={0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0};
-    syscon_rt_memcpy(state,defaults,sizeof(defaults));
-    static const char *const keys[]={SYSCON_CFG_KEY_AUTO_BOOT,SYSCON_CFG_KEY_WAKE_PIN,SYSCON_CFG_KEY_COLOR_DEBUG,SYSCON_CFG_KEY_FASTBOOT,SYSCON_CFG_KEY_DEMO,SYSCON_CFG_KEY_KEEP_5V};
-    for(unsigned i=0;i<6;i++)syscon_cfg_bool_get(0xfc00,(char *)keys[i],state+i);
+    syscon_configuration_state *state=&syscon_config_state;
+    static const syscon_configuration_state defaults={.edl_timer_le={3},.shutdown_timer_le={3}};
+    syscon_rt_memcpy(state,&defaults,sizeof(defaults));
+    static const char *const keys[]={
+        [SYSCON_CONFIG_AUTO_BOOT]=SYSCON_CFG_KEY_AUTO_BOOT,
+        [SYSCON_CONFIG_WAKE_PIN]=SYSCON_CFG_KEY_WAKE_PIN,
+        [SYSCON_CONFIG_COLOR_DEBUG]=SYSCON_CFG_KEY_COLOR_DEBUG,
+        [SYSCON_CONFIG_FASTBOOT]=SYSCON_CFG_KEY_FASTBOOT,
+        [SYSCON_CONFIG_DEMO]=SYSCON_CFG_KEY_DEMO,
+        [SYSCON_CONFIG_KEEP_5V]=SYSCON_CFG_KEY_KEEP_5V
+    };
+    _Static_assert(sizeof(keys)/sizeof(keys[0])==SYSCON_CONFIG_FLAG_COUNT,"Every flag needs a configuration key");
+    for(unsigned i=0;i<SYSCON_CONFIG_FLAG_COUNT;i++)syscon_cfg_bool_get(0xfc00,(char *)keys[i],&state->flags[i]);
     for(unsigned i=0;i<2;i++){
         uint32_t value=3;syscon_cfg_u32_get(0xfc00,(char *)(i?SYSCON_CFG_KEY_SHUTDOWN_TIMER:SYSCON_CFG_KEY_EDL_TIMER),&value);
         if(value<3)value=3;else if(value>30)value=30;
-        packed32(state+6+4*i,value);
+        packed32(i?state->shutdown_timer_le:state->edl_timer_le,value);
     }
     char hardware[32];
     if(!syscon_cfg_store_get(0xf800,1024,(char *)SYSCON_CFG_KEY_HARDWARE_REVISION,hardware))syscon_target_logger(1,SYSCON_CFG_LOG_TAG,SYSCON_CFG_MISSING_HARDWARE_REVISION);
-    else{syscon_rt_strncpy(state+14,hardware,8);state[21]=0;}
+    else{syscon_rt_strncpy(state->hardware_revision,hardware,sizeof(state->hardware_revision));state->hardware_revision[sizeof(state->hardware_revision)-1]=0;}
 }
