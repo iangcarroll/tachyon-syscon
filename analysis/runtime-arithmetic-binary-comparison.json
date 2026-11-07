@@ -1,0 +1,71 @@
+{
+  "source_sha256": {
+    "src/runtime_arithmetic.c": "e0c9ca29f2f62cac95dcb010157481794009b325c9c89996ec3a70e615b2e106",
+    "target/runtime_arithmetic_abi.S": "77f6b178adb66b49b7d0c56285c76d72d1a8e0a06bf6f19482385e1f63f2b93b",
+    "target/runtime_arithmetic_float.c": "027d34ea8ca7001dabf2135ae6e26d4e39c47f13bb9fea607b85df5e1ae8c71a",
+    "vendor/gcc-soft-fp/adddf3.c": "0a15c1aae008dac35acdbe81cce38b7ec19bc1cbc8f4c4764368a8d395903e51",
+    "vendor/gcc-soft-fp/addsf3.c": "f398056f91b5b1ee34f8b4c7134eb3959fa83d373c66d8b73e7b3d350ac70225",
+    "vendor/gcc-soft-fp/divsf3.c": "610d29ddd84fe9f900041fa31e080b6baa74f9492e7a91273186022ec38411ed",
+    "vendor/gcc-soft-fp/extendsfdf2.c": "f967705770eff0769756e09bdba7d93e7161c1dd1467343ece3d0976a59c28e2",
+    "vendor/gcc-soft-fp/fixdfsi.c": "e5cb3c339701a09b9c37390afbc72e37c311325654b65bc5b356853cc6542323",
+    "vendor/gcc-soft-fp/fixsfsi.c": "98ea2f6f22a81436025e7b7ec5801294a6f22bacf6398bf439f0fd09653dc97b",
+    "vendor/gcc-soft-fp/floatsisf.c": "06d3c7823e004d1a01d78fa2450616e9c0bd478cf69b8a4f623018874476f0d5",
+    "vendor/gcc-soft-fp/floatunsisf.c": "4c5bfadf624ff875d1244ab21d74c2d35d0d44bdcc661d346af94178f645f474",
+    "vendor/gcc-soft-fp/mulsf3.c": "a5cfc06946400053c3dc6b741e6b9d9baef3af50f4405d0ee52634e8dfead870",
+    "vendor/gcc-soft-fp/subdf3.c": "a43ef6b4d28b09652f4b6b676f2f3c4ee7f9c3d5b4f9721eef4b814bc3c87ec1",
+    "vendor/gcc-soft-fp/subsf3.c": "63a77ba7bcb465652d49f897688b109970ddfe713b1f54d3aafdd2ca148a7bca",
+    "include/runtime_arithmetic.h": "be7497f3946e24ff3de4066df340ff24224a33f434f145eab0a927b325b66999",
+    "vendor/gcc-soft-fp/double.h": "34fe604ef7f6f2dfa20be1705749636c584372c57c65ec2b8da57a6ed8d8f49c",
+    "vendor/gcc-soft-fp/longlong.h": "afdf44ec1746b4952cef27af0b9beaf09e3dc5f3945520ea8a3b2a7ec477e04c",
+    "vendor/gcc-soft-fp/op-1.h": "7fc42415f61db8c0846a5ce0d6e76959bf6e410eb1c9208cf461afd771c712d5",
+    "vendor/gcc-soft-fp/op-2.h": "59ac7703ba552e1afd2cf073cf22ea40b1db25709bfe63c184749a7fe1b2b49f",
+    "vendor/gcc-soft-fp/op-4.h": "9fa281109906af976c5833b80996aba63c88cf6ade53945e9857b4c3ce967190",
+    "vendor/gcc-soft-fp/op-8.h": "2ebf5df13b9643ea3f85959ec8427ea2810dca3db68f42462b8f897fe5a91962",
+    "vendor/gcc-soft-fp/op-common.h": "26bd171f0059c217f7724e2a99db9f3222772764d3a3afd2b98d96513566c667",
+    "vendor/gcc-soft-fp/sfp-machine.h": "5f5f4332ebd563f13c844409fb6d5ede091af91a90eab2fd975d5344fa7b8280",
+    "vendor/gcc-soft-fp/single.h": "c417ac078af373a2dc238826bd2bcfb02e3889abf622061d8a770dc2dae1178b",
+    "vendor/gcc-soft-fp/soft-fp.h": "e8183cf960a0771a80d5e33e58ea6d64150ed213d3e107b3cdbc88f5f921cd08"
+  },
+  "reference_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+  "elf_sha256": "9c9f4ac82245d53112143e96074c752c81d2c61c6dc6d345afdb87402ea0a585",
+  "functions": [
+    {
+      "symbol": "syscon_rt_case_sqi",
+      "original_address": "0xc0",
+      "original_extent_bytes": 18,
+      "rebuilt_size": 18,
+      "exact_bytes": true
+    },
+    {
+      "symbol": "syscon_rt_case_uqi",
+      "original_address": "0xd4",
+      "original_extent_bytes": 18,
+      "rebuilt_size": 18,
+      "exact_bytes": true
+    },
+    {
+      "symbol": "syscon_rt_case_shi",
+      "original_address": "0x2660",
+      "original_extent_bytes": 20,
+      "rebuilt_size": 20,
+      "exact_bytes": true
+    },
+    {
+      "symbol": "syscon_rt_divzero",
+      "original_address": "0x3d0",
+      "original_extent_bytes": 2,
+      "rebuilt_size": 2,
+      "exact_bytes": true
+    },
+    {
+      "symbol": "__aeabi_f2iz",
+      "original_address": "0x135c",
+      "original_extent_bytes": 64,
+      "rebuilt_size": 64,
+      "exact_bytes": true
+    }
+  ],
+  "scope": "Only five audited relocation-free bodies; other arithmetic functions differ or are unassessed.",
+  "whole_firmware_match": false,
+  "flash_candidate": false
+}

@@ -1,0 +1,108 @@
+{
+  "compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "compiler_flags": [
+    "-std=c11",
+    "-mcpu=cortex-m0plus",
+    "-mthumb",
+    "-Os",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-ffunction-sections",
+    "-fdata-sections"
+  ],
+  "source_sha256": "0cda92323a7bc61be7fec82b869a3aa35c7a708194b5476f90374b66558bb1eb",
+  "reference_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+  "functions": [
+    {
+      "function": "syscon_rt_strcmp",
+      "original_address": "0x263c",
+      "original_size": 20,
+      "reconstructed_size": 22,
+      "unresolved_relocations": [],
+      "exact_bytes": false
+    },
+    {
+      "function": "syscon_rt_strlen",
+      "original_address": "0x2650",
+      "original_size": 14,
+      "reconstructed_size": 16,
+      "unresolved_relocations": [],
+      "exact_bytes": false
+    },
+    {
+      "function": "syscon_rt_memcmp",
+      "original_address": "0x972c",
+      "original_size": 28,
+      "reconstructed_size": 28,
+      "unresolved_relocations": [],
+      "exact_bytes": false
+    },
+    {
+      "function": "syscon_rt_memcpy",
+      "original_address": "0x9748",
+      "original_size": 18,
+      "reconstructed_size": 18,
+      "unresolved_relocations": [],
+      "exact_bytes": false
+    },
+    {
+      "function": "syscon_rt_memset",
+      "original_address": "0x975a",
+      "original_size": 16,
+      "reconstructed_size": 16,
+      "unresolved_relocations": [],
+      "exact_bytes": true
+    },
+    {
+      "function": "syscon_rt_strchr",
+      "original_address": "0x9828",
+      "original_size": 28,
+      "reconstructed_size": 28,
+      "unresolved_relocations": [],
+      "exact_bytes": true
+    },
+    {
+      "function": "syscon_rt_strncmp",
+      "original_address": "0x9890",
+      "original_size": 36,
+      "reconstructed_size": 32,
+      "unresolved_relocations": [],
+      "exact_bytes": false
+    },
+    {
+      "function": "syscon_rt_strncpy",
+      "original_address": "0x98b4",
+      "original_size": 40,
+      "reconstructed_size": 30,
+      "unresolved_relocations": [],
+      "exact_bytes": false
+    },
+    {
+      "function": "syscon_rt_strrchr",
+      "original_address": "0x98dc",
+      "original_size": 38,
+      "reconstructed_size": 38,
+      "unresolved_relocations": [
+        {
+          "offset": 12,
+          "type": 10
+        },
+        {
+          "offset": 28,
+          "type": 10
+        }
+      ],
+      "exact_bytes": false
+    },
+    {
+      "function": "syscon_rt_memchr",
+      "original_address": "0xa8b0",
+      "original_size": 22,
+      "reconstructed_size": 28,
+      "unresolved_relocations": [],
+      "exact_bytes": false
+    }
+  ],
+  "whole_firmware_match": false,
+  "flash_candidate": false
+}

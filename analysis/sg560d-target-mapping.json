@@ -1,0 +1,433 @@
+{
+  "entries": [
+    {
+      "address": "0x5e30",
+      "symbol": "syscon_target_modem_uart_stop",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x5f30",
+      "symbol": "syscon_target_modem_power_check",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x614c",
+      "symbol": "syscon_target_modem_uart_start",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x61b8",
+      "symbol": "syscon_target_modem_fct_complete",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x61d0",
+      "symbol": "syscon_target_modem_volume_release",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x61f0",
+      "symbol": "syscon_target_modem_usbboot_release",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6210",
+      "symbol": "syscon_target_modem_powerkey_release_task",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6230",
+      "symbol": "syscon_target_modem_action_6230",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6238",
+      "symbol": "syscon_target_modem_action_6238",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6240",
+      "symbol": "syscon_target_modem_action_6240",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6248",
+      "symbol": "syscon_target_modem_pins_off",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6282",
+      "symbol": "syscon_target_modem_pins_on",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x62ec",
+      "symbol": "syscon_target_modem_retry_delay",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6384",
+      "symbol": "syscon_target_modem_retry_schedule",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6428",
+      "symbol": "syscon_target_modem_poweron",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x64a0",
+      "symbol": "syscon_target_modem_edl",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6520",
+      "symbol": "syscon_target_modem_special_boot",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x65d0",
+      "symbol": "syscon_target_modem_fct",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x65da",
+      "symbol": "syscon_target_modem_fct_callback",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x65e4",
+      "symbol": "syscon_target_modem_fastboot",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x65f0",
+      "symbol": "syscon_target_modem_wake_schedule",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6650",
+      "symbol": "syscon_target_modem_wake_remaining",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6690",
+      "symbol": "syscon_target_modem_off",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x66a0",
+      "symbol": "syscon_target_modem_mode_name",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x66bc",
+      "symbol": "syscon_target_modem_set_mode",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6720",
+      "symbol": "syscon_target_modem_poweroff",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6838",
+      "symbol": "syscon_target_modem_prepare_special",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x68a4",
+      "symbol": "syscon_target_modem_prepare_edl",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x68fc",
+      "symbol": "syscon_target_modem_prepare_normal",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6948",
+      "symbol": "syscon_target_modem_init",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6a28",
+      "symbol": "syscon_target_modem_key_assert",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6a48",
+      "symbol": "syscon_target_modem_key_release",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x6a68",
+      "symbol": "syscon_target_modem_poll",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x7468",
+      "symbol": "syscon_target_modem_key_pulse",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x7488",
+      "symbol": "syscon_target_modem_action_7488",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x74a8",
+      "symbol": "syscon_target_modem_action_74a8",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x74c8",
+      "symbol": "syscon_target_modem_action_74c8",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    },
+    {
+      "address": "0x74e8",
+      "symbol": "syscon_target_modem_raw_send",
+      "source": "target/sg560d_target.c",
+      "tests": [
+        "tests/test_sg560d_target.py"
+      ],
+      "docs": "docs/sg560d-target.md"
+    }
+  ],
+  "external_boundary_symbols": [
+    "syscon_target_assert",
+    "syscon_target_auto_boot",
+    "syscon_target_modem_always_on",
+    "syscon_target_hwrevision_new",
+    "syscon_target_pin_write",
+    "syscon_target_ioexpander_configure",
+    "syscon_target_protocol_poll",
+    "syscon_target_power_measure",
+    "syscon_target_power_battery_route",
+    "syscon_target_power_header_route",
+    "syscon_target_power_battery_route_set",
+    "syscon_target_power_boost_set",
+    "syscon_target_power_header_route_set",
+    "syscon_target_power_header_default",
+    "syscon_target_power_vbus_route_set",
+    "syscon_target_power_shutdown_busy",
+    "syscon_target_power_battery_detect",
+    "syscon_target_power_report",
+    "syscon_target_power_minimum_update",
+    "syscon_target_power_minimum_reset",
+    "syscon_target_power_minimum",
+    "syscon_target_shutdown_set",
+    "syscon_target_shutdown_reason",
+    "syscon_target_shutdown_elapsed",
+    "syscon_target_shutdown_stale",
+    "syscon_target_shutdown_active",
+    "syscon_target_shutdown_poll",
+    "syscon_target_powerkey_mode",
+    "syscon_target_retained_set_modem",
+    "syscon_target_rgb_preset",
+    "syscon_target_rgb_state",
+    "syscon_target_tasks_submit",
+    "syscon_target_tasks_active",
+    "syscon_target_now",
+    "syscon_target_timer_delay",
+    "syscon_target_wakeup_enable",
+    "syscon_target_adc_temperature",
+    "syscon_target_gpio_config",
+    "syscon_target_gpio_write",
+    "syscon_target_gpio_read",
+    "syscon_target_uart_init",
+    "syscon_target_uart_deinit",
+    "syscon_target_uart_write_buffer",
+    "syscon_target_color",
+    "syscon_target_uart_write"
+  ],
+  "source_dependencies": [
+    "include/sg560d_literals.h",
+    "target/logger_target.c",
+    "target/logger_target_abi.S",
+    "src/format.c",
+    "target/hal_helpers.c",
+    "src/runtime_memory.c",
+    "src/runtime_arithmetic.c",
+    "target/runtime_arithmetic_abi.S"
+  ],
+  "original_code_executable_in_candidate": false,
+  "remaining_boundaries": [
+    "Isolated driver/MMIO, tasks, protocol and clock ports are scripted; actual logger/runtime/internal modem bodies execute.",
+    "Relocated callback addresses are normalized explicitly.",
+    "No exhaustive interrupt, memory-alias, private-stack, corrupted-pointer, physical timing or hardware-equivalence proof.",
+    "UART descriptor-null and power-check-false branches are not reachable under unchanged immutable tables and actual power_check body."
+  ],
+  "coverage_source": "analysis/sg560d-target-direct-instruction-coverage.json",
+  "discovered_instructions": 2079,
+  "exercised_instructions": 2041,
+  "validated_tests": {
+    "passed": 37,
+    "failed": 0,
+    "skipped": 0,
+    "error": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "collected": 37
+  },
+  "direct_validated_tests": {
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "error": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "collected": 15
+  },
+  "component_inputs_unchanged": true,
+  "whole_workspace_inputs_unchanged": false
+}

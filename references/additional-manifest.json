@@ -1,0 +1,2972 @@
+[
+  {
+    "path": "particle-iot/electron/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/README.md",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 3198,
+    "git_blob_sha1": "28dd4e8030d7e0a189f7cd31d9fd6f3ba484d4a2",
+    "sha256": "e0af66e330ee8aec227fa95119f6fc71f3d39fef7ce163a22ad15eef463a151b"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/BQ24195.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/BQ24195.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 2360484,
+    "git_blob_sha1": "1ae545cab9b4fe9202dda37caf1eb7c0749d3882",
+    "sha256": "bf7f9e6cf8ae0e1101a70f92e44041c20ce0d975a78fb135c726e3075333719a"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/COILCRAFT-XFL4020-222ME.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/COILCRAFT-XFL4020-222ME.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 149087,
+    "git_blob_sha1": "b4070ed2b4619ed80929b5763a500dcb1f70b862",
+    "sha256": "0dc8e60771453041330ea037aad1b6850c314a6bc9fcf3b26192458780408225"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/CSIM2545-06S-X.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/CSIM2545-06S-X.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 87709,
+    "git_blob_sha1": "9199163decab6aa65c4daf017cc471c3d8102cbf",
+    "sha256": "e833781c58c0f3499eb11ca27fb79d70b7081fc1a275631a0bdcf576f9116aec"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/GCT-SIM8100.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/GCT-SIM8100.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 309423,
+    "git_blob_sha1": "d04989e34c8bae66eca61a65fd94e373c47105b7",
+    "sha256": "a1ba113b4e7342552070348556322581b34e08d71ea4ef9bd9afdf85cf153f07"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/IPEX-PCB-113-L42.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/IPEX-PCB-113-L42.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 661454,
+    "git_blob_sha1": "732d4d67e824d31af93f35dee7e8604cb2a3de60",
+    "sha256": "c0b6dbdcd08d1ba87ba15a13a6f30e830f98f7d188411f712c7b4e6b16f621cf"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/JST-Vertical_new.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/JST-Vertical_new.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 268518,
+    "git_blob_sha1": "0d007024080469f2ce5246feb3c75eae1ceb8e64",
+    "sha256": "3adcb92db170512ceda282ce92589adc6a7bedc1e8f424cc85c639bef57a60dd"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/KEMET-T520D337M006ATE045.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/KEMET-T520D337M006ATE045.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 2326323,
+    "git_blob_sha1": "03d73c504d5f77eaf6464a5f8a47ceda337842a3",
+    "sha256": "6b6dca08bfc088c46ec91ef3938ca840dbdf6bc29830cbe31e2e6fde0f478559"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/LM3281.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/LM3281.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 1124107,
+    "git_blob_sha1": "fafb2926431a2b4954fa2fba48e0ebc398718663",
+    "sha256": "f0ff7a78ec4526753c2176e5348840b8e7785a5ae730b8b06be6395b02a1b6b5"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/LP103450 2000mAh 3.7V 20150923.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/LP103450%202000mAh%203.7V%2020150923.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 559552,
+    "git_blob_sha1": "e6dca184a6ef3c712e505e67fe321d40be48341f",
+    "sha256": "c45d95dd4d4ff6b96dbb397a06ad2e1bdcef2099f69a3c40e4084e670849c6a3"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/LP103450-2000mAh-3.7V.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/LP103450-2000mAh-3.7V.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 459263,
+    "git_blob_sha1": "be8d253279c97cf4a5ab5c9067fc55821bc8414e",
+    "sha256": "5a85ce154add16d84793d6fad7a5952e595e006c53c6432c71a077a95651a67f"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/MAX17043.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/MAX17043.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 372531,
+    "git_blob_sha1": "bf1666ecadc4574ddf895e50e8620cba7a23fb58",
+    "sha256": "3f44a750ab1baaee8fc83593fc4a3fa87c51afbcdda423784b77b69ef8cd75bb"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/STM32F205x Datasheet.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/STM32F205x%20Datasheet.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 2643606,
+    "git_blob_sha1": "1494fbb86ccd7fc85d9e0d70a7db15f7c70bb25a",
+    "sha256": "6ffebd41462b5c10f07942ccc4b2c52bc01539d8ed78e2a1f6b0de8a16bf3a66"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/TPS62291DRV.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/TPS62291DRV.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 867985,
+    "git_blob_sha1": "b42a2f9ec1a8aeae8760b921d4d9982517d96908",
+    "sha256": "fcf06fc626dc8e1a457c96bbc2c34887754f8bf8cbcd75f2ee62564a589a9dd8"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/sn74avc4t245.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/sn74avc4t245.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 1556453,
+    "git_blob_sha1": "0b5e3efa5646002eb0961e240bbbb019356a94ba",
+    "sha256": "2e11084a01d66f3832d36c8e13185f62a3c817fcc051ed90428e2baee2696fdc"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/sn74lvc1g07.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/sn74lvc1g07.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 1825920,
+    "git_blob_sha1": "3a40144563d9a6dec7107291b8f74bbb1aaff8cf",
+    "sha256": "8afdb9faf576cb499d9c3bf1a57e8eb9a1fd0d9a9e8ff8849face92e19d3ec86"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/tps22942.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/tps22942.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 1164501,
+    "git_blob_sha1": "b7345ebfa33bf359a8ef6dfe2314872d0193cbc7",
+    "sha256": "23f735bec0a27d32836feeb00165af76481af1e6686ba8a9c0bd44d967e3cccb"
+  },
+  {
+    "path": "particle-iot/electron/datasheets/tps62291.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/datasheets/tps62291.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 1209508,
+    "git_blob_sha1": "c4e7ec65edb02857979162062a112c4c7757b26e",
+    "sha256": "cbc6f31e453035e0c6a049bdb097696070264e112dc9b6a4a0f80934827fdff3"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v009/electron_v009.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v009/electron_v009.brd",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 279466,
+    "git_blob_sha1": "3b2658825cd8390f4458c6866bd7ca42a4d0179b",
+    "sha256": "bd9ada00a94a60babdc8e5853ac3d2a0334c3c545ce1213e486dd2acb7376619"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v009/electron_v009.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v009/electron_v009.sch",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 783497,
+    "git_blob_sha1": "b872281972640a7d42c9aee5334faeb3e33491b9",
+    "sha256": "65c913c794a9e8b2495d5eabb4ac374b08da26ffaf51d5195fc8efe0709a78f6"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v010/electron_v010.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v010/electron_v010.brd",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 290891,
+    "git_blob_sha1": "5b442fe9b866597ed61957f976b2cdc5e039f834",
+    "sha256": "bab9b4ef04445b27564eb39b31717c774aa1a04e4781a81c25444c9976613808"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v010/electron_v010.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v010/electron_v010.sch",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 791155,
+    "git_blob_sha1": "055dc6d914fafa1a1c1f616830bfdd136ef4f544",
+    "sha256": "7c3b08b49076d9feb1543f395c9914d4093d103d7ab782c3e0fa2d962667adcb"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v010/electron_v010_schematic.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v010/electron_v010_schematic.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 476712,
+    "git_blob_sha1": "c9e249eb64fff7902e03ecbe726a867dfeec8be6",
+    "sha256": "6fc44eefb509027f01f1d199860609cceaf1787d3a5b26e80177c78f4173b10d"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v011/electron_v011.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v011/electron_v011.brd",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 289213,
+    "git_blob_sha1": "0d03c17301a7dc08f4e61ee70be206950cb66715",
+    "sha256": "534aeb60cba838a79cdc03a75138d7eb10c60b212e6de89a9c90fd45c1a14df2"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v011/electron_v011.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v011/electron_v011.sch",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 790155,
+    "git_blob_sha1": "fe91c8ef3df26f5c3e2f9001811e75d2dad7c66a",
+    "sha256": "5d336cf263f508620a5956df3eacee25f2d6f70a88384eb3dffe68a8c7bf93f3"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v012/electron_v012.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v012/electron_v012.brd",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 295340,
+    "git_blob_sha1": "0dadf343828e971c8041ca6a498c115cbdcecaac",
+    "sha256": "7858d32b0c9e677d4e9102f8dc05f2a41a145c35d1ec4176dd3c164ecf548a36"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v012/electron_v012.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v012/electron_v012.sch",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 791929,
+    "git_blob_sha1": "833ebe43ca49f165b82d507abf5e93710cdca891",
+    "sha256": "5ffe2b07b3f51b7920863c4328ab302ac9c53d7df4a49ce3da8f0f2c9e7bb3eb"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v012/electron_v012_pcb.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v012/electron_v012_pcb.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 599082,
+    "git_blob_sha1": "5a2cf0e8de43c8bda6472504e9a608cffc323f9f",
+    "sha256": "2826fcc419a8061fa86c964c1cef006d3de8af6326fb1aadf1cb33488176e977"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v012/electron_v012_sch.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v012/electron_v012_sch.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 344479,
+    "git_blob_sha1": "b661a592c9355e2d11b16f7dcd0598f410af0fab",
+    "sha256": "d01b353f5f4ad92336d3b0988e58d4685de9bf1f250be765e68e7464ffc110d8"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v020/electron_v020.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v020/electron_v020.brd",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 317548,
+    "git_blob_sha1": "febe3b7c33ac222e3d259c760dd386e253952bb3",
+    "sha256": "39d140f66567090b5458527154d2f3b58fb3081b3c0dec147c70e4326a1fc28e"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v020/electron_v020.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v020/electron_v020.sch",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 808374,
+    "git_blob_sha1": "743c7322df880e74654983ddfe3a4b60a8d53a9d",
+    "sha256": "66fe6b027d8e2db4d9b898ec8edab94aeb2519e038244ff839167a2d2b23666f"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v130/electron_v1.3.0.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v130/electron_v1.3.0.brd",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 3339645,
+    "git_blob_sha1": "9abf809766d2b2552100f3a3f2483ee91bff71d3",
+    "sha256": "7fa9659ccc3e5aea585289a6f9ee651344b27670563f594bbd83dd707bc03486"
+  },
+  {
+    "path": "particle-iot/electron/eagle/electron_v130/electron_v1.3.0.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/eagle/electron_v130/electron_v1.3.0.sch",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 632099,
+    "git_blob_sha1": "adf1af35dc9b94f1106f930f0a30e784f2f2a980",
+    "sha256": "9140f3c205ac4e447e0c7d8908bb9f062ed9c0460223e7aa9859465875ea7025"
+  },
+  {
+    "path": "particle-iot/electron/gerbers/zipped-gerbers/particle-electron_v009.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/gerbers/zipped-gerbers/particle-electron_v009.zip",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 362420,
+    "git_blob_sha1": "628af8a71f37d90ee828ba95d1d18b71be8c8326",
+    "sha256": "9c39a7508e8fb1b5a6eafb9afe53d526b45aec8cddd89f27a0c9bd8f1b1d49c2"
+  },
+  {
+    "path": "particle-iot/electron/gerbers/zipped-gerbers/particle-electron_v010.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/gerbers/zipped-gerbers/particle-electron_v010.zip",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 361697,
+    "git_blob_sha1": "bacab71000605aafd10a225b12abb2f0d00961f7",
+    "sha256": "f971f2774ee527c40a662fe5fee1c8dc3d41d37f3863e2f6b2515cf29b979867"
+  },
+  {
+    "path": "particle-iot/electron/gerbers/zipped-gerbers/particle-electron_v011.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/gerbers/zipped-gerbers/particle-electron_v011.zip",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 362031,
+    "git_blob_sha1": "3af0f5998d6675aedc0eb912183bd19d990c78db",
+    "sha256": "1e3526f779e865e9d53ccfd367208aee259d43bb31564fa08b997a7d5a085650"
+  },
+  {
+    "path": "particle-iot/electron/gerbers/zipped-gerbers/particle-electron_v012.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/gerbers/zipped-gerbers/particle-electron_v012.zip",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 362265,
+    "git_blob_sha1": "ab2985729ebc8b27f204cb185691a79f9eb166a5",
+    "sha256": "d1d3957f52698527ea201db37cdea166afc711689a79f7c0e214570bf6d95a05"
+  },
+  {
+    "path": "particle-iot/electron/libraries/Particle.lbr",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/libraries/Particle.lbr",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 867526,
+    "git_blob_sha1": "4e0e14d937fc1d93d03294ab62d7ceb0f04538d3",
+    "sha256": "ddeb6c9e4947001352452e8df96831549dd4308e5611a04a705ddba538cc80d4"
+  },
+  {
+    "path": "particle-iot/electron/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/license.txt",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 20005,
+    "git_blob_sha1": "34ec65f344a10a1599289559fa608a455f0fea58",
+    "sha256": "a0bd498de6b7991f563789715e3cf9f9a77860b6bb5b2c2b072fb3bb36361008"
+  },
+  {
+    "path": "particle-iot/electron/mfg-docs/assembly-designators-v010.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/mfg-docs/assembly-designators-v010.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 72250,
+    "git_blob_sha1": "51e70176b47baf19cdc43d06acc71fedfaa69145",
+    "sha256": "ec68c011227c4844d7a98dea01e84f328908a1318cdafa0d0900e35bc06a341b"
+  },
+  {
+    "path": "particle-iot/electron/mfg-docs/rf-net.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/mfg-docs/rf-net.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 94925,
+    "git_blob_sha1": "a3f74a395ae07727f4c197a8270605bd828b15f0",
+    "sha256": "996a1f74fd80f6450b2c3fac756e4892f73d806a55cbb8a352af8d3023c6deff"
+  },
+  {
+    "path": "particle-iot/electron/pdfs/particle-electron-v020/electron_v020_pcb.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/pdfs/particle-electron-v020/electron_v020_pcb.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 159636,
+    "git_blob_sha1": "c5dda5d55681946515521d201d96c120d91718f3",
+    "sha256": "7728cdcb8c389da9c60bf14a54dd3384c82b2eecb1caf010e997b83b819a930b"
+  },
+  {
+    "path": "particle-iot/electron/pdfs/particle-electron-v020/electron_v020_sch.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/pdfs/particle-electron-v020/electron_v020_sch.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 213184,
+    "git_blob_sha1": "40a81cb9286cb934aa50e087a219924d741d14c1",
+    "sha256": "0496811012c311dffd8cfcc896c0304a37a59e1d3a826836caca7f6318aa1cfe"
+  },
+  {
+    "path": "particle-iot/electron/pdfs/particle-electron_v010/electron_v010_pcb-gerbers.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/pdfs/particle-electron_v010/electron_v010_pcb-gerbers.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 1428333,
+    "git_blob_sha1": "2837ac3cf5e2affb65f3438421987ec65db4ef76",
+    "sha256": "9037ff3557029e43192ac646d24c8a80b22a6ff7d361fc42b13a64cc2f96c69a"
+  },
+  {
+    "path": "particle-iot/electron/pdfs/particle-electron_v010/electron_v010_schematic.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/pdfs/particle-electron_v010/electron_v010_schematic.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 476770,
+    "git_blob_sha1": "8a251c58a4ab919478f23a19b87f9e290e99f361",
+    "sha256": "5e917eba27cf51bacb2a940e199ae61736fbf266bf3be2a1542fc6d60abcc2f9"
+  },
+  {
+    "path": "particle-iot/electron/pdfs/particle-electron_v012/electron_v012_pcb.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/pdfs/particle-electron_v012/electron_v012_pcb.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 599082,
+    "git_blob_sha1": "5a2cf0e8de43c8bda6472504e9a608cffc323f9f",
+    "sha256": "2826fcc419a8061fa86c964c1cef006d3de8af6326fb1aadf1cb33488176e977"
+  },
+  {
+    "path": "particle-iot/electron/pdfs/particle-electron_v012/electron_v012_sch.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/electron/be7038a072fbab0e90648251847669ba5aebe437/pdfs/particle-electron_v012/electron_v012_sch.pdf",
+    "repository": "particle-iot/electron",
+    "revision": "be7038a072fbab0e90648251847669ba5aebe437",
+    "bytes": 344479,
+    "git_blob_sha1": "b661a592c9355e2d11b16f7dcd0598f410af0fab",
+    "sha256": "d01b353f5f4ad92336d3b0988e58d4685de9bf1f250be765e68e7464ffc110d8"
+  },
+  {
+    "path": "particle-iot/classic-adapter/LICENSE",
+    "source": "https://raw.githubusercontent.com/particle-iot/classic-adapter/3835c54161fc4202a7938e4059d7422dd368fec2/LICENSE",
+    "repository": "particle-iot/classic-adapter",
+    "revision": "3835c54161fc4202a7938e4059d7422dd368fec2",
+    "bytes": 11357,
+    "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  {
+    "path": "particle-iot/classic-adapter/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/classic-adapter/3835c54161fc4202a7938e4059d7422dd368fec2/README.md",
+    "repository": "particle-iot/classic-adapter",
+    "revision": "3835c54161fc4202a7938e4059d7422dd368fec2",
+    "bytes": 2546,
+    "git_blob_sha1": "a22cc6f3c1f742fb9b674a263a23d1c6c7a92c08",
+    "sha256": "e1233e6cf885717d498b9aff2a2c132d95094eced71f09161f2eee38064c6066"
+  },
+  {
+    "path": "particle-iot/classic-adapter/eagle/legacy-wing-v1.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/classic-adapter/3835c54161fc4202a7938e4059d7422dd368fec2/eagle/legacy-wing-v1.brd",
+    "repository": "particle-iot/classic-adapter",
+    "revision": "3835c54161fc4202a7938e4059d7422dd368fec2",
+    "bytes": 3263983,
+    "git_blob_sha1": "7e14f2e06e09b7cce7cc09f3f164b032a4b108f1",
+    "sha256": "2d5f497bc113148e80defdd8643f9f7838720d991857ecbb79b044341443f915"
+  },
+  {
+    "path": "particle-iot/classic-adapter/eagle/legacy-wing-v1.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/classic-adapter/3835c54161fc4202a7938e4059d7422dd368fec2/eagle/legacy-wing-v1.pdf",
+    "repository": "particle-iot/classic-adapter",
+    "revision": "3835c54161fc4202a7938e4059d7422dd368fec2",
+    "bytes": 33608,
+    "git_blob_sha1": "a80b0772cd9d17fa29696ffa7f3052913dcf1232",
+    "sha256": "7cbbfa126d837d2e300478a6f5348429e80d8823d6ed6001a2ac66c4e13d1508"
+  },
+  {
+    "path": "particle-iot/classic-adapter/eagle/legacy-wing-v1.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/classic-adapter/3835c54161fc4202a7938e4059d7422dd368fec2/eagle/legacy-wing-v1.sch",
+    "repository": "particle-iot/classic-adapter",
+    "revision": "3835c54161fc4202a7938e4059d7422dd368fec2",
+    "bytes": 124114,
+    "git_blob_sha1": "cca5c98c34e73deff228da377aa4d0f9952298cf",
+    "sha256": "f89d96520a15b47a52c3cfd09899c001e2c6e8283fde868ca27d2272ebb52310"
+  },
+  {
+    "path": "particle-iot/debugger/LICENSE",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/LICENSE",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 11357,
+    "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  {
+    "path": "particle-iot/debugger/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/README.md",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 3113,
+    "git_blob_sha1": "45b65c94b64e4da43db9961e396c04e1d52d233f",
+    "sha256": "1d58266ae0e9bf40adfd12b95c29742111472b861b83ffad83dcbe1ccac75ab0"
+  },
+  {
+    "path": "particle-iot/debugger/connector/JTAGConn.lbr",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/connector/JTAGConn.lbr",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 15565,
+    "git_blob_sha1": "e99756a1eca567497ced57b7694895c03a27b3d5",
+    "sha256": "5bd0a6116e554c34e6339bd2e90d53f378179d11850b7bc29f59aa046f70a042"
+  },
+  {
+    "path": "particle-iot/debugger/connector/JTAGTest1.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/connector/JTAGTest1.brd",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 30367,
+    "git_blob_sha1": "21305f533734abd90414b81e5a7ede206575f9c5",
+    "sha256": "92b28942a51b64ab7cbc246982e8846634d4b8b3d5f70c36f8fa05d16347a343"
+  },
+  {
+    "path": "particle-iot/debugger/connector/JTAGTest1.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/connector/JTAGTest1.sch",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 28925,
+    "git_blob_sha1": "8009805cda331a939e87144139b17e36bc53fed6",
+    "sha256": "0ce96645433ecdaa9236a2cef2fbec4ef8d571e4e632fd103a971d42262744ef"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/Debugger V0.4.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/Debugger%20V0.4.brd",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 1003739,
+    "git_blob_sha1": "055f3bd5889a048cf3eb2289c980d06e7897b6e0",
+    "sha256": "cc29a98e4d9a1d7d8e65acfa0cc2d36d8d55ae61bba44e2116dbb14a8aab0f3d"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/Debugger V0.4.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/Debugger%20V0.4.pdf",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 74659,
+    "git_blob_sha1": "0fdc1648716b4cb68355033554a8433fd4bf5212",
+    "sha256": "1fb51a7d8000fa38b03989a353b9f4470c754ff21f0f732588cb2323b627e4a3"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/Debugger V0.4.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/Debugger%20V0.4.sch",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 153852,
+    "git_blob_sha1": "d93b730e8b8b3d8a8dc690f812f936d5aa010fcf",
+    "sha256": "741787aca3f2b201c3238866337732616fef01246cfd59238c60a7c11e5fb0d6"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/v1.10/Debugger V1.1 production file/Debugger V1.1 schematic.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/v1.10/Debugger%20V1.1%20production%20file/Debugger%20V1.1%20schematic.pdf",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 29494,
+    "git_blob_sha1": "3f24d119ed88eb0ac7bcc9f26fcb97dcba985ccd",
+    "sha256": "2bd869bfa3c2d9429dc7b683e2a474eb88aaa0391cac2dba65569d9aedf371f2"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/v1.10/Debugger V1.1 production file/Debugger V1.1\u4f4d\u53f7\u56fe.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/v1.10/Debugger%20V1.1%20production%20file/Debugger%20V1.1%E4%BD%8D%E5%8F%B7%E5%9B%BE.pdf",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 35733,
+    "git_blob_sha1": "11d8604d6d9da36939f3630c77d91fce58b94b3e",
+    "sha256": "29ed11694b5a7a64ead88b35bb52bb01b23f24bbc3341bd2d4286398ff94435b"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/v1.10/Debugger V1.1.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/v1.10/Debugger%20V1.1.brd",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 885909,
+    "git_blob_sha1": "09c45fac625b590f0a7e7a053bb73bb8b951564f",
+    "sha256": "bb854874ca32769af27768381bcc8388db1dc93c3958e6babd9505d2fa40caf6"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/v1.10/Debugger V1.1.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/v1.10/Debugger%20V1.1.sch",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 161168,
+    "git_blob_sha1": "f228bead8657ad6da5c0c65b869357cea8f5cf29",
+    "sha256": "9a38184f3dd9cba940880a77bacdca64e1fa85051e65d31b5019afbb8e1dc8bc"
+  },
+  {
+    "path": "particle-iot/debugger/eagle/v1.10/readme.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/debugger/418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a/eagle/v1.10/readme.txt",
+    "repository": "particle-iot/debugger",
+    "revision": "418c4ac3b47f7e6fd5d8d8d29dd1114ff1da768a",
+    "bytes": 154,
+    "git_blob_sha1": "0d370333423afff2744679470979f23b3235f24b",
+    "sha256": "fe1c45af08558d498f065365615f5e9f127c6b1001ab24ec17d07dead86c72e0"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/LICENSE",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/LICENSE",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 20005,
+    "git_blob_sha1": "34ec65f344a10a1599289559fa608a455f0fea58",
+    "sha256": "a0bd498de6b7991f563789715e3cf9f9a77860b6bb5b2c2b072fb3bb36361008"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.3/M.2 SoM breakout board v0.3.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.3/M.2%20SoM%20breakout%20board%20v0.3.brd",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 1343700,
+    "git_blob_sha1": "0170f16982359d46b30c4679d7869c517e27f168",
+    "sha256": "ee3b315a734a4c6843554256e38f0820675da07c1a29e928bdc1ecfb6b76eb91"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.3/M.2 SoM breakout board v0.3.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.3/M.2%20SoM%20breakout%20board%20v0.3.pdf",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 84488,
+    "git_blob_sha1": "c1f943a518419a55e85adb4cebf40db9936f1c8f",
+    "sha256": "0add0259b048957c9aebe3d100669a0411a3236a95eeee1b0fb15488087c0e46"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.3/M.2 SoM breakout board v0.3.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.3/M.2%20SoM%20breakout%20board%20v0.3.sch",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 809219,
+    "git_blob_sha1": "4d58f9b479e9073c5ab9fd5c0ffe9e81bd61104e",
+    "sha256": "4eb233714e2499c617cd0a9a2ca7baaaa950bfa32db490bae642217e2f72c478"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.4/M.2 SoM breakout board v0.4.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.4/M.2%20SoM%20breakout%20board%20v0.4.brd",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 1268248,
+    "git_blob_sha1": "521761f1142c09818976d80ad1a62ad12d2206eb",
+    "sha256": "e384ff535800feac9f9983131285c1798260ccbeac86355f6e2a48aac900272f"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.4/M.2 SoM breakout board v0.4.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.4/M.2%20SoM%20breakout%20board%20v0.4.sch",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 805109,
+    "git_blob_sha1": "d21645fdd08685f02cb0ea8a17b9155f44878c97",
+    "sha256": "33d61299764a795b6291a7cdf1db807168884f3d9d1a5d8c11465a11d7b5915f"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.4/eagle gerber for DFM.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.4/eagle%20gerber%20for%20DFM.zip",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 1030549,
+    "git_blob_sha1": "7bb566c9bb18b10e036435e0b9e8a2822a7f27d1",
+    "sha256": "6683801a06d8a2a3b81a39e13c32761195661a421018980507d97275207b61df"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.5/M.2 SoM breakout board v0.5.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.5/M.2%20SoM%20breakout%20board%20v0.5.brd",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 1277600,
+    "git_blob_sha1": "3a7c382a17b27891160f9070cceaca91b8b27da9",
+    "sha256": "3a18e336fe1ca72af8818a6db5537a9a8fefc7ccec7de12d8670717aedcfbaed"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.5/M.2 SoM breakout board v0.5.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.5/M.2%20SoM%20breakout%20board%20v0.5.pdf",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 84422,
+    "git_blob_sha1": "cd229508ff73d4d70b4fb911b244f961cc6d3799",
+    "sha256": "f6de2b715d34949561b6e4abc67bfca87d711bd009fc8c047d8a55ee8c816aef"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.5/M.2 SoM breakout board v0.5.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.5/M.2%20SoM%20breakout%20board%20v0.5.sch",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 811278,
+    "git_blob_sha1": "8adc8a9984f205b35fb283db178efd890c205b72",
+    "sha256": "04e1811324d61033bdf1312828b3043e101f699ceb9050bc14b4a669b49d7097"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.5/M.2 breakout board gerber-20240507.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.5/M.2%20breakout%20board%20gerber-20240507.zip",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 1049707,
+    "git_blob_sha1": "d899ff1b20aae101c70acef46525275019a339fd",
+    "sha256": "46ad495cb576c2ad5d9dcb6754f738dad3a361f7afd38dc4bb3ea62e28d7b3c5"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V0.5/XYdate and placement/Breakout-SMT-placement.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V0.5/XYdate%20and%20placement/Breakout-SMT-placement.pdf",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 148808,
+    "git_blob_sha1": "c86ab7a05eff8275b1110ef634927047261a6f68",
+    "sha256": "452db66c9210eee4737bc9f6bb946f837127e4c12e6a76c06c8d56c85a38b088"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V1.0/M.2 SoM breakout board V1.0-Gerber.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V1.0/M.2%20SoM%20breakout%20board%20V1.0-Gerber.zip",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 773642,
+    "git_blob_sha1": "ef582308eb6c91ff755f34602ac92573bee4b4f1",
+    "sha256": "0a853437bf959e4b9c5d4af24c65dc6ced01d83e5114ab501fb1c908fafffb13"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V1.0/M.2 SoM breakout board V1.0-pcb.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V1.0/M.2%20SoM%20breakout%20board%20V1.0-pcb.pdf",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 720396,
+    "git_blob_sha1": "20569b1569a1788d85cc2e90ebb146a14e9782d2",
+    "sha256": "28b07fd48a6cce6241661ad2ea1a9c1dc4d72010b933faccead704a0f26399e4"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V1.0/M.2 SoM breakout board V1.0-sch.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V1.0/M.2%20SoM%20breakout%20board%20V1.0-sch.pdf",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 248864,
+    "git_blob_sha1": "bee23ece3d8961116f961c3f313a29ac65014c01",
+    "sha256": "00228f7194ea9a8b79467871dc96b9391acc258bf323dac92f53a2fedd15d66c"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V1.0/M.2 SoM breakout board V1.0.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V1.0/M.2%20SoM%20breakout%20board%20V1.0.brd",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 930339,
+    "git_blob_sha1": "c02a78ab7a77ec83f655615e41437df912f76c0f",
+    "sha256": "2132bacf2ae79b1ac802590a802bff788b661ac9816beb3ea315b73cfbfa2f55"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/V1.0/M.2 SoM breakout board V1.0.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/V1.0/M.2%20SoM%20breakout%20board%20V1.0.sch",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 705179,
+    "git_blob_sha1": "c0491d7f4b259d7cc3e3c2c963c3739d430a468d",
+    "sha256": "a12b8113a6926efc1ae5d8314e359be7a779c7afeb2479663b396c4810d289f5"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/v0.1/M.2 SoM breakout board v0.1 VALUE.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/v0.1/M.2%20SoM%20breakout%20board%20v0.1%20VALUE.pdf",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 32027,
+    "git_blob_sha1": "e20719ec7c73733aca697b185bed57268dfbd738",
+    "sha256": "5b363126750b29b23e18d15da615f0969dd39a037c7b12b236d6aa46e048cd10"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/v0.1/M.2 SoM breakout board v0.1.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/v0.1/M.2%20SoM%20breakout%20board%20v0.1.brd",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 902580,
+    "git_blob_sha1": "b163ed9817a680f980f71767df7c1cdab045c237",
+    "sha256": "d439ae9d89f94648fee69bff86c5e1531f7382c14bdc281832ad9b075ace8133"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/v0.1/M.2 SoM breakout board v0.1.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/v0.1/M.2%20SoM%20breakout%20board%20v0.1.sch",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 864766,
+    "git_blob_sha1": "0f57b8486797e6d4e3c4fbf9fa9fd26e9c40e4a6",
+    "sha256": "11900bbebe4fc64336351d3929431dee37b829cf64bae3e1452e23b552dc752b"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/v0.2-layout/M.2 SoM breakout board v0.2.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/v0.2-layout/M.2%20SoM%20breakout%20board%20v0.2.brd",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 1024830,
+    "git_blob_sha1": "d272d6105c2ccc0a2cb94db1ca57ca4d024c6b75",
+    "sha256": "2411e95a93fc75ed27408a9e030baa081ae76736393e134d7e70fdb0f73d97ee"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/v0.2-layout/M.2 SoM breakout board v0.2.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/v0.2-layout/M.2%20SoM%20breakout%20board%20v0.2.pdf",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 36842,
+    "git_blob_sha1": "9916852f30982010d2cc2e00b1bdc45aa53563ac",
+    "sha256": "30429390ccdfeb5ae63e8b6a49030cf211501198a72fc0b7968f74b4769b0103"
+  },
+  {
+    "path": "particle-iot/m2-breakout-board/eagle/v0.2-layout/M.2 SoM breakout board v0.2.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/m2-breakout-board/81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2/eagle/v0.2-layout/M.2%20SoM%20breakout%20board%20v0.2.sch",
+    "repository": "particle-iot/m2-breakout-board",
+    "revision": "81ac0b99f4dda1fcc1c8d7dda43e1f23514f0ed2",
+    "bytes": 889453,
+    "git_blob_sha1": "157671015fd87604d314a51a9f30d4c9423a9d39",
+    "sha256": "0bdb4a280275380a755aaaf117cf8ba21d0e8cbb2342e0ccf375e0be54ffbbf2"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/LICENSE",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/LICENSE",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 11357,
+    "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/README.md",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 7477,
+    "git_blob_sha1": "e045e8a08b1ca7de7d311e8c56140c1a094f67e6",
+    "sha256": "9e067c27a55ad10b684358337d4ce9c8fb992700b2bde5c31eb84c4dce9efbfd"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/eagle/p2-evalboard-v1.0.0.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/eagle/p2-evalboard-v1.0.0.brd",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 292116,
+    "git_blob_sha1": "5fa0620d8f4f4dfe4ff4fd835eb2b4a3488c7a1f",
+    "sha256": "9e0e1459e308429056e039404c6a1e02a9910d69bd467951dbdb656ae69b3077"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/eagle/p2-evalboard-v1.0.0.lbr",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/eagle/p2-evalboard-v1.0.0.lbr",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 998683,
+    "git_blob_sha1": "0bad922a38e3a64829a28d2831e4f6d3cc60cb7a",
+    "sha256": "7bfc927d731afd28ebec577fffcccd54c9d2ce6c1bfbfa33c06b1afaad16747e"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/eagle/p2-evalboard-v1.0.0.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/eagle/p2-evalboard-v1.0.0.pdf",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 91482,
+    "git_blob_sha1": "0e75ddd5a143038da5d772befb0c4676cfaa0cd5",
+    "sha256": "e3b52f6dc3fab1f005a5b2b5f2959502418bf7fbcd6222550dcb8b451c5b6c79"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/eagle/p2-evalboard-v1.0.0.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/eagle/p2-evalboard-v1.0.0.sch",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 1309515,
+    "git_blob_sha1": "8dbe0987f25c0d620c62ef451f5671770f85f5b6",
+    "sha256": "9db76de39e79e11c8eeba08aecbbdeeaf1548974e23fe63c998a7eb7e58d747f"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/gerbers/p2-evalboard-v1.0.0_2022-03-28.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/gerbers/p2-evalboard-v1.0.0_2022-03-28.zip",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 452255,
+    "git_blob_sha1": "913fc030baf7e1a48cde2894e3f83954cf91765d",
+    "sha256": "4885a4034a739b90f802332af61805b3a8af07190c881c234164975d0f36418b"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/images/schematic-3.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/images/schematic-3.png",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 194290,
+    "git_blob_sha1": "cb455c053a40f36cdd6f86c544c9e34b9f7de54e",
+    "sha256": "9c52eec4317b1551812b41f8f1377d10e32f3a697c0becc61caf5763b6788da0"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/images/schematic-4.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/images/schematic-4.png",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 339311,
+    "git_blob_sha1": "d87d233903def80438a0e38a57f645f4e6dfef37",
+    "sha256": "de321e3bc776ff1b7a3669d5e23817868ef66826116bcaac56081472738dde5b"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/images/schematic-p2.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/images/schematic-p2.png",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 488579,
+    "git_blob_sha1": "46e135cae2169ecbb5eb336987055d76d4c97a57",
+    "sha256": "622044791c99217366610455fc43e5af2104fd22fdbe00de9b8b486274e5bdc7"
+  },
+  {
+    "path": "particle-iot/p2-reference-design/images/schematic-power.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/p2-reference-design/8dd9f828549e6197754ab7ac67d7d29576471d21/images/schematic-power.png",
+    "repository": "particle-iot/p2-reference-design",
+    "revision": "8dd9f828549e6197754ab7ac67d7d29576471d21",
+    "bytes": 212966,
+    "git_blob_sha1": "bd7f3317fe775f5943c5b5d141b46c2f9dc2ce78",
+    "sha256": "5c524895a3e354fc5b14ec5fe762e42b59a86f27fbc06a6a3a51a7ac1341dc52"
+  },
+  {
+    "path": "particle-iot/shields/LICENSE",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/LICENSE",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 20005,
+    "git_blob_sha1": "34ec65f344a10a1599289559fa608a455f0fea58",
+    "sha256": "a0bd498de6b7991f563789715e3cf9f9a77860b6bb5b2c2b072fb3bb36361008"
+  },
+  {
+    "path": "particle-iot/shields/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/README.md",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 315,
+    "git_blob_sha1": "974b96a9e614e3f6413b17ed1734475204e99b18",
+    "sha256": "99e6d0beb3c80f1a7ec13782611b1c918e3c92aacbf818a49b059a0db2a4a896"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-biginductor/battery-shield-biginductor.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-biginductor/battery-shield-biginductor.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 89541,
+    "git_blob_sha1": "a1d8cb644b58ddaa2e88273c9877a7bd11118178",
+    "sha256": "79834f055ca52a2c51451229774cacaf5dd6914f0ce9e27415ee79384965dbef"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-biginductor/battery-shield-biginductor.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-biginductor/battery-shield-biginductor.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 210949,
+    "git_blob_sha1": "ed0cdc7b0d3343c1c658b4159eba5ffe64112a55",
+    "sha256": "7f00a1aedad3d09de8fc0405a47c582a31a4f6702f1a239f7b24d639cc3f5654"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Datasheets/22TC-011_USB_microB_male.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Datasheets/22TC-011_USB_microB_male.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 45585,
+    "git_blob_sha1": "0def2430216885b5082cb393da55674a5b5fddb1",
+    "sha256": "dba849356efbb6f39a7cc1ffad168f0bb831dfb31f3ec091a64efeb24a66fca3"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Datasheets/CDRH2D18HP_Inductor.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Datasheets/CDRH2D18HP_Inductor.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 172553,
+    "git_blob_sha1": "f116a575cf5e012d473395511d24e7e50ba5c5ea",
+    "sha256": "f7d7f009fc9be18a37e25d94b873a8ad8960b8d317af5f6b63dab12ff068c093"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Datasheets/MCP73871.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Datasheets/MCP73871.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 497640,
+    "git_blob_sha1": "03a315251980fa3accbaccf990ddb45e4a202459",
+    "sha256": "d319cbfa9cc3b7abe506a727d11211df4e80f9e24278c0d070bdda9b71feea1b"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Datasheets/tps61200.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Datasheets/tps61200.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1275309,
+    "git_blob_sha1": "ef222255dc6f56f0c9d7e37d0f6fb74da95bb804",
+    "sha256": "6f5f12d06afae9f6759b0f94c927a67707ecb52c6713a260fbc794223b874ed6"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/EAGLE/Battery Shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/EAGLE/Battery%20Shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 90620,
+    "git_blob_sha1": "dcc4e5fb1c73deb862cb912998dce79ecc44effd",
+    "sha256": "9c05aadd54a1e8bb5053aa0c86aef844c4b7850c78b9d1e2b1836a66c69b0b35"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/EAGLE/Battery Shield.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/EAGLE/Battery%20Shield.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 21849,
+    "git_blob_sha1": "aa92e42810caf4d3097a9fc47ce101d612f95feb",
+    "sha256": "46b850dc6a44733d479bd660adbfc418ab1926e0c91bba25e8211fb8441b4f8e"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/EAGLE/Battery Shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/EAGLE/Battery%20Shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 208321,
+    "git_blob_sha1": "f4d1db5bad845a0024c77ca1c30f16488166da64",
+    "sha256": "d27f0abe035f6ca8c8ae2afaa582656e663438a23d05e8d24b6bf89048af100a"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Gerbers/battery-shield-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Gerbers/battery-shield-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 55322,
+    "git_blob_sha1": "fe5783804ec782f9f4b18e46aad35624a8902509",
+    "sha256": "4fe565bca8fbc6d8dde98fb5fb76f2b5be2c537d92705f5e119a5a8e88bbc6e4"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Gerbers/battery-shield-smallinductor-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Gerbers/battery-shield-smallinductor-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 53753,
+    "git_blob_sha1": "063961d01dd772fa144793af43aecc158d254145",
+    "sha256": "49f95f6717058731a93ff6f18451da1ef1be2a7318335e86e7bffd14dc14e578"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Gerbers/battery-shield-stencil.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Gerbers/battery-shield-stencil.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 3763,
+    "git_blob_sha1": "cc8c8f5da3f555c93c2d8d9a6037b4f8d4d73f69",
+    "sha256": "8d59e2dfe5a6018a772481a72d32625bce0a2e714b26fd0f93fec95e96f479b2"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Gerbers/battery-shield-v201-stencil.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Gerbers/battery-shield-v201-stencil.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1141,
+    "git_blob_sha1": "22e757078175d59fdad44b15c095932e49a8ba32",
+    "sha256": "7d6643cc0f9db2b9cbb84ff57f6fd7986870c606b3a8b301268ad3808919d01f"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Gerbers/battery-shield-v201.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Gerbers/battery-shield-v201.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 54467,
+    "git_blob_sha1": "e5ca2a251a50e88cf977f6ee368bcb73058dd560",
+    "sha256": "0cfbb47bc84f9db0f8263cced1ee73e2a839b0c5a825eb0300ac19761b782cfa"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/battery-shield-smallinductor/Kickstarter Revision/Battery Shield.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/battery-shield-smallinductor/Kickstarter%20Revision/Battery%20Shield.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 11797,
+    "git_blob_sha1": "0245d97d53aec8949a7908c30bbdbe48c653584f",
+    "sha256": "aa69dfa52ae8c044bd64c81f7caac956bb5ec7e93e00407e30862a8e0314961e"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Battery Shield/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Battery%20Shield/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Infinity Camera/Gerber/infinity-camera-gerber.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Infinity%20Camera/Gerber/infinity-camera-gerber.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 44247,
+    "git_blob_sha1": "563dabb2eabde443ae12e12c95179bfb85790227",
+    "sha256": "f8a89307536e568ffc5c096ca8008fd8e790fa74dd6b608ae3b0cc673eea22dd"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Infinity Camera/Infinity Camera.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Infinity%20Camera/Infinity%20Camera.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1055043,
+    "git_blob_sha1": "9f64be4bbe2264016f0d2d625e2a965f8bc7861f",
+    "sha256": "483094a666bce560a1cce1a6d0a8c3edeb11e3ed9c78cb540bfe9fe1d327b455"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Infinity Camera/Infinity Camera.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Infinity%20Camera/Infinity%20Camera.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 112556,
+    "git_blob_sha1": "b59a1d84c150719b61ceaa46cf445e586a1bb9e5",
+    "sha256": "dfdbed1c4ba08b689abaa859ad9cf116959efc518fecd280244d9f163e6f3e93"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Infinity Camera/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Infinity%20Camera/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/LCD Shield/Core LCD Shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/LCD%20Shield/Core%20LCD%20Shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1048248,
+    "git_blob_sha1": "21ce13ebdcafd83a796ffa95ede4b6e7a656a907",
+    "sha256": "155fd3e585463fb6c32e885e7cae80cd1c4632a8d3ac87642af9a37f9d016b31"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/LCD Shield/Core LCD Shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/LCD%20Shield/Core%20LCD%20Shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 126995,
+    "git_blob_sha1": "4e78bb8fcddef91fbd842fc054b8003dbce4ab52",
+    "sha256": "47b95a6e612e8b79c8f12b7d8d376a18d4886e564edf1a35e6c41b5ae2d42bbe"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/LCD Shield/LCD_Shield.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/LCD%20Shield/LCD_Shield.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 30476,
+    "git_blob_sha1": "04b8cd348c1422bb67aaa6f4fa068a7f99c70708",
+    "sha256": "c4840742643a8a3bd7a9f78d2388ed145876509b34b33d296a2ea29c30752f3f"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/LCD Shield/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/LCD%20Shield/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PDFs/Schematics/battery-shield-biginductor.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PDFs/Schematics/battery-shield-biginductor.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 26554,
+    "git_blob_sha1": "73d661cda7650039b174d3963de53563df5c055f",
+    "sha256": "888d215088137b56a5e4c8492d63544982c015380f80b3823ff4750862839583"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PDFs/Schematics/battery-shield-smallinductor.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PDFs/Schematics/battery-shield-smallinductor.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 49312,
+    "git_blob_sha1": "54b79ae5eb5c9d61cbd34153bc060348ff9222b5",
+    "sha256": "247e745dabb9aa7bab72ed742c896fcc1e6799290aecaa5956dbd2b6b372e7e1"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PDFs/Schematics/programmer-shield.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PDFs/Schematics/programmer-shield.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 62564,
+    "git_blob_sha1": "f2c9fa19c3cb462f909e112bc10ee9c9de1599f5",
+    "sha256": "3a7169efc94ea9435e22f85fa3b67ee4ffed156f15f68a5459d87d2b9666a177"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PDFs/Schematics/relay-shield.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PDFs/Schematics/relay-shield.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 86734,
+    "git_blob_sha1": "c5d9ee03bb508ce2bed4405a6e1892539e544be4",
+    "sha256": "4d73f59852d88039f1e17e4aa6697f853e762d151b0b730322a69abc3f4b319e"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PDFs/Schematics/shield-shield.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PDFs/Schematics/shield-shield.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 52910,
+    "git_blob_sha1": "d70edd583781d149190b80fb5eb4dc971e4fbb2c",
+    "sha256": "d99d42b12ec86726a6565f4c779119cd83d9b7e7ffc78a7f8f5211d48b5c1cd6"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PIR Shield/Archive.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PIR%20Shield/Archive.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 33725,
+    "git_blob_sha1": "09cd44cb8f69513c3d1c0ed6a13432300d4a9265",
+    "sha256": "26df6434656ad081a109afc55aee34efb5e75b9b989aad70719385bdadd36a50"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PIR Shield/PIR Shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PIR%20Shield/PIR%20Shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1058605,
+    "git_blob_sha1": "22f59a0abe58456fbfd17c7f69caea83a0056d29",
+    "sha256": "136318a4beffdc070f63d266a1983dd2e2990a844215a8aa8d5f2829cedc22fe"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PIR Shield/PIR Shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PIR%20Shield/PIR%20Shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 189478,
+    "git_blob_sha1": "1c2ddc3ee34b15ac553732b7eea233ecbadb7039",
+    "sha256": "2c3a2f45976897f05851d927bce4694a0c84074e50ca9f34c5cbe33d9d98d53d"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/PIR Shield/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/PIR%20Shield/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/EAGLE/programmer-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/EAGLE/programmer-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 57089,
+    "git_blob_sha1": "f796554951eab96b94456237e0ebb6f5fcc5b0e7",
+    "sha256": "d1936c74fce829a711b77337430c35f41910bbb07819dc39cc4f22b2575aed7d"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/EAGLE/programmer-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/EAGLE/programmer-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 372761,
+    "git_blob_sha1": "90782f6f108c4549d84442b8cbefab394ebdf9ef",
+    "sha256": "b8b9034ec1bb7b3a3532a7d0c4e6101c6fa917b5dda8320243ae7c7ea429a1d4"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/Gerbers/programmer-shield-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/Gerbers/programmer-shield-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 36174,
+    "git_blob_sha1": "d8f4cb6a170d60834beda22e95be25c4a5ff5547",
+    "sha256": "ed062b33cd4b4a6131a685a2a78a1d8a84a122e8646fb454fc3470531e6166a2"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/Gerbers/programmer-shield-v201-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/Gerbers/programmer-shield-v201-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 34754,
+    "git_blob_sha1": "9baa114d5d00d1e8932b2088bd5f561042660275",
+    "sha256": "445687443fa22d840154306315aa8f5c0be0b6baa18aa9ca2c198092efecc550"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/Kickstarter Revision/programmer-shield-gerber.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/Kickstarter%20Revision/programmer-shield-gerber.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 22831,
+    "git_blob_sha1": "495cb2e89f17b2f22821a66cb9c6ba2f331c386c",
+    "sha256": "a112a3d0ba5b81ba7a35c0fc571c3f9f4999cfdd1d009a1a69e376e787e2b7e0"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/Kickstarter Revision/programmer-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/Kickstarter%20Revision/programmer-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 53581,
+    "git_blob_sha1": "caed793ed52f4f93da7ebd798fc879dec99693e0",
+    "sha256": "bb97ef1fd72aa58aee78e3600f466efac81c29cf32264198f20347c09ab37531"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/Kickstarter Revision/programmer-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/Kickstarter%20Revision/programmer-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 99185,
+    "git_blob_sha1": "877d335f80402384833580384d56b122c11a799c",
+    "sha256": "bdd13582e72ac9045da315273cd34771c8448436d07bd3ac51c6ac05f2dfa819"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Programmer Shield/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Programmer%20Shield/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/README.md",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 884,
+    "git_blob_sha1": "7393c58ac8211ed109c64574ea11786fbba77b46",
+    "sha256": "02becf71305bebcc6abd47b6d20c5fbd3c1beb525b59eb2eb50a96e8b528088d"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/Datasheets/MC33269-D.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/Datasheets/MC33269-D.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 274043,
+    "git_blob_sha1": "85f0a1c64dd61349e5406daf78dcff22157e29b5",
+    "sha256": "cb95e9c0f7b4b57bd7f0e0fd6a7ccaa7d5a15d753bf394ffabb525ed44ca2517"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/Datasheets/SRD_songle_relay_specification.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/Datasheets/SRD_songle_relay_specification.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 3196334,
+    "git_blob_sha1": "60ec3e4365222a10fdbe744fb2e431fc5601c2ad",
+    "sha256": "28ad4ff288efc44dd5a29187722de39abda1bb450a60286fd8266566082706cc"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/EAGLE/relay-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/EAGLE/relay-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 107165,
+    "git_blob_sha1": "b59aef45073baf46cb46053f1be8a3b1741df076",
+    "sha256": "abcbde2f7d3a2acfddd40e7eaeedd4f5342018ec32899bab624b91f724abb078"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/EAGLE/relay-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/EAGLE/relay-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 673773,
+    "git_blob_sha1": "5d6eaa805492081a21d0fb2a6d749cd896de716a",
+    "sha256": "388b2c9ef594f549af107512f45026be59d303c0b863fbedd9a22a3c41d55ad3"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/Gerbers/realy-shield-v210-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/Gerbers/realy-shield-v210-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 198658,
+    "git_blob_sha1": "19361da6240ce528d4db9fc9533ee2f14664adf8",
+    "sha256": "593c553b00362b369fcb7764b43509876ab3e8909a559ef7877157d4388ee5db"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/Kickstarter Revision/relay-shield-gerber.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/Kickstarter%20Revision/relay-shield-gerber.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 30982,
+    "git_blob_sha1": "8179c7f83e70254a4a6a0cb77ca549ed95e6e9c2",
+    "sha256": "252f725da2f6f53c2b98fc32689032724185554e8ce1d6cd3a3f786eb37f8b19"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/Kickstarter Revision/relay-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/Kickstarter%20Revision/relay-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 61453,
+    "git_blob_sha1": "996959e8c4dbe6059aae08b862b774b1d70fe26f",
+    "sha256": "5bcff48378c27750c6439b4d120c8b4f1eac9eac82c781b5efcaf084c68b6f57"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/Kickstarter Revision/relay-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/Kickstarter%20Revision/relay-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 129218,
+    "git_blob_sha1": "ca14eaabccee016dbb3ceec8ddbbc567c255832d",
+    "sha256": "6b7aa508f492cb738ee0f9650a56b9803f77d0686e39a0d7e89f8f52e1c03c0e"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Relay Shield/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Relay%20Shield/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/Datasheets/MC33269-D.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/Datasheets/MC33269-D.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 274041,
+    "git_blob_sha1": "1267a75661b6446bd1dd596a3117a8d62f7c3dd5",
+    "sha256": "a763b0bdf7f6e7cbe191bdc90ccfb52bc66513b985a015815e52e439d707cf15"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/Datasheets/txb0108.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/Datasheets/txb0108.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 704363,
+    "git_blob_sha1": "1ce475a390529d06750f5d571b0493de5fda4e69",
+    "sha256": "2ed35af36dc6aca7fda25d68ad275423c795f7266794d8a03ea841c686f4cc5f"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/EAGLE/shield-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/EAGLE/shield-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1159884,
+    "git_blob_sha1": "3f8f7bf2aba4cfb724def19655c98a6ee13bb17f",
+    "sha256": "306bf9755dc1057e7e63012f1e76230a22c4857ae33c2a1844803f231fad1586"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/EAGLE/shield-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/EAGLE/shield-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 652949,
+    "git_blob_sha1": "5dd0ef1c1173e3308475176c04ed02a9a3b55893",
+    "sha256": "5f79605101ad8ebb4b73638ab335ac713c741cd15aac5afbe96871438e91e880"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/Gerbers/shield-shield-production-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/Gerbers/shield-shield-production-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 80182,
+    "git_blob_sha1": "29b2d7fbc7cfbce7d867f47ee96b673a4a8b0fa8",
+    "sha256": "0f77134604d0f505fc86d9ec715982832352a2f4feb89a989b12765230b156d4"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/Gerbers/shield-shield-v201-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/Gerbers/shield-shield-v201-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 78097,
+    "git_blob_sha1": "708502fbcf551a10d3c77e19ce7921814bfe601c",
+    "sha256": "42ea2370f6cd4de2206a9627ae28fe20d45a951b26d934e1a660d8d4e1448a56"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/Kickstarter Revision/Core Shield Shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/Kickstarter%20Revision/Core%20Shield%20Shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1084646,
+    "git_blob_sha1": "e980b2e819a65e9051a72be874deb537b52e91a9",
+    "sha256": "b71ac581291c4714a98bca16cb8c355f25ec4fac998f3ef9d14db326b6e5d25e"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/Kickstarter Revision/Core Shield Shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/Kickstarter%20Revision/Core%20Shield%20Shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 155661,
+    "git_blob_sha1": "9771d45459a6c3005d385b3b19945dff98964ea9",
+    "sha256": "fa8cc205896011634033c902f0eec64505eada3bec637d23b45388bc27a1b200"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/Kickstarter Revision/core-shield-shield-gerber.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/Kickstarter%20Revision/core-shield-shield-gerber.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 45450,
+    "git_blob_sha1": "c848c22f736a8a672f4ef494a7420b92bf4cd7f3",
+    "sha256": "b1ae7023768c3985d85855950f27aab0c55ffc78094951becfaac6a3072e6339"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/Shield Shield/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/Shield%20Shield/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/core-shields/license.txt",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/core-shields/license.txt",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42799,
+    "git_blob_sha1": "c2af91689cb804f6739571ea8ec5e0c8f80862a6",
+    "sha256": "ffd376a256b5a2fb7053a04c06bcaa32000e11605c4f0666b0a0c3bf77219c45"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/Eagle/V0.0/motorShield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/Eagle/V0.0/motorShield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 183134,
+    "git_blob_sha1": "343dde644807326cd921c344a2960d74d64af3e0",
+    "sha256": "0ae0224e4c1bbc5310427a482cbe8921e3a117d38902bb5ccceec884c759c3ba"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/Eagle/V0.0/motorShield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/Eagle/V0.0/motorShield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 847577,
+    "git_blob_sha1": "cf3f08d771d2cd28ac9b662e21e653eb4b3e4baa",
+    "sha256": "1399aee00177996becdfc272a1d383872ddd922c105d0233cb8eff5db361a168"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/Eagle/V1.0/motorShield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/Eagle/V1.0/motorShield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 252065,
+    "git_blob_sha1": "185c5fad2dcbe93d1a8783410cceeaa0b223a814",
+    "sha256": "651f54e274d54e85bb468941e1d5211744af6c38682d09390dfe9ac7cdb16638"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/Eagle/V1.0/motorShield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/Eagle/V1.0/motorShield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 773427,
+    "git_blob_sha1": "736ceb5caf77e1acd23dc6293b34a3ce8151b041",
+    "sha256": "3b150efc623849f4a835348d5b56a4e139cd19a29e4d1a59f1843d308e6a759a"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/datasheet/100uF 35V_PDF_C65221_2015-12-11.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/datasheet/100uF%2035V_PDF_C65221_2015-12-11.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 43232,
+    "git_blob_sha1": "2a474df901b0685c97d29efd04f6e733aa42a42e",
+    "sha256": "ff9d3ab6168c0e711b728026114b9a9e35f77b4be553853402cec99123a4b921"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/datasheet/220uF 50V_PDF_C59925_2015-09-26.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/datasheet/220uF%2050V_PDF_C59925_2015-09-26.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 81229,
+    "git_blob_sha1": "19cd0212d452fe0777c3ccdf8562607449076620",
+    "sha256": "19eaa599a752c71b671a05fc70531d2f5a473d8869d7b8cfa0fb02cfb727f0e1"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/datasheet/L298_H_Bridge.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/datasheet/L298_H_Bridge.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 611634,
+    "git_blob_sha1": "7552af438b69c3f0dfd4498c9a5d505da7fe1c5d",
+    "sha256": "b499461614cbbec95227bc79e1da4bf21f0e0121d9f7f931b462cbe66fced4b3"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/datasheet/MCP23017.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/datasheet/MCP23017.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 937906,
+    "git_blob_sha1": "23acd0e1199381627a38d60b2f27a260f249aafd",
+    "sha256": "da9b6082298056ef32b19cebc863df947bab3b286b434924b5a2f4fd5d1eff20"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/datasheet/drv8824-drv8825-stepper-motor-driver-carrier-schematic-diagram.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/datasheet/drv8824-drv8825-stepper-motor-driver-carrier-schematic-diagram.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 195772,
+    "git_blob_sha1": "46915e57838eccf6693216f1167c9e637856a7f4",
+    "sha256": "4da1a0bd6b6ba412d6228aca588b3a452aef95f22e5a661abfe31e0c3e4c8ad1"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Motor-Shield/datasheet/drv8825.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Motor-Shield/datasheet/drv8825.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1239960,
+    "git_blob_sha1": "48f94820827d942b3fc6cb29019580b0c3330e50",
+    "sha256": "087e8ace8ed10d396e0e7fa0d5d667da99289b7316a8e184a8ce3726f9f43b25"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/Readme.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/Readme.md",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 63,
+    "git_blob_sha1": "9aceeda6ced92b65a9920425afb68d2d3bd147b2",
+    "sha256": "70160aa55cbfec38f0b6e8cce5f8ecb9ee8d193ddd9921bc1ac1b2586ade89e3"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/GPS & Glonass_18184_SMD_ANT1818B00BT1516S.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/GPS%20%26%20Glonass_18184_SMD_ANT1818B00BT1516S.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 649216,
+    "git_blob_sha1": "202160c9f90a84956c5bc27a1a860c3f1f44b20c",
+    "sha256": "57c71e4cabef145951e75873dbbff83d360189faa1eeaef89d9086c75ccbc72d"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/GPS-Antenna_AppNote_(GPS-X-08014).pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/GPS-Antenna_AppNote_%28GPS-X-08014%29.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1399489,
+    "git_blob_sha1": "304d415a27a2892027bc1327e9592fcb04a1c875",
+    "sha256": "bdcceec95fe9b8a5d85087eec7985eace31b45380a675bf20d23916188e94745"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/GlobalTop-LadyBird-1(PA6H)-Datasheet-V0F(Tape Reel).pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/GlobalTop-LadyBird-1%28PA6H%29-Datasheet-V0F%28Tape%20Reel%29.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1117286,
+    "git_blob_sha1": "d8749bb86c8121eb7dcee655784522df1f5aaece",
+    "sha256": "2db34c3a30f23e384184e2ce7fcc183d184b2ec2b16073821ee1720c11eba6e1"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/Infineon-BGA725L6-DS-v02_00-en.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/Infineon-BGA725L6-DS-v02_00-en.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1483130,
+    "git_blob_sha1": "70d38626e40edbfdf20f47de23e135a39e80af62",
+    "sha256": "0925b3cd7f6058e35f6c38cb592cc7ff18712a8d50aacfa6fbf7c40b38dd6abf"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/LIS3DHappnote.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/LIS3DHappnote.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1495055,
+    "git_blob_sha1": "6e3ccdec7f06d2d20f2caea1806f96e1186bfb06",
+    "sha256": "b6b52b7b057247a32f4636412f19f35e5d78c2d2a005b9cb453c149554286ba9"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/MAX-M8-FW3_DataSheet_(UBX-15031506).pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1365364,
+    "git_blob_sha1": "6a0127128e9169fb1cc587030477561a9d81a88e",
+    "sha256": "9b29f96486779779b10e2ad884d10ec1d7dd0a88b4f1f30b137226e1ff4bb979"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/MAX-M8_HardwareIntegrationManual_(UBX-13004876).pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/MAX-M8_HardwareIntegrationManual_%28UBX-13004876%29.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1651138,
+    "git_blob_sha1": "0bd0968e580b06aa7edd4bb37bda1c33f7970aff",
+    "sha256": "a91f32dbadce7fc287cc7228dd122e20cb83dd82e70e5e9a7a81dac2d59aee66"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/MAX2674-MAX2676.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/MAX2674-MAX2676.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1191450,
+    "git_blob_sha1": "0cc26d97980d13bf5008f7ea64025650fa521125",
+    "sha256": "7a33d6cd70830b440436508ed4fefeb24f85d9cde6668f6a6aa77489ef6c8417"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/PAM-7Q_DataSheet_(UBX-13002455).pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/PAM-7Q_DataSheet_%28UBX-13002455%29.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1872863,
+    "git_blob_sha1": "509c771ca3a62af4a57247be553fe8dab8be1e02",
+    "sha256": "84b7536ee42ca1cfe15d559c4c6f254cf158d36bf9a61939bdd7855dfb988830"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/PAM-7Q_HIM_(UBX-13003143).pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/PAM-7Q_HIM_%28UBX-13003143%29.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2368521,
+    "git_blob_sha1": "bdfaf56efdf1eaa17dff65074897a4b1e0ce499f",
+    "sha256": "98716827d11ebd6dfb1c3db5e69227bc0d52d50f62c2617273e5449846728448"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/PowerManagement_AppNote_(UBX-13005162).pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/PowerManagement_AppNote_%28UBX-13005162%29.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1145751,
+    "git_blob_sha1": "20a563e02f5420eb81a87bdf1a8ffb604bb8d18e",
+    "sha256": "7f1afa4f272e5904edeab9b5c28031e1422a1c8f7657f6a76d908802a4d268bc"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/SAFFB1G56KB0F0A_ds.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/SAFFB1G56KB0F0A_ds.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 295239,
+    "git_blob_sha1": "eb05472af411b2a13daadb9cd625ec4d83b63cbc",
+    "sha256": "07d9d59ab92df269985e241d434e92da0dc67efb9311e2e64d8b6dbd6c340299"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/SGGP.18A.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/SGGP.18A.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 4234872,
+    "git_blob_sha1": "3a123fddd0fa8595fd4a38591edcca9fbe266bd3",
+    "sha256": "5da4f864e7c8c854c51108ed78214a21b7508dd9061e7c07eb76f90da86b1d01"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/pe4259ds.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/pe4259ds.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 470712,
+    "git_blob_sha1": "fc64480080497644cae11c277e400c4fee403a31",
+    "sha256": "e09b2c69b708a94679d76c63df5e362793e2772700ad4f4bf6c5e820f58164a2"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/u-blox7-V14_ReceiverDescrProtSpec_(GPS.G7-SW-12001)_Public.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/u-blox7-V14_ReceiverDescrProtSpec_%28GPS.G7-SW-12001%29_Public.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2815154,
+    "git_blob_sha1": "f9fa16b88c77980e6de40388da99d527cdfca13e",
+    "sha256": "b396150f7123657bdefb4aa7357a1be41cbedb694936db9c3c7693f9738123e2"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/datasheet/u-blox8-M8_ReceiverDescrProtSpec_(UBX-13003221)_Public.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/datasheet/u-blox8-M8_ReceiverDescrProtSpec_%28UBX-13003221%29_Public.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 14134564,
+    "git_blob_sha1": "fdbf266c42766aa9724799de880ed258937b94b9",
+    "sha256": "0f9692a672928905eb62faab9ae716b5cbddd7836d1a87f0d29c73b3b6ec6c67"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/archived/asset-tracker-v004/asset-tracker-v004.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/archived/asset-tracker-v004/asset-tracker-v004.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 3545089,
+    "git_blob_sha1": "260b640c2142ce6b8aeae567f495a24d4ddc5245",
+    "sha256": "1487b1a4e021c5524e30a71714a0bef03c2dc4dbc3ff766f225f6b56997ea8d5"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/archived/asset-tracker-v004/asset-tracker-v004.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/archived/asset-tracker-v004/asset-tracker-v004.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 579938,
+    "git_blob_sha1": "c76c37af58146b517e69feb8f5b6c727ea25cae0",
+    "sha256": "81048abe596343114a4b189af0fa6e3f90e107e5a22ce34b0bc50ad5c87f1105"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/archived/asset-tracker-v005/asset-tracker-v005.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/archived/asset-tracker-v005/asset-tracker-v005.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 4876751,
+    "git_blob_sha1": "cf16cb14789ada1ac94f3d5bcdd722a49372c491",
+    "sha256": "15178275048cb99f0c3ad1a64c27cbd8fbb064a114b8f8949c086a6f7e1c95dc"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/archived/asset-tracker-v005/asset-tracker-v005.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/archived/asset-tracker-v005/asset-tracker-v005.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 596166,
+    "git_blob_sha1": "f683c8ce3eb77f1fb19312d36f80cb4b3dd17f9f",
+    "sha256": "f5101a62d8624f181cacf8ac32034146b6a3a82a9134c30de9d59ef9fe1ca03d"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/archived/asset-tracker-v006/asset-tracker-v006.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/archived/asset-tracker-v006/asset-tracker-v006.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 4562925,
+    "git_blob_sha1": "a562d559b8916f2f12651c9e967262041bad7b8e",
+    "sha256": "3f153cae69e7e47ff34dd4400186787a0c6429a7db314e540fff0d2327c40d6f"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/archived/asset-tracker-v006/asset-tracker-v006.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/archived/asset-tracker-v006/asset-tracker-v006.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 617709,
+    "git_blob_sha1": "6139f20990e297e12b4349e03e3476312c1c61d3",
+    "sha256": "3b810d6d49c47144b3f11ae64c986bfc29fce420b0db8557e4f2be4ee75b423d"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v001/asset-tracker-v001.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v001/asset-tracker-v001.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 109502,
+    "git_blob_sha1": "cf8c32ce5633ad2d32de1c251d4d71cbbc0c5749",
+    "sha256": "20d2116833c3ac1575cf6b0350a61daa53034e65e6d447dd1210559728aa23e1"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v001/asset-tracker-v001.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v001/asset-tracker-v001.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 239514,
+    "git_blob_sha1": "b30118e0a89e9cb2ed35838fdbe7a95759f4899e",
+    "sha256": "7abd947cb702d65f114cf50151e1020da693b03dc1b0f67346ad50704a8b35b0"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v002/asset-tracker-v002.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v002/asset-tracker-v002.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 112581,
+    "git_blob_sha1": "32ebde581c9a4976dfaf3e26688cb8b9e39bd5e8",
+    "sha256": "8282b2e63e5551e2c83b8f42a6732954e4d3d9771dc1a8821dbbc6565180f4ec"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v002/asset-tracker-v002.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v002/asset-tracker-v002.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 239514,
+    "git_blob_sha1": "b30118e0a89e9cb2ed35838fdbe7a95759f4899e",
+    "sha256": "7abd947cb702d65f114cf50151e1020da693b03dc1b0f67346ad50704a8b35b0"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v003/asset-tracker-v003.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v003/asset-tracker-v003.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 115233,
+    "git_blob_sha1": "e40b3165a104581c485dbc567281714835aa29e7",
+    "sha256": "fd24431b3b6a0b3c6bd4b7848d73eb7baada5ab55e489a6a789fa9425dfaece2"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v003/asset-tracker-v003.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v1xx/asset-tracker-v003/asset-tracker-v003.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 243519,
+    "git_blob_sha1": "981a770803e8a595f27e6912aecf5018718f4917",
+    "sha256": "19b32d7801c126713ae669ef58092c9d6831111f3cd85a15642d32536f53aab1"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v007/asset-tracker-v007.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v007/asset-tracker-v007.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 5061082,
+    "git_blob_sha1": "c3545e6d0db651106715b2123ede434f9d1642b3",
+    "sha256": "4257a063526afef259693495a2493fd7acca0664522441c27c5753500eeea39a"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v007/asset-tracker-v007.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v007/asset-tracker-v007.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 621428,
+    "git_blob_sha1": "5446597824700a56bda8620a00b9ccc634de7c3d",
+    "sha256": "223a57f826dc98b89c4770bd929845fa015ee98005313f992e8c3ba2c90c9725"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v008/asset-tracker-v008.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v008/asset-tracker-v008.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 5053942,
+    "git_blob_sha1": "ceaa25d1a78428d439049e71a3225db07eeaedfe",
+    "sha256": "1449aa177b6bd6e9db744e4f8c0891bdaf302a05d3c906b626ca39de19569577"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v008/asset-tracker-v008.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/eagle/asset-tracker-v2xx/asset-tracker-v008/asset-tracker-v008.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 528065,
+    "git_blob_sha1": "aa9d479f60cb74acfb2c4e18435805d007c29f3c",
+    "sha256": "211e46e7cf87370aee75ef3bcaef412e51549fc650c9f9be6ae22fab7d2ff34c"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/gerbers/asset-tracker-v004-gerbers/asset-tracker-v004.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/gerbers/asset-tracker-v004-gerbers/asset-tracker-v004.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 239803,
+    "git_blob_sha1": "57db37a5c2f8687632efc2e71843f358d70ab1a0",
+    "sha256": "c1e65862073673171ff44bf307d61c43093570afb6b2f3ce960cfafbaa9ea2f4"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/gerbers/asset-tracker-v005-gerbers/asset-tracker-v005-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/gerbers/asset-tracker-v005-gerbers/asset-tracker-v005-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 267431,
+    "git_blob_sha1": "21a106ec3f9d085948d32d55d1f0b3d31dbef58b",
+    "sha256": "142d322e14b83fe98c1e11013682e273042945e08fb8ba18b4c0c2496f1bb27d"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/pdfs/asset-tracker-sch.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/pdfs/asset-tracker-sch.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 28638,
+    "git_blob_sha1": "ff4e3d67c5052d43164beed0bfaf5ad86892f3a7",
+    "sha256": "3cb04efbd63d41defc5e52d6eefd6aded634cf63789cf799ab151a017e59c8c6"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/asset-tracker/pdfs/asset-tracker-v200.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/asset-tracker/pdfs/asset-tracker-v200.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 29044,
+    "git_blob_sha1": "9c488cb108de07654a14c5a193bc4fb8b96e949d",
+    "sha256": "b82e779404d03005d0a5596a3cd893e002ef6e0228e6f4f1d6d2ff873e9117b2"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/rgbBreakoutBoard/eagle/rgbBreakoutBoard.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/rgbBreakoutBoard/eagle/rgbBreakoutBoard.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 34148,
+    "git_blob_sha1": "e363b7412628a212e7c51b8cfd3aaaa497f20b50",
+    "sha256": "9c9ca9cfe05d2c5dfb039f5b5613b524392bbb3839c3f1da22555b66b6d7af19"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/rgbBreakoutBoard/eagle/rgbBreakoutBoard.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/rgbBreakoutBoard/eagle/rgbBreakoutBoard.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 62807,
+    "git_blob_sha1": "f896271d31ca6151b50b330de8342ae453bafc6f",
+    "sha256": "c6e5b4e32ca7a39a7f5064e0eef61b71dc182c9071d0dc18cc3cb8348687ac82"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/datasheet/ADP2302_2303.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/datasheet/ADP2302_2303.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1000634,
+    "git_blob_sha1": "cbf62e4b01375d729885900dec4ad68cdbb0faf3",
+    "sha256": "047c55c0cd3ea9eff77e088c1ff52d81f94bf1f8ca5203fc1ef072cc26cdfa2d"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/datasheet/BSE_What_is_MPPT.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/datasheet/BSE_What_is_MPPT.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 117976,
+    "git_blob_sha1": "da3d8d6b292617c8d43b41b3ee21092367d27b0c",
+    "sha256": "6ec934a98f8cebe68e848834b006088ac040a6535211240b6fafe729e40c0210"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/datasheet/LINEAR_ordering_info.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/datasheet/LINEAR_ordering_info.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 55719,
+    "git_blob_sha1": "53e0724e806a7421b24154aff1257131e8272ae3",
+    "sha256": "1d3cc1a70e55c81660fd14102b35e5383f04f2aa1a185c050b05c426913d9d83"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/datasheet/LT3652.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/datasheet/LT3652.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 279735,
+    "git_blob_sha1": "608e0f969352606a3291120df329890d2045e566",
+    "sha256": "d4bb2702ff897bd3d338e99bfc32464edd074df1385d45f54da563a0be27053e"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/datasheet/RTC_MCP79410.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/datasheet/RTC_MCP79410.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 943151,
+    "git_blob_sha1": "b3a13490702f8f25998fae0f919b77729d3d0997",
+    "sha256": "46aef8b3d72e9b47581047a37da64ded1ebde5792c733dea08e5cd1fc5e40639"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/eagle/solar-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/eagle/solar-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 681410,
+    "git_blob_sha1": "6b863f8957612521bfc3ae63309e6afd55e087bc",
+    "sha256": "d5ca6510e9b7b3e5f8903fafc1dda5914a4a43b896f90c5a8083c5607fa709ad"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/eagle/solar-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/eagle/solar-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 238051,
+    "git_blob_sha1": "3aff93b7e8efbae1f0859466e4378bc3c5d4304b",
+    "sha256": "d2d4f33b4808457ac21e8e404ca76b8a1f6cfdd586a2c54ff96c7cd5a123b423"
+  },
+  {
+    "path": "particle-iot/shields/electron-shields/solar-shield/pdfs/solar-shield-sch.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/electron-shields/solar-shield/pdfs/solar-shield-sch.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 28571,
+    "git_blob_sha1": "e12eb8cd18d684ae4bd0582ece87c3580d5f1702",
+    "sha256": "4be259afb90a7fc5e0fdf8dd568f27b0e85a318487c7194b813df9f1f929bef9"
+  },
+  {
+    "path": "particle-iot/shields/libraries/PowerShield/LICENSE",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/libraries/PowerShield/LICENSE",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42798,
+    "git_blob_sha1": "99ef9e2a1a13b4695ec3b69601f760c83bf858b5",
+    "sha256": "39676552fd16d3317f6e6af4cf810778060cda238f75dac9b27c0fcbe848d3d4"
+  },
+  {
+    "path": "particle-iot/shields/libraries/PowerShield/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/libraries/PowerShield/README.md",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 418,
+    "git_blob_sha1": "3e0b9a5fbade228eac562850d9e0675479091dde",
+    "sha256": "56c7e846fd0d76ec9563104b1a768796ac476ecebb9e7799c0555c846b494a04"
+  },
+  {
+    "path": "particle-iot/shields/libraries/RelayShield/LICENSE",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/libraries/RelayShield/LICENSE",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 42798,
+    "git_blob_sha1": "99ef9e2a1a13b4695ec3b69601f760c83bf858b5",
+    "sha256": "39676552fd16d3317f6e6af4cf810778060cda238f75dac9b27c0fcbe848d3d4"
+  },
+  {
+    "path": "particle-iot/shields/libraries/RelayShield/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/libraries/RelayShield/README.md",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2069,
+    "git_blob_sha1": "81db9cb78834e043f758225b000c2e7ad0a6f209",
+    "sha256": "4dfd5e0be0f7d4a89243d6f5e2c3d40b8971bf53790359b41f43cc61661c87e6"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/PDFs/Schematics/internet-button-v130.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/PDFs/Schematics/internet-button-v130.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 48532,
+    "git_blob_sha1": "fd247637e424461b3dbc4942813f099ab590215b",
+    "sha256": "28a139bc97859bd35c072b3b6e0ec2989497b37ea115fa8aeb99b3b5da0c5f67"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/PDFs/Schematics/power-shield-v210.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/PDFs/Schematics/power-shield-v210.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 58825,
+    "git_blob_sha1": "b1b3b21ea1a061cdf287a170b6049405d79c620b",
+    "sha256": "0d8759caaefe5071f0aef966b70b0f90193312ba56cc321a972123085219dece"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/PDFs/Schematics/programmer-shield-v1.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/PDFs/Schematics/programmer-shield-v1.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 67971,
+    "git_blob_sha1": "cbe2ce906e41365c6a2bf3ab5ae5d9b2ba53b374",
+    "sha256": "cc321b907c24ff90d8907461ad4cec3b83184827c0831b71369f40c148dd72d9"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/PDFs/Schematics/relay-shield-v310.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/PDFs/Schematics/relay-shield-v310.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 121954,
+    "git_blob_sha1": "9d6a989675be6df4cd7cba65dae9c01b65285aee",
+    "sha256": "0aeefbc19b22b3c33f3b1240ab7fabb5c347d47568415c854328b7b68e9d3adc"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/PDFs/Schematics/shield-shield-v301.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/PDFs/Schematics/shield-shield-v301.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 68679,
+    "git_blob_sha1": "d1e646a0b5a99d0c9f6b8ddb3c23595acbbe65e2",
+    "sha256": "4fd326fb83fd2fdb881e30a2fa732c969cfd818247359754ef23ef29e6ddf32c"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/datasheets/ADXL362.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/datasheets/ADXL362.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1166327,
+    "git_blob_sha1": "dc94ede9919c1fc9acaef91ade4c7efb6e3e2ecb",
+    "sha256": "aa202edd4f574616c7a83f6ff2c1d84db185332f09f3e9d8eb332763de080417"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/datasheets/NL17SZ125-D.PDF",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/datasheets/NL17SZ125-D.PDF",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 106947,
+    "git_blob_sha1": "88ab6e77cfbe9caf182a1480115c58393422a2ab",
+    "sha256": "ffa3474762916944f2ab9a5728248aaa201bc81abfac7b3d7c40dad601504fb2"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/datasheets/WS2812B.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/datasheets/WS2812B.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 355361,
+    "git_blob_sha1": "4925af6880e2998c4430eed655750fecb2138bb8",
+    "sha256": "670517e400d01f76e91187e173c9bb105e5470741604f81243364c5f13d37448"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/datasheets/buzzer.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/datasheets/buzzer.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 394053,
+    "git_blob_sha1": "b58ee3a9d613a8ba32fc1182365fbae7857b408a",
+    "sha256": "28024d7695c1ca3cc6d43bb6380e8f2eb0e9c523a81218e4c20be22768482378"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/eagle/internet-button-v130/InternetButtonBuzzer.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/eagle/internet-button-v130/InternetButtonBuzzer.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2454552,
+    "git_blob_sha1": "dbe0b922898edf46f7e6a06ee70b3658536625d1",
+    "sha256": "2718505fd38d0fb1ce5d1e903cc9fa8e074a80eee31d500203c0cd7fa37f8b99"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/eagle/internet-button-v130/InternetButtonBuzzer.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/eagle/internet-button-v130/InternetButtonBuzzer.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 280257,
+    "git_blob_sha1": "4c198b56f01b389944c17f43005ff2d5954cca56",
+    "sha256": "34610343000d4c3a6cd34c49429cf55577c35b6576eda1544312e1115981fdc7"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/eagle/internet-button-v140/InternetButtonBuzzer.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/eagle/internet-button-v140/InternetButtonBuzzer.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2487163,
+    "git_blob_sha1": "5f34805a0dded39f68e9b6ba2294e77924887f6b",
+    "sha256": "f8d76a35cc7e3df2e5927db8f0787d5021aa35baa68813b449d93802aa945a24"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/eagle/internet-button-v140/InternetButtonBuzzer.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/eagle/internet-button-v140/InternetButtonBuzzer.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 280403,
+    "git_blob_sha1": "0845512372ba70d76a9dd819996bd800853979e0",
+    "sha256": "569d8b893888f1333a72b78d8ca77ab75d471b19d679176ea01b2845396737e9"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/internet-button/gerbers/internet-button-v130-gerbers/internet-button-v130.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/internet-button/gerbers/internet-button-v130-gerbers/internet-button-v130.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 249064,
+    "git_blob_sha1": "8c69d66078981d4f5bfadfaae5b579d535091241",
+    "sha256": "e2248c2b06530fdb4cbccce49be355b28644ca365786c188dd3aaa57b595eec4"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/datasheets/BQ24030.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/datasheets/BQ24030.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1184489,
+    "git_blob_sha1": "110016e7fac51b6b9292d2566650fc3aab4b9673",
+    "sha256": "84feb602c46706fc6cf830c8c7c055e787fd7e28372408e0ae26afcf1b65ba6a"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/datasheets/MAX17043-MAX17044.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/datasheets/MAX17043-MAX17044.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 372531,
+    "git_blob_sha1": "bf1666ecadc4574ddf895e50e8620cba7a23fb58",
+    "sha256": "3f44a750ab1baaee8fc83593fc4a3fa87c51afbcdda423784b77b69ef8cd75bb"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/datasheets/NR8040T6R8N.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/datasheets/NR8040T6R8N.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 860997,
+    "git_blob_sha1": "fcb7bef10344f0e1b9d253d5da7860b4c2ec3d4d",
+    "sha256": "71c487178ac11a78ec0b6a1cfa212a95e8d674bb42eb0a1e148a8a37fffe98a5"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/datasheets/RT8259.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/datasheets/RT8259.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 209006,
+    "git_blob_sha1": "db43274ebe79317bb28d889aac9a196fae74f6e4",
+    "sha256": "14fe428677e5ec635951dcea2bb54093fdbcc81cad141808a3329882ad1f880b"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/datasheets/bat54v.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/datasheets/bat54v.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 83690,
+    "git_blob_sha1": "606abd81da92d729b04c8ae1261ddb7483591607",
+    "sha256": "989b11823283ac2c474c5e65617665bb3bd24c14f4bbeba318cf15525659260f"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/eagle/power-shield-v210/power-shield-v210.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/eagle/power-shield-v210/power-shield-v210.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 3348172,
+    "git_blob_sha1": "7fcbffc808bfb7915e275f70b3e6e3500fd46436",
+    "sha256": "caf2d33b86dfd95fe049bd6a4f36dca5d7d9d353fde848b1a21289400396e6de"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/eagle/power-shield-v210/power-shield-v210.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/eagle/power-shield-v210/power-shield-v210.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 297137,
+    "git_blob_sha1": "02ac95b7cf955726fe0414dddfb22d4fd62a4ecc",
+    "sha256": "3763da9ab6f037efc14b29035112fd639cf5a4565718225aaca00d2c77639609"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/eagle/power-shield-v220/power-shield-v220.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/eagle/power-shield-v220/power-shield-v220.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 4242406,
+    "git_blob_sha1": "8599ef2bfda260a2f11a8c1b6620dceb31812137",
+    "sha256": "55af92a151f10426d17334f2f90b8c73c2044684a57ac708a3ff49c87017ba88"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/eagle/power-shield-v220/power-shield-v220.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/eagle/power-shield-v220/power-shield-v220.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 297460,
+    "git_blob_sha1": "211aed6eea7531faf00efc28adc1a07fb97010b7",
+    "sha256": "0f02287c5cf274eadd25eea577b94ff032b3e2ffd99b8736f856b30e70d40b76"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/gerbers/power-shield-v210/power-shield-v210-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/gerbers/power-shield-v210/power-shield-v210-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1049496,
+    "git_blob_sha1": "8c1f116188f1b443f25d32eaebe5697644d97f0d",
+    "sha256": "c40047e789cc7a4d40fef68a9da68a52d91a329afe60f8852e5f16591c2d5822"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/power-shield/gerbers/power-shield-v210/power-shield-v210.GTP.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/power-shield/gerbers/power-shield-v210/power-shield-v210.GTP.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 323111,
+    "git_blob_sha1": "2825b7fd16e314011f7a42c112c79e56668cad2a",
+    "sha256": "47005f4f66a26be8d6eae8a815652def135a4c70efbbc70216831832614a8bc5"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/programmer-shield/README.md",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/programmer-shield/README.md",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 14286,
+    "git_blob_sha1": "f6d5425e079b882ae68c56d0a148227a3962af0c",
+    "sha256": "9ff444d6aefda2ea7157f34f851c37aaba42d4cc623318e643c9cc9b5964ccdb"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/programmer-shield/datasheets/AT93C46A.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/programmer-shield/datasheets/AT93C46A.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 162118,
+    "git_blob_sha1": "39aed4581522f8193ce4afa4741903507f85fd08",
+    "sha256": "d100b8f32cfe74b8979bc52cce13218762db18ea62b4652ddb256308df64073f"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/programmer-shield/datasheets/FT2232H.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/programmer-shield/datasheets/FT2232H.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2333813,
+    "git_blob_sha1": "57714efdec0c069dd586164b6245eee145cafc5c",
+    "sha256": "07b3e8b4999b9ad95e296c661767f293eaaec2795ed4fe2a60a13998cc9e592c"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/programmer-shield/datasheets/LM1117-3.3.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/programmer-shield/datasheets/LM1117-3.3.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2605708,
+    "git_blob_sha1": "0f2a0a06410ca244392a2eb4a787ab769a186b9f",
+    "sha256": "ab364ba4e6960ca6ab6e6e32f9c55952ed4133ca41d5b74414dd46ce5a1ab4af"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/programmer-shield/eagle/programmer-shield-v1/programmer-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/programmer-shield/eagle/programmer-shield-v1/programmer-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 877410,
+    "git_blob_sha1": "7e564ecb060a3708668dbdf5db655370e3f5a549",
+    "sha256": "c6fb6777b66e1f2d87d0b037c6f6419b128c3ca8093bfb4043119e215fd098fc"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/programmer-shield/eagle/programmer-shield-v1/programmer-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/programmer-shield/eagle/programmer-shield-v1/programmer-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 414268,
+    "git_blob_sha1": "85946c206746bc284f12e16bd1c95931a15c8955",
+    "sha256": "bf2dfa7be99cc77ce500da18bf60ecdf881be5bc6784e37b70494d2faf81f242"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/programmer-shield/gerbers/programmer-shield-v1-gerbers/prog-shieldv100-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/programmer-shield/gerbers/programmer-shield-v1-gerbers/prog-shieldv100-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 103223,
+    "git_blob_sha1": "3998b4de1d0ff9f19031560a9ea7e35d3c79e701",
+    "sha256": "d135eca5920c761e743050b6087368ce689d855add86b43248ec99806634cd7f"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/relay-shield/datasheets/MPSA42-D.PDF",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/relay-shield/datasheets/MPSA42-D.PDF",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 104322,
+    "git_blob_sha1": "b41ba5f615add79a439f9d87e9176c573071ae6a",
+    "sha256": "2f6da29679fb920d6e889c7c7318edb89ae7c8079f7ae9c6bfcd5a055c56e3bf"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/relay-shield/datasheets/NR8040T6R8N.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/relay-shield/datasheets/NR8040T6R8N.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 860997,
+    "git_blob_sha1": "fcb7bef10344f0e1b9d253d5da7860b4c2ec3d4d",
+    "sha256": "71c487178ac11a78ec0b6a1cfa212a95e8d674bb42eb0a1e148a8a37fffe98a5"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/relay-shield/datasheets/RT8259.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/relay-shield/datasheets/RT8259.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 209006,
+    "git_blob_sha1": "db43274ebe79317bb28d889aac9a196fae74f6e4",
+    "sha256": "14fe428677e5ec635951dcea2bb54093fdbcc81cad141808a3329882ad1f880b"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/relay-shield/datasheets/SRD_songle_relay_specification.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/relay-shield/datasheets/SRD_songle_relay_specification.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 3196334,
+    "git_blob_sha1": "60ec3e4365222a10fdbe744fb2e431fc5601c2ad",
+    "sha256": "28ad4ff288efc44dd5a29187722de39abda1bb450a60286fd8266566082706cc"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/relay-shield/eagle/relay-shield-v310/relay-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/relay-shield/eagle/relay-shield-v310/relay-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 2795463,
+    "git_blob_sha1": "683751945e033fbb98b4ee9b4f97fd37088b9169",
+    "sha256": "2649e9cd53a2b4d65984eb9a261ec215ca3000bb479300205b840be05062b696"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/relay-shield/eagle/relay-shield-v310/relay-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/relay-shield/eagle/relay-shield-v310/relay-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 547192,
+    "git_blob_sha1": "de30c4017b2c0144028b0218d634a1292dbe5d79",
+    "sha256": "d8a28df39f27cf0547c60e73cb3c5ff85163a79c9206abf92623dd9a63e66188"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/relay-shield/gerbers/relay-shield-gerbers-v310/relay-shieldv310-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/relay-shield/gerbers/relay-shield-gerbers-v310/relay-shieldv310-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 205003,
+    "git_blob_sha1": "73b22ce769fc118221caaf7d68f305fb06359b45",
+    "sha256": "5d0bea512ae94e92ee55595480bc40fc95a0e6a60c840a3e53d0d41207381e37"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/datasheets/74ABT125.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/datasheets/74ABT125.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 128155,
+    "git_blob_sha1": "76bd29dd9b6e5bf0ae4f7c4593d62c8e2901f81e",
+    "sha256": "d7f94a18722a704e44d632332dae795ed99f491aa2cadea914e94182a6e5f5f4"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/datasheets/BSS138.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/datasheets/BSS138.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 123979,
+    "git_blob_sha1": "5f3ce5583bc23a07f707aaf6f90646b7fd37224e",
+    "sha256": "f7359512158956f42f3d90464ae87f7ec45abf2a9fa1630e046ab61076a1e8d0"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/datasheets/MC33269-D.PDF",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/datasheets/MC33269-D.PDF",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 149246,
+    "git_blob_sha1": "64124de36378d9cd5163ac4db953f951f4642b2e",
+    "sha256": "7da97e1b6ac366c198780705c4b887709ba5c2eab6f9f9179def6ac0ba66a219"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/datasheets/txb0108.pdf",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/datasheets/txb0108.pdf",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 1301014,
+    "git_blob_sha1": "3b234aa6fd92e103fd8c638fe19882e1433dd0be",
+    "sha256": "7fe42b49498c89fb6810375e9748203aed0db926ce4f522d5eb629a4e0ab3a9c"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/eagle/shield-shield-v301/shield-shield.brd",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/eagle/shield-shield-v301/shield-shield.brd",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 8331003,
+    "git_blob_sha1": "abf1a5eaceb05f3c8d0212fd15ab9115832cab5f",
+    "sha256": "2de478977d79cd122c87319f02c141dd816054ac61ee16c994a8ed43feef32d7"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/eagle/shield-shield-v301/shield-shield.sch",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/eagle/shield-shield-v301/shield-shield.sch",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 464993,
+    "git_blob_sha1": "6e945971c653c25474ee635307e918182bd2b1c7",
+    "sha256": "fb9a77f97ba102d564189234add12d87d1b02575647f0d7400299d0a7a3f8cdb"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/gerbers/shield-shield-v301-gerbers/shield-shield.GTP.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/gerbers/shield-shield-v301-gerbers/shield-shield.GTP.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 841,
+    "git_blob_sha1": "38eb684ddeadc26a2ea52aeb40ae858b49c726ee",
+    "sha256": "416bc631c54505143ca79bffe52994464fcc9603982621e468a1479391a2934b"
+  },
+  {
+    "path": "particle-iot/shields/photon-shields/shield-shield/gerbers/shield-shield-v301-gerbers/sshieldv301-gerbers.zip",
+    "source": "https://raw.githubusercontent.com/particle-iot/shields/54853ee8daf241c899aa375badf56fca04ce776b/photon-shields/shield-shield/gerbers/shield-shield-v301-gerbers/sshieldv301-gerbers.zip",
+    "repository": "particle-iot/shields",
+    "revision": "54853ee8daf241c899aa375badf56fca04ce776b",
+    "bytes": 435435,
+    "git_blob_sha1": "ec1d0b4748ea73fd372eb86913e264d13229f4be",
+    "sha256": "3d0b1b07aa3b1cf7b1e1789af63a20e5c7d1e0c03022017db0dc04908c20a61c"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/3v3-regulator.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/3v3-regulator.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 36949,
+    "git_blob_sha1": "0feda6c06e0a742c663b55ffd93f745439df9489",
+    "sha256": "d524d0f3a7147490cae49bbc8522a3fd920c4ba4d830866bb82c5ff0d5dfa30e"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/can.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/can.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 104400,
+    "git_blob_sha1": "72304aa8dea55a0a660bcb5bec8712a8c67e2ea8",
+    "sha256": "a6e72ee9cf2f09ef95cdc7a107861b3929e48e9190ccda85200cb36a67f902bc"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/cell-control.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/cell-control.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 107457,
+    "git_blob_sha1": "e708c12633ca60bedb6388b4363c6cb1eacf6644",
+    "sha256": "15ad041d79056086f5e212bb7151d95361b7f166e40f409c818d744be73ec6b6"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/cell.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/cell.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 216133,
+    "git_blob_sha1": "edba9841a8fec324163de4dc3d96fcfbd6c13d40",
+    "sha256": "b8c4f7d173368f12aae4ce8994ae2a052841b00f69420a85482ee50c755d0a5e"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/flash.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/flash.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 27246,
+    "git_blob_sha1": "8b4b8b7fe12e734f1bcca9b86f1c68d96e32d960",
+    "sha256": "9dc3357a5dcab7e6471a6280540df9ad69041db42c19edfb8451fb9810f4b7df"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/fuel.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/fuel.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 29114,
+    "git_blob_sha1": "61d661474704da71319890402ac00110a36ffe42",
+    "sha256": "5f6e85972d82f1e86c85e3e8a3ea8bab4434b9935e9c71a82d72d7085f40b5b8"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/gnss.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/gnss.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 115130,
+    "git_blob_sha1": "d7ac93ecbdcb9267c63a01d2c2fb78fa1306eca4",
+    "sha256": "f970e273b79681c8ed65dcb51343226acf5a0f68131ea4673883d3c4a85b015d"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/imu.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/imu.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 58060,
+    "git_blob_sha1": "f9e23cb353469ce6215571392f89955775a82ecf",
+    "sha256": "89d39bedcacc7f523fa7cc82853334d4ad65508e82e9017123b444f280316394"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/ioex.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/ioex.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 102191,
+    "git_blob_sha1": "a9c87c4d67ea7634f135df45eda9a4d1e2ebcaf0",
+    "sha256": "f086ce19ecd7d5727786b54161e00979f0c482cbf1039ad1b498a782f7abf6e7"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/mcu.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/mcu.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 181933,
+    "git_blob_sha1": "cb5a202a4bab77dc7fc6dd5b41d7cc582fae6a3a",
+    "sha256": "23693e8c3eea8ce54656df96d016a084257e71b4a6cebaa0b5cb199709dd9d99"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/pmic.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/pmic.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 86447,
+    "git_blob_sha1": "b7219e659877991551fac21adcd8c3df887ea9b3",
+    "sha256": "779cb89959715d4e58574dd9a7575ba6cb8897d66ede17005e43efbcec169a42"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/rtc.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/rtc.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 83038,
+    "git_blob_sha1": "5bc028bb5ab33547e3377d4cd856aed618e3b064",
+    "sha256": "a456ab1ebcd656e143f1c4ea7e275cbc9c68de5e109c0a16fdbc17eb64027a60"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/user-io.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/user-io.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 130170,
+    "git_blob_sha1": "0d829f9e3a45fb10dc0aaf2cbd19241c528cf723",
+    "sha256": "ce6c85328dca347c172389cda585ccf3b57fbd285ef39b8595e7301157f25388"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/at-som/wifi.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/at-som/wifi.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 69466,
+    "git_blob_sha1": "a6d3af59f0456f7b9feb2e8012bcc92349986e0c",
+    "sha256": "426d5f0e5001372da249b7b6cb86012fecfce7f5a3bf0403b116f2c978f1c6e0"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/hardware-community/input-protection/block-sch.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/hardware-community/input-protection/block-sch.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 34712,
+    "git_blob_sha1": "26370673d1efa9cfffd103b754cdc1403ee5520c",
+    "sha256": "ca2ea7e8c8bdb74c5a1211066c52d47effb638ad8b62f9c92454b84f4a9fb58e"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m-series/muon_v1.0_p2.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m-series/muon_v1.0_p2.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 285745,
+    "git_blob_sha1": "f07d6949fb19d76de1a8147dede6d6d5c8719955",
+    "sha256": "067407c052a759a0d7a3e71d6aa25bdfb9334c6936d50939f5b8c28899be2a73"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m-series/muon_v1.0_p3.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m-series/muon_v1.0_p3.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 366584,
+    "git_blob_sha1": "ccf31e5aa62f45f0f0b2d96689bea242b5a990a3",
+    "sha256": "ee015c18fb735a4f46fa94860c7d10d9f069b95c3ac5df958d90cf4ff7c5bd35"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m-series/muon_v1.0_p4.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m-series/muon_v1.0_p4.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 370441,
+    "git_blob_sha1": "0ac5cf9bd29dec8950e7887edd2e0225599be000",
+    "sha256": "6aaafa412f920c122feb863ada591c53129e98f5052ca56f04d787c1642348ae"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m-series/muon_v1.0_p5.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m-series/muon_v1.0_p5.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 182783,
+    "git_blob_sha1": "bd8ff84cd5736564b76259035cdf794a352828bd",
+    "sha256": "40aa9f2531bbd19f0e9d1b487a06a5547d6a720c5346153ce0b7c92f96f2315f"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m-series/muon_v1.0_p6.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m-series/muon_v1.0_p6.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 49019,
+    "git_blob_sha1": "a24a1fed30f6d4dfe2f04c32f37df89a408d34dd",
+    "sha256": "ab68186d4623fdd18f462f49b3fe60b726eea700428faab834bc936c1af3dbde"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m2-eval/1.2/p1.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m2-eval/1.2/p1.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 200523,
+    "git_blob_sha1": "8155c1c21c48403b49c6734c28b52b7745b4b01b",
+    "sha256": "da9a07eb4da00b4117111347646c7480f06ece37df0df8d17137ef1c9b2f8dfb"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m2-eval/1.2/p1.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m2-eval/1.2/p1.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 312500,
+    "git_blob_sha1": "680cb5e98fda3ab4597967949487b92e4949ca7b",
+    "sha256": "585728230b64264acf48b0e1cff854ad5282130c0ed4a67f02ac511ab788eb7c"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m2-eval/1.2/p2.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m2-eval/1.2/p2.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 110610,
+    "git_blob_sha1": "30b5555baf5bf0f44e8bac4a67d64a94cda81541",
+    "sha256": "735b819afab81c0d0763b06ff9588e11e787f58b114697f4e6679efc98525d89"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m2-eval/1.2/p2.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m2-eval/1.2/p2.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 152525,
+    "git_blob_sha1": "5a50b3477d62f98893d968f882a2f23e3f31be6b",
+    "sha256": "2e27de2253236aedff24b7ad7a110250d5642da62a6b7284b2fc436f845984b2"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m2-eval/1.2/p3.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m2-eval/1.2/p3.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 103401,
+    "git_blob_sha1": "6ee77202b332195d150182aa29736732994d55a8",
+    "sha256": "17d52f91a4fc61e38550f7a6fdd334d64c4da06b91752d1ce90d2216c833a1a1"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/m2-eval/1.2/p3.svg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/m2-eval/1.2/p3.svg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 190370,
+    "git_blob_sha1": "1b4b2b87f691fdbf1d53e1218742fc35e4007ed4",
+    "sha256": "a60f991e64e504fe89dbd3ad405c362ccc4abb12826806a9365676f118572c5d"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/artwork-dimensions.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/artwork-dimensions.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 168312,
+    "git_blob_sha1": "97516dc6d1cfe620581729cc4bae685a4c89a862",
+    "sha256": "35ee69650be06e6ea3f86bd3fd52db5f145969c76964e9b28670ee2c84394fba"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/bottom-cover.step",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/bottom-cover.step",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 5366754,
+    "git_blob_sha1": "ddc3f0d9f0ec907684f1e3a47ddc9757a9bbac9f",
+    "sha256": "4bd06e109c6b210b2a41bcf448eed0ebc9acd0fa97b170fe182936403b3820db"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/front-dim.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/front-dim.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 1017714,
+    "git_blob_sha1": "b3f3fa8cf985b417a2755b15c775983d325caa00",
+    "sha256": "89b0f4fda814db0e5e28d7541b8c4c86a0dd58793bb2ebc8722b50cf1a812a2f"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-10v.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-10v.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 599877,
+    "git_blob_sha1": "56a403fc2b69d724a47394358f706553c744f2e4",
+    "sha256": "29726e348563aed4c56af3fab5f68d8c67b1f93009e1032130ce183b8bce28ee"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-4-20mA.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-4-20mA.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 564748,
+    "git_blob_sha1": "31deee5d769c0b6517ca90b1aead9cd3942b8fa7",
+    "sha256": "913226c3f857091bb661a487821eed43bff32303fa9e58047664c2c2343983e5"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-can.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-can.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 455441,
+    "git_blob_sha1": "f54bb5dca2518d4609e1c448ac16f7a7a2aa1bfe",
+    "sha256": "3e20fd46c8ef7562eb54205602872494f502aefdb928f7bc4fa82bdf3aff50ed"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-eeprom.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-eeprom.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 83716,
+    "git_blob_sha1": "e549f3b6429d48d5bac66b9a17fc5b01a6e0e3d9",
+    "sha256": "90bb784269e30d81cd35bb8aa667d84af6a2dfdd660f9f493bba8a64fc98b74c"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-interconnects-1.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-interconnects-1.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 922862,
+    "git_blob_sha1": "96d43dbc9ed2d73e4b0cd8748af839501b17d2b2",
+    "sha256": "1134584adc9e05e826f441df32bb791ff9b730e2485683d4ab85979b663d3b5e"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-interconnects-2.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-interconnects-2.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 471021,
+    "git_blob_sha1": "837483c2f74de05f703b760fa112742f06269784",
+    "sha256": "5371ae39c2d7d17dbfed58a34d0fd56d602bd7e8e444b237bb2a8c075bf29f30"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-relay.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-relay.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 505140,
+    "git_blob_sha1": "a4e292d993944ee85af5608986be2ee5430bbf31",
+    "sha256": "f3af1f456c7ba1dc9e10e63a782ffdbacbcf9aa95be3d91162fe5772c7410a9f"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-rs485.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-rs485.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 715257,
+    "git_blob_sha1": "2de3e85f398f0dc1582d56af6d9f99e4d292866d",
+    "sha256": "88e773b7d4a27795494e4b094c4682c6eda122fdba2d15aa7db3ff160f01d3dc"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/io-card-slow-signal.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/io-card-slow-signal.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 829609,
+    "git_blob_sha1": "54e5305c7d5f5a75946a99ddf66f6c5c3338a77b",
+    "sha256": "5eef474662aceeea2e0e1a4524e127ab4ca6614f34ccaea2fabdf9201d82d32f"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/monitor_pi_v1.1.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/monitor_pi_v1.1.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 472453,
+    "git_blob_sha1": "91d5ada34ebe5858441deb79bca9813b6fbe3ee4",
+    "sha256": "620b7539d0bbcf1a910263c64e528a9d2de2d3b13d4a42996b83b4d5d12b74cf"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/prototype-card-1.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/prototype-card-1.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 1242655,
+    "git_blob_sha1": "32b3a82de75aee27ecbe377afcf8828e662c5d79",
+    "sha256": "78b4f3392f1f838403569a734bab8216500ac764f0032213961d0c44c3b3f288"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/prototype-card-2.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/prototype-card-2.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 1268674,
+    "git_blob_sha1": "7776d3063ffcb924ef58b7526033299ea183b1e7",
+    "sha256": "60fd6e38222d65e8da04e65e0903bdfc03a1fa2b055cfcf48a9c50462738fb1c"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/prototype-card-3.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/prototype-card-3.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 404669,
+    "git_blob_sha1": "4fc617253f2fa4b08b069e33efb9fbda17d8eaff",
+    "sha256": "6d13f697c7f5f4ef715ae2f134677fa76d28e9c9b0dff50c9fdf1c68f8c44258"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/monitor-one/side-dim.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/monitor-one/side-dim.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 604795,
+    "git_blob_sha1": "703c6b42080ff062b40a4203e0f744f4d5754765",
+    "sha256": "32dfcdcbad39bb67f50f5888d9a6d943b319f7b82adb488329788cdd1416d476"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/p1-sch-power.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/p1-sch-power.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 12006,
+    "git_blob_sha1": "561c8f2a9092bce20052ec923dba9f30c6f8322e",
+    "sha256": "8dfea4dba23aff4fdccaa4b0001cee2fa5308bae3e3e0752f722ea290a94a2eb"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/p1-sch-usb.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/p1-sch-usb.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 6691,
+    "git_blob_sha1": "9b5229435875c3a8c1c6ea3cb7312f141f7df158",
+    "sha256": "6d33bdaa8d7906347f7ca4f9dd5cd0a805326467fe8e3e7537d1cf242b16473d"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/p1-sch-user-io.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/p1-sch-user-io.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 17193,
+    "git_blob_sha1": "d9cee29b6aaa7f4e1607b54bc7891c6c3de5611d",
+    "sha256": "15b3c89dca033d2e1ec15ef4c3fe97c4e2a13eb6e808d42beea6bb8b0e30d931"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/p1-sch-wifi-module.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/p1-sch-wifi-module.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 73840,
+    "git_blob_sha1": "37fcd7422d729b4cfddef5523797c70b13b64cf7",
+    "sha256": "7be1f4f23caddd78e2df9f20f9ef734b7ce0790b02afac12e5e49d7c28ba6f29"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/particle-pi-cam/particle-pi-camera-sch.jpg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/particle-pi-cam/particle-pi-camera-sch.jpg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 72100,
+    "git_blob_sha1": "57dd16f3752db3e21cf621f578b71f3c5a4ffeec",
+    "sha256": "d22474c1c4a6b013ba8ecd92e025d1e0cf868f91999c2c9d1ccc0e873b7d20b2"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/particle-pi-cam/particle-pi-pir-sch.jpg",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/particle-pi-cam/particle-pi-pir-sch.jpg",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 56045,
+    "git_blob_sha1": "ee4da67ce91097fab8f5833691a65c547ba3482f",
+    "sha256": "7f28beb35589da3c418f34324e58d4856fc4c4536306effde2cac8f90ff8966b"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/photon-sch-p0-wifi-module.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/photon-sch-p0-wifi-module.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 46167,
+    "git_blob_sha1": "5a948b4c7dbd42322531d5c1b71fac4bf9885777",
+    "sha256": "e5df3fb3cd73c6e1c2ee7b765ff4973811005aa2b7cceeccbb85a49e7846d3e4"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/photon-sch-power.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/photon-sch-power.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 9558,
+    "git_blob_sha1": "33c852f894a179b653a9b4d5115c5fdcd5476d6f",
+    "sha256": "311c29992ae1a8a38c1b547d2b41b04ea9293c19a97f26f6c89b0bced8757d21"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/photon-sch-rf.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/photon-sch-rf.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 24551,
+    "git_blob_sha1": "b9c049b8891a84a491cded57e9bd49d57e3e39e3",
+    "sha256": "70d74f38638be75fa7488b2f575ae78275652810ae43e16eb6a98dc64baf7825"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/photon-sch-usb.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/photon-sch-usb.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 7618,
+    "git_blob_sha1": "e70446a5af4c7054917f63c3792edc9eb146da8e",
+    "sha256": "0bbde8f6e77aabd3046cc012034c6343149aaddc83f0b9e7c46c48c1f77686d4"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/photon-sch-user-io.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/photon-sch-user-io.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 34129,
+    "git_blob_sha1": "cdbff5b807903294e2fcde5418490ad7ca29204d",
+    "sha256": "796cd2898cafe44ed2c623a0e5e5268d9849174ed5e2178b02dd30932fa09abb"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/shields/shield-shield/shield-shield-description.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/shields/shield-shield/shield-shield-description.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 89256,
+    "git_blob_sha1": "534013187a8f510c51190ed210a3af32440f8078",
+    "sha256": "11fa1dcf7189f48eca2596183de27620262ca54678d1c23625715aa5321b6c12"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/tracker/trackerone-sch1.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/tracker/trackerone-sch1.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 119138,
+    "git_blob_sha1": "362dfdff0c96726dc2896809ee5767102338b7d7",
+    "sha256": "ee4cf2c25434e3487fd29e3917f6a6da54b7cb5520e9b353c6243a81f58e041f"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/tracker/trackerone-sch2.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/tracker/trackerone-sch2.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 145212,
+    "git_blob_sha1": "8f007f93ca1ee205f90edde0b98917ffc846c8b0",
+    "sha256": "5721efedd89f856cc046714464bccb6675eb6f2a2e1c1572d0546ca5890b24da"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/tracker/trackerone-sch3.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/tracker/trackerone-sch3.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 91269,
+    "git_blob_sha1": "8ae796d912260ea5f1685a004b2d388f3eb3ce2c",
+    "sha256": "19606aab9081e5557b9dc7822eebbfe075796542f3f9de9d8036c8f1595e579d"
+  },
+  {
+    "path": "particle-iot/docs/src/assets/images/tracker/trackerone-sch4.png",
+    "source": "https://raw.githubusercontent.com/particle-iot/docs/0875284faa87dcb1f31f7b06033d62f7e3f29684/src/assets/images/tracker/trackerone-sch4.png",
+    "repository": "particle-iot/docs",
+    "revision": "0875284faa87dcb1f31f7b06033d62f7e3f29684",
+    "bytes": 76836,
+    "git_blob_sha1": "d1fc749933dab440f3c41ed78afe23861c9945ea",
+    "sha256": "f8a971a37be71252e2f5cc1215fd504aa918bfa4c7b807a6505ca3e3b4133590"
+  }
+]

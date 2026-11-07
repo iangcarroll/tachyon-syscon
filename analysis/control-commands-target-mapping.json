@@ -1,0 +1,223 @@
+{
+  "entries": [
+    {
+      "address": "0x3ef0",
+      "symbol": "syscon_target_cmd_version",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x3f24",
+      "symbol": "syscon_target_cmd_help",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x3f80",
+      "symbol": "syscon_target_cmd_ioexp_read",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x3fd0",
+      "symbol": "syscon_target_cmd_pwrstatus",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x40a0",
+      "symbol": "syscon_target_cmd_wake_after",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x40fc",
+      "symbol": "syscon_target_cmd_mcu_sleep",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4110",
+      "symbol": "syscon_target_cmd_mcu_reboot",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x41a4",
+      "symbol": "syscon_target_cmd_shutdown_reason",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x422c",
+      "symbol": "syscon_target_cmd_modem_direct",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4258",
+      "symbol": "syscon_target_cmd_modem_on",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x42c8",
+      "symbol": "syscon_target_cmd_ledstatus",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4320",
+      "symbol": "syscon_target_cmd_set_pattern",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4364",
+      "symbol": "syscon_target_cmd_set_rgb",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4420",
+      "symbol": "syscon_target_cmd_read_pwr",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x47b0",
+      "symbol": "syscon_target_cmd_batcheck",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x47bc",
+      "symbol": "syscon_target_cmd_gpio_read",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x47fc",
+      "symbol": "syscon_target_cmd_modem_dbg",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4850",
+      "symbol": "syscon_target_cmd_keys",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x48a4",
+      "symbol": "syscon_target_cmd_modem_off",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x48e0",
+      "symbol": "syscon_target_cmd_diag",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4904",
+      "symbol": "syscon_target_cmd_error",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4970",
+      "symbol": "syscon_target_cmd_key_mode",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x49ac",
+      "symbol": "syscon_target_cmd_log",
+      "source": "target/control_commands_target.c",
+      "header": "include/protocol_target.h",
+      "tests": "tests/test_control_commands_target.py",
+      "docs": "docs/control-commands-target.md",
+      "original_abi": true
+    }
+  ],
+  "whole_domain_equivalence": false,
+  "physical_image": false,
+  "original_executable_bytes_in_candidate": false,
+  "coverage_source": "analysis/control-commands-target-test-instruction-coverage.json",
+  "discovered_instructions": 636,
+  "exercised_instructions": 636,
+  "remaining_boundaries": [
+    "Finite differential tests do not prove all inputs or interrupt interleavings.",
+    "Incidental caller-saved registers and private stack contents are not a universal equivalence claim.",
+    "Arbitrary missing variadic arguments in raw SET_RGB format remain unproven; a single %d first-word probe matched.",
+    "External hardware dependencies are explicit fixture boundaries in direct command tests."
+  ]
+}

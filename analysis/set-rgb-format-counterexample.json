@@ -1,0 +1,104 @@
+{
+  "scenario": "fixtures/emulator/tachyon-synthetic.json",
+  "results": [
+    {
+      "command": "SET_RGB %u:2:3:4:0:",
+      "results": [
+        {
+          "label": "original",
+          "image_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+          "error": null,
+          "output_hex": "5b31345d205b4d4647445d200d0a5345545f5247422025753a323a333a343a303a0a5b32305d205b4d4647445d20523a200d0a5b32305d205b4d4647445d20300d0a5b32305d205b4d4647445d20473a200d0a5b32305d205b4d4647445d20320d0a5b32305d205b4d4647445d20423a200d0a5b32305d205b4d4647445d20330d0a5b32305d205b4d4647445d204272696768746e6573733a200d0a5b32305d205b4d4647445d20340d0a5b32305d205b4d4647445d205061747465726e3a200d0a5b32305d205b4d4647445d20300d0a5b32305d205b4d4647445d20504153530d0a",
+          "output_normalized_hex": "5b54494d455d205b4d4647445d200d0a5345545f5247422025753a323a333a343a303a0a5b54494d455d205b4d4647445d20523a200d0a5b54494d455d205b4d4647445d20300d0a5b54494d455d205b4d4647445d20473a200d0a5b54494d455d205b4d4647445d20320d0a5b54494d455d205b4d4647445d20423a200d0a5b54494d455d205b4d4647445d20330d0a5b54494d455d205b4d4647445d204272696768746e6573733a200d0a5b54494d455d205b4d4647445d20340d0a5b54494d455d205b4d4647445d205061747465726e3a200d0a5b54494d455d205b4d4647445d20300d0a5b54494d455d205b4d4647445d20504153530d0a",
+          "output_text": "[14] [MFGD] \r\nSET_RGB %u:2:3:4:0:\n[20] [MFGD] R: \r\n[20] [MFGD] 0\r\n[20] [MFGD] G: \r\n[20] [MFGD] 2\r\n[20] [MFGD] B: \r\n[20] [MFGD] 3\r\n[20] [MFGD] Brightness: \r\n[20] [MFGD] 4\r\n[20] [MFGD] Pattern: \r\n[20] [MFGD] 0\r\n[20] [MFGD] PASS\r\n",
+          "stop_reason": [
+            "instruction-budget",
+            10000
+          ],
+          "pc": "0x7aee",
+          "msp": "0x20000f30",
+          "minimum_msp": "0x20000c28",
+          "reset_count": 0,
+          "fault_events": [],
+          "exception_vectors": [
+            15,
+            31
+          ]
+        },
+        {
+          "label": "rebuilt",
+          "image_sha256": "bccdeddbd5ad7ea71bcc21f384b39e99561d60023914826d179146e5505b9a0d",
+          "error": null,
+          "output_hex": "5b32305d205b4d4647445d200d0a5345545f5247422025753a323a333a343a303a0a5b32355d205b4d4647445d20523a200d0a5b32355d205b4d4647445d2034373335350d0a5b32355d205b4d4647445d20473a200d0a5b32355d205b4d4647445d20320d0a5b32365d205b4d4647445d20423a200d0a5b32365d205b4d4647445d20330d0a5b32365d205b4d4647445d204272696768746e6573733a200d0a5b32365d205b4d4647445d20340d0a5b32365d205b4d4647445d205061747465726e3a200d0a5b32365d205b4d4647445d20300d0a5b32365d205b4d4647445d20504153530d0a",
+          "output_normalized_hex": "5b54494d455d205b4d4647445d200d0a5345545f5247422025753a323a333a343a303a0a5b54494d455d205b4d4647445d20523a200d0a5b54494d455d205b4d4647445d2034373335350d0a5b54494d455d205b4d4647445d20473a200d0a5b54494d455d205b4d4647445d20320d0a5b54494d455d205b4d4647445d20423a200d0a5b54494d455d205b4d4647445d20330d0a5b54494d455d205b4d4647445d204272696768746e6573733a200d0a5b54494d455d205b4d4647445d20340d0a5b54494d455d205b4d4647445d205061747465726e3a200d0a5b54494d455d205b4d4647445d20300d0a5b54494d455d205b4d4647445d20504153530d0a",
+          "output_text": "[20] [MFGD] \r\nSET_RGB %u:2:3:4:0:\n[25] [MFGD] R: \r\n[25] [MFGD] 47355\r\n[25] [MFGD] G: \r\n[25] [MFGD] 2\r\n[26] [MFGD] B: \r\n[26] [MFGD] 3\r\n[26] [MFGD] Brightness: \r\n[26] [MFGD] 4\r\n[26] [MFGD] Pattern: \r\n[26] [MFGD] 0\r\n[26] [MFGD] PASS\r\n",
+          "stop_reason": [
+            "instruction-budget",
+            10000
+          ],
+          "pc": "0x9fc",
+          "msp": "0x20000f30",
+          "minimum_msp": "0x20000bd0",
+          "reset_count": 0,
+          "fault_events": [],
+          "exception_vectors": [
+            15,
+            31
+          ]
+        }
+      ],
+      "equal_after_timestamp_normalization": false
+    },
+    {
+      "command": "SET_RGB %s:2:3:4:0:",
+      "results": [
+        {
+          "label": "original",
+          "image_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+          "error": null,
+          "output_hex": "5b31345d205b4d4647445d200d0a5345545f5247422025733a323a333a343a303a0a5b32305d205b4d4647445d20523a200d0a5b32305d205b4d4647445d200d0a5b32305d205b4d4647445d20473a200d0a5b32305d205b4d4647445d20320d0a5b32305d205b4d4647445d20423a200d0a5b32305d205b4d4647445d20330d0a5b32305d205b4d4647445d204272696768746e6573733a200d0a5b32305d205b4d4647445d20340d0a5b32305d205b4d4647445d205061747465726e3a200d0a5b32305d205b4d4647445d20300d0a5b32305d205b4d4647445d20504153530d0a",
+          "output_normalized_hex": "5b54494d455d205b4d4647445d200d0a5345545f5247422025733a323a333a343a303a0a5b54494d455d205b4d4647445d20523a200d0a5b54494d455d205b4d4647445d200d0a5b54494d455d205b4d4647445d20473a200d0a5b54494d455d205b4d4647445d20320d0a5b54494d455d205b4d4647445d20423a200d0a5b54494d455d205b4d4647445d20330d0a5b54494d455d205b4d4647445d204272696768746e6573733a200d0a5b54494d455d205b4d4647445d20340d0a5b54494d455d205b4d4647445d205061747465726e3a200d0a5b54494d455d205b4d4647445d20300d0a5b54494d455d205b4d4647445d20504153530d0a",
+          "output_text": "[14] [MFGD] \r\nSET_RGB %s:2:3:4:0:\n[20] [MFGD] R: \r\n[20] [MFGD] \r\n[20] [MFGD] G: \r\n[20] [MFGD] 2\r\n[20] [MFGD] B: \r\n[20] [MFGD] 3\r\n[20] [MFGD] Brightness: \r\n[20] [MFGD] 4\r\n[20] [MFGD] Pattern: \r\n[20] [MFGD] 0\r\n[20] [MFGD] PASS\r\n",
+          "stop_reason": [
+            "instruction-budget",
+            10000
+          ],
+          "pc": "0x7aea",
+          "msp": "0x20000f30",
+          "minimum_msp": "0x20000c28",
+          "reset_count": 0,
+          "fault_events": [],
+          "exception_vectors": [
+            15,
+            31
+          ]
+        },
+        {
+          "label": "rebuilt",
+          "image_sha256": "bccdeddbd5ad7ea71bcc21f384b39e99561d60023914826d179146e5505b9a0d",
+          "error": null,
+          "output_hex": "5b32305d205b4d4647445d200d0a5345545f5247422025733a323a333a343a303a0a5b32355d205b4d4647445d20523a200d0a5b32355d205b4d4647445d20523a200d0a5b32355d205b4d4647445d20473a200d0a5b32355d205b4d4647445d20320d0a5b32355d205b4d4647445d20423a200d0a5b32365d205b4d4647445d20330d0a5b32365d205b4d4647445d204272696768746e6573733a200d0a5b32365d205b4d4647445d20340d0a5b32365d205b4d4647445d205061747465726e3a200d0a5b32365d205b4d4647445d20300d0a5b32365d205b4d4647445d20504153530d0a",
+          "output_normalized_hex": "5b54494d455d205b4d4647445d200d0a5345545f5247422025733a323a333a343a303a0a5b54494d455d205b4d4647445d20523a200d0a5b54494d455d205b4d4647445d20523a200d0a5b54494d455d205b4d4647445d20473a200d0a5b54494d455d205b4d4647445d20320d0a5b54494d455d205b4d4647445d20423a200d0a5b54494d455d205b4d4647445d20330d0a5b54494d455d205b4d4647445d204272696768746e6573733a200d0a5b54494d455d205b4d4647445d20340d0a5b54494d455d205b4d4647445d205061747465726e3a200d0a5b54494d455d205b4d4647445d20300d0a5b54494d455d205b4d4647445d20504153530d0a",
+          "output_text": "[20] [MFGD] \r\nSET_RGB %s:2:3:4:0:\n[25] [MFGD] R: \r\n[25] [MFGD] R: \r\n[25] [MFGD] G: \r\n[25] [MFGD] 2\r\n[25] [MFGD] B: \r\n[26] [MFGD] 3\r\n[26] [MFGD] Brightness: \r\n[26] [MFGD] 4\r\n[26] [MFGD] Pattern: \r\n[26] [MFGD] 0\r\n[26] [MFGD] PASS\r\n",
+          "stop_reason": [
+            "instruction-budget",
+            10000
+          ],
+          "pc": "0x9fe",
+          "msp": "0x20000f30",
+          "minimum_msp": "0x20000bd0",
+          "reset_count": 0,
+          "fault_events": [],
+          "exception_vectors": [
+            15,
+            31
+          ]
+        }
+      ],
+      "equal_after_timestamp_normalization": false
+    }
+  ],
+  "firmware_function_replacements": [],
+  "physical_hardware_accessed": false,
+  "normalization": "logger timestamps only"
+}

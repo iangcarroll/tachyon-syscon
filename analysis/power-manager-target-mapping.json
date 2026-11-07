@@ -1,0 +1,247 @@
+{
+  "entries": [
+    {
+      "address": "0x4c50",
+      "symbol": "syscon_target_power_measure",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4ca8",
+      "symbol": "syscon_target_power_battery_route",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4d00",
+      "symbol": "syscon_target_power_vbus_route",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4d58",
+      "symbol": "syscon_target_power_battery_id",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4d68",
+      "symbol": "syscon_target_power_battery_id_set",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4d9c",
+      "symbol": "syscon_target_power_header_route",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4df4",
+      "symbol": "syscon_target_power_ntc",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4e04",
+      "symbol": "syscon_target_power_ntc_set",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4e34",
+      "symbol": "syscon_target_power_battery_route_set",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4ec4",
+      "symbol": "syscon_target_power_boost",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4ed4",
+      "symbol": "syscon_target_power_boost_set",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4ee0",
+      "symbol": "syscon_target_power_header_route_set",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x4fd0",
+      "symbol": "syscon_target_power_header_default",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5004",
+      "symbol": "syscon_target_power_usb_isolate",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5048",
+      "symbol": "syscon_target_power_vbus_route_set",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x50f4",
+      "symbol": "syscon_target_power_usb_release_callback",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5148",
+      "symbol": "syscon_target_power_usb_assert_callback",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x517c",
+      "symbol": "syscon_target_power_shutdown_busy",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x51c0",
+      "symbol": "syscon_target_power_shutdown_request",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5264",
+      "symbol": "syscon_target_power_battery_sense_set",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5274",
+      "symbol": "syscon_target_power_battery_detect",
+      "source": "target/power_manager_target.c",
+      "header": "include/power_manager_target.h",
+      "tests": "tests/test_power_manager_target.py",
+      "docs": "docs/power-manager-target.md",
+      "original_abi": true
+    }
+  ],
+  "validation": {
+    "report": "analysis/power-manager-target-reference-coverage.json",
+    "test_groups_passed": 63,
+    "manager_groups": 12,
+    "identified_original_instructions": 649,
+    "exercised_original_instructions": 634,
+    "missing_original_instructions": [
+      "0x4ce8",
+      "0x4cea",
+      "0x4d40",
+      "0x4d42",
+      "0x4ddc",
+      "0x4dde",
+      "0x50be",
+      "0x5290",
+      "0x5292",
+      "0x5294",
+      "0x5296",
+      "0x52d2",
+      "0x52d4",
+      "0x52d6",
+      "0x52d8"
+    ],
+    "original_dependency_traps": [
+      "0x2678",
+      "0x315c",
+      "0x3178",
+      "0x3620",
+      "0x364e",
+      "0x5ad4",
+      "0x6690",
+      "0x6a28",
+      "0x6a48",
+      "0x7554",
+      "0x77b4",
+      "0x77c0",
+      "0x79d0",
+      "0x7f24",
+      "0x7f58",
+      "0x80f8",
+      "0x8148",
+      "0x81f8",
+      "0x8f88"
+    ],
+    "inputs_unchanged_during_run": false,
+    "changed_since_test_start": [
+      "tools/config_target_counterexample.py"
+    ]
+  },
+  "full_domain_formal_equivalence_proven": false,
+  "original_executable_fallback": false,
+  "installed_runtime_library_linked": false,
+  "physical_hardware_validated": false,
+  "flash_candidate": false
+}

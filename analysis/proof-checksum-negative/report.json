@@ -1,0 +1,55 @@
+{
+  "scope": "checksum31 ABI function; readable SRAM; ordinary Thumb return into flash; no interrupts/concurrent mutation",
+  "status": "sat",
+  "universal_equivalence_under_model": false,
+  "mutant": true,
+  "contract_satisfiable": true,
+  "proof_tool_sha256": "329a4bf241317cae0031b02bf9f3c594fa264fe4220d3f6ffafb4118f6174a21",
+  "project_header_sha256": "62fbf401f22977757c367fe36029e77245aab29d9ac5002c201661751c93a62f",
+  "solver_binary_sha256": "edae32f9e37ea4b5bb35310d72f0e352d0dc07626cac4e9e30bc1ea9a5bc8efb",
+  "reference_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+  "source_sha256": "cb85d8a36fc9b5c71a75ced6a597dc7124c97a8c696dbe63e3b7c4ac8753a951",
+  "candidate_elf": "analysis/proof-checksum-negative/candidate.elf",
+  "candidate_elf_sha256": "01c12334ecae2b939f0141af61c23966e72c5c670d44bd0f6f4f1f7d255cab2c",
+  "original_bytes": "0200030000201f321978013348409342fad17047",
+  "candidate_bytes": "0100030000201f311a78013310438b42fad17047",
+  "binaries_differ": true,
+  "compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "compiler_flags": [
+    "-std=c11",
+    "-mcpu=cortex-m0plus",
+    "-mthumb",
+    "-mfloat-abi=soft",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-Ianalysis/proof-checksum-negative/candidate-include"
+  ],
+  "solver": "Z3 version 4.16.0 - 64 bit",
+  "reference_steps": 160,
+  "candidate_steps": 160,
+  "read_count": 31,
+  "branch_directions_proved": 62,
+  "solver_obligations": 189,
+  "witness": {
+    "pointer": 536870912,
+    "bytes_hex": "8659459c8f828901140f9a9c9642019d518b801c0b418d8398848a07870381",
+    "original_result": 64,
+    "candidate_result": 223
+  },
+  "full_firmware_equivalence": false,
+  "physical_cycle_equivalence": false,
+  "trusted_components": [
+    "SMT solver",
+    "audited Thumb subset interpreter",
+    "ELF extraction and compiler provenance",
+    "input contract"
+  ],
+  "limitations": [
+    "No interrupts, DMA, concurrent mutation, MMIO or invalid-pointer behavior is in this theorem.",
+    "Caller-saved R1-R3/R12 and APSR flags are outside the compared ABI observation.",
+    "This is a solver-checked model theorem, not an independently certified ARM ISA proof."
+  ]
+}

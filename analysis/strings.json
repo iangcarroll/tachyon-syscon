@@ -1,0 +1,1894 @@
+[
+  {
+    "address": 44224,
+    "value": "Assertion failed: %s, fileName %s, line %d (err: %d)"
+  },
+  {
+    "address": 44277,
+    "value": "ASRT"
+  },
+  {
+    "address": 44282,
+    "value": "Flash: op success"
+  },
+  {
+    "address": 44300,
+    "value": "CONF"
+  },
+  {
+    "address": 44305,
+    "value": "Flash: write/erase protect failure"
+  },
+  {
+    "address": 44340,
+    "value": "Flash: verify error failure"
+  },
+  {
+    "address": 44368,
+    "value": "Flash: illegal address failure"
+  },
+  {
+    "address": 44399,
+    "value": "Flash: wrong bank mode failure"
+  },
+  {
+    "address": 44430,
+    "value": "Flash: undefined failure"
+  },
+  {
+    "address": 44455,
+    "value": "Flash: unknown failure"
+  },
+  {
+    "address": 44478,
+    "value": "Key checksum mismatch"
+  },
+  {
+    "address": 44500,
+    "value": "Value checksum mismatch %d != %d"
+  },
+  {
+    "address": 44533,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/configuration.cpp"
+  },
+  {
+    "address": 44607,
+    "value": "FLASH_FIND_SLOT %d"
+  },
+  {
+    "address": 44626,
+    "value": "Invalid key index"
+  },
+  {
+    "address": 44644,
+    "value": "false"
+  },
+  {
+    "address": 44650,
+    "value": "Compaction: %d bytes of stack in use"
+  },
+  {
+    "address": 44687,
+    "value": "Compaction: added new entry '%s'='%s'"
+  },
+  {
+    "address": 44725,
+    "value": "Compaction failed: %d unique keys, limit is %d of %d slots"
+  },
+  {
+    "address": 44784,
+    "value": "Compaction: collected %d unique entries, erasing flash"
+  },
+  {
+    "address": 44839,
+    "value": "Compaction failed: flash erase error"
+  },
+  {
+    "address": 44876,
+    "value": "Compaction failed: no free slot during restore at entry %d"
+  },
+  {
+    "address": 44935,
+    "value": "Compaction failed: write error at entry %d '%s'"
+  },
+  {
+    "address": 44983,
+    "value": "Compaction complete: %d entries restored"
+  },
+  {
+    "address": 45024,
+    "value": "Key too long"
+  },
+  {
+    "address": 45037,
+    "value": "true"
+  },
+  {
+    "address": 45042,
+    "value": "Invalid boolean value for key: %s"
+  },
+  {
+    "address": 45076,
+    "value": "Invalid integer value for key: %s"
+  },
+  {
+    "address": 45110,
+    "value": "sys.auto_boot"
+  },
+  {
+    "address": 45124,
+    "value": "sys.wake_pin_enable"
+  },
+  {
+    "address": 45144,
+    "value": "sys.color_debug_enable"
+  },
+  {
+    "address": 45167,
+    "value": "sys.fastboot_enabled"
+  },
+  {
+    "address": 45188,
+    "value": "sys.demo_enabled"
+  },
+  {
+    "address": 45205,
+    "value": "sys.enable_5v_when_off"
+  },
+  {
+    "address": 45228,
+    "value": "sys.edl_timer"
+  },
+  {
+    "address": 45242,
+    "value": "sys.shutdown_timer"
+  },
+  {
+    "address": 45261,
+    "value": "Failed to read hw_revision"
+  },
+  {
+    "address": 45288,
+    "value": "Refusing %s: char cannot be read back"
+  },
+  {
+    "address": 45326,
+    "value": "Key or value too long"
+  },
+  {
+    "address": 45348,
+    "value": "No free slot found"
+  },
+  {
+    "address": 45367,
+    "value": "confVersion"
+  },
+  {
+    "address": 45379,
+    "value": "Configuration not initialized for base 0x%X. Wiping."
+  },
+  {
+    "address": 45432,
+    "value": "Configuration already initialized for base 0x%X"
+  },
+  {
+    "address": 45480,
+    "value": "%u.%u.%u"
+  },
+  {
+    "address": 45489,
+    "value": "B23000"
+  },
+  {
+    "address": 45496,
+    "value": "Invalid password"
+  },
+  {
+    "address": 45513,
+    "value": "Config storage full, attempting compaction"
+  },
+  {
+    "address": 45556,
+    "value": "particle"
+  },
+  {
+    "address": 45565,
+    "value": "configuration_param_erase - Failed to set config version"
+  },
+  {
+    "address": 45644,
+    "value": "-0.%dC"
+  },
+  {
+    "address": 45651,
+    "value": "VPH:%dmV 5V:%dmV vbat:%dmV mdm1v8:%dmV vusb:%dmV vphmin:%dmV"
+  },
+  {
+    "address": 45712,
+    "value": "DIAG"
+  },
+  {
+    "address": 45717,
+    "value": "uptime:%ds 560dpwr:%d loops:%i/s wakeup:%s mcu:%s"
+  },
+  {
+    "address": 45767,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/io_expander.cpp"
+  },
+  {
+    "address": 45839,
+    "value": "hal_i2c_write_to(HAL_I2C_0, IO_EXPANDER_ADDR, buf, 3) == 3"
+  },
+  {
+    "address": 45898,
+    "value": "hal_i2c_write_to(HAL_I2C_0, IO_EXPANDER_ADDR, &reg, 1) == 1"
+  },
+  {
+    "address": 45958,
+    "value": "hal_i2c_read_from(HAL_I2C_0, IO_EXPANDER_ADDR, data, 1) == 1"
+  },
+  {
+    "address": 46019,
+    "value": "hal_i2c_write_to(HAL_I2C_0, IO_EXPANDER_ADDR, buf, 2) == 2"
+  },
+  {
+    "address": 46078,
+    "value": "hal_i2c_init(HAL_I2C_0, &config) == 0"
+  },
+  {
+    "address": 46116,
+    "value": "sInitialized"
+  },
+  {
+    "address": 46129,
+    "value": "(config != nullptr) && (pin < IO_EXPANDER_TOTAL_PINS)"
+  },
+  {
+    "address": 46183,
+    "value": "pin < IO_EXPANDER_TOTAL_PINS"
+  },
+  {
+    "address": 46212,
+    "value": "IOExpander[P%d]: input, invalid op"
+  },
+  {
+    "address": 46247,
+    "value": "IOEX"
+  },
+  {
+    "address": 46252,
+    "value": "sPwrKeyEventsBuffer.put(event) failed: %d"
+  },
+  {
+    "address": 46294,
+    "value": "MAIN"
+  },
+  {
+    "address": 46299,
+    "value": "io_expander_init(isPowerOnReset) failed: %d"
+  },
+  {
+    "address": 46343,
+    "value": "******"
+  },
+  {
+    "address": 46350,
+    "value": "* Tachyon SysCon Boot: %s - %s(%d) last:%s"
+  },
+  {
+    "address": 46393,
+    "value": "Aug 25 2026"
+  },
+  {
+    "address": 46405,
+    "value": "* Built: %s %s"
+  },
+  {
+    "address": 46420,
+    "value": "15:29:03"
+  },
+  {
+    "address": 46429,
+    "value": "* Retained modem: %s battery: %s reboot: %d"
+  },
+  {
+    "address": 46473,
+    "value": "power_manager_init(isPowerOnReset) failed: %d"
+  },
+  {
+    "address": 46519,
+    "value": "sg560d_init(mode) failed: %d"
+  },
+  {
+    "address": 46548,
+    "value": "sPwrKeyEventsBuffer.get(event) failed: %d"
+  },
+  {
+    "address": 46590,
+    "value": "Quick press seen %d"
+  },
+  {
+    "address": 46610,
+    "value": "Power going %s; fastboot %s"
+  },
+  {
+    "address": 46638,
+    "value": "Quick press confirmed %d"
+  },
+  {
+    "address": 46663,
+    "value": "Short press seen %d"
+  },
+  {
+    "address": 46683,
+    "value": "Short press confirmed %d"
+  },
+  {
+    "address": 46708,
+    "value": "Long press seen %d"
+  },
+  {
+    "address": 46727,
+    "value": "Long press confirmed %d"
+  },
+  {
+    "address": 46751,
+    "value": "Unknown power key event: %d"
+  },
+  {
+    "address": 46779,
+    "value": "Version=%s"
+  },
+  {
+    "address": 46790,
+    "value": "FAIL"
+  },
+  {
+    "address": 46795,
+    "value": "Available commands:"
+  },
+  {
+    "address": 46815,
+    "value": "%s - %s"
+  },
+  {
+    "address": 46823,
+    "value": "Pin %d value: %d"
+  },
+  {
+    "address": 46840,
+    "value": "IOEXP_READ Error"
+  },
+  {
+    "address": 46857,
+    "value": "Invalid parameters. Use \"HELP:;\" for more details."
+  },
+  {
+    "address": 46908,
+    "value": "sys.auto_boot: %s"
+  },
+  {
+    "address": 46926,
+    "value": "sys.wake_pin_enable: %s"
+  },
+  {
+    "address": 46950,
+    "value": "sys.color_debug_enable: %s"
+  },
+  {
+    "address": 46977,
+    "value": "sys.fastboot_enabled: %s"
+  },
+  {
+    "address": 47002,
+    "value": "sys.demo_enabled: %s"
+  },
+  {
+    "address": 47023,
+    "value": "sys.enable_5v_when_off: %s"
+  },
+  {
+    "address": 47050,
+    "value": "sys.edl_timer: %d"
+  },
+  {
+    "address": 47068,
+    "value": "sys.shutdown_timer: %d"
+  },
+  {
+    "address": 47091,
+    "value": "Timed wake: none"
+  },
+  {
+    "address": 47108,
+    "value": "Timed wake: in %ds"
+  },
+  {
+    "address": 47127,
+    "value": " MCU sleep"
+  },
+  {
+    "address": 47138,
+    "value": "soft"
+  },
+  {
+    "address": 47143,
+    "value": "hard"
+  },
+  {
+    "address": 47148,
+    "value": "HARD:;"
+  },
+  {
+    "address": 47155,
+    "value": "SOFT:;"
+  },
+  {
+    "address": 47162,
+    "value": "Reset MCU - %s"
+  },
+  {
+    "address": 47177,
+    "value": "MFGD"
+  },
+  {
+    "address": 47182,
+    "value": "REBOOT:;"
+  },
+  {
+    "address": 47191,
+    "value": "POWEROFF:;"
+  },
+  {
+    "address": 47202,
+    "value": "USER:;"
+  },
+  {
+    "address": 47209,
+    "value": "BATTERY_LOW:;"
+  },
+  {
+    "address": 47223,
+    "value": "THERMAL_HIGH:;"
+  },
+  {
+    "address": 47238,
+    "value": "THERMAL_LOW:;"
+  },
+  {
+    "address": 47255,
+    "value": "NORMAL:;"
+  },
+  {
+    "address": 47264,
+    "value": "FASTBOOT:;"
+  },
+  {
+    "address": 47275,
+    "value": "FCT:;"
+  },
+  {
+    "address": 47281,
+    "value": "EDL:;"
+  },
+  {
+    "address": 47287,
+    "value": "LEDSTATUS theme=%s red=%u green=%u blue=%u brightness=%u pattern=%s"
+  },
+  {
+    "address": 47363,
+    "value": "Brightness: "
+  },
+  {
+    "address": 47376,
+    "value": "Pattern: "
+  },
+  {
+    "address": 47386,
+    "value": "VPH: "
+  },
+  {
+    "address": 47392,
+    "value": "5V: "
+  },
+  {
+    "address": 47397,
+    "value": "VBAT: "
+  },
+  {
+    "address": 47404,
+    "value": "1V8: "
+  },
+  {
+    "address": 47410,
+    "value": "VUSB: "
+  },
+  {
+    "address": 47417,
+    "value": "%s: %dmV"
+  },
+  {
+    "address": 47426,
+    "value": "Found: %s = %s"
+  },
+  {
+    "address": 47441,
+    "value": "Not found: %s"
+  },
+  {
+    "address": 47455,
+    "value": "slot %u REJECTED"
+  },
+  {
+    "address": 47472,
+    "value": "No more keys found"
+  },
+  {
+    "address": 47491,
+    "value": "WARNING: %d rejected slot(s), re-set to replace"
+  },
+  {
+    "address": 47539,
+    "value": "CONFIG_ID_ERASE erased"
+  },
+  {
+    "address": 47562,
+    "value": "%31[^:]:%31[^:]:"
+  },
+  {
+    "address": 47579,
+    "value": "Refused: %s"
+  },
+  {
+    "address": 47591,
+    "value": "Erased"
+  },
+  {
+    "address": 47598,
+    "value": "ON:;"
+  },
+  {
+    "address": 47603,
+    "value": "Debug enabled"
+  },
+  {
+    "address": 47617,
+    "value": "Debug disabled"
+  },
+  {
+    "address": 47632,
+    "value": "UP:;"
+  },
+  {
+    "address": 47637,
+    "value": "DOWN:;"
+  },
+  {
+    "address": 47644,
+    "value": "POWER:;"
+  },
+  {
+    "address": 47652,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/mfg_command.cpp"
+  },
+  {
+    "address": 47724,
+    "value": "-1 failed: %d"
+  },
+  {
+    "address": 47738,
+    "value": "Invalid error test command"
+  },
+  {
+    "address": 47765,
+    "value": "DETECT:;"
+  },
+  {
+    "address": 47774,
+    "value": "PASSTHRU:;"
+  },
+  {
+    "address": 47785,
+    "value": "PASS"
+  },
+  {
+    "address": 47790,
+    "value": "byte >= 0"
+  },
+  {
+    "address": 47800,
+    "value": "%c %d"
+  },
+  {
+    "address": 47806,
+    "value": "Buffer overflow"
+  },
+  {
+    "address": 47822,
+    "value": "No parameters required"
+  },
+  {
+    "address": 47845,
+    "value": "Parameters required"
+  },
+  {
+    "address": 47865,
+    "value": "Unknown command"
+  },
+  {
+    "address": 47881,
+    "value": "HELP"
+  },
+  {
+    "address": 47886,
+    "value": "Displays a list of available commands ( HELP:; )"
+  },
+  {
+    "address": 47935,
+    "value": "BATCHECK"
+  },
+  {
+    "address": 47944,
+    "value": "Checks if battery is present ( BATCHECK:; )"
+  },
+  {
+    "address": 47988,
+    "value": "ERROR"
+  },
+  {
+    "address": 47994,
+    "value": "Test error handling ( ERROR:<[0,1,2]>:; )"
+  },
+  {
+    "address": 48040,
+    "value": "Enables/disables logging ( LOG:<[0,1]>:; )"
+  },
+  {
+    "address": 48083,
+    "value": "Enables/disables diagnostic ( DIAG:<[0,1]>:; )"
+  },
+  {
+    "address": 48130,
+    "value": "VERSION"
+  },
+  {
+    "address": 48138,
+    "value": "Displays MCU firmware version ( VERSION:; )"
+  },
+  {
+    "address": 48182,
+    "value": "CONFIG_SET"
+  },
+  {
+    "address": 48193,
+    "value": "Sets configuration values ( CONFIG_SET:<key>:<value>:; )"
+  },
+  {
+    "address": 48250,
+    "value": "CONFIG_GET"
+  },
+  {
+    "address": 48261,
+    "value": "Gets configuration values ( CONFIG_GET:<key>:; )"
+  },
+  {
+    "address": 48310,
+    "value": "CONFIG_FIND"
+  },
+  {
+    "address": 48322,
+    "value": "Finds configuration values ( CONFIG_FIND:<key>:; )"
+  },
+  {
+    "address": 48373,
+    "value": "CONFIG_ERASE"
+  },
+  {
+    "address": 48386,
+    "value": "Erases all configuration values ( CONFIG_ERASE:<password>:; )"
+  },
+  {
+    "address": 48448,
+    "value": "CONFIG_DUMP"
+  },
+  {
+    "address": 48460,
+    "value": "Dumps all configuration values ( CONFIG_DUMP:; )"
+  },
+  {
+    "address": 48509,
+    "value": "CONFIG_ID_SET"
+  },
+  {
+    "address": 48523,
+    "value": "Sets configuration values ( CONFIG_ID_SET:<key>:<value>:; )"
+  },
+  {
+    "address": 48583,
+    "value": "CONFIG_ID_GET"
+  },
+  {
+    "address": 48597,
+    "value": "Gets configuration values ( CONFIG_ID_GET:<key>:; )"
+  },
+  {
+    "address": 48649,
+    "value": "CONFIG_ID_FIND"
+  },
+  {
+    "address": 48664,
+    "value": "Finds configuration values ( CONFIG_ID_FIND:<key>:; )"
+  },
+  {
+    "address": 48718,
+    "value": "CONFIG_ID_ERASE"
+  },
+  {
+    "address": 48734,
+    "value": "Erases all configuration values ( CONFIG_ID_ERASE:<password>:; )"
+  },
+  {
+    "address": 48799,
+    "value": "CONFIG_ID_DUMP"
+  },
+  {
+    "address": 48814,
+    "value": "Dump all configuration values ( CONFIG_ID_DUMP:; )"
+  },
+  {
+    "address": 48865,
+    "value": "READ_PWR"
+  },
+  {
+    "address": 48874,
+    "value": "Reads power status ( READ_PWR:; )"
+  },
+  {
+    "address": 48908,
+    "value": "SET_RGB"
+  },
+  {
+    "address": 48916,
+    "value": "Sets RGB values ( SET_RGB:<r>:<g>:<b>:<brightness>:<pattern>:; )"
+  },
+  {
+    "address": 48981,
+    "value": "SET_PATTERN"
+  },
+  {
+    "address": 48993,
+    "value": "Sets RGB pattern ( SET_PATTERN:<pattern>:<ms>:; )"
+  },
+  {
+    "address": 49043,
+    "value": "LEDSTATUS"
+  },
+  {
+    "address": 49053,
+    "value": "Gets the current LED theme, color, brightness, and pattern ( LEDSTATUS:; )"
+  },
+  {
+    "address": 49128,
+    "value": "KEY_MODE"
+  },
+  {
+    "address": 49137,
+    "value": "Sets PWR key mode ( KEY_MODE:<[DETECT,PASSTHRU]>:; )"
+  },
+  {
+    "address": 49190,
+    "value": "560D_ON"
+  },
+  {
+    "address": 49198,
+    "value": "Powers on SG560D ( 560D_ON:<[NORMAL,FASTBOOT,FCT,EDL]>:; )"
+  },
+  {
+    "address": 49257,
+    "value": "POWER"
+  },
+  {
+    "address": 49263,
+    "value": "Powers on SG560D ( 560D_ON/POWER:<[NORMAL,FASTBOOT,FCT,EDL]>:; )"
+  },
+  {
+    "address": 49328,
+    "value": "560D_OFF"
+  },
+  {
+    "address": 49337,
+    "value": "Powers off SG560D ( 560D_OFF:<[SOFT,HARD]>:; )"
+  },
+  {
+    "address": 49384,
+    "value": "560D_DIRECT"
+  },
+  {
+    "address": 49396,
+    "value": "Forward payload to SG560D ( 560D_DIRECT:<payload>:; )"
+  },
+  {
+    "address": 49450,
+    "value": "560D_DBG"
+  },
+  {
+    "address": 49459,
+    "value": "Enables/Disables debug for SG560D ( 560D_DBG:<[ON,OFF]>:; )"
+  },
+  {
+    "address": 49519,
+    "value": "SHUTDOWN_REASON"
+  },
+  {
+    "address": 49535,
+    "value": "Sets shutdown reason ( SHUTDOWN_REASON:<[REBOOT,POWEROFF,BATTERY_LOW,THERMAL_HIGH,THERMAL_LOW]>:; )"
+  },
+  {
+    "address": 49635,
+    "value": "MCU_REBOOT"
+  },
+  {
+    "address": 49646,
+    "value": "Reboots the MCU ( MCU_REBOOT/REBOOT:<optional HARD|SOFT>:; )"
+  },
+  {
+    "address": 49707,
+    "value": "MCU_SLEEP"
+  },
+  {
+    "address": 49717,
+    "value": "Makes the MCU enter sleep mode ( MCU_SLEEP:; )"
+  },
+  {
+    "address": 49764,
+    "value": "WAKE_AFTER"
+  },
+  {
+    "address": 49775,
+    "value": "Powers on after N seconds, 0 cancels, no arg reports ( WAKE_AFTER:<optional seconds>:; )"
+  },
+  {
+    "address": 49864,
+    "value": "CONFIG_INTERNAL"
+  },
+  {
+    "address": 49880,
+    "value": "Gets the non-volatile data ( CONFIG_INTERNAL:; )"
+  },
+  {
+    "address": 49929,
+    "value": "KEYS"
+  },
+  {
+    "address": 49934,
+    "value": "Control MCU keys ( KEYS:<[up,down,power]>:; )"
+  },
+  {
+    "address": 49980,
+    "value": "PWRSTATUS"
+  },
+  {
+    "address": 49990,
+    "value": "Gets the current power status ( PWRSTATUS:; )"
+  },
+  {
+    "address": 50036,
+    "value": "Gets the current power status ( STATUS:; )"
+  },
+  {
+    "address": 50079,
+    "value": "IOEXP_READ"
+  },
+  {
+    "address": 50090,
+    "value": "Gets an IO expander pin value ( IOEXP_READ:<pin>:; )"
+  },
+  {
+    "address": 50143,
+    "value": "GPIO_READ"
+  },
+  {
+    "address": 50153,
+    "value": "Gets a MCU GPIO pin value ( GPIO_READ:<pin>:; )"
+  },
+  {
+    "address": 50719,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/power_manager.cpp"
+  },
+  {
+    "address": 50793,
+    "value": "BATTERY"
+  },
+  {
+    "address": 50801,
+    "value": "FAKE_FOR_DCDC"
+  },
+  {
+    "address": 50815,
+    "value": "Set BAT ID: %s"
+  },
+  {
+    "address": 50830,
+    "value": "PMGR"
+  },
+  {
+    "address": 50835,
+    "value": "Set NTC source: %s"
+  },
+  {
+    "address": 50854,
+    "value": "Power path not changed: %s"
+  },
+  {
+    "address": 50881,
+    "value": "Power path: %s -> %s"
+  },
+  {
+    "address": 50902,
+    "value": "Enable 5V booster"
+  },
+  {
+    "address": 50920,
+    "value": "5V booster: output voltage is too low %d"
+  },
+  {
+    "address": 50961,
+    "value": "Set 5V input"
+  },
+  {
+    "address": 50974,
+    "value": "Set 5V output"
+  },
+  {
+    "address": 50988,
+    "value": "Setting 5V direction failed: %d -> %d"
+  },
+  {
+    "address": 51026,
+    "value": "power_manager_get_5v_dir() == dir"
+  },
+  {
+    "address": 51060,
+    "value": "5V header is externally driven, leaving as input"
+  },
+  {
+    "address": 51109,
+    "value": "Keeping 5V header powered while the modem is off"
+  },
+  {
+    "address": 51158,
+    "value": "Set fake usb cable: %s"
+  },
+  {
+    "address": 51181,
+    "value": "VBUS_MAIN not changed: %s"
+  },
+  {
+    "address": 51207,
+    "value": "VBUS_MAIN:%s -> %s"
+  },
+  {
+    "address": 51226,
+    "value": "currSource == source"
+  },
+  {
+    "address": 51247,
+    "value": "power_manager_set_fake_usb_cable(POWER_MANAGER_FAKE_USB_CABLE_OFF) failed: %d"
+  },
+  {
+    "address": 51325,
+    "value": "USB re-attach: done, settling for %dms"
+  },
+  {
+    "address": 51364,
+    "value": "USB re-attach: presenting a detach for %dms"
+  },
+  {
+    "address": 51408,
+    "value": "power_manager_set_fake_usb_cable(POWER_MANAGER_FAKE_USB_CABLE_ON) failed: %d"
+  },
+  {
+    "address": 51485,
+    "value": "USB re-attach already in progress"
+  },
+  {
+    "address": 51519,
+    "value": "USB-C not attached (%dmV), skipping USB re-attach"
+  },
+  {
+    "address": 51569,
+    "value": "5V booster is off, cannot drive CC - skipping USB re-attach"
+  },
+  {
+    "address": 51629,
+    "value": "No task slot for USB re-attach"
+  },
+  {
+    "address": 51660,
+    "value": "power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_DCDC) failed: %d"
+  },
+  {
+    "address": 51732,
+    "value": "power_manager_set_ntc_det_ctrl(POWER_MANAGER_NTC_DETECT_ENABLE) failed: %d"
+  },
+  {
+    "address": 51807,
+    "value": "ntc voltage: %d"
+  },
+  {
+    "address": 51823,
+    "value": "power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_NONE) failed: %d"
+  },
+  {
+    "address": 51895,
+    "value": "power_manager_set_ntc_det_ctrl(POWER_MANAGER_NTC_DETECT_DISABLE) failed: %d"
+  },
+  {
+    "address": 51971,
+    "value": "battery voltage: %d"
+  },
+  {
+    "address": 51991,
+    "value": "battery: %s"
+  },
+  {
+    "address": 52003,
+    "value": "fake_10k"
+  },
+  {
+    "address": 52012,
+    "value": "battery"
+  },
+  {
+    "address": 52020,
+    "value": "attached"
+  },
+  {
+    "address": 52029,
+    "value": "detached"
+  },
+  {
+    "address": 52038,
+    "value": "off connector"
+  },
+  {
+    "address": 52052,
+    "value": "on connector"
+  },
+  {
+    "address": 52065,
+    "value": "--- Power Status ---"
+  },
+  {
+    "address": 52086,
+    "value": "   Battery     : %s (%dmV)"
+  },
+  {
+    "address": 52113,
+    "value": "   Battery id  : %s"
+  },
+  {
+    "address": 52133,
+    "value": "   NTC         : %s"
+  },
+  {
+    "address": 52153,
+    "value": "   USB         : %s (%dmV)"
+  },
+  {
+    "address": 52180,
+    "value": "   D+/D-       : %s"
+  },
+  {
+    "address": 52200,
+    "value": "   5V header   : %s (%dmV)"
+  },
+  {
+    "address": 52227,
+    "value": "   5V booster  : %s"
+  },
+  {
+    "address": 52247,
+    "value": "   SG560D vbus : %s"
+  },
+  {
+    "address": 52267,
+    "value": "   SG560D vbatt: %s"
+  },
+  {
+    "address": 52287,
+    "value": "   SG560D 1v8      : %s (%dmV)"
+  },
+  {
+    "address": 52318,
+    "value": "   SG560D vph      : %s (%dmV)"
+  },
+  {
+    "address": 52349,
+    "value": "--------------------"
+  },
+  {
+    "address": 52370,
+    "value": "Shutdown reason set: %s"
+  },
+  {
+    "address": 52394,
+    "value": "Shutdown reason %s timed out after %d minutes - marking as stale"
+  },
+  {
+    "address": 52459,
+    "value": "UNKNOWN"
+  },
+  {
+    "address": 52467,
+    "value": "POWEROFF"
+  },
+  {
+    "address": 52476,
+    "value": "BATTERY_LOW"
+  },
+  {
+    "address": 52488,
+    "value": "THERMAL_HIGH"
+  },
+  {
+    "address": 52501,
+    "value": "THERMAL_LOW"
+  },
+  {
+    "address": 52513,
+    "value": "BROWNOUT"
+  },
+  {
+    "address": 52522,
+    "value": "DISCONNECTED"
+  },
+  {
+    "address": 52535,
+    "value": "INPUT"
+  },
+  {
+    "address": 52541,
+    "value": "OUTPUT"
+  },
+  {
+    "address": 52555,
+    "value": "DC-DC"
+  },
+  {
+    "address": 52561,
+    "value": "NOT_PRESENT"
+  },
+  {
+    "address": 52573,
+    "value": "CONSTANT_RESISTOR"
+  },
+  {
+    "address": 52603,
+    "value": "PASSTHRU"
+  },
+  {
+    "address": 52612,
+    "value": "DETECT"
+  },
+  {
+    "address": 52619,
+    "value": "PWR key mode changed to %s"
+  },
+  {
+    "address": 52646,
+    "value": "PKEY"
+  },
+  {
+    "address": 52651,
+    "value": "Retained data raw: 0x%X 0x%X 0x%X"
+  },
+  {
+    "address": 52685,
+    "value": "RTAN"
+  },
+  {
+    "address": 52690,
+    "value": "Retained data magic mismatch: 0x%X (expected 0x%X)"
+  },
+  {
+    "address": 52741,
+    "value": "systick_register_callback(20, false, on_timer_expired, nullptr) failed: %d"
+  },
+  {
+    "address": 52816,
+    "value": "RGBB"
+  },
+  {
+    "address": 52821,
+    "value": "unknown"
+  },
+  {
+    "address": 52829,
+    "value": "breathing"
+  },
+  {
+    "address": 52839,
+    "value": "blinking"
+  },
+  {
+    "address": 52848,
+    "value": "blinking_rapidly"
+  },
+  {
+    "address": 52865,
+    "value": "solid"
+  },
+  {
+    "address": 52871,
+    "value": "rainbow"
+  },
+  {
+    "address": 52879,
+    "value": "fastboot"
+  },
+  {
+    "address": 52896,
+    "value": "running"
+  },
+  {
+    "address": 52904,
+    "value": "connected_wifi"
+  },
+  {
+    "address": 52919,
+    "value": "connected_lte"
+  },
+  {
+    "address": 52933,
+    "value": "signal"
+  },
+  {
+    "address": 52940,
+    "value": "transient"
+  },
+  {
+    "address": 53095,
+    "value": "U/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/sg560d.cpp"
+  },
+  {
+    "address": 53163,
+    "value": "success == 0"
+  },
+  {
+    "address": 53176,
+    "value": "uart != nullptr"
+  },
+  {
+    "address": 53192,
+    "value": "Current VBATT source: %s"
+  },
+  {
+    "address": 53217,
+    "value": "560D"
+  },
+  {
+    "address": 53222,
+    "value": "cannot change power source when the modem is powered up"
+  },
+  {
+    "address": 53278,
+    "value": "Modem VBAT is not off due to work around issue"
+  },
+  {
+    "address": 53325,
+    "value": "vbattSrc == MODEM_VBAT_SOURCE_NONE"
+  },
+  {
+    "address": 53360,
+    "value": "5V input ON"
+  },
+  {
+    "address": 53372,
+    "value": "5V input OFF"
+  },
+  {
+    "address": 53385,
+    "value": "VUSB: USB-C is not attached %d"
+  },
+  {
+    "address": 53416,
+    "value": "power_manager_set_5v_dir(POWER_MANAGER_HEADER_5V_INPUT) failed: %d"
+  },
+  {
+    "address": 53483,
+    "value": "power_manager_set_5v_dir(POWER_MANAGER_HEADER_5V_OUTPUT) failed: %d"
+  },
+  {
+    "address": 53551,
+    "value": "power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_BATTERY) failed: %d"
+  },
+  {
+    "address": 53626,
+    "value": "Working around dead battery issue"
+  },
+  {
+    "address": 53660,
+    "value": "power turned on"
+  },
+  {
+    "address": 53676,
+    "value": "FCT mode setup complete"
+  },
+  {
+    "address": 53700,
+    "value": "releasing volume down"
+  },
+  {
+    "address": 53722,
+    "value": "setting USB_BOOT back to 0"
+  },
+  {
+    "address": 53749,
+    "value": "boot 2"
+  },
+  {
+    "address": 53756,
+    "value": "board at %d.%dC - using thermal backoff for %s"
+  },
+  {
+    "address": 53803,
+    "value": "continuing"
+  },
+  {
+    "address": 53814,
+    "value": "pending"
+  },
+  {
+    "address": 53822,
+    "value": "%s - auto-boot %s (if enabled), next attempt in %ds, attempts so far %d"
+  },
+  {
+    "address": 53894,
+    "value": "sg560d_power_on_normal ignored, modem is not off"
+  },
+  {
+    "address": 53943,
+    "value": "Failed to start NORMAL mode task"
+  },
+  {
+    "address": 53976,
+    "value": "sg560d_power_on_edl ignored, modem is not off"
+  },
+  {
+    "address": 54022,
+    "value": "Failed to start EDL mode task"
+  },
+  {
+    "address": 54056,
+    "value": "FASTBOOT"
+  },
+  {
+    "address": 54065,
+    "value": "sg560d_power_on_fastboot_or_fct ignored, modem is not off"
+  },
+  {
+    "address": 54123,
+    "value": "Failed to start %s mode task"
+  },
+  {
+    "address": 54152,
+    "value": "Timed wake cancelled"
+  },
+  {
+    "address": 54173,
+    "value": "Timed wake armed: %ds from now"
+  },
+  {
+    "address": 54204,
+    "value": "setting mode to %s"
+  },
+  {
+    "address": 54223,
+    "value": "sg560d_power_off aborting whilst powering on"
+  },
+  {
+    "address": 54268,
+    "value": "powering down by cutting power"
+  },
+  {
+    "address": 54299,
+    "value": "power_manager_set_vbus_source(MODEM_VBUS_SOURCE_NONE) failed: %d"
+  },
+  {
+    "address": 54364,
+    "value": "power_manager_5v_header_keep_on() failed: %d"
+  },
+  {
+    "address": 54409,
+    "value": "power_manager_set_5v_dir(POWER_MANAGER_HEADER_5V_DISCONNECTED) failed: %d"
+  },
+  {
+    "address": 54483,
+    "value": "power_manager_set_5v_booster_enable(false) failed: %d"
+  },
+  {
+    "address": 54537,
+    "value": "preparing to enter %s"
+  },
+  {
+    "address": 54559,
+    "value": "powerCheck on failed"
+  },
+  {
+    "address": 54580,
+    "value": "preparing to enter EDL mode"
+  },
+  {
+    "address": 54608,
+    "value": "preparing to enter NORMAL mode"
+  },
+  {
+    "address": 54639,
+    "value": "SG560D is on, assuming NORMAL mode"
+  },
+  {
+    "address": 54674,
+    "value": "SG560D is off, mode  changes from %s to HARD_OFF"
+  },
+  {
+    "address": 54723,
+    "value": "Modem power state: %s"
+  },
+  {
+    "address": 54745,
+    "value": "PWR-KEY pressed"
+  },
+  {
+    "address": 54761,
+    "value": "PWR-KEY released"
+  },
+  {
+    "address": 54778,
+    "value": " (stale)"
+  },
+  {
+    "address": 54787,
+    "value": ", stale"
+  },
+  {
+    "address": 54795,
+    "value": "dead battery: handing the pack back"
+  },
+  {
+    "address": 54831,
+    "value": "Modem 1V8 up: vph %dmV vbatt src %s"
+  },
+  {
+    "address": 54867,
+    "value": "Timed wake cancelled - modem is up"
+  },
+  {
+    "address": 54902,
+    "value": "Modem power GOOD: reboot confirmed%s"
+  },
+  {
+    "address": 54939,
+    "value": "Modem power WARNING: reboot detected but reason was %s%s"
+  },
+  {
+    "address": 54996,
+    "value": "FCT timer not set"
+  },
+  {
+    "address": 55014,
+    "value": "FCT reboot %d"
+  },
+  {
+    "address": 55028,
+    "value": "FCT crash"
+  },
+  {
+    "address": 55038,
+    "value": "Failed to retry_fct_mode task"
+  },
+  {
+    "address": 55068,
+    "value": "Modem rebooted, setting mode to NORMAL"
+  },
+  {
+    "address": 55107,
+    "value": "Modem power GOOD: power on"
+  },
+  {
+    "address": 55134,
+    "value": "Modem power GOOD: power off"
+  },
+  {
+    "address": 55162,
+    "value": "Modem power ERROR: unexpected power on"
+  },
+  {
+    "address": 55201,
+    "value": "Modem power WARNING: unexpected power off (reason: %s%s) vph floor %dmV vbat now %dmV"
+  },
+  {
+    "address": 55287,
+    "value": "Reboot timeout - manually triggering power on"
+  },
+  {
+    "address": 55333,
+    "value": "Modem power off confirmed: did not reboot"
+  },
+  {
+    "address": 55375,
+    "value": "Modem power off confirmed: did not reboot. %s has pending auto-boot"
+  },
+  {
+    "address": 55443,
+    "value": "Modem power ERROR: power on never completed"
+  },
+  {
+    "address": 55487,
+    "value": "Modem power state error: timeout waiting for power state change"
+  },
+  {
+    "address": 55551,
+    "value": "RGB status changed: R:%s G:%s B:%s"
+  },
+  {
+    "address": 55586,
+    "value": "green LED was on for less than 150ms"
+  },
+  {
+    "address": 55623,
+    "value": "boot confirmed"
+  },
+  {
+    "address": 55638,
+    "value": "changing RGB theme from %d to %d"
+  },
+  {
+    "address": 55671,
+    "value": "not changing RGB theme from %d"
+  },
+  {
+    "address": 55702,
+    "value": "Timed wake elapsed - powering on"
+  },
+  {
+    "address": 55735,
+    "value": "Timed wake is due but deferred - %s %ds ago, board %d.%dC"
+  },
+  {
+    "address": 55793,
+    "value": "Auto-boot attempt %d for %s, next in %ds if this one fails"
+  },
+  {
+    "address": 55852,
+    "value": "Modem up %ds after %d auto-boot attempt(s) - clearing retry state"
+  },
+  {
+    "address": 55918,
+    "value": "USB connected but %s owns the boot decision - not auto-booting"
+  },
+  {
+    "address": 55981,
+    "value": "USB connected, starting %dms debounce for auto-boot"
+  },
+  {
+    "address": 56033,
+    "value": "Auto-boot triggered after USB power restore"
+  },
+  {
+    "address": 56077,
+    "value": "USB disconnected during debounce, canceling auto-boot"
+  },
+  {
+    "address": 56131,
+    "value": "pressing power key to enter FCT mode"
+  },
+  {
+    "address": 56168,
+    "value": "second quick volume up press"
+  },
+  {
+    "address": 56197,
+    "value": "first quick volume up press"
+  },
+  {
+    "address": 56280,
+    "value": "Going to sleep"
+  },
+  {
+    "address": 56295,
+    "value": "SLEP"
+  },
+  {
+    "address": 56300,
+    "value": "Waking up"
+  },
+  {
+    "address": 56310,
+    "value": "No available slots for new tasks"
+  },
+  {
+    "address": 56343,
+    "value": "STAT"
+  },
+  {
+    "address": 56348,
+    "value": "Too many actions in task"
+  },
+  {
+    "address": 56373,
+    "value": "Task %d added with %d actions"
+  },
+  {
+    "address": 56403,
+    "value": "Executing function action in task"
+  },
+  {
+    "address": 56437,
+    "value": "Function action aborted"
+  },
+  {
+    "address": 56461,
+    "value": "Starting delay of %d ms"
+  },
+  {
+    "address": 56485,
+    "value": "Delay of %d ms completed"
+  },
+  {
+    "address": 56510,
+    "value": "Unknown action type"
+  },
+  {
+    "address": 56530,
+    "value": "Task completed"
+  },
+  {
+    "address": 56545,
+    "value": "systick_delay called for %d ms"
+  },
+  {
+    "address": 56576,
+    "value": "SYST"
+  },
+  {
+    "address": 56581,
+    "value": "wakeup_isr - check"
+  },
+  {
+    "address": 56600,
+    "value": "WAKE"
+  },
+  {
+    "address": 56605,
+    "value": "wakeup_isr - check 2"
+  },
+  {
+    "address": 56626,
+    "value": "wakeup_isr - d fail"
+  },
+  {
+    "address": 56646,
+    "value": "wakeup_isr - poff"
+  },
+  {
+    "address": 56664,
+    "value": "WAKE pin enabled"
+  },
+  {
+    "address": 56681,
+    "value": "WAKE pin disabled"
+  },
+  {
+    "address": 56703,
+    "value": "NONE"
+  },
+  {
+    "address": 56715,
+    "value": "BOOT"
+  },
+  {
+    "address": 56727,
+    "value": "DIAG"
+  },
+  {
+    "address": 56739,
+    "value": "PWR_KEY"
+  },
+  {
+    "address": 56763,
+    "value": "SG560D"
+  },
+  {
+    "address": 56775,
+    "value": "STATE_M"
+  },
+  {
+    "address": 56787,
+    "value": "USB_REATT"
+  },
+  {
+    "address": 56799,
+    "value": "WAKEUP"
+  },
+  {
+    "address": 56811,
+    "value": "I2C_TX_IDLE"
+  },
+  {
+    "address": 56823,
+    "value": "I2C_TX_FIFO"
+  },
+  {
+    "address": 56835,
+    "value": "I2C_TX_BUSY"
+  },
+  {
+    "address": 56847,
+    "value": "I2C_TX_DONE"
+  },
+  {
+    "address": 56859,
+    "value": "I2C_RX_IDLE"
+  },
+  {
+    "address": 56871,
+    "value": "I2C_RX_BUSY"
+  },
+  {
+    "address": 56883,
+    "value": "I2C_RX_FIFO"
+  },
+  {
+    "address": 56895,
+    "value": "I2C_RX_DONE"
+  },
+  {
+    "address": 56907,
+    "value": "UART_TX"
+  },
+  {
+    "address": 56919,
+    "value": "HARD_FAULT"
+  },
+  {
+    "address": 56943,
+    "value": "BAD_IRQ"
+  },
+  {
+    "address": 56967,
+    "value": "SOFT_RESET"
+  },
+  {
+    "address": 56978,
+    "value": "HARDWARE_FAULT"
+  },
+  {
+    "address": 56993,
+    "value": "PIN_RESET"
+  },
+  {
+    "address": 57003,
+    "value": "WAKEUP"
+  },
+  {
+    "address": 57060,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/hal/src/hal_adc.cpp"
+  },
+  {
+    "address": 57128,
+    "value": "adc != nullptr"
+  },
+  {
+    "address": 57143,
+    "value": "config != nullptr"
+  },
+  {
+    "address": 57161,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/hal/src/hal_gpio.cpp"
+  },
+  {
+    "address": 57230,
+    "value": "pin < HAL_PLATFORM_PIN_NUM"
+  },
+  {
+    "address": 57257,
+    "value": "I2C timeout: %s"
+  },
+  {
+    "address": 57273,
+    "value": "I2C_"
+  },
+  {
+    "address": 57278,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/hal/src/hal_i2c.cpp"
+  },
+  {
+    "address": 57346,
+    "value": "i2c != nullptr"
+  },
+  {
+    "address": 57361,
+    "value": "sMode == HAL_I2C_MODE_MASTER"
+  },
+  {
+    "address": 57390,
+    "value": "I2C NACK"
+  },
+  {
+    "address": 57399,
+    "value": "I2C Arbitration Lost"
+  },
+  {
+    "address": 57420,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/hal/src/hal_pwm.cpp"
+  },
+  {
+    "address": 57488,
+    "value": "pwm != nullptr"
+  },
+  {
+    "address": 57503,
+    "value": "gpio != nullptr"
+  },
+  {
+    "address": 57519,
+    "value": "/home/runner/work/tachyon-syscon/tachyon-syscon/hal/src/hal_uart.cpp"
+  },
+  {
+    "address": 57589,
+    "value": "[0;34m"
+  },
+  {
+    "address": 57597,
+    "value": "[0;37m"
+  },
+  {
+    "address": 57605,
+    "value": "[0;33m"
+  },
+  {
+    "address": 57613,
+    "value": "[0;31m"
+  },
+  {
+    "address": 57620,
+    "value": "[%lld] [%s] "
+  },
+  {
+    "address": 57639,
+    "value": "         (((((                  "
+  },
+  {
+    "address": 57704,
+    "value": "AAAAAA"
+  },
+  {
+    "address": 57736,
+    "value": "BBBBBB"
+  },
+  {
+    "address": 57895,
+    "value": "#-0+ "
+  },
+  {
+    "address": 57905,
+    "value": "efgEFG"
+  },
+  {
+    "address": 57912,
+    "value": "0123456789ABCDEF"
+  },
+  {
+    "address": 57929,
+    "value": "0123456789abcdef"
+  },
+  {
+    "address": 57952,
+    "value": "A-Fa-f8901234567]"
+  },
+  {
+    "address": 63480,
+    "value": "1.0.52"
+  }
+]

@@ -1,0 +1,98 @@
+{
+  "entries": [
+    {
+      "address": "0x7c54",
+      "symbol": "syscon_target_adc_init",
+      "source": "target/adc_target.c",
+      "header": "include/adc_target.h",
+      "tests": "tests/test_adc_target.py",
+      "docs": "docs/adc-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7d54",
+      "symbol": "syscon_target_adc_temperature",
+      "source": "target/adc_target.c",
+      "header": "include/adc_target.h",
+      "tests": "tests/test_adc_target.py",
+      "docs": "docs/adc-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7e7c",
+      "symbol": "syscon_target_adc_raw",
+      "source": "target/adc_target.c",
+      "header": "include/adc_target.h",
+      "tests": "tests/test_adc_target.py",
+      "docs": "docs/adc-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7f24",
+      "symbol": "syscon_target_adc_millivolts",
+      "source": "target/adc_target.c",
+      "header": "include/adc_target.h",
+      "tests": "tests/test_adc_target.py",
+      "docs": "docs/adc-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x8954",
+      "symbol": "syscon_target_uart_init",
+      "source": "target/uart_hal_target.c",
+      "header": "include/uart_hal_target.h",
+      "tests": "tests/test_uart_hal_target.py",
+      "docs": "docs/uart-hal-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x8b50",
+      "symbol": "syscon_target_uart_deinit",
+      "source": "target/uart_hal_target.c",
+      "header": "include/uart_hal_target.h",
+      "tests": "tests/test_uart_hal_target.py",
+      "docs": "docs/uart-hal-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x95f0",
+      "symbol": "syscon_target_uart_line_config",
+      "source": "target/uart_hal_target.c",
+      "header": "include/uart_hal_target.h",
+      "tests": "tests/test_uart_hal_target.py",
+      "docs": "docs/uart-hal-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x9638",
+      "symbol": "syscon_target_uart_clock_config",
+      "source": "target/uart_hal_target.c",
+      "header": "include/uart_hal_target.h",
+      "tests": "tests/test_uart_hal_target.py",
+      "docs": "docs/uart-hal-target.md",
+      "original_abi": true
+    }
+  ],
+  "validation": {
+    "report": "analysis/adc-uart-target-reference-coverage.json",
+    "test_groups_passed": 29,
+    "identified_original_instructions": 605,
+    "exercised_original_instructions": 605,
+    "original_dependency_traps": [
+      "0x2678"
+    ],
+    "inputs_unchanged_during_run": false,
+    "changed_during_run": [
+      "include/scheduling_target.h",
+      "target/scheduling_test_fixture.c",
+      "tests/test_scheduling_target.py",
+      "tools/build_scheduling_target.py"
+    ],
+    "linked_sources_unchanged": true
+  },
+  "full_domain_formal_equivalence_proven": false,
+  "original_executable_fallback": false,
+  "installed_runtime_library_linked": false,
+  "physical_hardware_validated": false,
+  "flash_candidate": false
+}

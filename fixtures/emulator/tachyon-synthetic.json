@@ -1,0 +1,17 @@
+{
+  "name": "synthetic-tachyon-digital-environment",
+  "hardware_capture": false,
+  "description": "Explicit test inputs only; no actual NONMAIN, calibration, battery, or GPIO trace has been captured.",
+  "nonmain_fill": 0,
+  "gpio_inputs": 0,
+  "adc_default_sample": 2000,
+  "writeonly_read_fixtures": {
+    "0x400a1048": 0
+  },
+  "notes": [
+    "GPIO ICLR readback is an explicit unverified fixture because the original firmware performs a read-modify-write of a write-only register.",
+    "Factory bytes are zero-filled synthetic input, not plausible per-device calibration proof.",
+    "No ROM boot or NONMAIN security validation is simulated before the application's reset vector."
+  ],
+  "factory_fill": 0
+}

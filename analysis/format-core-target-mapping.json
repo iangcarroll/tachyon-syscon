@@ -1,0 +1,44 @@
+{
+  "entries": [
+    {
+      "address": "0x8fcc",
+      "symbol": "syscon_target_format_digits",
+      "source": "target/format_core_target.c",
+      "header": "include/format_core_target.h",
+      "tests": "tests/test_format_core_target.py",
+      "docs": "docs/format-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x9028",
+      "symbol": "syscon_target_format_forward",
+      "source": "target/format_core_target.c",
+      "header": "include/format_core_target.h",
+      "tests": "tests/test_format_core_target.py",
+      "docs": "docs/format-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x9038",
+      "symbol": "syscon_target_vformat_callback",
+      "source": "target/format_core_target.c",
+      "header": "include/format_core_target.h",
+      "tests": "tests/test_format_core_target.py",
+      "docs": "docs/format-core-target.md",
+      "original_abi": true,
+      "additional_sources": [
+        "src/format.c"
+      ]
+    }
+  ],
+  "whole_domain_equivalence": false,
+  "physical_image": false,
+  "original_executable_bytes_in_candidate": false,
+  "coverage_source": "analysis/format-core-target-test-instruction-coverage.json",
+  "discovered_instructions": 319,
+  "exercised_instructions": 319,
+  "remaining_boundaries": [
+    "Finite differential tests do not prove all inputs or interrupt interleavings.",
+    "Incidental caller-saved registers and private stack contents are not a universal equivalence claim."
+  ]
+}

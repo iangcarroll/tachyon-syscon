@@ -1,0 +1,43 @@
+name: Local reconstruction checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  differential:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install local emulation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang z3 xz-utils
+          python -m pip install -r requirements.txt
+      - name: Install the pinned Arm GNU compiler
+        # Arm's official 13.3.rel1 release and published SHA-256:
+        # https://gitlab.arm.com/tooling/gnu-toolchains-for-arm/-/tree/releases/13.3.rel1
+        run: |
+          cd "$RUNNER_TEMP"
+          toolchain_archive=arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi.tar.xz
+          curl -fL --retry 3 --max-time 300 "https://gitlab.arm.com/api/v4/projects/tooling%2Fgnu-toolchains-for-arm/packages/generic/gnu-toolchain/13.3.rel1/$toolchain_archive" -o "$toolchain_archive"
+          printf '%s  %s\n' '95c011cee430e64dd6087c75c800f04b9c49832cc1000127a92a97f9c8d83af4' "$toolchain_archive" | sha256sum --check -
+          mkdir -p arm-gnu
+          tar -xJf "$toolchain_archive" --strip-components=1 -C arm-gnu
+          echo "$RUNNER_TEMP/arm-gnu/bin" >> "$GITHUB_PATH"
+      - name: Run differential and complete-image emulation tests
+        env:
+          SYSCON_COVERAGE_OUTPUT: analysis/ci-test-checkpoint.json
+        run: python -m pytest -q tests
+      - name: Preserve test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: local-emulation-evidence
+          path: analysis/ci-test-checkpoint.json
+          if-no-files-found: ignore

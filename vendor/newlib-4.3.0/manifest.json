@@ -1,0 +1,64 @@
+{
+  "upstream": "https://sourceware.org/git/newlib-cygwin.git",
+  "mirror": "https://github.com/mirror/newlib-cygwin",
+  "tag": "newlib-4.3.0",
+  "tag_object": "ab49db3a8c08e2240e53d8f12d6a14fd285def4e",
+  "commit": "9e09d6ed83cce4777a5950412647ccc603040409",
+  "files": [
+    {
+      "file": "nano-vfprintf.c",
+      "upstream_path": "newlib/libc/stdio/nano-vfprintf.c",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/nano-vfprintf.c",
+      "sha256": "2ce95ab33f0ef20f2d18dc06066940451f458f68e68b19ea642740a2567c6555"
+    },
+    {
+      "file": "nano-vfprintf_local.h",
+      "upstream_path": "newlib/libc/stdio/nano-vfprintf_local.h",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/nano-vfprintf_local.h",
+      "sha256": "db84eae5c95d514eaa927fcc7496df3679efc73773b6891cf89434c09fb0a8e0"
+    },
+    {
+      "file": "nano-vfscanf.c",
+      "upstream_path": "newlib/libc/stdio/nano-vfscanf.c",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/nano-vfscanf.c",
+      "sha256": "2c41d5b31198dd8811cbdf6d071a24ee20c699417acbd5302e56bc728c24376b"
+    },
+    {
+      "file": "nano-vfscanf_i.c",
+      "upstream_path": "newlib/libc/stdio/nano-vfscanf_i.c",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/nano-vfscanf_i.c",
+      "sha256": "633978e32d073ac7a29deaa368ea1488cd3bc6f8ea793d2953d2e4c32c88a2c3"
+    },
+    {
+      "file": "nano-vfscanf_local.h",
+      "upstream_path": "newlib/libc/stdio/nano-vfscanf_local.h",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/nano-vfscanf_local.h",
+      "sha256": "8b538d45efaf86446d7e0dbd452fed0b010bfc79163fc240dc96979bedb8d1d0"
+    },
+    {
+      "file": "sccl.c",
+      "upstream_path": "newlib/libc/stdio/sccl.c",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/sccl.c",
+      "sha256": "157ef9dd70caf332e6b7c460ad427dd42a53f177665145409b97c892160f2c97"
+    },
+    {
+      "file": "snprintf.c",
+      "upstream_path": "newlib/libc/stdio/snprintf.c",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/snprintf.c",
+      "sha256": "9a53edd1e7a38c9872047dd11f410ad9a36a7fc99bcbd7cdb99cacfb9125d4f7"
+    },
+    {
+      "file": "sscanf.c",
+      "upstream_path": "newlib/libc/stdio/sscanf.c",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdio/sscanf.c",
+      "sha256": "8b2055cc8da9c44d926e3896a32e3aa5f04bee5c5e8f9566b98f21352004e43f"
+    },
+    {
+      "file": "strtol.c",
+      "upstream_path": "newlib/libc/stdlib/strtol.c",
+      "url": "https://raw.githubusercontent.com/mirror/newlib-cygwin/9e09d6ed83cce4777a5950412647ccc603040409/newlib/libc/stdlib/strtol.c",
+      "sha256": "1fd68d257b1b3d1c4b31845d68d7658cc0c9064b6b9e471d9275bbf3b3143362"
+    }
+  ],
+  "provenance": "Pinned upstream source family matches recovered control flow and ABI; exact original build version is not established."
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://software-dl.ti.com/msp430/esd/MSPM0-CMSIS/MSPM0L11XX_L13XX/latest/exports/TexasInstruments.MSPM0L11XX_L13XX_DFP.1.3.1.pack",
+  "sha256": "29853708407f490365c10b4298692cfaa2ab9f1d692754c28688d0b0fe710860",
+  "bytes": 655667,
+  "extracted": [
+    "01_Pack/license.txt",
+    "03_SVD/MSPM0L110X.svd",
+    "03_SVD/MSPM0L130X.svd",
+    "03_SVD/MSPM0L134X.svd",
+    "TexasInstruments.MSPM0L11XX_L13XX_DFP.pdsc"
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "path": "ti-hw-flashctl.h",
+    "source": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/main/source/ti/devices/msp/peripherals/hw_flashctl.h",
+    "sha256": "15702f84a50f29243fb998e7e05075f4fa5b87c40fe8de7f6070a312a769342d",
+    "bytes": 106394
+  },
+  {
+    "path": "ti-hw-sysctl.h",
+    "source": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/m0p/sysctl/hw_sysctl_mspm0l11xx_l13xx.h",
+    "sha256": "2a3a8100e6c89665130986e7e2211bb1be157b5381c8b36a0522d6ea26bdda63",
+    "bytes": 87522
+  }
+]
