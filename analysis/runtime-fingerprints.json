@@ -1,0 +1,721 @@
+{
+  "archives": [
+    {
+      "path": "/opt/homebrew/Cellar/arm-none-eabi-gcc/13.3-2024.7/gcc/lib/gcc/arm-none-eabi/13.3.1/thumb/v6-m/nofp/libgcc.a",
+      "sha256": "4c0d5b7d79843d33767ae4fbb12362fc0fb140bb124326461f1c52a6429f0c87"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/arm-none-eabi-gcc/13.3-2024.7/gcc/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a",
+      "sha256": "c86bf04d7a8beee736d7af4500c106c2f8c835ec440afda62a97b3dbefd123af"
+    }
+  ],
+  "matches": [
+    {
+      "library": "libgcc.a",
+      "object": "_aeabi_uldivmod.o",
+      "symbol": "__aeabi_uldivmod",
+      "address": "0x448",
+      "size": 62,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 8
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_cdrcmple",
+      "address": "0x2354",
+      "size": 32,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_cdcmpeq",
+      "address": "0x3dc",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_cdcmpeq",
+      "address": "0x2364",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_cdcmple",
+      "address": "0x3dc",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_cdcmple",
+      "address": "0x2364",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmplt",
+      "address": "0x3f8",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmplt",
+      "address": "0x2380",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmple",
+      "address": "0x40c",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmple",
+      "address": "0x2394",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmpgt",
+      "address": "0x420",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmpgt",
+      "address": "0x23a8",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmpge",
+      "address": "0x434",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpdf2.o",
+      "symbol": "__aeabi_dcmpge",
+      "address": "0x23bc",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_cfrcmple",
+      "address": "0x3d4",
+      "size": 24,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_cfcmpeq",
+      "address": "0x3dc",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_cfcmpeq",
+      "address": "0x2364",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_cfcmple",
+      "address": "0x3dc",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_cfcmple",
+      "address": "0x2364",
+      "size": 16,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmplt",
+      "address": "0x3f8",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmplt",
+      "address": "0x2380",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmple",
+      "address": "0x40c",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmple",
+      "address": "0x2394",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmpgt",
+      "address": "0x420",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmpgt",
+      "address": "0x23a8",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmpge",
+      "address": "0x434",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_arm_cmpsf2.o",
+      "symbol": "__aeabi_fcmpge",
+      "address": "0x23bc",
+      "size": 18,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_clzsi2.o",
+      "symbol": "__clzsi2",
+      "address": "0x23d0",
+      "size": 60,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_divsi3.o",
+      "symbol": "__divsi3",
+      "address": "0x1fc",
+      "size": 460,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_fixunsdfsi.o",
+      "symbol": "__fixunsdfsi",
+      "address": "0x514",
+      "size": 60,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 16
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_fixunsdfsi.o",
+      "symbol": "__aeabi_d2uiz",
+      "address": "0x514",
+      "size": 60,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 16
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_fixunssfsi.o",
+      "symbol": "__fixunssfsi",
+      "address": "0x4e4",
+      "size": 48,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 16
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_fixunssfsi.o",
+      "symbol": "__aeabi_f2uiz",
+      "address": "0x4e4",
+      "size": 48,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 16
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_thumb1_case_shi.o",
+      "symbol": "__gnu_thumb1_case_shi",
+      "address": "0x2660",
+      "size": 20,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_thumb1_case_sqi.o",
+      "symbol": "__gnu_thumb1_case_sqi",
+      "address": "0xc0",
+      "size": 18,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_thumb1_case_uqi.o",
+      "symbol": "__gnu_thumb1_case_uqi",
+      "address": "0xd4",
+      "size": 18,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libgcc.a",
+      "object": "_udivsi3.o",
+      "symbol": "__udivsi3",
+      "address": "0xe8",
+      "size": 266,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libgcc.a",
+      "object": "fixsfsi.o",
+      "symbol": "__aeabi_f2iz",
+      "address": "0x135c",
+      "size": 64,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-closer.o",
+      "symbol": "_close_r",
+      "address": "0xaa88",
+      "size": 36,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 8
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-cxa_atexit.o",
+      "symbol": "__cxa_atexit",
+      "address": "0x96b8",
+      "size": 28,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 8
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-dprintf.o",
+      "symbol": "_dprintf_r",
+      "address": "0x8f88",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-dprintf.o",
+      "symbol": "_dprintf_r",
+      "address": "0x92f4",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-dprintf.o",
+      "symbol": "_diprintf_r",
+      "address": "0x8f88",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-dprintf.o",
+      "symbol": "_diprintf_r",
+      "address": "0x92f4",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-execr.o",
+      "symbol": "_wait_r",
+      "address": "0xaa88",
+      "size": 36,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 8
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fprintf.o",
+      "symbol": "_fprintf_r",
+      "address": "0x8f88",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fprintf.o",
+      "symbol": "_fprintf_r",
+      "address": "0x92f4",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fprintf.o",
+      "symbol": "_fiprintf_r",
+      "address": "0x8f88",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fprintf.o",
+      "symbol": "_fiprintf_r",
+      "address": "0x92f4",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fscanf.o",
+      "symbol": "_fscanf_r",
+      "address": "0x8f88",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fscanf.o",
+      "symbol": "_fscanf_r",
+      "address": "0x92f4",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fscanf.o",
+      "symbol": "_fiscanf_r",
+      "address": "0x8f88",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-fscanf.o",
+      "symbol": "_fiscanf_r",
+      "address": "0x92f4",
+      "size": 22,
+      "unique_match": false,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-isalnum.o",
+      "symbol": "isalnum",
+      "address": "0x971c",
+      "size": 16,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-isattyr.o",
+      "symbol": "_isatty_r",
+      "address": "0xaa88",
+      "size": 36,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 8
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-memchr-stub.o",
+      "symbol": "memchr",
+      "address": "0xa8b0",
+      "size": 22,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-memcmp.o",
+      "symbol": "memcmp",
+      "address": "0x972c",
+      "size": 28,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-memcpy-stub.o",
+      "symbol": "memcpy",
+      "address": "0x9748",
+      "size": 18,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-memset.o",
+      "symbol": "memset",
+      "address": "0x975a",
+      "size": 16,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-msizer.o",
+      "symbol": "_malloc_usable_size_r",
+      "address": "0xaacc",
+      "size": 16,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-nano-svfscanf.o",
+      "symbol": "_sungetc_r",
+      "address": "0x9d24",
+      "size": 120,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-nano-svfscanf.o",
+      "symbol": "__ssrefill_r",
+      "address": "0x9d9c",
+      "size": 62,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-sbrkr.o",
+      "symbol": "_sbrk_r",
+      "address": "0xaa88",
+      "size": 36,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 8
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-strchr.o",
+      "symbol": "strchr",
+      "address": "0x9828",
+      "size": 28,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-strcmp.o",
+      "symbol": "strcmp",
+      "address": "0x263c",
+      "size": 20,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-strncpy.o",
+      "symbol": "strncpy",
+      "address": "0x98b4",
+      "size": 40,
+      "unique_match": true,
+      "exact_bytes": true,
+      "ignored_relocation_bytes": 0
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-toupper.o",
+      "symbol": "toupper",
+      "address": "0x9a40",
+      "size": 20,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-toupper_l.o",
+      "symbol": "toupper_l",
+      "address": "0x9a40",
+      "size": 20,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 4
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-ungetc.o",
+      "symbol": "__submore",
+      "address": "0xa830",
+      "size": 124,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 12
+    },
+    {
+      "library": "libc_nano.a",
+      "object": "libc_a-unlinkr.o",
+      "symbol": "_unlink_r",
+      "address": "0xaa88",
+      "size": 36,
+      "unique_match": true,
+      "exact_bytes": false,
+      "ignored_relocation_bytes": 8
+    }
+  ],
+  "exact_unmasked_matches": 13,
+  "limitations": [
+    "Relocation-masked matches are candidates until call/data targets are verified.",
+    "Short/generic functions may be ambiguous; matching does not prove source provenance.",
+    "Only installed libgcc and nano-newlib archives were searched; sizes below16 bytes omitted.",
+    "This is not a complete firmware rebuild or proof of semantic coverage."
+  ]
+}

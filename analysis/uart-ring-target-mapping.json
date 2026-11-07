@@ -1,0 +1,56 @@
+{
+  "entries": [
+    {
+      "address": "0x891c",
+      "symbol": "syscon_target_uart_rx_disable"
+    },
+    {
+      "address": "0x8938",
+      "symbol": "syscon_target_uart_rx_enable"
+    },
+    {
+      "address": "0x8c34",
+      "symbol": "syscon_target_uart_put"
+    },
+    {
+      "address": "0x8c8c",
+      "symbol": "syscon_target_uart_write_buffer",
+      "source": "target/uart_ring_abi.S",
+      "additional_sources": [
+        "target/uart_ring.c"
+      ],
+      "implementation_body": "syscon_target_uart_write_buffer_body",
+      "normal_return_registers": {
+        "r0": "0",
+        "r1": "input port",
+        "r2": "input size",
+        "r3": "input size"
+      }
+    },
+    {
+      "address": "0x8cf0",
+      "symbol": "syscon_target_uart_available"
+    },
+    {
+      "address": "0x8d70",
+      "symbol": "syscon_target_uart_irq"
+    },
+    {
+      "address": "0x8de4",
+      "symbol": "syscon_target_uart_read"
+    }
+  ],
+  "source": "target/uart_ring.c",
+  "additional_sources": [
+    "target/uart_ring_abi.S",
+    "target/hal_helpers.c",
+    "src/runtime_memory.c"
+  ],
+  "tests": "tests/test_uart_ring_target.py",
+  "docs": "docs/uart-ring-target.md",
+  "unresolved_dependencies": [
+    "syscon_target_assert"
+  ],
+  "universal_proof": false,
+  "physical_image_integration": false
+}

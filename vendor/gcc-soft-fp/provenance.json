@@ -1,0 +1,132 @@
+[
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/soft-fp.h",
+    "file": "soft-fp.h",
+    "sha256": "e8183cf960a0771a80d5e33e58ea6d64150ed213d3e107b3cdbc88f5f921cd08"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/single.h",
+    "file": "single.h",
+    "sha256": "c417ac078af373a2dc238826bd2bcfb02e3889abf622061d8a770dc2dae1178b"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/double.h",
+    "file": "double.h",
+    "sha256": "34fe604ef7f6f2dfa20be1705749636c584372c57c65ec2b8da57a6ed8d8f49c"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/op-common.h",
+    "file": "op-common.h",
+    "sha256": "26bd171f0059c217f7724e2a99db9f3222772764d3a3afd2b98d96513566c667"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/op-1.h",
+    "file": "op-1.h",
+    "sha256": "7fc42415f61db8c0846a5ce0d6e76959bf6e410eb1c9208cf461afd771c712d5"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/op-2.h",
+    "file": "op-2.h",
+    "sha256": "59ac7703ba552e1afd2cf073cf22ea40b1db25709bfe63c184749a7fe1b2b49f"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/op-4.h",
+    "file": "op-4.h",
+    "sha256": "9fa281109906af976c5833b80996aba63c88cf6ade53945e9857b4c3ce967190"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/op-8.h",
+    "file": "op-8.h",
+    "sha256": "2ebf5df13b9643ea3f85959ec8427ea2810dca3db68f42462b8f897fe5a91962"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/addsf3.c",
+    "file": "addsf3.c",
+    "sha256": "f398056f91b5b1ee34f8b4c7134eb3959fa83d373c66d8b73e7b3d350ac70225"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/subsf3.c",
+    "file": "subsf3.c",
+    "sha256": "63a77ba7bcb465652d49f897688b109970ddfe713b1f54d3aafdd2ca148a7bca"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/mulsf3.c",
+    "file": "mulsf3.c",
+    "sha256": "a5cfc06946400053c3dc6b741e6b9d9baef3af50f4405d0ee52634e8dfead870"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/divsf3.c",
+    "file": "divsf3.c",
+    "sha256": "610d29ddd84fe9f900041fa31e080b6baa74f9492e7a91273186022ec38411ed"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/adddf3.c",
+    "file": "adddf3.c",
+    "sha256": "0a15c1aae008dac35acdbe81cce38b7ec19bc1cbc8f4c4764368a8d395903e51"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/subdf3.c",
+    "file": "subdf3.c",
+    "sha256": "a43ef6b4d28b09652f4b6b676f2f3c4ee7f9c3d5b4f9721eef4b814bc3c87ec1"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/fixsfsi.c",
+    "file": "fixsfsi.c",
+    "sha256": "98ea2f6f22a81436025e7b7ec5801294a6f22bacf6398bf439f0fd09653dc97b"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/fixdfsi.c",
+    "file": "fixdfsi.c",
+    "sha256": "e5cb3c339701a09b9c37390afbc72e37c311325654b65bc5b356853cc6542323"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/floatsisf.c",
+    "file": "floatsisf.c",
+    "sha256": "06d3c7823e004d1a01d78fa2450616e9c0bd478cf69b8a4f623018874476f0d5"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/floatunsisf.c",
+    "file": "floatunsisf.c",
+    "sha256": "4c5bfadf624ff875d1244ab21d74c2d35d0d44bdcc661d346af94178f645f474"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/soft-fp/extendsfdf2.c",
+    "file": "extendsfdf2.c",
+    "sha256": "f967705770eff0769756e09bdba7d93e7161c1dd1467343ece3d0976a59c28e2"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/config/arm/sfp-machine.h",
+    "file": "sfp-machine.h",
+    "sha256": "5f5f4332ebd563f13c844409fb6d5ede091af91a90eab2fd975d5344fa7b8280"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/include/longlong.h",
+    "file": "longlong.h",
+    "sha256": "afdf44ec1746b4952cef27af0b9beaf09e3dc5f3945520ea8a3b2a7ec477e04c"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/COPYING.LIB",
+    "file": "COPYING.LIB",
+    "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/COPYING.RUNTIME",
+    "file": "COPYING.RUNTIME",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/COPYING",
+    "file": "COPYING",
+    "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/COPYING3",
+    "file": "COPYING3",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-13.3.0/libgcc/libgcc2.c",
+    "file": "reference/libgcc2.c",
+    "sha256": "97d364b0d74d6bf073eb3829ab12884ce243c68af8f7601d84baade12ee15599"
+  }
+]

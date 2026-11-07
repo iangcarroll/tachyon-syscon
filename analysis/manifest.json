@@ -1,0 +1,407 @@
+{
+  "sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+  "file_size": 63487,
+  "version": "1.0.52",
+  "hex_segments": [
+    [
+      0,
+      58744
+    ],
+    [
+      63480,
+      63487
+    ]
+  ],
+  "initial_sp": 536875008,
+  "reset_handler": 31216,
+  "vectors": [
+    536875008,
+    31217,
+    31693,
+    31673,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31205,
+    0,
+    0,
+    31205,
+    30457,
+    31205,
+    33369,
+    31205,
+    0,
+    31205,
+    0,
+    0,
+    0,
+    0,
+    31205,
+    0,
+    0,
+    0,
+    36477,
+    0,
+    36461,
+    31205,
+    0,
+    31205,
+    0,
+    31205,
+    0,
+    0,
+    0,
+    34713,
+    31205,
+    0,
+    0,
+    0,
+    0,
+    0,
+    31205
+  ],
+  "commands": [
+    {
+      "record_address": 50201,
+      "name": "HELP",
+      "handler": 16164,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 0,
+      "help": "Displays a list of available commands ( HELP:; )"
+    },
+    {
+      "record_address": 50215,
+      "name": "BATCHECK",
+      "handler": 18352,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 0,
+      "help": "Checks if battery is present ( BATCHECK:; )"
+    },
+    {
+      "record_address": 50229,
+      "name": "ERROR",
+      "handler": 18692,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Test error handling ( ERROR:<[0,1,2]>:; )"
+    },
+    {
+      "record_address": 50243,
+      "name": "LOG",
+      "handler": 18860,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Enables/disables logging ( LOG:<[0,1]>:; )"
+    },
+    {
+      "record_address": 50257,
+      "name": "DIAG",
+      "handler": 18656,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Enables/disables diagnostic ( DIAG:<[0,1]>:; )"
+    },
+    {
+      "record_address": 50271,
+      "name": "VERSION",
+      "handler": 16112,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 0,
+      "help": "Displays MCU firmware version ( VERSION:; )"
+    },
+    {
+      "record_address": 50285,
+      "name": "CONFIG_SET",
+      "handler": 18272,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Sets configuration values ( CONFIG_SET:<key>:<value>:; )"
+    },
+    {
+      "record_address": 50299,
+      "name": "CONFIG_GET",
+      "handler": 18196,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Gets configuration values ( CONFIG_GET:<key>:; )"
+    },
+    {
+      "record_address": 50313,
+      "name": "CONFIG_FIND",
+      "handler": 17628,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Finds configuration values ( CONFIG_FIND:<key>:; )"
+    },
+    {
+      "record_address": 50327,
+      "name": "CONFIG_ERASE",
+      "handler": 18132,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Erases all configuration values ( CONFIG_ERASE:<password>:; )"
+    },
+    {
+      "record_address": 50341,
+      "name": "CONFIG_DUMP",
+      "handler": 17900,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 0,
+      "help": "Dumps all configuration values ( CONFIG_DUMP:; )"
+    },
+    {
+      "record_address": 50355,
+      "name": "CONFIG_ID_SET",
+      "handler": 18052,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Sets configuration values ( CONFIG_ID_SET:<key>:<value>:; )"
+    },
+    {
+      "record_address": 50369,
+      "name": "CONFIG_ID_GET",
+      "handler": 17976,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Gets configuration values ( CONFIG_ID_GET:<key>:; )"
+    },
+    {
+      "record_address": 50383,
+      "name": "CONFIG_ID_FIND",
+      "handler": 17552,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Finds configuration values ( CONFIG_ID_FIND:<key>:; )"
+    },
+    {
+      "record_address": 50397,
+      "name": "CONFIG_ID_ERASE",
+      "handler": 17912,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Erases all configuration values ( CONFIG_ID_ERASE:<password>:; )"
+    },
+    {
+      "record_address": 50411,
+      "name": "CONFIG_ID_DUMP",
+      "handler": 17888,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 0,
+      "help": "Dump all configuration values ( CONFIG_ID_DUMP:; )"
+    },
+    {
+      "record_address": 50425,
+      "name": "READ_PWR",
+      "handler": 17440,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 0,
+      "help": "Reads power status ( READ_PWR:; )"
+    },
+    {
+      "record_address": 50439,
+      "name": "SET_RGB",
+      "handler": 17252,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Sets RGB values ( SET_RGB:<r>:<g>:<b>:<brightness>:<pattern>:; )"
+    },
+    {
+      "record_address": 50453,
+      "name": "SET_PATTERN",
+      "handler": 17184,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 0,
+      "help": "Sets RGB pattern ( SET_PATTERN:<pattern>:<ms>:; )"
+    },
+    {
+      "record_address": 50467,
+      "name": "LEDSTATUS",
+      "handler": 17096,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 0,
+      "help": "Gets the current LED theme, color, brightness, and pattern ( LEDSTATUS:; )"
+    },
+    {
+      "record_address": 50481,
+      "name": "KEY_MODE",
+      "handler": 18800,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Sets PWR key mode ( KEY_MODE:<[DETECT,PASSTHRU]>:; )"
+    },
+    {
+      "record_address": 50495,
+      "name": "560D_ON",
+      "handler": 16984,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Powers on SG560D ( 560D_ON:<[NORMAL,FASTBOOT,FCT,EDL]>:; )"
+    },
+    {
+      "record_address": 50509,
+      "name": "POWER",
+      "handler": 16984,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Powers on SG560D ( 560D_ON/POWER:<[NORMAL,FASTBOOT,FCT,EDL]>:; )"
+    },
+    {
+      "record_address": 50523,
+      "name": "560D_OFF",
+      "handler": 18596,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Powers off SG560D ( 560D_OFF:<[SOFT,HARD]>:; )"
+    },
+    {
+      "record_address": 50537,
+      "name": "560D_DIRECT",
+      "handler": 16940,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Forward payload to SG560D ( 560D_DIRECT:<payload>:; )"
+    },
+    {
+      "record_address": 50551,
+      "name": "560D_DBG",
+      "handler": 18428,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Enables/Disables debug for SG560D ( 560D_DBG:<[ON,OFF]>:; )"
+    },
+    {
+      "record_address": 50565,
+      "name": "SHUTDOWN_REASON",
+      "handler": 16804,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Sets shutdown reason ( SHUTDOWN_REASON:<[REBOOT,POWEROFF,BATTERY_LOW,THERMAL_HIGH,THERMAL_LOW]>:; )"
+    },
+    {
+      "record_address": 50579,
+      "name": "MCU_REBOOT",
+      "handler": 16656,
+      "thumb": true,
+      "argument_policy": 2,
+      "flag": 1,
+      "help": "Reboots the MCU ( MCU_REBOOT/REBOOT:<optional HARD|SOFT>:; )"
+    },
+    {
+      "record_address": 50593,
+      "name": "REBOOT",
+      "handler": 16656,
+      "thumb": true,
+      "argument_policy": 2,
+      "flag": 1,
+      "help": "Reboots the MCU ( MCU_REBOOT/REBOOT:<optional HARD|SOFT>:; )"
+    },
+    {
+      "record_address": 50607,
+      "name": "MCU_SLEEP",
+      "handler": 16636,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 1,
+      "help": "Makes the MCU enter sleep mode ( MCU_SLEEP:; )"
+    },
+    {
+      "record_address": 50621,
+      "name": "WAKE_AFTER",
+      "handler": 16544,
+      "thumb": true,
+      "argument_policy": 2,
+      "flag": 1,
+      "help": "Powers on after N seconds, 0 cancels, no arg reports ( WAKE_AFTER:<optional seconds>:; )"
+    },
+    {
+      "record_address": 50635,
+      "name": "CONFIG_INTERNAL",
+      "handler": 16348,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 1,
+      "help": "Gets the non-volatile data ( CONFIG_INTERNAL:; )"
+    },
+    {
+      "record_address": 50649,
+      "name": "KEYS",
+      "handler": 18512,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Control MCU keys ( KEYS:<[up,down,power]>:; )"
+    },
+    {
+      "record_address": 50663,
+      "name": "PWRSTATUS",
+      "handler": 16336,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 1,
+      "help": "Gets the current power status ( PWRSTATUS:; )"
+    },
+    {
+      "record_address": 50677,
+      "name": "STATUS",
+      "handler": 16336,
+      "thumb": true,
+      "argument_policy": 0,
+      "flag": 1,
+      "help": "Gets the current power status ( STATUS:; )"
+    },
+    {
+      "record_address": 50691,
+      "name": "IOEXP_READ",
+      "handler": 16256,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Gets an IO expander pin value ( IOEXP_READ:<pin>:; )"
+    },
+    {
+      "record_address": 50705,
+      "name": "GPIO_READ",
+      "handler": 18364,
+      "thumb": true,
+      "argument_policy": 1,
+      "flag": 1,
+      "help": "Gets a MCU GPIO pin value ( GPIO_READ:<pin>:; )"
+    }
+  ],
+  "limits": [
+    "Packaged image, not a readback of MCU flash",
+    "Does not include ROM, NONMAIN, or live configuration pages",
+    "Function discovery and decompilation are not proof of understanding"
+  ]
+}

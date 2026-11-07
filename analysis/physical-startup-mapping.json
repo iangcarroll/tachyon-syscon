@@ -1,0 +1,57 @@
+{
+  "entries": [
+    {
+      "address": "0x79f0",
+      "symbol": "syscon_physical_reset",
+      "source": "target/physical/startup.c",
+      "tests": "tests/test_physical_firmware.py",
+      "docs": "docs/physical-firmware-build.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x8e6c",
+      "symbol": "syscon_physical_uart0_irq",
+      "source": "target/physical/startup.c",
+      "tests": "tests/test_physical_firmware.py",
+      "docs": "docs/physical-firmware-build.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x8e7c",
+      "symbol": "syscon_physical_uart1_irq",
+      "source": "target/physical/startup.c",
+      "tests": "tests/test_physical_firmware.py",
+      "docs": "docs/physical-firmware-build.md",
+      "original_abi": true
+    }
+  ],
+  "validation": {
+    "report": "analysis/flash-abi-target-reference-coverage.json",
+    "test_groups_passed": 17,
+    "startup_groups": 9,
+    "identified_original_instructions": 36,
+    "exercised_original_instructions": 34,
+    "scoped_original_dependencies": [
+      {
+        "address": "0x3610",
+        "purpose": "constructor fixture"
+      },
+      {
+        "address": "0x3ec0",
+        "purpose": "constructor fixture"
+      },
+      {
+        "address": "0x3b34",
+        "purpose": "nonreturning main-entry boundary"
+      },
+      {
+        "address": "0x8d70",
+        "purpose": "UART IRQ argument boundary"
+      }
+    ]
+  },
+  "whole_firmware_equivalence_proven": false,
+  "full_rebuilt_board_boot_tested": false,
+  "physical_hardware_validated": false,
+  "flash_candidate": false
+}

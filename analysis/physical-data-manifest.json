@@ -1,0 +1,142 @@
+{
+  "reference_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+  "data_segments": [
+    {
+      "section": "fixed.ab20",
+      "start": "0xab20",
+      "end_exclusive": "0xc419"
+    },
+    {
+      "section": "fixed.c61f",
+      "start": "0xc61f",
+      "end_exclusive": "0xe2d8"
+    },
+    {
+      "section": "physical.constructors",
+      "start": "0xe2d8",
+      "end_exclusive": "0xe2e0"
+    },
+    {
+      "section": "physical.initial_data",
+      "start": "0xe2e8",
+      "end_exclusive": "0xe578"
+    },
+    {
+      "section": "physical.version",
+      "start": "0xf7f8",
+      "end_exclusive": "0xf7ff"
+    }
+  ],
+  "code_pointer_relocations": [
+    {
+      "field": "0xab24",
+      "original_target": "0x5149",
+      "symbol": "syscon_target_power_usb_assert_callback"
+    },
+    {
+      "field": "0xab34",
+      "original_target": "0x50f5",
+      "symbol": "syscon_target_power_usb_release_callback"
+    },
+    {
+      "field": "0xab3c",
+      "original_target": "0x68fd",
+      "symbol": "syscon_target_modem_prepare_normal"
+    },
+    {
+      "field": "0xab4c",
+      "original_target": "0x6231",
+      "symbol": "syscon_target_modem_action_6230"
+    },
+    {
+      "field": "0xab54",
+      "original_target": "0x68a5",
+      "symbol": "syscon_target_modem_prepare_edl"
+    },
+    {
+      "field": "0xab64",
+      "original_target": "0x6241",
+      "symbol": "syscon_target_modem_action_6240"
+    },
+    {
+      "field": "0xab6c",
+      "original_target": "0x61f1",
+      "symbol": "syscon_target_modem_usbboot_release"
+    },
+    {
+      "field": "0xab74",
+      "original_target": "0x6839",
+      "symbol": "syscon_target_modem_prepare_special"
+    },
+    {
+      "field": "0xab84",
+      "original_target": "0x6239",
+      "symbol": "syscon_target_modem_action_6238"
+    },
+    {
+      "field": "0xab94",
+      "original_target": "0x61d1",
+      "symbol": "syscon_target_modem_volume_release"
+    },
+    {
+      "field": "0xaba4",
+      "original_target": "0x74c9",
+      "symbol": "syscon_target_modem_action_74c8"
+    },
+    {
+      "field": "0xabb4",
+      "original_target": "0x74a9",
+      "symbol": "syscon_target_modem_action_74a8"
+    },
+    {
+      "field": "0xabc4",
+      "original_target": "0x7489",
+      "symbol": "syscon_target_modem_action_7488"
+    },
+    {
+      "field": "0xabcc",
+      "original_target": "0x61b9",
+      "symbol": "syscon_target_modem_fct_complete"
+    },
+    {
+      "field": "0xabdc",
+      "original_target": "0x65db",
+      "symbol": "syscon_target_modem_fct_callback"
+    },
+    {
+      "field": "0xe2d8",
+      "original_target": "0x3611",
+      "symbol": "syscon_target_timestamp_constructor"
+    },
+    {
+      "field": "0xe2dc",
+      "original_target": "0x3ec1",
+      "symbol": "syscon_target_queue_constructor"
+    },
+    {
+      "field": "0xe310",
+      "original_target": "0x8fa1",
+      "symbol": "syscon_target_mfg_logger"
+    },
+    {
+      "field": "0xe3a8",
+      "original_target": "0x5edd",
+      "symbol": "syscon_target_sg560d_printf"
+    }
+  ],
+  "excluded_original_regions": [
+    "0x0000..0xab1f vectors/code/RAM-executor",
+    "0xc419..0xc61e originalcommand descriptors replacedbysource table",
+    "0xe2e0..0xe2e7 staleARMunwind entry",
+    "0xe578..0xf7f7 unusedpadding",
+    "0xf800..0xffff identity/config"
+  ],
+  "source_defined_compatibility_data": [
+    {
+      "section": ".legacy_format_nul",
+      "address": "0x2919",
+      "bytes_hex": "00",
+      "reason": "Original missing snprintf vararg remains numeric R3=0x2919; legacy %s observes a NUL there. Source-defined data only, no original instruction bytes imported."
+    }
+  ]
+}

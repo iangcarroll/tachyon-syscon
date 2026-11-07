@@ -1,0 +1,11 @@
+/* UNREVIEWED Ghidra output: FUN_00006210 @ 00006210 */
+
+undefined4 FUN_00006210(void)
+
+{
+  FUN_00008f88(3,DAT_0000622c,DAT_00006228);
+  FUN_00008054(8,0);
+  return 1;
+}
+
+

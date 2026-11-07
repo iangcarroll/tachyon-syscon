@@ -1,0 +1,141 @@
+{
+  "results": [
+    {
+      "label": "original",
+      "image_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
+      "elf_sha256": null,
+      "boot": [
+        "main-loop-stage",
+        2
+      ],
+      "before_sector_hex": "636f6e6656657273696f6e00ffffffffffffffffffffffffffffffffffffffa13100ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffce6c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff56ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "set_output_hex": "5b31345d205b4d4647445d200d0a434f4e4649475f534554206e65772076616c75650a5b32305d205b434f4e465d20436f6e6669672073746f726167652066756c6c2c20617474656d7074696e6720636f6d70616374696f6e0d0a5b32305d205b434f4e465d20436f6d70616374696f6e3a2031303038206279746573206f6620737461636b20696e207573650d0a5b32315d205b434f4e465d20436f6d70616374696f6e3a206164646564206e657720656e74727920276e6577273d2776616c7565270d0a5b32315d205b434f4e465d20436f6d70616374696f6e3a20636f6c6c6563746564203320756e6971756520656e74726965732c2065726173696e6720666c6173680d0a5b32325d205b434f4e465d20436f6d70616374696f6e20636f6d706c6574653a203320656e747269657320726573746f7265640d0a",
+      "after_sector_hex": "6e657700ffffffffffffffffffffffffffffffffffffffffffffffffffffff8376616c756500ffffffffffffffffffffffffffffffffffffffffffffffffff946c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff1500ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00636f6e6656657273696f6e00ffffffffffffffffffffffffffffffffffffffa13100ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffceffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "rows": [
+        {
+          "index": 0,
+          "key_hex": "6e6577",
+          "value_hex": "76616c7565",
+          "slot_hex": "6e657700ffffffffffffffffffffffffffffffffffffffffffffffffffffff8376616c756500ffffffffffffffffffffffffffffffffffffffffffffffffff94"
+        },
+        {
+          "index": 1,
+          "key_hex": "6c6567616379",
+          "value_hex": "",
+          "slot_hex": "6c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff1500ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00"
+        },
+        {
+          "index": 2,
+          "key_hex": "636f6e6656657273696f6e",
+          "value_hex": "31",
+          "slot_hex": "636f6e6656657273696f6e00ffffffffffffffffffffffffffffffffffffffa13100ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffce"
+        }
+      ],
+      "format_calls": [
+        {
+          "format": "%s",
+          "r3": "0x2919",
+          "pointed_bytes_hex": "001f2108a806f025ff6846fff782ff6b46d87708a8fff77dff3f236b441870"
+        }
+      ],
+      "get_output_hex": "5b32365d205b434f4e465d204661696c656420746f20726561642068775f7265766973696f6e0d0a5b32365d205b4d4647445d206e6577203d2076616c75650d0a5b32365d205b4d4647445d20504153530d0a5b32365d205b4d4647445d200d0a434f4e4649475f474554206c65676163790a5b32395d205b4d4647445d206c6567616379203d200d0a5b33305d205b4d4647445d20504153530d0a",
+      "instructions": 1029589,
+      "sp_trace": [
+        {
+          "entry": "main",
+          "pc": "0x3b34",
+          "sp": "0x20000ff8",
+          "lr": "0x7a19"
+        },
+        {
+          "entry": "cmd_set",
+          "pc": "0x4760",
+          "sp": "0x20000ef8",
+          "lr": "0x4ba7"
+        },
+        {
+          "entry": "runtime_update",
+          "pc": "0x32c8",
+          "sp": "0x20000ea8",
+          "lr": "0x477d"
+        },
+        {
+          "entry": "compact",
+          "pc": "0x2abc",
+          "sp": "0x20000e58",
+          "lr": "0x3347"
+        }
+      ]
+    },
+    {
+      "label": "rebuilt",
+      "image_sha256": "bccdeddbd5ad7ea71bcc21f384b39e99561d60023914826d179146e5505b9a0d",
+      "elf_sha256": "6a951f62a237f6c118a1953623617751dff5da987d93f8161b5f5484e3e4b9cb",
+      "boot": [
+        "main-loop-stage",
+        2
+      ],
+      "before_sector_hex": "636f6e6656657273696f6e00ffffffffffffffffffffffffffffffffffffffa13100ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffce6c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff56ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "set_output_hex": "5b31395d205b4d4647445d200d0a434f4e4649475f534554206e65772076616c75650a5b32365d205b434f4e465d20436f6e6669672073746f726167652066756c6c2c20617474656d7074696e6720636f6d70616374696f6e0d0a5b32365d205b434f4e465d20436f6d70616374696f6e3a2031303038206279746573206f6620737461636b20696e207573650d0a5b32365d205b434f4e465d20436f6d70616374696f6e3a206164646564206e657720656e74727920276e6577273d2776616c7565270d0a5b32375d205b434f4e465d20436f6d70616374696f6e3a20636f6c6c6563746564203320756e6971756520656e74726965732c2065726173696e6720666c6173680d0a5b32375d205b434f4e465d20436f6d70616374696f6e20636f6d706c6574653a203320656e747269657320726573746f7265640d0a",
+      "after_sector_hex": "6e657700ffffffffffffffffffffffffffffffffffffffffffffffffffffff8376616c756500ffffffffffffffffffffffffffffffffffffffffffffffffff946c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff1500ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00636f6e6656657273696f6e00ffffffffffffffffffffffffffffffffffffffa13100ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffceffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "rows": [
+        {
+          "index": 0,
+          "key_hex": "6e6577",
+          "value_hex": "76616c7565",
+          "slot_hex": "6e657700ffffffffffffffffffffffffffffffffffffffffffffffffffffff8376616c756500ffffffffffffffffffffffffffffffffffffffffffffffffff94"
+        },
+        {
+          "index": 1,
+          "key_hex": "6c6567616379",
+          "value_hex": "",
+          "slot_hex": "6c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff1500ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00"
+        },
+        {
+          "index": 2,
+          "key_hex": "636f6e6656657273696f6e",
+          "value_hex": "31",
+          "slot_hex": "636f6e6656657273696f6e00ffffffffffffffffffffffffffffffffffffffa13100ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffce"
+        }
+      ],
+      "format_calls": [
+        {
+          "format": "%s",
+          "r3": "0x2919",
+          "pointed_bytes_hex": "00ffff70b504000d0009482f2105f070fc002809d02f21054805f06afc0130"
+        }
+      ],
+      "get_output_hex": "5b33345d205b434f4e465d204661696c656420746f20726561642068775f7265766973696f6e0d0a5b33345d205b4d4647445d206e6577203d2076616c75650d0a5b33345d205b4d4647445d20504153530d0a5b33345d205b4d4647445d200d0a434f4e4649475f474554206c65676163790a5b33365d205b4d4647445d206c6567616379203d200d0a5b33365d205b4d4647445d20504153530d0a",
+      "instructions": 1193337,
+      "sp_trace": [
+        {
+          "entry": "main",
+          "pc": "0x3978",
+          "sp": "0x20000ff8",
+          "lr": "0xa71f"
+        },
+        {
+          "entry": "cmd_set",
+          "pc": "0x621c",
+          "sp": "0x20000ef8",
+          "lr": "0x6093"
+        },
+        {
+          "entry": "runtime_update",
+          "pc": "0x550e",
+          "sp": "0x20000ea8",
+          "lr": "0x6245"
+        },
+        {
+          "entry": "compact_body",
+          "pc": "0x5164",
+          "sp": "0x20000e58",
+          "lr": "0x54dd"
+        }
+      ]
+    }
+  ],
+  "initial_sector_hex": "636f6e6656657273696f6e00ffffffffffffffffffffffffffffffffffffffa13100ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffce6c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff566c656761637900ffffffffffffffffffffffffffffffffffffffffffffffff15257300ffffffffffffffffffffffffffffffffffffffffffffffffffffffff56ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "original_function_hooks": [],
+  "hardware_access": false
+}

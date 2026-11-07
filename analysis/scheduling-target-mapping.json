@@ -1,0 +1,186 @@
+{
+  "entries": [
+    {
+      "address": "0x76f8",
+      "symbol": "syscon_target_timer_tick",
+      "source": "target/timers_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x776c",
+      "symbol": "syscon_target_timer_init",
+      "source": "target/timers_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x77b4",
+      "symbol": "syscon_target_now",
+      "source": "target/timers_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x77c0",
+      "symbol": "syscon_target_timer_delay",
+      "source": "target/timers_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x77fc",
+      "symbol": "syscon_target_timer_wait_countflags",
+      "source": "target/timers_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x781c",
+      "symbol": "syscon_target_timer_register",
+      "source": "target/timers_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7880",
+      "symbol": "syscon_target_timer_unregister",
+      "source": "target/timers_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7540",
+      "symbol": "syscon_target_tasks_init",
+      "source": "target/tasks_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7554",
+      "symbol": "syscon_target_tasks_submit",
+      "source": "target/tasks_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x75d8",
+      "symbol": "syscon_target_tasks_poll",
+      "source": "target/tasks_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x76d8",
+      "symbol": "syscon_target_tasks_active",
+      "source": "target/tasks_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x59a0",
+      "symbol": "syscon_target_retained_commit",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x59d8",
+      "symbol": "syscon_target_retained_load",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5a88",
+      "symbol": "syscon_target_retained_clear_registers",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5aa8",
+      "symbol": "syscon_target_retained_set_modem",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5ac4",
+      "symbol": "syscon_target_retained_modem",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5ad4",
+      "symbol": "syscon_target_retained_set_battery",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5af0",
+      "symbol": "syscon_target_retained_battery",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5afc",
+      "symbol": "syscon_target_retained_increment_boots",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5b14",
+      "symbol": "syscon_target_retained_boots",
+      "source": "target/retained_target.c",
+      "tests": "tests/test_scheduling_target.py",
+      "header": "include/scheduling_target.h",
+      "docs": "docs/scheduling-target.md",
+      "original_abi": true
+    }
+  ],
+  "whole_domain_equivalence": false,
+  "physical_image": false
+}

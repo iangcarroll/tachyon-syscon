@@ -1,0 +1,33 @@
+[0] [RTAN] Retained data raw: 0x0 0x0 0x0
+[0] [RTAN] Retained data magic mismatch: 0x0 (expected 0x5B)
+[0] [CONF] Configuration not initialized for base 0xF800. Wiping.
+[1] [CONF] Configuration not initialized for base 0xFC00. Wiping.
+[6] [CONF] Failed to read hw_revision
+[6] [PKEY] PWR key mode changed to PASSTHRU
+[6] [MAIN] ******
+[6] [MAIN] * Tachyon SysCon Boot: 1.0.52 - SOFT_RESET(0) last:NONE
+[6] [MAIN] * Built: Aug 25 2026 15:29:03
+[7] [MAIN] * Retained modem: UNKNOWN battery: UNKNOWN reboot: 1
+[7] [MAIN] ******
+[11] [MFGD] --- Power Status ---
+[11] [MFGD]    Battery     : UNKNOWN (2634mV)
+[11] [MFGD]    Battery id  : battery
+[11] [MFGD]    NTC         : BATTERY
+[12] [MFGD]    USB         : attached (7024mV)
+[12] [MFGD]    D+/D-       : on connector
+[12] [MFGD]    5V header   : DISCONNECTED (2634mV)
+[12] [MFGD]    5V booster  : disabled
+[12] [MFGD]    SG560D vbus : DISCONNECTED
+[12] [MFGD]    SG560D vbatt: NONE
+[12] [MFGD]    SG560D 1v8      : on (1756mV)
+[13] [MFGD]    SG560D vph      : off (2634mV)
+[13] [MFGD] --------------------
+[14] [560D] SG560D is on, assuming NORMAL mode
+[14] [560D] setting mode to NORMAL
+[14] [PKEY] PWR key mode changed to PASSTHRU
+[14] [560D] Modem power state: ON
+[14] [WAKE] WAKE pin disabled
+[14] [MFGD] 
+VERSION
+[37] [MFGD] Version=1.0.52
+[37] [MFGD] PASS

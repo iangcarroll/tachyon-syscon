@@ -1,0 +1,143 @@
+{
+  "entries": [
+    {
+      "address": "0x798c",
+      "symbol": "syscon_target_watchdog_init",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x79d0",
+      "symbol": "syscon_target_watchdog_feed",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7a50",
+      "symbol": "syscon_target_hal_noop",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7a54",
+      "symbol": "syscon_target_gpio_lookup",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7c08",
+      "symbol": "syscon_target_reset_cause",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7c3c",
+      "symbol": "syscon_target_reset_cause_name",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7f58",
+      "symbol": "syscon_target_gpio_config",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x8054",
+      "symbol": "syscon_target_gpio_write",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x80ac",
+      "symbol": "syscon_target_gpio_toggle",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x80f8",
+      "symbol": "syscon_target_gpio_read",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x8148",
+      "symbol": "syscon_target_gpio_attach",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x81f8",
+      "symbol": "syscon_target_gpio_detach",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x8258",
+      "symbol": "syscon_target_gpio_irq",
+      "source": "target/mspm0_core_target.c",
+      "header": "include/mspm0_core_target.h",
+      "tests": "tests/test_mspm0_core_target.py",
+      "docs": "docs/mspm0-core-target.md",
+      "original_abi": true
+    }
+  ],
+  "dependencies": {
+    "source_linked": [
+      "src/runtime_memory.c"
+    ],
+    "assertion_boundary": "syscon_target_assert / 0x2678",
+    "readonly_original_data": true,
+    "original_executable_fallback": false
+  },
+  "full_domain_formal_equivalence_proven": false,
+  "physical_hardware_validated": false,
+  "flash_candidate": false,
+  "validation": {
+    "coverage_report": "analysis/mspm0-core-target-reference-coverage.json",
+    "combined_passed_groups": 65,
+    "own_passed_groups": 31,
+    "identified_original_instructions": 395,
+    "exercised_original_instructions": 395,
+    "original_dependency_traps": [
+      "0x2678"
+    ],
+    "inputs_unchanged_during_run": true
+  }
+}

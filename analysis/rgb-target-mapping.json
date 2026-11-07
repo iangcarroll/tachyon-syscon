@@ -1,0 +1,123 @@
+{
+  "entries": [
+    {
+      "address": "0x5b20",
+      "symbol": "syscon_target_rgb_scale",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5b48",
+      "symbol": "syscon_target_rgb_flush",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5b7c",
+      "symbol": "syscon_target_rgb_init",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5bd4",
+      "symbol": "syscon_target_rgb_brightness",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5bfc",
+      "symbol": "syscon_target_rgb_pattern",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5c38",
+      "symbol": "syscon_target_rgb_configure",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5c68",
+      "symbol": "syscon_target_rgb_preset",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5cac",
+      "symbol": "syscon_target_rgb_tick",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5dbc",
+      "symbol": "syscon_target_rgb_state",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5dc8",
+      "symbol": "syscon_target_rgb_get_config",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5df4",
+      "symbol": "syscon_target_rgb_state_name",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5e0c",
+      "symbol": "syscon_target_rgb_pattern_name",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x5e24",
+      "symbol": "syscon_target_rgb_key_feedback",
+      "source": "target/rgb_target.c",
+      "header": "include/rgb_target.h",
+      "tests": "tests/test_rgb_target.py",
+      "docs": "docs/rgb-target.md",
+      "original_abi": true
+    }
+  ],
+  "whole_domain_equivalence": false,
+  "physical_image": false
+}

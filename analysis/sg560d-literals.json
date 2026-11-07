@@ -1,0 +1,309 @@
+{
+  "00005e30": {
+    "0x5ec8": "0x200000e0",
+    "0x5ecc": "0xcf68 '/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/sg560d.cpp'",
+    "0x5ed0": "0xcfab 'success == 0'",
+    "0x5ed4": "0x200003d0",
+    "0x5ed8": "0xcfb8 'uart != nullptr'"
+  },
+  "00005edc": {
+    "0x5f2c": "0xb894 '\\r\\n'"
+  },
+  "00005f30": {
+    "0x60e8": "0xcfe1 '560D'",
+    "0x60f0": "0xcfc8 'Current VBATT source: %s'",
+    "0x60ec": "0x20000078",
+    "0x60f4": "0x6a3",
+    "0x60f8": "0xcfe6 'cannot change power source when the modem is powered up'",
+    "0x60fc": "0xcf68 '/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/sg560d.cpp'",
+    "0x6100": "0xae64 'false'",
+    "0x6134": "0xd04d 'vbattSrc == MODEM_VBAT_SOURCE_NONE'",
+    "0x6104": "0xd01e 'Modem VBAT is not off due to work around issue'",
+    "0x6108": "0x1194",
+    "0x610c": "0xd070 '5V input ON'",
+    "0x6138": "0xd07c '5V input OFF'",
+    "0x6110": "0x1193",
+    "0x6114": "0xd089 'VUSB: USB-C is not attached %d'",
+    "0x6118": "0xd0a8 'power_manager_set_5v_dir(POWER_MANAGER_HEADER_5V_INPUT) failed: %d'",
+    "0x613c": "0xd0eb 'power_manager_set_5v_dir(POWER_MANAGER_HEADER_5V_OUTPUT) failed: %d'",
+    "0x6140": "0xd17a 'Working around dead battery issue'",
+    "0x6144": "0xc9cc 'power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_DCDC) failed: %d'",
+    "0x6148": "0x200004f8",
+    "0x611c": "0xd12f 'power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_BATTERY) failed: %d'",
+    "0x6120": "0x8fa1",
+    "0x6124": "0x200004f2",
+    "0x6130": "0xd19c 'power turned on'",
+    "0x612c": "0x20000518",
+    "0x6128": "0xbb8"
+  },
+  "0000614c": {
+    "0x61a8": "0x200000e0",
+    "0x61ac": "0xcf68 '/home/runner/work/tachyon-syscon/tachyon-syscon/app/src/sg560d.cpp'",
+    "0x61b0": "0xcfab 'success == 0'",
+    "0x61b4": "0x200003d0"
+  },
+  "000061b8": {
+    "0x61cc": "0xcfe1 '560D'",
+    "0x61c8": "0xd1ac 'FCT mode setup complete'"
+  },
+  "000061d0": {
+    "0x61ec": "0xcfe1 '560D'",
+    "0x61e8": "0xd1c4 'releasing volume down'"
+  },
+  "000061f0": {
+    "0x620c": "0xcfe1 '560D'",
+    "0x6208": "0xd1da 'setting USB_BOOT back to 0'"
+  },
+  "00006210": {
+    "0x622c": "0xcfe1 '560D'",
+    "0x6228": "0xd1f5 'boot 2'"
+  },
+  "00006230": {},
+  "00006238": {},
+  "00006240": {},
+  "00006248": {},
+  "00006282": {},
+  "000062ec": {
+    "0x6364": "0xdba8 '0u'",
+    "0x6380": "0xdbba0",
+    "0x6368": "0x1d4c0",
+    "0x636c": "0x1d4bf",
+    "0x6370": "0x20000098",
+    "0x6378": "0xcfe1 '560D'",
+    "0x6374": "0xd1fc 'board at %d.%dC - using thermal backoff for %s'",
+    "0x637c": "0x6ddcf"
+  },
+  "00006384": {
+    "0x6404": "0x20000508",
+    "0x6408": "0x20000528",
+    "0x640c": "0x200004f4",
+    "0x6410": "0x20000500",
+    "0x6414": "0x20000098",
+    "0x6418": "0xd22b 'continuing'",
+    "0x641c": "0xd236 'pending'",
+    "0x6424": "0xcfe1 '560D'",
+    "0x6420": "0xd23e '%s - auto-boot %s (if enabled), next attempt in %ds, attempts so far %d'"
+  },
+  "00006428": {
+    "0x6484": "0x200004f1",
+    "0x6490": "0x20000508",
+    "0x6494": "0x20000528",
+    "0x6498": "0xab38",
+    "0x648c": "0xcfe1 '560D'",
+    "0x649c": "0xd2b7 'Failed to start NORMAL mode task'",
+    "0x6488": "0xd286 'sg560d_power_on_normal ignored, modem is not off'"
+  },
+  "000064a0": {
+    "0x6504": "0x200004f1",
+    "0x6510": "0x20000508",
+    "0x6514": "0x20000528",
+    "0x6518": "0xab38",
+    "0x650c": "0xcfe1 '560D'",
+    "0x651c": "0xd306 'Failed to start EDL mode task'",
+    "0x6508": "0xd2d8 'sg560d_power_on_edl ignored, modem is not off'"
+  },
+  "00006520": {
+    "0x65a4": "0x200004f1",
+    "0x65b0": "0x20000508",
+    "0x65b4": "0x20000528",
+    "0x65c0": "0x200003c8",
+    "0x65b8": "0xd324 'FCT'",
+    "0x65bc": "0xd328 'FASTBOOT'",
+    "0x65c8": "0xab38",
+    "0x65c4": "0x200003c4",
+    "0x65ac": "0xcfe1 '560D'",
+    "0x65cc": "0xd36b 'Failed to start %s mode task'",
+    "0x65a8": "0xd331 'sg560d_power_on_fastboot_or_fct ignored, modem is not off'"
+  },
+  "000065d0": {},
+  "000065da": {},
+  "000065e4": {},
+  "000065f0": {
+    "0x6640": "0x20000458",
+    "0x6648": "0xcfe1 '560D'",
+    "0x6644": "0xd388 'Timed wake cancelled'",
+    "0x664c": "0xd39d 'Timed wake armed: %ds from now'"
+  },
+  "00006650": {
+    "0x668c": "0x20000458"
+  },
+  "00006690": {
+    "0x669c": "0x200004f1"
+  },
+  "000066a0": {
+    "0x66b4": "0xcceb 'UNKNOWN'",
+    "0x66b8": "0xdbc4"
+  },
+  "000066bc": {
+    "0x6718": "0xcfe1 '560D'",
+    "0x6714": "0xd3bc 'setting mode to %s'",
+    "0x671c": "0x20000450"
+  },
+  "00006720": {
+    "0x6800": "0xcfe1 '560D'",
+    "0x67fc": "0xd3cf 'sg560d_power_off aborting whilst powering on'",
+    "0x6804": "0x6a3",
+    "0x6808": "0xd3fc 'powering down by cutting power'",
+    "0x680c": "0xd41b 'power_manager_set_vbus_source(MODEM_VBUS_SOURCE_NONE) failed: %d'",
+    "0x6810": "0xca6f 'power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_NONE) failed: %d'",
+    "0x6830": "0xd489 'power_manager_set_5v_dir(POWER_MANAGER_HEADER_5V_DISCONNECTED) failed: %d'",
+    "0x6834": "0xd4d3 'power_manager_set_5v_booster_enable(false) failed: %d'",
+    "0x6814": "0xd45c 'power_manager_5v_header_keep_on() failed: %d'",
+    "0x6818": "0x200004f2",
+    "0x6820": "0x20000518",
+    "0x681c": "0xbb8",
+    "0x6824": "0x200003cf",
+    "0x6828": "0x200004f8",
+    "0x682c": "0x200004e8"
+  },
+  "00006838": {
+    "0x6890": "0xcfe1 '560D'",
+    "0x6894": "0xd509 'preparing to enter %s'",
+    "0x688c": "0x200003c8",
+    "0x6898": "0xd51f 'powerCheck on failed'",
+    "0x689c": "0x200003c4",
+    "0x68a0": "0x20000454"
+  },
+  "000068a4": {
+    "0x68f0": "0xcfe1 '560D'",
+    "0x68f4": "0xd534 'preparing to enter EDL mode'",
+    "0x68f8": "0xd51f 'powerCheck on failed'"
+  },
+  "000068fc": {
+    "0x693c": "0xcfe1 '560D'",
+    "0x6940": "0xd550 'preparing to enter NORMAL mode'",
+    "0x6944": "0xd51f 'powerCheck on failed'"
+  },
+  "00006948": {
+    "0x6a08": "0x200004f1",
+    "0x6a04": "0x200004f2",
+    "0x6a00": "0xcfe1 '560D'",
+    "0x69fc": "0x6a3",
+    "0x6a0c": "0xd56f 'SG560D is on, assuming NORMAL mode'",
+    "0x6a10": "0x200004e0",
+    "0x6a20": "0xd592 'SG560D is off, mode  changes from %s to HARD_OFF'",
+    "0x6a14": "0xd079 'ON'",
+    "0x6a18": "0xd085 'OFF'",
+    "0x6a1c": "0xd5c3 'Modem power state: %s'",
+    "0x6a24": "0xd45c 'power_manager_5v_header_keep_on() failed: %d'"
+  },
+  "00006a28": {
+    "0x6a44": "0xcfe1 '560D'",
+    "0x6a40": "0xd5d9 'PWR-KEY pressed'"
+  },
+  "00006a48": {
+    "0x6a64": "0xcfe1 '560D'",
+    "0x6a60": "0xd5e9 'PWR-KEY released'"
+  },
+  "00006a68": {
+    "0x6be4": "0x6a3",
+    "0x6be8": "0x200004e8",
+    "0x6bec": "0x200004f8",
+    "0x6bf0": "0xcfe1 '560D'",
+    "0x6bf4": "0xd60b 'dead battery: handing the pack back'",
+    "0x6f90": "0x200004f2",
+    "0x6c00": "0x200004f2",
+    "0x6bfc": "0x20000518",
+    "0x6bf8": "0x200004f1",
+    "0x6c04": "0x20000078",
+    "0x6c08": "0xd62f 'Modem 1V8 up: vph %dmV vbatt src %s'",
+    "0x6c10": "0x20000458",
+    "0x6c0c": "0x200004e0",
+    "0x6c14": "0xd653 'Timed wake cancelled - modem is up'",
+    "0x6c18": "0x200003cf",
+    "0x6fc4": "0xd743 'Modem power GOOD: power on'",
+    "0x6c1c": "0xd5fa ' (stale)'",
+    "0x6c20": "0xb896",
+    "0x6c24": "0xd676 'Modem power GOOD: reboot confirmed%s'",
+    "0x6c44": "0xd69b 'Modem power WARNING: reboot detected but reason was %s%s'",
+    "0x6c40": "0x20000098",
+    "0x6c2c": "0x20000450",
+    "0x6c28": "0x20000508",
+    "0x6c30": "0x20000528",
+    "0x6c34": "0x20000454",
+    "0x6f7c": "0x3a97",
+    "0x6fb8": "0xd6f4 'FCT crash'",
+    "0x6fbc": "0xabb8",
+    "0x6fc0": "0xd6fe 'Failed to retry_fct_mode task'",
+    "0x6f80": "0xd6e6 'FCT reboot %d'",
+    "0x6c38": "0xd6d4 'FCT timer not set'",
+    "0x6c3c": "0xd71c 'Modem rebooted, setting mode to NORMAL'",
+    "0x6f8c": "0xcfe1 '560D'",
+    "0x6fd0": "0xd77a 'Modem power ERROR: unexpected power on'",
+    "0x6f88": "0x200004f1",
+    "0x6fcc": "0xd75e 'Modem power GOOD: power off'",
+    "0x6fc8": "0x200004e0",
+    "0x6fd4": "0x9c3",
+    "0x6fdc": "0xd603 ', stale'",
+    "0x6fe0": "0xb896",
+    "0x6fe4": "0xd7a1 'Modem power WARNING: unexpected power off (reason: %s%s) vph floor %dmV vbat now %dmV'",
+    "0x6fd8": "0x20000098",
+    "0x6f84": "0x200003cf",
+    "0x7308": "0xd893 'Modem power ERROR: power on never completed'",
+    "0x730c": "0x20000450",
+    "0x6f94": "0xd7f7 'Reboot timeout - manually triggering power on'",
+    "0x6fec": "0xd84f 'Modem power off confirmed: did not reboot. %s has pending auto-boot'",
+    "0x6fe8": "0xd825 'Modem power off confirmed: did not reboot'",
+    "0x7310": "0xd8bf 'Modem power state error: timeout waiting for power state change'",
+    "0x6f98": "0x200004f9",
+    "0x6f9c": "0x200003cc",
+    "0x6fa0": "0xd079 'ON'",
+    "0x6fa4": "0xd085 'OFF'",
+    "0x6fa8": "0xd8ff 'RGB status changed: R:%s G:%s B:%s'",
+    "0x6fac": "0x20000530",
+    "0x7314": "0x2000052c",
+    "0x7318": "0xd922 'green LED was on for less than 150ms'",
+    "0x731c": "0xd947 'boot confirmed'",
+    "0x6fb0": "0x2000052c",
+    "0x6fb4": "0xd977 'not changing RGB theme from %d'",
+    "0x7320": "0xd956 'changing RGB theme from %d to %d'",
+    "0x7324": "0x20000530",
+    "0x7328": "0x200000e0",
+    "0x7330": "0x2000050a",
+    "0x732c": "0x1193",
+    "0x7334": "0x200004f0",
+    "0x7338": "0x200004f1",
+    "0x733c": "0x200004f2",
+    "0x7340": "0x20000458",
+    "0x7360": "0x20000508",
+    "0x7378": "0x200004e0",
+    "0x736c": "0x200004f4",
+    "0x737c": "0x1d4bf",
+    "0x7354": "0xcfe1 '560D'",
+    "0x7380": "0xda2c 'Modem up %ds after %d auto-boot attempt(s) - clearing retry state'",
+    "0x7368": "0x20000528",
+    "0x735c": "0xd996 'Timed wake elapsed - powering on'",
+    "0x7358": "0xdba8 '0u'",
+    "0x7344": "0x20000510",
+    "0x734c": "0x20000098",
+    "0x7348": "0xea60",
+    "0x7350": "0xd9b7 'Timed wake is due but deferred - %s %ds ago, board %d.%dC'",
+    "0x7364": "0x20000500",
+    "0x7370": "0xd9f1 'Auto-boot attempt %d for %s, next in %ds if this one fails'",
+    "0x7374": "0x20000509",
+    "0x7454": "0xdaad 'USB connected, starting %dms debounce for auto-boot'",
+    "0x7450": "0x20000520",
+    "0x744c": "0xcfe1 '560D'",
+    "0x7458": "0x1388",
+    "0x745c": "0x1387",
+    "0x7460": "0xdae1 'Auto-boot triggered after USB power restore'",
+    "0x7464": "0xdb0d 'USB disconnected during debounce, canceling auto-boot'",
+    "0x743c": "0x20000508",
+    "0x7440": "0x20000098",
+    "0x7444": "0x20000528",
+    "0x7448": "0xda6e 'USB connected but %s owns the boot decision - not auto-booting'"
+  },
+  "00007468": {},
+  "00007488": {
+    "0x74a4": "0xcfe1 '560D'",
+    "0x74a0": "0xdb43 'pressing power key to enter FCT mode'"
+  },
+  "000074a8": {
+    "0x74c4": "0xcfe1 '560D'",
+    "0x74c0": "0xdb68 'second quick volume up press'"
+  },
+  "000074c8": {
+    "0x74e4": "0xcfe1 '560D'",
+    "0x74e0": "0xdb85 'first quick volume up press'"
+  }
+}

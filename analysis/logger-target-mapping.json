@@ -1,0 +1,124 @@
+{
+  "entries": [
+    {
+      "address": "0x8e8c",
+      "symbol": "syscon_logger_target_vlog",
+      "legacy_alias": null,
+      "source": "target/logger_target_abi.S",
+      "additional_sources": [
+        "target/logger_target.c",
+        "src/format.c"
+      ],
+      "tests": [
+        "tests/test_logger_target.py",
+        "tests/test_arm_rebuild.py"
+      ],
+      "docs": "docs/logger-target.md"
+    },
+    {
+      "address": "0x8f88",
+      "symbol": "syscon_logger_target",
+      "legacy_alias": "syscon_target_logger",
+      "source": "target/logger_target_abi.S",
+      "additional_sources": [
+        "target/logger_target.c",
+        "src/format.c"
+      ],
+      "tests": [
+        "tests/test_logger_target.py",
+        "tests/test_arm_rebuild.py"
+      ],
+      "docs": "docs/logger-target.md"
+    },
+    {
+      "address": "0x8fa0",
+      "symbol": "syscon_logger_target_mfg",
+      "legacy_alias": "syscon_target_mfg_logger",
+      "source": "target/logger_target_abi.S",
+      "additional_sources": [
+        "target/logger_target.c",
+        "src/format.c"
+      ],
+      "tests": [
+        "tests/test_logger_target.py",
+        "tests/test_arm_rebuild.py"
+      ],
+      "docs": "docs/logger-target.md"
+    },
+    {
+      "address": "0x5edc",
+      "symbol": "syscon_logger_target_sg560d",
+      "legacy_alias": "syscon_target_sg560d_printf",
+      "source": "target/logger_target_abi.S",
+      "additional_sources": [
+        "target/logger_target.c",
+        "src/format.c"
+      ],
+      "tests": [
+        "tests/test_logger_target.py",
+        "tests/test_arm_rebuild.py"
+      ],
+      "docs": "docs/logger-target.md"
+    },
+    {
+      "address": "0x92ac",
+      "symbol": "syscon_logger_target_vformat",
+      "legacy_alias": null,
+      "source": "target/logger_target.c",
+      "additional_sources": [
+        "target/logger_target.c",
+        "src/format.c"
+      ],
+      "tests": [
+        "tests/test_logger_target.py",
+        "tests/test_arm_rebuild.py"
+      ],
+      "docs": "docs/logger-target.md"
+    },
+    {
+      "address": "0x92f4",
+      "symbol": "syscon_logger_target_snprintf",
+      "legacy_alias": "syscon_target_snprintf",
+      "source": "target/logger_target_abi.S",
+      "additional_sources": [
+        "target/logger_target.c",
+        "src/format.c"
+      ],
+      "tests": [
+        "tests/test_logger_target.py",
+        "tests/test_arm_rebuild.py"
+      ],
+      "docs": "docs/logger-target.md"
+    }
+  ],
+  "dependencies": [
+    "src/runtime_memory.c",
+    "src/runtime_arithmetic.c",
+    "target/runtime_arithmetic_abi.S"
+  ],
+  "external_boundary_symbols": [
+    "syscon_target_uart_write",
+    "syscon_target_now",
+    "syscon_target_color"
+  ],
+  "original_code_executable_in_candidate": false,
+  "discovered_instructions": 191,
+  "exercised_instructions": 191,
+  "coverage_source": "analysis/logger-target-test-instruction-coverage.json",
+  "validated_tests": {
+    "passed": 64,
+    "failed": 0,
+    "skipped": 0,
+    "error": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "collected": 64
+  },
+  "remaining_boundaries": [
+    "Deeper formatter/C private frames are not byte-identical; arbitrary references or corruption targeting them are not proven equivalent.",
+    "Arbitrary corrupted returns into unimplemented original-code addresses cannot execute in the relocated candidate.",
+    "UART/time/color are environment endpoints; CPU/native and modeled UART-read faults do not prove silicon fault semantics.",
+    "The existing host syscon_logger adapter keeps its explicit overlong-prefix -2 boundary; target symbols no longer call it.",
+    "No exhaustive equivalence, flashable image or hardware safety claim."
+  ]
+}

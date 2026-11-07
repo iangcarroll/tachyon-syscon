@@ -1,0 +1,118 @@
+{
+  "entries": [
+    {
+      "address": "0x2738",
+      "symbol": "syscon_target_flash_report",
+      "source": "target/flash_abi_target.c",
+      "header": "include/flash_abi_target.h",
+      "tests": "tests/test_flash_abi_target.py",
+      "docs": "docs/flash-abi-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7af4",
+      "symbol": "syscon_target_flash_erase",
+      "source": "target/flash_abi_target.c",
+      "header": "include/flash_abi_target.h",
+      "tests": "tests/test_flash_abi_target.py",
+      "docs": "docs/flash-abi-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7b10",
+      "symbol": "syscon_target_flash_program",
+      "source": "target/flash_abi_target.c",
+      "header": "include/flash_abi_target.h",
+      "tests": "tests/test_flash_abi_target.py",
+      "docs": "docs/flash-abi-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7b44",
+      "symbol": "syscon_target_flash_unprotect",
+      "source": "target/flash_abi_target.c",
+      "header": "include/flash_abi_target.h",
+      "tests": "tests/test_flash_abi_target.py",
+      "docs": "docs/flash-abi-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0x7b60",
+      "symbol": "syscon_target_flash_blank",
+      "source": "target/flash_abi_target.c",
+      "header": "include/flash_abi_target.h",
+      "tests": "tests/test_flash_abi_target.py",
+      "docs": "docs/flash-abi-target.md",
+      "original_abi": true
+    },
+    {
+      "address": "0xaae0",
+      "symbol": "syscon_target_flash_veneer",
+      "source": "target/flash_abi_target.c",
+      "header": "include/flash_abi_target.h",
+      "tests": "tests/test_flash_abi_target.py",
+      "docs": "docs/flash-abi-target.md",
+      "original_abi": true
+    }
+  ],
+  "copied_ram_entry": {
+    "flash_original": "0xaaf0",
+    "runtime_address": "0x20000000",
+    "symbol": "syscon_target_flash_ram_execute",
+    "source": "target/flash_abi_target.c",
+    "emitted_source_bytes": 36
+  },
+  "validation": {
+    "report": "analysis/flash-abi-target-reference-coverage.json",
+    "test_groups_passed": 17,
+    "flash_groups": 8,
+    "startup_groups": 9,
+    "identified_original_instructions": 81,
+    "exercised_original_instructions": 81,
+    "copied_ram_instruction_addresses": [
+      "0x20000000",
+      "0x20000002",
+      "0x20000004",
+      "0x20000006",
+      "0x20000008",
+      "0x2000000a",
+      "0x2000000c",
+      "0x2000000e",
+      "0x20000010",
+      "0x20000012",
+      "0x20000014",
+      "0x20000016",
+      "0x20000018",
+      "0x2000001a",
+      "0x2000001c",
+      "0x2000001e",
+      "0x20000020",
+      "0x20000022",
+      "0x20000024",
+      "0x20000026",
+      "0x20000028",
+      "0x2000002a"
+    ],
+    "original_dependency_traps": [
+      "0x8f88"
+    ],
+    "inputs_unchanged_during_run": false,
+    "changed_since_test_start": [
+      "target/runtime_support.c",
+      "tools/build_physical_firmware.py"
+    ]
+  },
+  "physical_plan_changed": true,
+  "original_executable_fallback": false,
+  "full_domain_formal_equivalence_proven": false,
+  "physical_hardware_validated": false,
+  "flash_candidate": false,
+  "physical_integration": {
+    "builder": "tools/build_physical_firmware.py",
+    "config_binding": "SYSCON_DIRECT_FLASH_ABI",
+    "runtime_entry": "0x20000001",
+    "source_code_bytes": 36,
+    "reserved_bytes": 48,
+    "original_executable_bytes_copied": false
+  }
+}

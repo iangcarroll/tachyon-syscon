@@ -1,0 +1,2148 @@
+{
+  "check": "All canonical *_target.h headers forcibly included into each physical target C translation unit; syntax/type checks only.",
+  "headers": [
+    "include/adc_target.h",
+    "include/application_target.h",
+    "include/config_commands_target.h",
+    "include/diagnostics_target.h",
+    "include/fault_control_target.h",
+    "include/flash_abi_target.h",
+    "include/format_core_target.h",
+    "include/i2c_target.h",
+    "include/ioexpander_target.h",
+    "include/logger_target.h",
+    "include/mspm0_core_target.h",
+    "include/power_key_target.h",
+    "include/power_manager_target.h",
+    "include/power_policy_target.h",
+    "include/protocol_target.h",
+    "include/pwm_target.h",
+    "include/rgb_target.h",
+    "include/scheduling_target.h",
+    "include/sg560d_target.h",
+    "include/uart_hal_target.h",
+    "include/uart_ring_target.h"
+  ],
+  "translation_units": [
+    "target/callback_helpers.c",
+    "target/config_helpers.c",
+    "target/config_read.c",
+    "target/config_storage.c",
+    "target/core_helpers.c",
+    "target/interface_bindings.c",
+    "target/fault_control_target.c",
+    "target/fault_handlers.c",
+    "target/hal_helpers.c",
+    "target/mspm0_core_target.c",
+    "target/uart_ring.c",
+    "target/runtime_heap.c",
+    "target/runtime_scan.c",
+    "target/runtime_scan_printf.c",
+    "target/runtime_scan_wrappers.c",
+    "target/runtime_stdio.c",
+    "target/runtime_support.c",
+    "target/runtime_arithmetic_float.c",
+    "target/adc_target.c",
+    "target/uart_hal_target.c",
+    "target/timers_target.c",
+    "target/tasks_target.c",
+    "target/retained_target.c",
+    "target/diagnostics_target.c",
+    "target/application_target.c",
+    "target/logger_target.c",
+    "target/rgb_target.c",
+    "target/power_key_target.c",
+    "target/power_policy_target.c",
+    "target/i2c_target.c",
+    "target/pwm_target.c",
+    "target/config_update.c",
+    "target/ioexpander_target.c",
+    "target/power_manager_target.c",
+    "target/protocol_target.c",
+    "target/command_table_target.c",
+    "target/config_commands_target.c",
+    "target/control_commands_target.c",
+    "target/runtime_init_target.c",
+    "target/format_core_target.c",
+    "target/sg560d_target.c"
+  ],
+  "failures": [],
+  "source_sha256": {
+    "target/callback_helpers.c": "264d68f65e4afba09fd5a30a7fb65d69bab7b4b4b2f80b1bed157b91b5542d6c",
+    "target/config_helpers.c": "1b3974aee539f3435f73cdbf0e2a247a5a9cabb84475bdbffa0ae68506f0de64",
+    "target/config_read.c": "a81cb9f0589bc4dc31b2fe167889a47c82bf6e9a15aac94bbea0f8130fee6eb3",
+    "target/config_storage.c": "42962c86d60ffda27c25fdf6d0de359f2ab596328652e8780eb87617a23c7a2a",
+    "target/core_helpers.c": "281aa18dcc5d20ac43240f11618275103aff3acd4d88ae3d94f6fd46dbaae4aa",
+    "target/interface_bindings.c": "48074e950681c94add2e59c653098b8590631d9434c8358d0a2ccfb827e9558a",
+    "target/fault_control_target.c": "d32c8aeb5d59df5aa6fd8f516f685caf034dade23669fe817e9a13642834868a",
+    "target/fault_handlers.c": "30b900ef3bffabfb12cdecece015a335d86ea4212d900c739c641da40cc7ee92",
+    "target/hal_helpers.c": "0f6c7f18f87a91cc891e5efafeb1b59d5030d7003b2e2799af178b34347e1d1d",
+    "target/mspm0_core_target.c": "337610b8b2c74cbc11da1f8584d72761131263dc4d96174c948c2ee864b58d67",
+    "target/uart_ring.c": "1c21719a7d48ff7a06e506dcc2951bc6e49ad6998ec44fe9e963f1534cdcc1ba",
+    "target/runtime_heap.c": "faa09e955114fe47aad08971877ff22a6b0710b625d1636e6d3260d74d546f1d",
+    "target/runtime_scan.c": "2a67ec697346f5df7930695e5b8ec6b4989bfa1f1571eab42889cf748ac9f236",
+    "target/runtime_scan_printf.c": "6b077cd518dda5edd55646369193e59a1421ef4437ac01b7fc99f0e27f416b2e",
+    "target/runtime_scan_wrappers.c": "add0aa7ee566cdd893665e2db124dce74540af6153eb824acf6c033862334046",
+    "target/runtime_stdio.c": "87470c581d9d303a835707da2e85eb3e45a8e30b1d89074cfba399287b895ceb",
+    "target/runtime_support.c": "2073e0e81c07b2a6edfc33479fe23c2a2a6e51df2f6be63b5da0701497cc102a",
+    "target/runtime_arithmetic_float.c": "027d34ea8ca7001dabf2135ae6e26d4e39c47f13bb9fea607b85df5e1ae8c71a",
+    "target/adc_target.c": "817700d70bb9ef89f8f40b5ff87c23aa6dd9623ae390a80c3226fa16abf4b79d",
+    "target/uart_hal_target.c": "de8099106c1b12fa3877bc2d34ced6dd20f526eeae7758a22ec1d5c2c0526adc",
+    "target/timers_target.c": "d96398e541a2cdc5effab73172b7dace724712055f81e99256c365b046fa553b",
+    "target/tasks_target.c": "33d43a1547e1f49fa2019cde5fc9548ff172ba7673a4a9383f62a2d0a72a1bbf",
+    "target/retained_target.c": "2a42f13f35f7ec61bc022eaab8b2b71369600f52e736272150f60b30a40e1af6",
+    "target/diagnostics_target.c": "1f6017d0fbc82f2e06cc04e80031e7919ae9d0aa3a0d72ffcd9156525b5914f4",
+    "target/application_target.c": "0276716d8ad63baf809ecd88193405ec712db13a515d8bbaa253e71d8da1f830",
+    "target/logger_target.c": "54462255b2a71111213d4a1ef74867f48e962039552f2ffff5814347ce89349d",
+    "target/rgb_target.c": "7b9557c46d02dd727528a3719460628a605b978246a45c3c4876fb46cadd194e",
+    "target/power_key_target.c": "3d222668a70ec818b7677f4867eef897377d07ed2eac5b5744ec06e9b4df5b79",
+    "target/power_policy_target.c": "9b59fa799da512513aec13de98cd037e72c1bfa6983b31baea8f10baf049f7f3",
+    "target/i2c_target.c": "1159f8296ee04699d1aadd224f45c185ce6a51212fd9a48406bad9ab86bc7ec3",
+    "target/pwm_target.c": "58d7dee62a0f90fcc864478cffc7fcd5a59e229dc9f26405ac4c530e836427d5",
+    "target/config_update.c": "bbb0defb246d12a6a0a718410167293767a8876fe3473bd0f3259591052b2add",
+    "target/ioexpander_target.c": "7d53753ca79dc6a9837ecfc71c28fdb0907a1ea2c1606b9e74ab463b61190b45",
+    "target/power_manager_target.c": "ef91e1bd86da18f7ee0f65ff4687738085a72ceaba942c95530a69fa14e3c8b0",
+    "target/protocol_target.c": "3664220f043ed20b4f725c4f1993f5ce8d5139ba1daa5514bc3066f414db2f86",
+    "target/command_table_target.c": "0e87bcede11502f0ce18cc19d5de3e9153ee64a82342a12e4995a7b22148fe2c",
+    "target/config_commands_target.c": "b1468c7d2006017af3438b2af377e3c67fdd22b771d02f57cd0cde657793ac8d",
+    "target/control_commands_target.c": "0c94f8a2a7cb6a00a78e918b194840be51cf3562634aec5d5af7d733c4269afe",
+    "target/runtime_init_target.c": "a942a078f0814c110305a5c8c3d6b399960d64f62b7146e4150d28d2fccf3ac2",
+    "target/format_core_target.c": "13cbd57ec407c911eb949ab78f2fc675331098bd67f8feb4075bd0a6d388e507",
+    "target/sg560d_target.c": "a71f71ab162e9c1903053d2a11d2170e247ba45b75da3d9bfab6140fa3b4a5eb",
+    "include/adc_target.h": "aa1af30e748e5f22ffbcbe7fdec8e2466b13097c77b3b7ae717ac0c1da7d53d3",
+    "include/application_target.h": "d5f1ab987ed94ad195dc06918212d7564857593cb2590ea7e8fd2ca3b7df749c",
+    "include/config_commands_target.h": "173ee8ebafda09202ea48952b4be8a90e7c811d97a81d58c107c78b6a23e4bfd",
+    "include/diagnostics_target.h": "e26f0372bf7f51d74840395c9230d48f4de3af23c2a86c8139baeffe90777558",
+    "include/fault_control_target.h": "0613d19de7ceb2cc1a0a6908cbd0a0132168437a6a6265acdbfbe048520ac285",
+    "include/flash_abi_target.h": "d2d43be09d214c32ffb67b8f68135d29639f67a50fc9a61802c0a50c950b879d",
+    "include/format_core_target.h": "3173fb17371ab8a0c3470fc139045adb8792d0b825d871b2eb47755de2c77ff1",
+    "include/i2c_target.h": "4f33a7367f43c862bf9d31a2264abae851d0168f311c0057d39a17014f5fec8b",
+    "include/ioexpander_target.h": "02af728ce4128f89dde318f14ba3bd030c5b58d5ead1a863913ec1b4d46e53af",
+    "include/logger_target.h": "1a6135c5b898c88efdb1959c590f09b7d5250ac462db7f322ab9f4f97ccdd104",
+    "include/mspm0_core_target.h": "993ffa28b2b105d86da1dc446216a5742aa7d228df94993b2f07dd36d5d14ad6",
+    "include/power_key_target.h": "4bd578cb2e62e66ec89dcdec12088cc142fd6a55646bc81bf490f61da8d8bcd9",
+    "include/power_manager_target.h": "d2ec5685a6dded9dc52064f3c1e76aa9c2f982f68eb594877ae2170910d680dc",
+    "include/power_policy_target.h": "85f7c6373c87c569e2595fa74364926a5762405195ad07c79d9063147f88b0fb",
+    "include/protocol_target.h": "0eeb764ce62f55b6e0844cb219a5cfc69cec4d523bd416c70ce96ecd09a9c9fd",
+    "include/pwm_target.h": "860704f17adea4e6d96d300699f85ea040afabf71402581d06f8edab11e5abc7",
+    "include/rgb_target.h": "905e05c7399c1d38045cb8498da8f78c683d683932713c22050b10b71d0f16f4",
+    "include/scheduling_target.h": "9179f0d3a77c0eff097e2b00390d2bd85c331925aeb553fdd17a75a793cc7cb1",
+    "include/sg560d_target.h": "971c8fd6bc90a8a03382f4256c083ff78c4b94003c987cb07da832bc7643900c",
+    "include/uart_hal_target.h": "4e7f3fb2cd7ec55e24d71c85e1468c7880db534b0b815882e2a6ced42362236b",
+    "include/uart_ring_target.h": "809f38a9e37283c13701787365549a973daea1ad97fd4c41a2ee2145a3580066"
+  },
+  "whole_firmware_equivalence": false,
+  "cross_translation_unit_ast": {
+    "compiler": "Apple clang target armv6m-none-eabi; GCC-preprocessed ARM headers",
+    "definitions": {
+      "syscon_target_failure": [
+        {
+          "source": "target/callback_helpers.c",
+          "type": "unsigned long (unsigned long, unsigned long, unsigned long (*)(unsigned long))"
+        }
+      ],
+      "syscon_target_buffer_output": [
+        {
+          "source": "target/callback_helpers.c",
+          "type": "unsigned long (unsigned long, volatile syscon_target_output_buffer *)"
+        }
+      ],
+      "syscon_target_null_output": [
+        {
+          "source": "target/callback_helpers.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_cfg_indexed_get": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (unsigned long, unsigned long, char *, char *)"
+        }
+      ],
+      "syscon_cfg_runtime_slot_blank": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_cfg_identity_slot_blank": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_cfg_runtime_slot_count": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_cfg_identity_slot_count": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_cfg_identity_erase": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (const char *)"
+        }
+      ],
+      "syscon_cfg_identity_append": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (const char *, const char *)"
+        }
+      ],
+      "syscon_cfg_identity_get": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (char *, char *)"
+        }
+      ],
+      "syscon_cfg_identity_indexed_get": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (char *, char *)"
+        }
+      ],
+      "syscon_cfg_runtime_get": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (char *, char *)"
+        }
+      ],
+      "syscon_cfg_runtime_erase": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (const char *)"
+        }
+      ],
+      "syscon_cfg_runtime_indexed_get": [
+        {
+          "source": "target/config_helpers.c",
+          "type": "unsigned long (char *, char *)"
+        }
+      ],
+      "syscon_cfg_field_readable": [
+        {
+          "source": "target/config_read.c",
+          "type": "unsigned long (const unsigned char *)"
+        }
+      ],
+      "syscon_cfg_field_writable": [
+        {
+          "source": "target/config_read.c",
+          "type": "unsigned long (const unsigned char *)"
+        }
+      ],
+      "syscon_cfg_checksum": [
+        {
+          "source": "target/config_read.c",
+          "type": "unsigned long (const unsigned char *)"
+        }
+      ],
+      "syscon_cfg_slot_valid": [
+        {
+          "source": "target/config_read.c",
+          "type": "unsigned long (const unsigned char *)"
+        }
+      ],
+      "syscon_cfg_read_slot": [
+        {
+          "source": "target/config_read.c",
+          "type": "unsigned long (const unsigned char *, char *)"
+        }
+      ],
+      "syscon_cfg_find_slot": [
+        {
+          "source": "target/config_read.c",
+          "type": "unsigned long (unsigned long, unsigned long, char *, unsigned long, unsigned long *)"
+        }
+      ],
+      "syscon_cfg_store_get": [
+        {
+          "source": "target/config_read.c",
+          "type": "unsigned long (unsigned long, unsigned long, char *, char *)"
+        }
+      ],
+      "syscon_cfg_flash_report": [
+        {
+          "source": "target/config_storage.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_cfg_store_erase": [
+        {
+          "source": "target/config_storage.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_cfg_prepare_slot": [
+        {
+          "source": "target/config_storage.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_cfg_finish_slot": [
+        {
+          "source": "target/config_storage.c",
+          "type": "unsigned long (unsigned long, unsigned char *)"
+        }
+      ],
+      "syscon_cfg_store_append": [
+        {
+          "source": "target/config_storage.c",
+          "type": "unsigned long (unsigned long, unsigned long, const char *, const char *)"
+        }
+      ],
+      "syscon_cfg_bool_get": [
+        {
+          "source": "target/config_storage.c",
+          "type": "void (unsigned long, char *, unsigned char *)"
+        }
+      ],
+      "syscon_cfg_u32_get": [
+        {
+          "source": "target/config_storage.c",
+          "type": "void (unsigned long, char *, unsigned long *)"
+        }
+      ],
+      "syscon_cfg_load": [
+        {
+          "source": "target/config_storage.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_mcu_sleep": [
+        {
+          "source": "target/core_helpers.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_cycle_delay": [
+        {
+          "source": "target/core_helpers.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "memset": [
+        {
+          "source": "target/interface_bindings.c",
+          "type": "void *(void *, int, unsigned int)"
+        }
+      ],
+      "syscon_cfg_assert": [
+        {
+          "source": "target/interface_bindings.c",
+          "type": "void (const char *, unsigned long, const char *)"
+        }
+      ],
+      "syscon_core_log": [
+        {
+          "source": "target/interface_bindings.c",
+          "type": "void (unsigned long, const char *, const char *)"
+        }
+      ],
+      "memcpy": [
+        {
+          "source": "target/interface_bindings.c",
+          "type": "void *(void *, const void *, unsigned int)"
+        }
+      ],
+      "syscon_target_uart_write": [
+        {
+          "source": "target/interface_bindings.c",
+          "type": "void (unsigned int, const unsigned char *, unsigned long)"
+        }
+      ],
+      "syscon_target_color": [
+        {
+          "source": "target/interface_bindings.c",
+          "type": "int (void)"
+        }
+      ],
+      "syscon_target_assert": [
+        {
+          "source": "target/fault_control_target.c",
+          "type": "void (unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_fault_stage_set": [
+        {
+          "source": "target/fault_control_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_fault_stage_get": [
+        {
+          "source": "target/fault_control_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_fault_stage_name": [
+        {
+          "source": "target/fault_control_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_enable_mftick": [
+        {
+          "source": "target/fault_control_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_cached_reason": [
+        {
+          "source": "target/fault_control_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_default_exception": [
+        {
+          "source": "target/fault_handlers.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_hardfault": [
+        {
+          "source": "target/fault_handlers.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_nmi": [
+        {
+          "source": "target/fault_handlers.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_hal_adc_lookup": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_hal_pwm_lookup": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_hal_uart_lookup": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_hal_i2c_lookup": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_hal_adc_clock": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_hal_i2c_clock": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_hal_i2c_fill_tx": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_hal_i2c_flush_tx": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_hal_i2c_flush_rx": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_hal_uart_put_blocking": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_hal_vref_config": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_hal_vref_clock": [
+        {
+          "source": "target/hal_helpers.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_watchdog_init": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_watchdog_feed": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_hal_noop": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_gpio_lookup": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_reset_cause": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_reset_cause_name": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_gpio_config": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_gpio_write": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_gpio_toggle": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_gpio_read": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_gpio_attach": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long long (unsigned long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_gpio_detach": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_gpio_irq": [
+        {
+          "source": "target/mspm0_core_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_uart_rx_disable": [
+        {
+          "source": "target/uart_ring.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_uart_rx_enable": [
+        {
+          "source": "target/uart_ring.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_uart_put": [
+        {
+          "source": "target/uart_ring.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_uart_write_buffer_body": [
+        {
+          "source": "target/uart_ring.c",
+          "type": "unsigned long (unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_uart_available": [
+        {
+          "source": "target/uart_ring.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_uart_irq": [
+        {
+          "source": "target/uart_ring.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_uart_read": [
+        {
+          "source": "target/uart_ring.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_rt_malloc_lock": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "void (void *)"
+        }
+      ],
+      "syscon_rt_malloc_unlock": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "void (void *)"
+        }
+      ],
+      "syscon_rt_sbrk": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "void *(long)"
+        }
+      ],
+      "syscon_rt_sbrk_r": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "void *(void *, long)"
+        }
+      ],
+      "syscon_rt_malloc_usable_size_r": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "unsigned long (void *, void *)"
+        }
+      ],
+      "syscon_rt_free_r": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "void (void *, void *)"
+        }
+      ],
+      "syscon_rt_malloc_r": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "void *(void *, unsigned long)"
+        }
+      ],
+      "syscon_rt_realloc_r": [
+        {
+          "source": "target/runtime_heap.c",
+          "type": "void *(void *, void *, unsigned long)"
+        }
+      ],
+      "syscon_scan_sccl": [
+        {
+          "source": "target/runtime_scan.c",
+          "type": "unsigned char *(char *, const unsigned char *)"
+        }
+      ],
+      "syscon_scan_chars": [
+        {
+          "source": "target/runtime_scan.c",
+          "type": "int (struct _reent *, struct syscon_scan_state *, struct struct struct struct struct struct syscon_rt_file *, struct __va_list *)"
+        }
+      ],
+      "syscon_scan_integer": [
+        {
+          "source": "target/runtime_scan.c",
+          "type": "int (struct _reent *, struct syscon_scan_state *, struct struct struct struct struct struct syscon_rt_file *, struct __va_list *)"
+        }
+      ],
+      "syscon_rt_vfscanf": [
+        {
+          "source": "target/runtime_scan.c",
+          "type": "int (struct _reent *, struct struct struct struct struct struct syscon_rt_file *, const char *, struct __va_list)"
+        }
+      ],
+      "syscon_rt_vfprintf_seeded": [
+        {
+          "source": "target/runtime_scan_printf.c",
+          "type": "int (void *, void *, const char *, struct __va_list, long, long)"
+        }
+      ],
+      "syscon_rt_vfprintf_checked": [
+        {
+          "source": "target/runtime_scan_printf.c",
+          "type": "int (void *, void *, const char *, struct __va_list)"
+        }
+      ],
+      "syscon_rt_snprintf_checked": [
+        {
+          "source": "target/runtime_scan_printf.c",
+          "type": "int (char *, unsigned long, const char *, ...)"
+        }
+      ],
+      "syscon_rt_snprintf_seeded": [
+        {
+          "source": "target/runtime_scan_printf.c",
+          "type": "int (long, long, char *, unsigned long, const char *, ...)"
+        }
+      ],
+      "syscon_rt_strtol_core": [
+        {
+          "source": "target/runtime_scan_wrappers.c",
+          "type": "long (void *, const char *, char **, long)"
+        }
+      ],
+      "syscon_rt_strtol_r": [
+        {
+          "source": "target/runtime_scan_wrappers.c",
+          "type": "long (void *, const char *, char **, long)"
+        }
+      ],
+      "syscon_rt_strtol": [
+        {
+          "source": "target/runtime_scan_wrappers.c",
+          "type": "long (const char *, char **, long)"
+        }
+      ],
+      "syscon_rt_strncasecmp": [
+        {
+          "source": "target/runtime_scan_wrappers.c",
+          "type": "int (const char *, const char *, unsigned long)"
+        }
+      ],
+      "syscon_rt_seofread": [
+        {
+          "source": "target/runtime_scan_wrappers.c",
+          "type": "int (void *, void *, char *, int)"
+        }
+      ],
+      "syscon_rt_sscanf": [
+        {
+          "source": "target/runtime_scan_wrappers.c",
+          "type": "int (const char *, const char *, ...)"
+        }
+      ],
+      "syscon_rt_strtoul_r": [
+        {
+          "source": "target/runtime_stdio.c",
+          "type": "unsigned long (void *, const char *, char **, int)"
+        }
+      ],
+      "syscon_rt_swrite": [
+        {
+          "source": "target/runtime_stdio.c",
+          "type": "int (void *, void *, const char *, unsigned long)"
+        }
+      ],
+      "syscon_rt_submore": [
+        {
+          "source": "target/runtime_stdio.c",
+          "type": "int (void *, void *)"
+        }
+      ],
+      "syscon_rt_sungetc_r": [
+        {
+          "source": "target/runtime_stdio.c",
+          "type": "int (void *, int, void *)"
+        }
+      ],
+      "syscon_rt_ssrefill_r": [
+        {
+          "source": "target/runtime_stdio.c",
+          "type": "int (void *, void *)"
+        }
+      ],
+      "syscon_rt_printf_common": [
+        {
+          "source": "target/runtime_stdio.c",
+          "type": "int (void *, void *, long *, void *, int (*)(void *, void *, const char *, unsigned long))"
+        }
+      ],
+      "syscon_rt_printf_integer": [
+        {
+          "source": "target/runtime_stdio.c",
+          "type": "int (void *, void *, void *, int (*)(void *, void *, const char *, unsigned long), void *)"
+        }
+      ],
+      "syscon_rt_cxa_atexit": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "int (void (*)(void *), void *, void *)"
+        }
+      ],
+      "syscon_rt_arm_atexit": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "int (void *, void (*)(void *), void *)"
+        }
+      ],
+      "syscon_rt_atoi": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "long (const char *)"
+        }
+      ],
+      "syscon_rt_isalnum": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "int (long)"
+        }
+      ],
+      "syscon_rt_toupper": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "long (long)"
+        }
+      ],
+      "syscon_rt_getreent": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "unsigned char *(void)"
+        }
+      ],
+      "syscon_rt_strtoul_alias": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "unsigned long (void *, const char *, char **, long)"
+        }
+      ],
+      "syscon_rt_lock_acquire": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "void (unsigned long *)"
+        }
+      ],
+      "syscon_rt_lock_release": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "void (unsigned long *)"
+        }
+      ],
+      "syscon_rt_memmove": [
+        {
+          "source": "target/runtime_support.c",
+          "type": "void *(void *, const void *, unsigned long)"
+        }
+      ],
+      "syscon_rt_f2u": [
+        {
+          "source": "target/runtime_arithmetic_float.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_rt_d2u": [
+        {
+          "source": "target/runtime_arithmetic_float.c",
+          "type": "unsigned long (unsigned long long)"
+        }
+      ],
+      "syscon_target_adc_init": [
+        {
+          "source": "target/adc_target.c",
+          "type": "unsigned long long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_adc_temperature": [
+        {
+          "source": "target/adc_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_adc_raw": [
+        {
+          "source": "target/adc_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_adc_millivolts": [
+        {
+          "source": "target/adc_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_uart_clock_config": [
+        {
+          "source": "target/uart_hal_target.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_uart_line_config": [
+        {
+          "source": "target/uart_hal_target.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_uart_init": [
+        {
+          "source": "target/uart_hal_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_uart_deinit": [
+        {
+          "source": "target/uart_hal_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_now": [
+        {
+          "source": "target/timers_target.c",
+          "type": "unsigned long long (void)"
+        }
+      ],
+      "syscon_target_timer_tick": [
+        {
+          "source": "target/timers_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_timer_init": [
+        {
+          "source": "target/timers_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_timer_register": [
+        {
+          "source": "target/timers_target.c",
+          "type": "int (unsigned long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_timer_unregister": [
+        {
+          "source": "target/timers_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_timer_delay": [
+        {
+          "source": "target/timers_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_timer_wait_countflags": [
+        {
+          "source": "target/timers_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_tasks_init": [
+        {
+          "source": "target/tasks_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_tasks_submit": [
+        {
+          "source": "target/tasks_target.c",
+          "type": "int (const syscon_action *, unsigned long)"
+        }
+      ],
+      "syscon_target_tasks_poll": [
+        {
+          "source": "target/tasks_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_tasks_active": [
+        {
+          "source": "target/tasks_target.c",
+          "type": "int (void)"
+        }
+      ],
+      "syscon_target_retained_commit": [
+        {
+          "source": "target/retained_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_retained_load": [
+        {
+          "source": "target/retained_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_retained_clear_registers": [
+        {
+          "source": "target/retained_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_retained_set_modem": [
+        {
+          "source": "target/retained_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_retained_modem": [
+        {
+          "source": "target/retained_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_retained_set_battery": [
+        {
+          "source": "target/retained_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_retained_battery": [
+        {
+          "source": "target/retained_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_retained_increment_boots": [
+        {
+          "source": "target/retained_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_retained_boots": [
+        {
+          "source": "target/retained_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_auto_boot": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_wakeup_enabled": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_log_color": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_alt_powerkey": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_factory_test": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_always_on": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_powerkey_long_seconds": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_powerkey_extra_seconds": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_hwrevision_new": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_diagnostics_enable": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_diagnostics_poll": [
+        {
+          "source": "target/diagnostics_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_timestamp_constructor": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_queue_destructor": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void *)"
+        }
+      ],
+      "syscon_target_queue_constructor": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_queue_count": [
+        {
+          "source": "target/application_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_queue_event": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_request_off": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_diagnostic_write": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_parser_poll": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_log_enable": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_application_gpio_init": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_wakeup_irq": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_wakeup_init": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_wakeup_enable": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_wakeup_poll": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_main": [
+        {
+          "source": "target/application_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_logger_target_vformat": [
+        {
+          "source": "target/logger_target.c",
+          "type": "unsigned long (unsigned char *, unsigned long, const char *, unsigned long)"
+        }
+      ],
+      "syscon_logger_target_body": [
+        {
+          "source": "target/logger_target.c",
+          "type": "void (unsigned char *, unsigned long, const char *, const char *, unsigned long)"
+        }
+      ],
+      "syscon_logger_target_sg_body": [
+        {
+          "source": "target/logger_target.c",
+          "type": "void (unsigned char *, const char *, unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_scale": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_flush": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_rgb_init": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "int (unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_brightness": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "int (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_pattern": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "int (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_configure": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "int (unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_preset": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "int (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_tick": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "unsigned long long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_state": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_rgb_get_config": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_state_name": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_pattern_name": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_rgb_key_feedback": [
+        {
+          "source": "target/rgb_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_powerkey_edge": [
+        {
+          "source": "target/power_key_target.c",
+          "type": "int (unsigned long)"
+        }
+      ],
+      "syscon_target_powerkey_poll": [
+        {
+          "source": "target/power_key_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_powerkey_debounce": [
+        {
+          "source": "target/power_key_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_powerkey_callback": [
+        {
+          "source": "target/power_key_target.c",
+          "type": "int (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_powerkey_mode": [
+        {
+          "source": "target/power_key_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_powerkey_init": [
+        {
+          "source": "target/power_key_target.c",
+          "type": "int (unsigned long)"
+        }
+      ],
+      "syscon_target_power_report": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_power_policy_init": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_minimum_update": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_power_minimum_reset": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_power_minimum": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_shutdown_set": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_shutdown_reason": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_shutdown_elapsed": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "unsigned long long (void)"
+        }
+      ],
+      "syscon_target_shutdown_stale": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_shutdown_active": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_shutdown_poll": [
+        {
+          "source": "target/power_policy_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_i2c_error": [
+        {
+          "source": "target/i2c_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_i2c_init": [
+        {
+          "source": "target/i2c_target.c",
+          "type": "unsigned long long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_i2c_transmit": [
+        {
+          "source": "target/i2c_target.c",
+          "type": "unsigned long (unsigned long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_i2c_receive": [
+        {
+          "source": "target/i2c_target.c",
+          "type": "unsigned long long (unsigned long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_i2c_irq": [
+        {
+          "source": "target/i2c_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_pwm_clock": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_pwm_compare": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "void (unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_pwm_capture": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "void (unsigned long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_pwm_action": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "void (unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_pwm_output": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "void (unsigned long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_pwm_configure": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "unsigned long long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_pwm_init": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_pwm_write": [
+        {
+          "source": "target/pwm_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_cfg_compact_body": [
+        {
+          "source": "target/config_update.c",
+          "type": "unsigned long (unsigned long, const char *, const char *, unsigned long)"
+        }
+      ],
+      "syscon_cfg_store_init": [
+        {
+          "source": "target/config_update.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_config_init": [
+        {
+          "source": "target/config_update.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_cfg_runtime_update_body": [
+        {
+          "source": "target/config_update.c",
+          "type": "unsigned long (const char *, const char *, unsigned long)"
+        }
+      ],
+      "syscon_target_ioexpander_write16": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_ioexpander_write8": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_ioexpander_read8": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "unsigned long (unsigned long, unsigned char *)"
+        }
+      ],
+      "syscon_target_ioexpander_write_unchecked": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "int (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_ioexpander_reset": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_ioexpander_init": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "int (unsigned long)"
+        }
+      ],
+      "syscon_target_ioexpander_configure": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "int (unsigned long, const syscon_io_config *)"
+        }
+      ],
+      "syscon_target_ioexpander_write": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "int (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_ioexpander_read": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "int (unsigned long, unsigned char *)"
+        }
+      ],
+      "syscon_target_pin_read": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_pin_write": [
+        {
+          "source": "target/ioexpander_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_power_measure": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_battery_route": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_vbus_route": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_header_route": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_battery_id": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_ntc": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_boost": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_battery_id_set": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_ntc_set": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_boost_set": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_battery_sense_set": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_battery_route_set": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_header_route_set": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_header_default": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_usb_isolate": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_vbus_route_set": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long long (unsigned long)"
+        }
+      ],
+      "syscon_target_power_usb_release_callback": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_usb_assert_callback": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_shutdown_busy": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_shutdown_request": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_power_battery_detect": [
+        {
+          "source": "target/power_manager_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_protocol_poll": [
+        {
+          "source": "target/protocol_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_id_find": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_find": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_id_get": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_get": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_id_set": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_set": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_id_erase": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_erase": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_config_dump": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "void (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_id_dump": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_dump": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_config_internal": [
+        {
+          "source": "target/config_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_version": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_help": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_ioexp_read": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_gpio_read": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_pwrstatus": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_wake_after": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_mcu_sleep": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_mcu_reboot": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_shutdown_reason": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_modem_direct": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_modem_on": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_ledstatus": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_set_pattern": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_set_rgb": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_read_pwr": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_batcheck": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_modem_dbg": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_keys": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_modem_off": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_diag": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_log": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_error": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_cmd_key_mode": [
+        {
+          "source": "target/control_commands_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_runtime_init": [
+        {
+          "source": "target/runtime_init_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_format_digits": [
+        {
+          "source": "target/format_core_target.c",
+          "type": "unsigned long long (unsigned long long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_format_forward": [
+        {
+          "source": "target/format_core_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_vformat_callback": [
+        {
+          "source": "target/format_core_target.c",
+          "type": "unsigned long (unsigned long, unsigned long, unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_modem_uart_stop": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_modem_uart_start": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_modem_power_check": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_fct_complete": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_volume_release": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_usbboot_release": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_powerkey_release_task": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_action_6230": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_action_6238": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_action_6240": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_pins_off": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_modem_pins_on": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_modem_retry_delay": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_modem_retry_schedule": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_modem_poweron": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_edl": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_special_boot": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_modem_fct": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_fct_callback": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_fastboot": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_wake_schedule": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (unsigned long)"
+        }
+      ],
+      "syscon_target_modem_wake_remaining": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "long (void)"
+        }
+      ],
+      "syscon_target_modem_off": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_mode_name": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_modem_set_mode": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_modem_poweroff": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_modem_prepare_special": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_prepare_edl": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_prepare_normal": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_init": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long)"
+        }
+      ],
+      "syscon_target_modem_key_assert": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_modem_key_release": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (void)"
+        }
+      ],
+      "syscon_target_modem_key_pulse": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_modem_action_7488": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_action_74a8": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_action_74c8": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (void)"
+        }
+      ],
+      "syscon_target_modem_raw_send": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "unsigned long (unsigned long, unsigned long)"
+        }
+      ],
+      "syscon_target_modem_poll": [
+        {
+          "source": "target/sg560d_target.c",
+          "type": "void (void)"
+        }
+      ]
+    },
+    "conflicts": {},
+    "errors": []
+  },
+  "physical_elf_sha256": "eb47c94142e5eb6eabeec2ba6c4161cb725753a1747828583db8541b7382eb97",
+  "physical_binary_sha256": "0054a5c333e1fe8f76ded06ed75590b2ab834941c61eb055bda346d8bf0c06c2"
+}

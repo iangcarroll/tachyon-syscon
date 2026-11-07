@@ -1,0 +1,107 @@
+[
+  {
+    "path": "mspm0l130x.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/m0p/mspm0l130x.h",
+    "sha256": "af6827d8ebcf40a3b52f2223af067aca6ad081529609d8ea6f0a9c589ab3bb9f"
+  },
+  {
+    "path": "hw_adc12.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_adc12.h",
+    "sha256": "f05cd32d22516cb19dc9b3624302bfb60709e95439c602869bbf80fd2874e4be"
+  },
+  {
+    "path": "hw_comp.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_comp.h",
+    "sha256": "4a2c495402031410e15dd33ae98388e53b7d19dba3ef0ddcfbde990223341af1"
+  },
+  {
+    "path": "hw_crc.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_crc.h",
+    "sha256": "412a74468794aefc140e29ee149b466fed9e222d81b074b43d51bd9a733637b5"
+  },
+  {
+    "path": "hw_dma.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_dma.h",
+    "sha256": "fc243de52d1b6b1bda3255c73253cbbbb58012a64dbe5d7e09c43c1cec8b736e"
+  },
+  {
+    "path": "hw_flashctl.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_flashctl.h",
+    "sha256": "15702f84a50f29243fb998e7e05075f4fa5b87c40fe8de7f6070a312a769342d"
+  },
+  {
+    "path": "hw_gpio.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_gpio.h",
+    "sha256": "f965e0c9c8561f6c9b4d417fa26e876ebda9a7ef82c85f01efaf23c90c364ad8"
+  },
+  {
+    "path": "hw_gptimer.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_gptimer.h",
+    "sha256": "12846857d116ce61bc6fd9b6454238ac365933fc2591b2c013e41abaec1a4759"
+  },
+  {
+    "path": "hw_i2c.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_i2c.h",
+    "sha256": "5cb76b44fcb58bba6d0765c5f0590c0d31bea79a4735db644f10e520cf76b50a"
+  },
+  {
+    "path": "hw_iomux.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_iomux.h",
+    "sha256": "e5b6a2a92888d1b24ad810b9e411a1abe6df749b1ba6012f3411a22ac917dccd"
+  },
+  {
+    "path": "hw_oa.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_oa.h",
+    "sha256": "f4808653bba9437b8e7b1831792a3493d03f516bd393c4c7ecdf80c250e4e168"
+  },
+  {
+    "path": "hw_spi.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_spi.h",
+    "sha256": "013aae2911b2885e22e6dbea103d7f5d06a67ae66aa5600bc92137c0ec7ca459"
+  },
+  {
+    "path": "hw_uart.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_uart.h",
+    "sha256": "d3707555708a2b2b4633d69e2547b2d34792838e12c6d6638c3d943d79cf8a31"
+  },
+  {
+    "path": "hw_vref.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_vref.h",
+    "sha256": "ba2f0f404bd190bc8727a8651eb2808cbdb3c6c2dea826161e878dc184c401f8"
+  },
+  {
+    "path": "hw_wuc.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_wuc.h",
+    "sha256": "b9005b077d7abde7e64868f4a1b02ad1f126da464d359f4cba5fa14c7fbba16b"
+  },
+  {
+    "path": "hw_wwdt.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/hw_wwdt.h",
+    "sha256": "cb415ede2988916f068b5e62e8940fff3bd8dba37019e017a296f4b5dd37f3bd"
+  },
+  {
+    "path": "hw_factoryregion.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/m0p/hw_factoryregion.h",
+    "sha256": "292c40427010027359a373b08d80834786d4e697957e33ae4c00f627b6e95dc4"
+  },
+  {
+    "path": "hw_cpuss.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/m0p/hw_cpuss.h",
+    "sha256": "440efc97697862941f489dd40fc66cd75df4840beba81b14a4122e2597cf27d3"
+  },
+  {
+    "path": "hw_debugss.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/m0p/hw_debugss.h",
+    "sha256": "35b4eeb6601c3cb4eeebbab22ae7d55d2db8db81976ce43bcd171684f7b2a020"
+  },
+  {
+    "path": "hw_sysctl.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/m0p/hw_sysctl.h",
+    "sha256": "818e571430f4c9cae03f78f65ca5e6915f3819b47841841829b45549f830f362"
+  },
+  {
+    "path": "hw_sysctl_mspm0l11xx_l13xx.h",
+    "source_url": "https://raw.githubusercontent.com/TexasInstruments/mspm0-sdk/e6793f41ce464fe78f03f100e715d5e30b43f25a/source/ti/devices/msp/peripherals/m0p/sysctl/hw_sysctl_mspm0l11xx_l13xx.h",
+    "sha256": "2a3a8100e6c89665130986e7e2211bb1be157b5381c8b36a0522d6ea26bdda63"
+  }
+]

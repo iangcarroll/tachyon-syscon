@@ -1,0 +1,15 @@
+# Target interface audit
+
+The control mapping contains 23 direct target entries in `analysis/control-commands-target-mapping.json`; the formatter mapping contains three in `analysis/format-core-target-mapping.json`. They identify original entry addresses and reconstructed source symbols. Their `original_abi` field describes the explicit argument/defined-result interface, not equality of incidental caller-saved registers, private stack bytes, or all executions.
+
+`analysis/target-interface-audit.json` records two compiler checks: all 21 canonical `*_target.h` headers forcibly included in each of the 41 C target translation units selected by `tools/build_target_interfaces.py`, and a cross-translation-unit comparison of externally visible function types from ARM-preprocessed Clang ASTs. The latter expands typedef aliases and checks declarations against the 334 target C definitions. Neither check executes code or validates assembly entry conventions.
+
+The initial audit found an incompatible declaration of `syscon_rt_strtoul_r`: `runtime_stdio.h` and its definition use `int base`, whereas `runtime_support.c` declared `int32_t base` (`long` in the ARM toolchain). Both types occupy the same signed 32-bit argument register here; no differing runtime behavior was demonstrated. The parent replaced the duplicate declaration with the canonical header. The rerun has no conflicts.
+
+The physical builder excludes the legacy test-only formatter wrappers and all test fixtures. Its concrete interface bindings supply the logger's clock, UART, and color dependencies and the sleep helper's logger. The canonical modem header is imported by the control handlers, including the two-argument key pulse and signed wake-duration result.
+
+Remaining scope limits: the raw SET_RGB token is still used as a variadic format string, as in the original. A one-word `%d` probe matched, but arbitrary missing variadic arguments are not proven equivalent. Compiler checks do not establish original register/stack effects for assembly adapters, callback type compatibility for every mutable function pointer, exception interleavings, or a whole-image stack bound. The direct differential tests and their explicit dependency boundaries remain the relevant evidence for each mapping; finite instruction coverage is not a universal proof.
+
+The refreshed audit corresponds to physical ELF SHA-256 `eb47c94142e5eb6eabeec2ba6c4161cb725753a1747828583db8541b7382eb97`. Both compiler checks were rerun against the current scanner EOF/FILE callback, inline CONFIG_SET, UART ABI adapter, and logger output-register sources: 41 target C translation units, 21 canonical headers, 334 definitions, zero type conflicts. `analysis/target-interface-audit.json` contains refreshed source/header hashes; assembly and arbitrary mutable callback conventions remain outside this C type check.
+
+The final canonical audit refresh ran without changing source, tool, or test files. The C type checks remain clean; the new UART assembly adapter is outside AST type checking and is covered by the direct register/frame and real UART regression evidence in `uart-ring-target.md` and `logger-target.md`.

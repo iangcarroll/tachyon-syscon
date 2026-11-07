@@ -1,0 +1,23 @@
+{
+  "function": "syscon_cycle_delay",
+  "original_address": "0x7ae8",
+  "original_size": 10,
+  "reconstructed_size": 10,
+  "exact_bytes": true,
+  "compiler": "arm-none-eabi-gcc (Arm GNU Toolchain 13.3.Rel1 (Build arm-13.24)) 13.3.1 20240614",
+  "compiler_flags": [
+    "-std=c11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-mcpu=cortex-m0plus",
+    "-mthumb",
+    "-Os",
+    "-ffreestanding",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables"
+  ],
+  "whole_firmware_match": false,
+  "physical_timing_verified": false,
+  "flash_candidate": false
+}

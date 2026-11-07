@@ -1,0 +1,16 @@
+{
+  "entries": [
+    {"address":"0x2678","symbol":"syscon_target_assert"},
+    {"address":"0x7b78","symbol":"syscon_target_fault_stage_set"},
+    {"address":"0x7b88","symbol":"syscon_target_fault_stage_get"},
+    {"address":"0x7b9c","symbol":"syscon_target_fault_stage_name"},
+    {"address":"0x7be0","symbol":"syscon_target_enable_mftick"},
+    {"address":"0x7bfc","symbol":"syscon_target_cached_reason"}
+  ],
+  "source":"target/fault_control_target.c",
+  "tests":"tests/test_fault_control_target.py",
+  "docs":"docs/fault-control-target.md",
+  "dependencies":["syscon_target_logger","syscon_target_gpio_config","syscon_target_gpio_toggle","syscon_target_gpio_read","syscon_target_watchdog_feed","syscon_cycle_delay","syscon_rt_memset"],
+  "universal_proof":false,
+  "physical_image_integration":false
+}
