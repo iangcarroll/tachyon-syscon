@@ -63,6 +63,18 @@ The manifest reports `stack_headroom_bytes` after all fixed and linker-allocated
 
 `tests/test_physical_firmware.py` uses a separate, plainly labelled test-only fixture. It verifies reset from dirty SRAM, initialized-global/BSS effects, constructor order, vectors and relocated data pointers, actual SRAM polling through nonterminal statuses, wrong-entry audit rejection and deliberate RAM-slot overflow rejection. The original reset comparison traps constructors/main at declared fixture boundaries and normalizes only the two relocated printer pointers. UART wrappers directly compare their dependency arguments with original instructions.
 
+The original reset routine at `0x79f0` already copies initialized SRAM and clears
+the ordinary BSS range on each reset. The retained three-byte SRAM mirror is
+subsequently restored by `syscon_target_retained_load` from PMU scratch registers
+at `0x400b0400..0x400b0408`; it does not survive through uninitialized `.bss`.
+`tests/test_warm_reset.py` boots both complete images, dirties the SRAM mirror and
+configuration cache, requests SYSRESETREQ, executes reset through the application
+loop, and checks VERSION afterward. Read-only instruction observers verify the
+valid retained values survive startup exactly, while invalid magic is cleared
+according to the original behavior. Ordinary configuration data is reinitialized
+in both images. This exercises the modeled warm-reset domain, not physical PMU
+retention or ROM boot behavior on the attached MCU.
+
 The latest direct-flash/startup checkpoint passed **24 tests in 1.11 seconds**: eight original flash-ABI groups and sixteen physical startup/placement groups, including wrong compatibility byte/address/flags, executable load segment and early-text overflow rejection. Reports are `analysis/flash-abi-target-reference-coverage.json`, `analysis/flash-abi-target-mapping.json` and `analysis/physical-startup-mapping.json`. Whole-image emulator reset/CLI comparisons are separate evidence managed by the parent task.
 
 The production artifact paths are `build/physical-firmware/firmware.elf`, `firmware.bin`, `firmware.map` and `manifest.json`. The manifest deliberately retains `flash_candidate=false` and `whole_firmware_equivalence=false`. No device has been flashed.
