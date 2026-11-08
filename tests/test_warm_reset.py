@@ -95,6 +95,19 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
             assert int.from_bytes(m.read(console+16,4),'little')==printer
             return (tuple(m.read(address,size) for address,size in app_blocks),
                     m.read(queue+4,16),m.read(console,4),m.read(console+8,8))
+        modem_blocks=([(0x200003c4,12),(0x20000450,16),(0x200004e0,84),
+                       (0x200003d0,128),(0x20000460,128)] if image==load_image() else
+                      [(symbols['syscon_modem_boot'],12),(symbols['syscon_modem_timing'],16),
+                       (symbols['syscon_modem_runtime'],84),(symbols['syscon_modem_scratch'],128),
+                       (symbols['syscon_modem_buffer'],128)])
+        modem_parser=0x200000e0 if image==load_image() else symbols['syscon_modem_parser']
+        for address,size in [*modem_blocks,(modem_parser,20)]:m.write_ram(address,b'\xa5'*size)
+        def modem_state():
+            assert int.from_bytes(m.read(modem_parser+4,4),'little')==modem_blocks[-1][0]
+            printer=0x5edd if image==load_image() else symbols['syscon_target_sg560d_printf']
+            assert int.from_bytes(m.read(modem_parser+16,4),'little')==printer
+            return (tuple(m.read(address,size) for address,size in modem_blocks),
+                    m.read(modem_parser,4),m.read(modem_parser+8,8))
         current=0x20000258 if image==load_image() else symbols['syscon_runtime_current']
         context=0x2000025c if image==load_image() else symbols['syscon_runtime_context']
         heap=0x20000810 if image==load_image() else symbols['syscon_runtime_heap']
@@ -131,7 +144,7 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in uart_blocks),
                                m.read(log_flag,1),m.read(protocol_debug,1),application_state(),
                                tuple(m.read(address,size) for address,size in power_blocks),
-                               power_names(),runtime_state(),
+                               power_names(),runtime_state(),modem_state(),
                                tuple(m.read(address,size) for address,size in diagnostic_blocks)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]

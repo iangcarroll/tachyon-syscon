@@ -4,7 +4,7 @@ MEMORY {
  CODE (rx) : ORIGIN = 0x00000000, LENGTH = 0xab20
  FIXED (r) : ORIGIN = 0xab20, LENGTH = 0x3a58
  /* Migrated power strings/scales no longer occupy their original ROM block. */
- RECLAIMED_TEXT (r) : ORIGIN = 0xb2c7, LENGTH = 0x1ab4
+ RECLAIMED_TEXT (r) : ORIGIN = 0xab20, LENGTH = 0x37b8
  SPARE (rx) : ORIGIN = 0xe578, LENGTH = 0x1280
  VERSION_REGION (r) : ORIGIN = 0xf7f8, LENGTH = 8
  IDENTITY (r) : ORIGIN = 0xf800, LENGTH = 0x400
@@ -23,6 +23,7 @@ MEMORY {
  RAM_POWER_STATE (rw) : ORIGIN = 0x2000005c, LENGTH = 0x58
  RAM_PROTOCOL_DATA (rw) : ORIGIN = 0x20000030, LENGTH = 0x2c
  RAM_APPLICATION (rw) : ORIGIN = 0x200002c0, LENGTH = 0xb0
+ RAM_MODEM (rw) : ORIGIN = 0x200003c4, LENGTH = 0x170
  RAM_LIBC (rw) : ORIGIN = 0x20000258, LENGTH = 0x68
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
@@ -49,6 +50,7 @@ PHDRS {
  power_state PT_LOAD FLAGS(6);
  protocol_data PT_LOAD FLAGS(6);
  application_state PT_LOAD FLAGS(6);
+ modem_state PT_LOAD FLAGS(6);
  runtime_data PT_LOAD FLAGS(6);
 }
 SECTIONS {
@@ -64,9 +66,7 @@ SECTIONS {
    .  =  ALIGN(4);__ram_extra_end = .;
  } > RAM_AUX AT> CODE :ram_extra
  __ram_extra_load = LOADADDR(.ram_extra);
- .fixed_actions 0xab20 : {KEEP(*(.fixed.ab20))} > FIXED :fixed
  .command_table : {KEEP(*(.rodata.syscon_target_commands))} > RECLAIMED_TEXT :application_rodata
- .fixed_strings 0xcd7b : {KEEP(*(.fixed.cd7b))} > FIXED :fixed
  .constructors 0xe2d8 : {KEEP(*(.physical.constructors))} > FIXED :fixed
  .initial_data 0xe2e8 : {__physical_initial_data = .;KEEP(*(.physical.initial_data))} > FIXED :fixed
  .version 0xf7f8 : {KEEP(*(.physical.version))} > VERSION_REGION :version
@@ -108,6 +108,7 @@ SECTIONS {
    *target_ioexpander_target.o(.rodata*)
    *target_retained_target.o(.rodata*) *target_tasks_target.o(.rodata*) *target_timers_target.o(.rodata*)
    *target_runtime_state.o(.rodata*)
+   *target_modem_state.o(.rodata*)
    *target_diagnostics_target.o(.rodata*)
    *target_sg560d_target.o(.rodata*)
    *target_application_target.o(.rodata*)
@@ -150,7 +151,7 @@ SECTIONS {
    . = ALIGN(4); __power_bss_end = .;
  } > RAM_POWER_STATE :power_state
  .protocol_data : ALIGN(4) {
-   __protocol_data_start = .; *(.data.syscon_console_parser)
+   __protocol_data_start = .; *(.data.syscon_console_parser) *(.data.syscon_modem_parser)
    . = ALIGN(4); __protocol_data_end = .;
  } > RAM_PROTOCOL_DATA AT> CODE :protocol_data
  __protocol_data_load = LOADADDR(.protocol_data);
@@ -162,6 +163,12 @@ SECTIONS {
    *(.bss.syscon_application_dso) *(.bss.syscon_ioexpander_initialized)
    . = ALIGN(4); __application_bss_end = .;
  } > RAM_APPLICATION :application_state
+ .modem_bss (NOLOAD) : {
+   __modem_bss_start = .;
+   *(.bss.syscon_modem_runtime) *(.bss.syscon_modem_boot) *(.bss.syscon_modem_timing)
+   *(.bss.syscon_modem_buffer) *(.bss.syscon_modem_scratch)
+   __modem_bss_end = .;
+ } > RAM_MODEM :modem_state
  .runtime_data : ALIGN(4) {
    __runtime_data_start = .; *(.data.syscon_runtime_context) *(.data.syscon_runtime_current)
    . = ALIGN(4); __runtime_data_end = .;

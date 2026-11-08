@@ -5,6 +5,8 @@ from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
 from power_state_comparison import PowerStateComparison,text_argument
 from runtime_state_comparison import RuntimeStateComparison
+from protocol_state_comparison import ProtocolStateComparison
+from modem_state_comparison import ModemStateComparison
 from unicorn import UC_HOOK_MEM_WRITE
 from unicorn.arm_const import UC_ARM_REG_R1
 import build_runtime_scan_image as runtime
@@ -29,7 +31,7 @@ def build(destination):
     traps.write_text('.syntax unified\n.thumb\n'+''.join(f'.global {n}\n.type {n},%function\n.thumb_func\n{n}:\n bkpt #0\n bx lr\n' for n in names))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S','target/hal_helpers.c','target/sg560d_target.c','target/power_state.c',str(traps)]
+        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S','target/hal_helpers.c','target/sg560d_target.c','target/modem_state.c','target/power_state.c',str(traps)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old
 
@@ -43,11 +45,15 @@ class Pair:
         self.cpus=[Oracle(),ArmRebuildOracle(elf)];self.events=[[],[]]
         self.power_state=PowerStateComparison(*self.cpus)
         self.runtime_state=RuntimeStateComparison(*self.cpus)
+        self.protocol_state=ProtocolStateComparison(*self.cpus)
+        self.modem_state=ModemStateComparison(*self.cpus)
         self.respond=respond or (lambda address,args:0);self.terminal_assert=False
         self.pointer_map={self.cpus[1].symbols['syscon_target_modem_'+name]|1:entry|1 for entry,name in ENTRIES.items()}
         self.pointer_map[self.cpus[1].symbols['syscon_target_mfg_logger']|1]=0x8fa1
         for i,cpu in enumerate(self.cpus):
-            def state_write(uc,access,address,size,value,user,i=i):self.events[i].append(('state-write',address,size,value&((1<<(size*8))-1)))
+            def state_write(uc,access,address,size,value,user,i=i):
+                if i:value=self.modem_state.word(address,size,value)
+                self.events[i].append(('state-write',address,size,value&((1<<(size*8))-1)))
             cpu.cpu.hook_add(UC_HOOK_MEM_WRITE,state_write,begin=0x20000000,end=0x200007ff)
             for address,(symbol,count) in DEPENDENCIES.items():
                 target=address if i==0 else cpu.symbols[symbol]&~1
@@ -80,7 +86,7 @@ class Pair:
         if address in RET64:cpu.cpu.reg_write(UC_ARM_REG_R1,(result>>32)&0xffffffff)
         return result if index else result&0xffffffff
     def normalized_memory(self,address,data):
-        return self.runtime_state.memory(address,self.power_state.memory(address,data))
+        return self.modem_state.memory(address,self.protocol_state.memory(address,self.runtime_state.memory(address,self.power_state.memory(address,data))))
     def call(self,entry,*args,check_return=None):
         self.active_cpu=0
         expected=self.cpus[0].call(entry,*args,count=2000000)

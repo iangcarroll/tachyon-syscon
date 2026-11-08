@@ -42,6 +42,12 @@ MEMORY {
     TEST_RUNTIME_CURRENT (rw) : ORIGIN = 0x20000258, LENGTH = 4
     TEST_RUNTIME_CONTEXT (rw) : ORIGIN = 0x2000025c, LENGTH = 100
     TEST_RUNTIME_HEAP (rw) : ORIGIN = 0x20000810, LENGTH = 16
+    TEST_MODEM_PARSER (rw) : ORIGIN = 0x200000e0, LENGTH = 20
+    TEST_MODEM_BOOT (rw) : ORIGIN = 0x200003c4, LENGTH = 12
+    TEST_MODEM_SCRATCH (rw) : ORIGIN = 0x200003d0, LENGTH = 128
+    TEST_MODEM_TIMING (rw) : ORIGIN = 0x20000450, LENGTH = 16
+    TEST_MODEM_BUFFER (rw) : ORIGIN = 0x20000460, LENGTH = 128
+    TEST_MODEM_RUNTIME (rw) : ORIGIN = 0x200004e0, LENGTH = 84
     TEST_LOG (rw) : ORIGIN = 0x2000080c, LENGTH = 1
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
@@ -85,6 +91,12 @@ PHDRS {
     runtime_current PT_LOAD FLAGS(6);
     runtime_context PT_LOAD FLAGS(6);
     runtime_heap PT_LOAD FLAGS(6);
+    modem_parser PT_LOAD FLAGS(6);
+    modem_boot PT_LOAD FLAGS(6);
+    modem_scratch PT_LOAD FLAGS(6);
+    modem_timing PT_LOAD FLAGS(6);
+    modem_buffer PT_LOAD FLAGS(6);
+    modem_runtime PT_LOAD FLAGS(6);
     log PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
@@ -133,6 +145,12 @@ SECTIONS {
     .runtime_current : { *(.data.syscon_runtime_current) } > TEST_RUNTIME_CURRENT AT> TEST_CODE :runtime_current
     .runtime_context : { *(.data.syscon_runtime_context) } > TEST_RUNTIME_CONTEXT AT> TEST_CODE :runtime_context
     .runtime_heap (NOLOAD) : { *(.bss.syscon_runtime_heap) } > TEST_RUNTIME_HEAP :runtime_heap
+    .modem_parser : { *(.data.syscon_modem_parser) } > TEST_MODEM_PARSER AT> TEST_CODE :modem_parser
+    .modem_boot (NOLOAD) : { *(.bss.syscon_modem_boot) } > TEST_MODEM_BOOT :modem_boot
+    .modem_scratch (NOLOAD) : { *(.bss.syscon_modem_scratch) } > TEST_MODEM_SCRATCH :modem_scratch
+    .modem_timing (NOLOAD) : { *(.bss.syscon_modem_timing) } > TEST_MODEM_TIMING :modem_timing
+    .modem_buffer (NOLOAD) : { *(.bss.syscon_modem_buffer) } > TEST_MODEM_BUFFER :modem_buffer
+    .modem_runtime (NOLOAD) : { *(.bss.syscon_modem_runtime) } > TEST_MODEM_RUNTIME :modem_runtime
     .log (NOLOAD) : { *(.bss.syscon_log_enabled) } > TEST_LOG :log
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers
