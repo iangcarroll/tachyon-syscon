@@ -45,7 +45,7 @@ def elf_audit(path):
         for section in elf.iter_sections():
             if section['sh_flags']&4:
                 a,n=section['sh_addr'],section['sh_size']
-                if not (0xc0<=a and a+n<=0xf7f8 or 0x20000000<=a and a+n<=0x20001000):issues.append('Executable section outside declared code/RAM regions: '+section.name)
+                if not (0xc0<=a and a+n<=0xf7f7 or 0x20000000<=a and a+n<=0x20001000):issues.append('Executable section outside declared code/RAM regions: '+section.name)
         for segment in loads:
             a,n=segment['load_address'],segment['bytes']
             if n and (a>=0xf800 or a+n>0xf800):issues.append('Load segment overlaps identity/config or exceeds physical flash')

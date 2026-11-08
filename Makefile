@@ -28,7 +28,7 @@ build/arm/libsyscon-reconstruction.a: $(OBJECTS)
 inputs: references-fetch firmware-fetch
 
 firmware-fetch:
-	$(PYTHON) tools/fetch_firmware.py
+	$(PYTHON) tools/fetch_firmware.py --with-updater
 
 test: inputs
 	$(PYTHON) -m pytest -q tests
