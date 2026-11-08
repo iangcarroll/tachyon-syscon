@@ -11,7 +11,8 @@ The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L
 | Flash after the RAM executor load image, through `0xab1f` | Linker-sized code, constants and initialized-data load image; actual sizes/headroom are in the build manifest |
 | Flash `0xab20..0xc418` | Data-only recovered actions/configuration constants/strings, with explicit source-symbol pointer relocations |
 | Flash `0xc419..0xc61e` | Source-defined 37×14-byte command descriptors |
-| Flash `0xc61f..0xe2d7` | Remaining recovered strings and immutable data |
+| Flash `0xc61f..0xcd7a` | Reclaimed space for linker-allocated application/diagnostic/modem constants |
+| Flash `0xcd7b..0xe2d7` | Remaining recovered strings and immutable data |
 | Flash `0xe2d8..0xe2df` | Relocated timestamp and queue constructor pointers |
 | Flash `0xe2e0..0xe2e7` | Original code-relative unwind entry excluded |
 | Flash `0xe2e8..0xe577` | 656-byte initialized SRAM image, with relocated printer pointers |

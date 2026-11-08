@@ -8,6 +8,7 @@ from unicorn import UC_HOOK_MEM_READ, UC_HOOK_MEM_WRITE, UC_MEM_WRITE
 from unicorn.arm_const import UC_ARM_REG_R1
 from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
+from power_state_comparison import log_arguments
 import build_runtime_scan_image as runtime
 ROOT=Path(__file__).resolve().parents[1]
 GETTERS=[(0x3114,'auto_boot'),(0x3120,'wakeup_enabled'),(0x312c,'log_color'),
@@ -22,7 +23,7 @@ def diagnostic_elf(tmp_path_factory):
         f'.global syscon_target_{name}\n.type syscon_target_{name},%function\n.thumb_func\nsyscon_target_{name}:\n bkpt #0\n bx lr\n' for name in names))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['target/diagnostics_target.c','src/format.c','src/logging.c',
+        runtime.SOURCES=old+['target/diagnostics_target.c','target/diagnostics_state.c','src/format.c','src/logging.c',
                             'target/format_wrappers.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S',str(stub)]
         return runtime.build(directory)
     finally:runtime.SOURCES=old
@@ -97,14 +98,7 @@ def configure_poll(p,clocks,temperature,off=0,wake=0):
             events.append((name,cpu.arg(0)) if name=='gpio_read' else (name,));return result
         p.bind(addr,name,invoke)
     def log(cpu,events,i):
-        header=tuple(cpu.arg(j) for j in range(3));fmt=header[2]
-        if fmt==0xb253:args=tuple(cpu.arg(j) for j in range(3,9))
-        else:
-            assert fmt==0xb295
-            args=tuple(cpu.arg(j) for j in range(3,7))
-            text=bytes(cpu.cpu.mem_read(cpu.arg(7),12)).split(b'\0')[0]
-            args+=(text,)
-        events.append(('log',header,args));return 0
+        events.append(('log',log_arguments(cpu,2)));return 0
     p.bind(0x8f88,'logger',log)
     return indices
 
@@ -145,3 +139,14 @@ def test_poll_persistent_memory_access_width_order_and_mutation(diagnostic_elf):
         p.put(0x200002c0,struct.pack('<QII',0xffffffff,0,0));p.put(0x20000046,bytes([enable]))
         traces[0].clear();traces[1].clear();configure_poll(p,[6001]*3,0)
         p.call(0x3488,'diagnostics_poll',void=True);assert traces[0]==traces[1]
+
+
+def test_diagnostic_text_does_not_read_original_rom(diagnostic_elf):
+    p=Pair(diagnostic_elf)
+    for address,size in [(0xb24c,0x7d),(0xcb73,3),(0xd9ea,7),(0xcd10,5),(0xcd1d,4)]:
+        p.machines[1].put(address,b'\xa5'*size)
+    for temperature in [0x80000000,-1,123,0]:
+        p.put(0x200002c0,struct.pack('<QII',73,0,0))
+        p.put(0x20000046,b'\1')
+        configure_poll(p,[6001]*3,temperature,wake=1)
+        p.call(0x3488,'diagnostics_poll',void=True)

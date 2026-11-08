@@ -83,7 +83,8 @@ class Pair:
         self.active_cpu=1
         actual=self.cpus[1].call('syscon_target_modem_'+ENTRIES[entry],*args,count=2000000)
         if check_return is None:check_return=entry not in VOID
-        if check_return:assert actual==expected,(hex(entry),args,actual,expected)
+        if entry==0x66a0:assert self.cpus[0].cstring(expected)==self.cpus[1].cstring(actual)
+        elif check_return:assert actual==expected,(hex(entry),args,actual,expected)
         assert bytes(self.cpus[0].cpu.mem_read(0x20000000,0x800))==self.power_state.memory(0x20000000,self.cpus[1].read(0x20000000,0x800)),(hex(entry),'state')
         
         if self.events[0]!=self.events[1]:

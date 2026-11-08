@@ -30,7 +30,6 @@
 #define D_6138 0x0000d07cu
 #define D_613c 0x0000d0ebu
 #define D_6140 0x0000d17au
-#define D_6144 0x0000c9ccu
 #define D_6148 0x200004f8u
 #define D_61a8 0x200000e0u
 #define D_61ac 0x0000cf68u
@@ -90,7 +89,6 @@
 #define D_664c 0x0000d39du
 #define D_668c 0x20000458u
 #define D_669c 0x200004f1u
-#define D_66b4 0x0000ccebu
 #define D_66b8 0x0000dbc4u
 #define D_6714 0x0000d3bcu
 #define D_6718 0x0000cfe1u
@@ -100,7 +98,6 @@
 #define D_6804 0x000006a3u
 #define D_6808 0x0000d3fcu
 #define D_680c 0x0000d41bu
-#define D_6810 0x0000ca6fu
 #define D_6814 0x0000d45cu
 #define D_6818 0x200004f2u
 #define D_681c 0x00000bb8u

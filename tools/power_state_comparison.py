@@ -40,7 +40,8 @@ class PowerStateComparison:
 
 def text_argument(cpu, value):
     if value and not (value < 0x10000 or 0x01000000 <= value < 0x01080000
-                      or 0x20000000 <= value < 0x20001000):
+                      or 0x20000000 <= value < 0x20001000
+                      or 0x21000000 <= value < 0x21010000):
         return value
     try:
         return cpu.cstring(value)

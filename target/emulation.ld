@@ -5,6 +5,8 @@ MEMORY {
     TEST_DATA (rw) : ORIGIN = 0x21000000, LENGTH = 32K
     /* Per-function fixtures intentionally share the oracle's cache location.
        The physical linker has no such placement constraint. */
+    TEST_DIAGNOSTICS_FLAG (rw) : ORIGIN = 0x20000046, LENGTH = 1
+    TEST_DIAGNOSTICS_STATE (rw) : ORIGIN = 0x200002c0, LENGTH = 16
     TEST_CONFIG (rw) : ORIGIN = 0x20000030, LENGTH = 22
     TEST_KEY_RANGES (rw) : ORIGIN = 0x200000b4, LENGTH = 36
     TEST_KEY_CONTROL (rw) : ORIGIN = 0x200000d8, LENGTH = 2
@@ -35,6 +37,8 @@ MEMORY {
 PHDRS {
     code PT_LOAD FLAGS(5);
     config PT_LOAD FLAGS(6);
+    diagnostics_flag PT_LOAD FLAGS(6);
+    diagnostics_state PT_LOAD FLAGS(6);
     key_ranges PT_LOAD FLAGS(6);
     key_control PT_LOAD FLAGS(6);
     key_runtime PT_LOAD FLAGS(6);
@@ -68,6 +72,8 @@ SECTIONS {
         *(.rodata*)
     } > TEST_CODE :code
     .ARM.exidx : { *(.ARM.exidx*) } > TEST_CODE :code
+    .diagnostics_flag : { *(.data.syscon_diagnostics_enabled) } > TEST_DIAGNOSTICS_FLAG AT> TEST_CODE :diagnostics_flag
+    .diagnostics_state (NOLOAD) : { *(.bss.syscon_diagnostics_state) } > TEST_DIAGNOSTICS_STATE :diagnostics_state
     .config_state : { *(.data.syscon_config_state) } > TEST_CONFIG AT> TEST_CODE :config
     .key_ranges : { *(.data.syscon_powerkey_ranges) } > TEST_KEY_RANGES AT> TEST_CODE :key_ranges
     .key_control : { *(.data.syscon_powerkey_control) } > TEST_KEY_CONTROL AT> TEST_CODE :key_control
