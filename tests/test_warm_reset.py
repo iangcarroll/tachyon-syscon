@@ -175,6 +175,7 @@ def run_to_application_loop(machine):
 
     def instruction(cpu, address, size, unused):
         if reached:
+            machine.stop_reason = ('application-loop-stage', 2)
             cpu.emu_stop()
 
     hooks = [machine.cpu.hook_add(UC_HOOK_MEM_WRITE, write),
@@ -185,6 +186,7 @@ def run_to_application_loop(machine):
         for hook in hooks:
             machine.cpu.hook_del(hook)
     assert reached, 'Firmware did not return to its application loop'
+    assert machine.stop_reason == ('application-loop-stage', 2)
 
 
 @pytest.mark.parametrize('partial', [False, True])
