@@ -1,4 +1,4 @@
-# Original-ABI ADC target drivers
+# ADC conversion and calibration
 
 `target/adc_target.c` implements `0x7c54`, `0x7d54`, `0x7e7c`, and `0x7f24` through the interfaces in `include/adc_target.h`. These are direct target functions, not wrappers around the host ADC environment. The source uses the reconstructed lookup/clock/VREF helpers, memory routines, signed division, and actual cycle-delay instructions.
 
@@ -9,7 +9,7 @@
 | `0x7e7c` | `syscon_target_adc_raw` | Manual sample/conversion sequence, delay-separated descriptor reloads, SVT result read and 16-bit mask |
 | `0x7f24` | `syscon_target_adc_millivolts` | Bytewise scale reload, wrapping 32-bit product and signed truncation toward zero |
 
-Pin lookup uses the low byte of its argument and the mutable original ADC descriptor table. Missing descriptors assert before null configuration is checked during initialization. Assertions preserve the original filename/expression addresses and line numbers. Initialization's R0 is zero and R1 is the copied first clock-configuration word; a `uint64_t` return explicitly preserves both.
+Pin lookup uses the low byte of its argument and the mutable `syscon_adc_channels` table in `target/hal_helpers.c`. Missing descriptors assert before null configuration is checked during initialization. Assertions preserve the original filename/expression text and line numbers; their strings are ordinary linker-resolved C objects. Initialization's R0 is zero and R1 is the copied first clock-configuration word; a `uint64_t` return explicitly preserves both.
 
 The raw conversion does not cache its port across delay calls. It reloads the descriptor's base after the 32000-count delay, then reloads the slot and base after the 3200-count delay. The target implementation and tests preserve these reads, including descriptor changes during actual delay execution. It does not invent a conversion-complete poll or timeout absent from the original.
 
@@ -23,8 +23,30 @@ The scale conversion keeps the original byte read order and defined ARM32 wrap s
 
 The standalone builder `tools/adc_uart_target_oracle.py` links `target/hal_helpers.c`, `target/mspm0_core_target.c`, `target/core_helpers.c`, `src/runtime_memory.c`, `src/runtime_arithmetic.c`, the reconstructed arithmetic ABI/adapters, and pinned GCC soft-float source. No installed libc/libgcc is linked. `syscon_target_assert` is the one trapped nonreturning dependency in the direct tests; the full target assertion can be linked by the final image builder. Unused sleep/logging code is garbage-collected, so this ADC test does not supply a fake logger.
 
-Fixed data-layout dependencies include ADC descriptors at `0x200000f4`, saved configuration/scale at `0x20000681`, the VREF flag at `0x20000694`, clock bytes at `0xabe0`, and original assertion strings. The factory word is explicit register-environment input, never an invented board calibration. Original bytes are readable data only in the candidate process; original executable code is not a fallback.
+`include/adc_state.h` defines the board channel descriptors, saved caller configuration,
+little-endian scale bytes and VREF initialization flag. They are named linker-allocated
+objects; no private RAM or ROM address remains in `target/adc_target.c` or the ADC
+lookup helper. Clock parameters are explicit source values. Fixed addresses in the
+conversion code identify MCU peripherals, the ADC result alias and factory calibration
+memory. Factory calibration remains an explicit emulator input, never an invented
+per-device calibration. Original instructions are not a candidate fallback.
+
+Only per-function fixture linkers place the objects at the oracle's historical
+locations to compare ordered accesses and overlapping caller buffers. The physical
+image has no equivalent placement constraint. Warm reset reinitializes descriptors
+and clears saved configuration/scale/VREF state as the original startup did.
 
 `tests/test_adc_target.py` compares actual original and recompiled ARM instructions, ordered RAM/MMIO accesses, return bits, and RAM effects. It exercises every descriptor, high-bit pin aliases, overlapping forward config copies, invalid mappings, null/config-pointer faults, channel/slot extremes, real delay execution, temperature readiness transitions, calibration sentinel/overflow cases, and faults at every initialization access boundary. Delay observation hooks record calls and optionally change explicit environment inputs; they do not bypass delay instructions.
 
-The shared ADC/UART checkpoint passed **29 test groups in 15.11 seconds**, exercising **605/605 identified instructions across all eight driver entries**. `analysis/adc-uart-target-reference-coverage.json` records this run. Its global input-stability flag is false because unrelated scheduling files changed during the run; linked driver sources and tests were unchanged. This is differential test evidence, not full-domain formal proof, exact-binary equivalence, physical ADC timing/calibration validation, or a flash-ready image. Private stack-layout aliasing and silicon-specific unaligned-access behavior are not established by this relocated function harness.
+`test_adc_does_not_read_original_clock_or_assertion_text` poisons the historical
+clock bytes and assertion strings on the candidate side. The full-image relocation
+regression also poisons the old channel/state locations and sends `READ_PWR` while
+battery-channel samples rise and fall. It requires matching original UART reports,
+increasing/decreasing measured voltage, unchanged obsolete storage, and persistence
+through the rest of the linked-image session. Warm-reset tests compare restored ADC
+state and channel descriptors after poisoning them before SYSRESETREQ.
+
+These tests exercise finite synthetic inputs, not battery chemistry, measured board
+charging curves, physical ADC timing/calibration or all possible interrupt interleavings.
+The historical instruction-coverage report is a prior checkpoint; current CI artifacts
+record validation of each submitted revision.

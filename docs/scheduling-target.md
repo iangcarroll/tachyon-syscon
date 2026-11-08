@@ -108,7 +108,7 @@ preserving compiler register choices or private code addresses.
 instructions, including threshold boundaries, overflow, callback mutations,
 invalid callback faults, both modes and a complete long-press/release sequence.
 Logger comparisons use string contents; pointer-like integer arguments are not
-normalized. `test_config_relocation.py` additionally moves code and initialized
+normalized. `test_firmware_relocation.py` additionally moves code and initialized
 RAM, poisons the obsolete button RAM, then drives GPIO edges through the full
 image's interrupt/timer/main-loop path. It requires press and release events,
 application consumption, matching UART messages and ordered power transitions.

@@ -16,10 +16,15 @@ from inventory import ROOT, load_image
 SCENARIO=ROOT/'fixtures/emulator/tachyon-synthetic.json'
 
 
-def boot(image,scenario=SCENARIO,budget=2000000,observer=None):
+def boot(image,scenario=SCENARIO,budget=2000000,observer=None,stack_floor=0x20000820):
     machine,inputs=from_scenario(scenario,image)
     if observer is not None:
         observer(machine)  # Install read-only observers before the first instruction.
+    def check_stack(cpu):
+        pointer=cpu.reg_read(UC_ARM_REG_MSP)
+        if not stack_floor<=pointer<=0x20001000:
+            raise AssertionError(f'Stack overlaps allocated state or leaves physical SRAM: {pointer:#x} (floor {stack_floor:#x})')
+        return pointer
     observation={'minimum_msp':0x20001000,'main_loop_reached':False}
     pending=False
     def memory(cpu,kind,address,size,value,unused):
@@ -27,7 +32,7 @@ def boot(image,scenario=SCENARIO,budget=2000000,observer=None):
         if address==0x400b040c and size==4 and value==2:
             pending=True
     def instruction(cpu,address,size,unused):
-        observation['minimum_msp']=min(observation['minimum_msp'],cpu.reg_read(UC_ARM_REG_MSP))
+        observation['minimum_msp']=min(observation['minimum_msp'],check_stack(cpu))
         if pending:
             observation['main_loop_reached']=True
             machine.stop_reason=('application-loop-stage',2)
@@ -42,10 +47,8 @@ def boot(image,scenario=SCENARIO,budget=2000000,observer=None):
     machine.boot_observation=observation
     machine.minimum_msp=observation['minimum_msp']
     def stack_guard(cpu,address,size,unused):
-        pointer=cpu.reg_read(UC_ARM_REG_MSP)
+        pointer=check_stack(cpu)
         machine.minimum_msp=min(machine.minimum_msp,pointer)
-        if not 0x20000820<=pointer<=0x20001000:
-            raise AssertionError(f'Stack overlaps fixed state or leaves physical SRAM: {pointer:#x}')
     machine.cpu.hook_add(UC_HOOK_CODE,stack_guard)
     return machine,inputs
 
@@ -79,9 +82,10 @@ def snapshot(machine,image):
         sram_sha256=hashlib.sha256(machine.cpu.mem_read(0x20000000,4096)).hexdigest())
 
 
-def compare(candidate_image,scenario=SCENARIO):
+def compare(candidate_image,scenario=SCENARIO,stack_floor=0x20000820):
     images=[load_image(),candidate_image]
-    machines=[boot(image,scenario)[0] for image in images]
+    machines=[boot(image,scenario,stack_floor=stack_floor if i else 0x20000820)[0]
+              for i,image in enumerate(images)]
     sessions=[]
     for command in ['VERSION','CONFIG_SET emu.key alpha','CONFIG_GET emu.key']:
         outputs=[command_reply(machine,command) for machine in machines]
@@ -95,7 +99,8 @@ def compare(candidate_image,scenario=SCENARIO):
             equal_after_timestamp_normalization=normalized_log(outputs[0])==normalized_log(outputs[1])))
         assert sessions[-1]['equal_after_timestamp_normalization'],command
     assert machines[0].flash[0xf800:]==machines[1].flash[0xf800:]
-    cold=[boot(bytes(machine.flash),scenario)[0] for machine in machines]
+    cold=[boot(bytes(machine.flash),scenario,stack_floor=stack_floor if i else 0x20000820)[0]
+          for i,machine in enumerate(machines)]
     restored=[command_reply(machine,'CONFIG_GET emu.key') for machine in cold]
     for output in restored:assert b'alpha' in output and b'PASS\r\n' in output
     assert normalized_log(restored[0])==normalized_log(restored[1])
@@ -108,11 +113,27 @@ def compare(candidate_image,scenario=SCENARIO):
         note='Complete source image reset, IRQ/UART commands and fresh-boot persistence in the explicit synthetic MCU environment; finite scenarios, not universal equivalence.')
 
 
+def candidate_stack_floor(path):
+    """Trust a layout bound only when its manifest matches these image bytes."""
+    path=Path(path)
+    manifest=json.loads(path.with_name('manifest.json').read_text())
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=manifest['binary_sha256']:
+        raise ValueError('Firmware does not match the layout manifest')
+    floor=manifest['layout_audit']['stack_floor_address']
+    if not isinstance(floor,int) or not 0x20000000<floor<0x20001000:
+        raise ValueError('Layout manifest has an invalid SRAM stack floor')
+    return floor
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--firmware',type=Path,default=ROOT/'build/physical-firmware/firmware.bin')
     parser.add_argument('--report',type=Path,default=ROOT/'build/rebuilt-system-session.json')
-    args=parser.parse_args();result=compare(args.firmware.read_bytes())
+    parser.add_argument('--stack-floor',type=lambda value:int(value,0),
+                        help='Explicit SRAM allocation end for an image without a matching build manifest')
+    args=parser.parse_args()
+    floor=args.stack_floor if args.stack_floor is not None else candidate_stack_floor(args.firmware)
+    result=compare(args.firmware.read_bytes(),stack_floor=floor)
     args.report.parent.mkdir(parents=True,exist_ok=True)
     args.report.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'report':str(args.report),'persistent_flash_equal':result['persistent_flash_equal'],

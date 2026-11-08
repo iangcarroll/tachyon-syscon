@@ -51,7 +51,16 @@ class Pair:
             m.cpu.hook_add(UC_HOOK_CODE,self.code(i))
             def assertion(o,index=i):
                 value=tuple(o.arg(n) for n in range(3));self.assertions[index].append(value)
-                raise AssertionBoundary(value)
+                def string(address):
+                    result=bytearray()
+                    for offset in range(256):
+                        byte=o.cpu.mem_read(address+offset,1)
+                        if byte==b'\0':return bytes(result)
+                        result.extend(byte)
+                    raise AssertionError('Unterminated assertion diagnostic')
+                # Only text pointer positions are normalized. Diagnostic line
+                # numbers remain exact, including arbitrary integer values.
+                raise AssertionBoundary((string(value[0]),value[1],string(value[2])))
             m.hooks[0x2678 if not i else m.symbols['syscon_target_assert']&~1]=assertion
     def code(self,index):
         def hook(uc,address,size,_):

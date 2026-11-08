@@ -10,6 +10,9 @@ MEMORY {
     TEST_KEY_CONTROL (rw) : ORIGIN = 0x200000d8, LENGTH = 2
     TEST_KEY_RUNTIME (rw) : ORIGIN = 0x20000390, LENGTH = 24
     TEST_RETAINED (rw) : ORIGIN = 0x200000da, LENGTH = 3
+    TEST_ADC_CHANNELS (rw) : ORIGIN = 0x200000f4, LENGTH = 72
+    TEST_ADC_STATE (rw) : ORIGIN = 0x20000685, LENGTH = 11
+    TEST_ADC_VREF (rw) : ORIGIN = 0x20000694, LENGTH = 1
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
 }
@@ -20,6 +23,9 @@ PHDRS {
     key_control PT_LOAD FLAGS(6);
     key_runtime PT_LOAD FLAGS(6);
     retained PT_LOAD FLAGS(6);
+    adc_channels PT_LOAD FLAGS(6);
+    adc_state PT_LOAD FLAGS(6);
+    adc_vref PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
     data PT_LOAD FLAGS(6);
@@ -35,6 +41,9 @@ SECTIONS {
     .key_control : { *(.data.syscon_powerkey_control) } > TEST_KEY_CONTROL AT> TEST_CODE :key_control
     .key_runtime (NOLOAD) : { *(.bss.syscon_powerkey_runtime) } > TEST_KEY_RUNTIME :key_runtime
     .retained (NOLOAD) : { *(.bss.syscon_retained_state) } > TEST_RETAINED :retained
+    .adc_channels : { *(.data.syscon_adc_channels) } > TEST_ADC_CHANNELS AT> TEST_CODE :adc_channels
+    .adc_state (NOLOAD) : { *(.bss.syscon_adc_state) } > TEST_ADC_STATE :adc_state
+    .adc_vref (NOLOAD) : { *(.bss.syscon_adc_vref_initialized) } > TEST_ADC_VREF :adc_vref
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers
     .data : { *(.data*) } > TEST_DATA AT> TEST_CODE :data

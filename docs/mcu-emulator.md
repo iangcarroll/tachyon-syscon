@@ -151,7 +151,9 @@ session, minimum MSP was `0x20000b58` for the original and `0x20000b48` for the
 source image; commands wait for an actual PASS/FAIL reply, not a fixed delay.
 
 The current session runner also watches MSP throughout commands and fails if it
-enters fixed globals below `0x20000820` or leaves physical SRAM. The full source
+enters allocated globals or leaves physical SRAM. The default floor remains
+`0x20000820` for the original image; relocated-image tests supply the build
+manifest's `stack_floor_address` so new data/BSS cannot silently overlap the stack. The full source
 image regression is `tests/test_rebuilt_system.py`; its second scenario injects
 four I2C NACKs and compares actual assertion output and interrupt-disable state
 against the original. No firmware function is stubbed in these system tests.

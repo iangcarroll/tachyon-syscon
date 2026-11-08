@@ -26,6 +26,17 @@ def test_adc_init_all_descriptors_truncated_ids_config_copy_and_scale_fields(dri
             assert p.candidate.read(0x2000068c,4)==cfg[4:6]+b'\0\0'
 
 
+def test_adc_does_not_read_original_clock_or_assertion_text(driver_elf):
+    p=Pair(driver_elf)
+    p.candidate.put(0xabe0,b'\xa5'*8)
+    p.candidate.put(0xdee4,b'\xa5'*(0xdf49-0xdee4))
+    p.put(CFG,bytes([0,0,7,0,8,7,12]));prepare(p)
+    p.run(0x7c54,pins(p)[0],CFG)
+    for entry in (0x7c54,0x7e7c,0x7f24):
+        assert p.run(entry,255,CFG)[0]=='assert'
+    assert p.run(0x7c54,pins(p)[0],0)[0]=='assert'
+
+
 def test_adc_init_aliasing_copy_and_byte_rereads(driver_elf):
     p=Pair(driver_elf);rng=random.Random(23);pin=pins(p)[0]
     for config in range(0x20000680,0x20000695):

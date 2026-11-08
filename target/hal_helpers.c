@@ -1,13 +1,27 @@
 /* Reconstructed from the pinned original Thumb bodies; no DriverLib linkage. */
 #include "hal_helpers.h"
+#include "adc_state.h"
 #define U8(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 #define U16(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 #define U32(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
 
-uint32_t syscon_hal_adc_lookup(uint32_t id) {
-    for (uint32_t i = 0; i != 6; ++i)
-        if ((uint32_t)U8(0x200000f4u + 12u*i) == id)
-            return 0x200000f4u + 12u*i;
+/* Tachyon board ADC routing. Only the peripheral base is an MCU address. */
+volatile syscon_adc_channel_t syscon_adc_channels[6]
+    __attribute__((section(".data.syscon_adc_channels"))) = {
+        {12, {0}, 0x40004000u, 5, 0, {0}},
+        {13, {0}, 0x40004000u, 3, 0, {0}},
+        {14, {0}, 0x40004000u, 2, 0, {0}},
+        {15, {0}, 0x40004000u, 9, 0, {0}},
+        {16, {0}, 0x40004000u, 1, 0, {0}},
+        {23, {0}, 0x40004000u, 8, 0, {0}},
+    };
+
+uint32_t syscon_hal_adc_lookup(uint32_t id)
+{
+    for (unsigned i = 0; i < 6; ++i) {
+        if (syscon_adc_channels[i].pin == id)
+            return (uint32_t)(uintptr_t)&syscon_adc_channels[i];
+    }
     return 0;
 }
 uint32_t syscon_hal_pwm_lookup(uint32_t id) {

@@ -4,6 +4,7 @@ import random
 import struct
 import subprocess
 from pathlib import Path
+from elftools.elf.elffile import ELFFile
 import pytest
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_MODE_MCLASS,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE,UC_MEM_READ,UcError
 from unicorn.arm_const import UC_ARM_REG_PC,UC_ARM_REG_SP,UC_ARM_REG_R4,UC_ARM_REG_R5,UC_ARM_REG_R6,UC_ARM_REG_R7,UC_ARM_REG_R8,UC_ARM_REG_R9,UC_ARM_REG_R10,UC_ARM_REG_R11,UC_CPU_ARM_CORTEX_M0
@@ -23,15 +24,14 @@ ENTRIES={0x7a68:'syscon_hal_adc_lookup',0x7a90:'syscon_hal_pwm_lookup',
 
 @pytest.fixture(scope='module')
 def compiled(tmp_path_factory):
-    directory=tmp_path_factory.mktemp('hal-helpers');obj=directory/'helpers.o';elf=directory/'helpers.elf';binary=directory/'helpers.bin'
+    directory=tmp_path_factory.mktemp('hal-helpers');obj=directory/'helpers.o';elf=directory/'helpers.elf'
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(ROOT/'target/hal_helpers.c'),'-o',str(obj)],check=True)
-    subprocess.run(['arm-none-eabi-ld','-e','syscon_hal_adc_lookup','-Ttext=0x01000000',str(obj),'-o',str(elf)],check=True)
-    subprocess.run(['arm-none-eabi-objcopy','-O','binary',str(elf),str(binary)],check=True)
+    subprocess.run(['arm-none-eabi-ld','-e','syscon_hal_adc_lookup','-T',str(ROOT/'target/emulation.ld'),str(obj),'-o',str(elf)],check=True)
     symbols={}
     for line in subprocess.check_output(['arm-none-eabi-nm',str(elf)],text=True).splitlines():
         fields=line.split()
         if len(fields)==3:symbols[fields[2]]=int(fields[0],16)
-    return binary.read_bytes(),symbols
+    return elf,symbols
 
 class AccessFault(Exception):pass
 
@@ -48,7 +48,15 @@ class HalOracle(Oracle):
         self.compiled=compiled;self.events=[];self.values={};self.scripts={}
         self.fail_at=None;self.stop_after=None;self.control_change=None
         self.cpu.mem_map(BASE,0x2000);self.cpu.mem_map(DATA,0x20000)
-        if compiled:self.cpu.mem_map(CODE,0x1000);self.put(CODE,compiled[0])
+        if compiled:
+            self.cpu.mem_map(CODE,0x80000)
+            with compiled[0].open('rb') as stream:
+                for segment in ELFFile(stream).iter_segments():
+                    if segment['p_type']!='PT_LOAD' or not segment['p_filesz']:continue
+                    address=segment['p_vaddr'];size=segment['p_memsz']
+                    assert ((CODE<=address and address+size<=CODE+0x80000) or
+                            (address==0x200000f4 and size==72 and not segment['p_flags']&1))
+                    self.put(address,segment.data())
         for low,high in [(BASE,BASE+0x1fff),(CFG,CFG+63),(DATA,DATA+0x1ffff),
                          (0x200000f4,0x20000263)]:
             self.cpu.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,self.memory,begin=low,end=high)
