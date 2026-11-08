@@ -4,7 +4,7 @@
 
 | Original | Source symbol | Contract |
 |---|---|---|
-| `0x2738` | `syscon_target_flash_report` | Read fixed FLASHCTL status once, mask `0x10f0`, log the original tag/format pointer |
+| `0x2738` | `syscon_target_flash_report` | Read fixed FLASHCTL status once, mask `0x10f0`, log linked source tag/message text |
 | `0x7af4` | `syscon_target_flash_erase` | Write `size OR 2`, target address, execute and return status |
 | `0x7b10` | `syscon_target_flash_program` | Configure program/mask/address, load first data word and write it, load second word and write it, execute |
 | `0x7b44` | `syscon_target_flash_unprotect` | Clear all three original protection words in order; preserve input base in R0 |

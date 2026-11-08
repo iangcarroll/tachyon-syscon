@@ -11,9 +11,8 @@ enables interrupts, reads SysTick control again and sets bit 1, and logs
 entering with interrupts disabled leaves with them enabled. The second SysTick
 read preserves register changes made while asleep.
 
-Logging is an explicit `syscon_core_log` link boundary. The helper currently
-uses the original image's three string addresses, so it belongs to the pinned
-image's address space rather than a standalone relocated firmware image. The
+Logging is an explicit `syscon_core_log` link boundary. Its diagnostic
+strings are ordinary linker-resolved C literals. The
 emulator test hooks logging and models an immediate external wake at WFI,
 including a scripted change to SysTick control. It compares ordered logs,
 register reads/writes, IRQ mask transitions and barriers for both initial IRQ

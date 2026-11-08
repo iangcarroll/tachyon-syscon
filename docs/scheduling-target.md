@@ -1,7 +1,8 @@
 # Original-ABI scheduler, timers, and retained state
 
 The C in `target/tasks_target.c`, `target/timers_target.c`, and
-`target/retained_target.c` accesses the firmware 1.0.52 addresses directly.
+`target/retained_target.c` uses named linker-allocated state and source text.
+Only SysTick/NVIC and PMU scratch accesses use fixed hardware addresses.
 Its public functions in `include/scheduling_target.h` take the original ARM
 arguments, without a RAM or environment pointer. Callback words are actual
 Thumb function pointers and execute through indirect calls. No original
@@ -33,11 +34,10 @@ post-callback reads observe those modifications. Task start times retain their
 32-bit width, zero sentinel, and unsigned 64-bit elapsed-time comparison.
 
 The logger is an external link dependency with original arguments. Its tag and
-format pointers still refer to original-address rodata (`0xcdab..0xcdd2` and
-`0xdbf6..0xdd00`). Integrating a production image requires source-defined strings
-at those addresses or a coordinated pointer/layout translation. The isolated
-function tests map the original image read-only for rodata compatibility;
-candidate execution there is prohibited. `syscon_target_watchdog_feed` is the
+format strings resolve from ordinary C data. Differential fixtures compare
+text contents and consumed arguments, and poison obsolete text locations.
+The physical linker can move these strings independently of their callers.
+`syscon_target_watchdog_feed` is the
 other external dependency. Byte copies/clears link our `src/runtime_memory.c`.
 
 ## Validation
