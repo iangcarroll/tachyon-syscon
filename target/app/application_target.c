@@ -22,7 +22,6 @@
 #include "config_helpers.h"
 #include <stdint.h>
 #define B(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
-#define S(a) ((const char *)(uintptr_t)(a))
 #define ADDRESS(p) ((uint32_t)(uintptr_t)(p))
 
 void syscon_target_timestamp_constructor(void)
