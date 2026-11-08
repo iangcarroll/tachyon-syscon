@@ -21,11 +21,7 @@ make quick-test
 
 The image is `build/physical-firmware/firmware.bin`. Tests fetch hash-pinned reference inputs automatically. Building and testing do not access the board.
 
-To install experimentally:
-
-1. Run `make test` and retain the original firmware plus configuration/identity backups.
-2. Copy the built image and original restore image to Tachyon. Follow the [Linux flash-and-restore procedure](docs/debug-probe.md#controlled-replacement-round-trip), including hash and programming-range checks, using **Particle's packaged updater**. Other `mspm0flash` versions can mass-erase protected data.
-3. Verify the programmed image and UART responses, then demonstrate restoration of the original while Linux stays running. Keep power stable throughout; Linux-based recovery depends on Linux remaining available.
+Follow the [short flashing guide](docs/flashing.md) to install the image through Tachyon’s Linux updater.
 
 ## Validation
 
