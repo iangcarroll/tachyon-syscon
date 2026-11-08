@@ -24,6 +24,7 @@
 #define PTR(a) ((const char *)(uintptr_t)(uint32_t)(a))
 #define D(a) D_##a
 #define LOG(level,loc,...) syscon_target_logger(level,PTR(D_60e8),PTR(D(loc)),##__VA_ARGS__)
+#define LOG_TEXT(level,format,...) syscon_target_logger(level,PTR(D_60e8),format,##__VA_ARGS__)
 #define ADDRESS(p) ((uint32_t)(uintptr_t)(p))
 static uint64_t read64(uint32_t offset){uint32_t lo=W(offset),hi=W(offset+4);return (uint64_t)lo|((uint64_t)hi<<32);}
 static void write64(uint32_t offset,uint64_t value){W(offset)=(uint32_t)value;W(offset+4)=(uint32_t)(value>>32);}
@@ -69,11 +70,11 @@ uint32_t syscon_target_modem_power_check(void){
         if(battery_mv<2000){
             if(syscon_target_hwrevision_new()){
                 LOG(1,6140);
-                status=(int32_t)syscon_target_power_battery_route_set(2);if(status<0)LOG(1,6144,status);
+                status=(int32_t)syscon_target_power_battery_route_set(2);if(status<0)LOG_TEXT(1,"power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_DCDC) failed: %d",status);
                 B(0x4f8)=1;
             }
         }else{status=(int32_t)syscon_target_power_battery_route_set(1);if(status<0)LOG(1,611c,status);}
-    }else{status=(int32_t)syscon_target_power_battery_route_set(2);if(status<0)LOG(1,6144,status);}
+    }else{status=(int32_t)syscon_target_power_battery_route_set(2);if(status<0)LOG_TEXT(1,"power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_DCDC) failed: %d",status);}
     syscon_target_power_vbus_route_set(usb<=4499&&input&&battery==1?2:1);
     syscon_target_power_report(ADDRESS(syscon_target_mfg_logger));
     B(0x4f2)=1;write64(0x518,syscon_target_now()+3000);
@@ -166,7 +167,7 @@ int32_t syscon_target_modem_wake_remaining(void){
 uint32_t syscon_target_modem_off(void){return B(0x4f1)==0;}
 uint32_t syscon_target_modem_mode_name(uint32_t mode){
     const uint32_t names[]={0xd5ba,0xd73c,0xd328,0xdba1,0xd324};
-    uint32_t index=(uint8_t)(mode-1);return index<5?names[index]:0xcceb;
+    uint32_t index=(uint8_t)(mode-1);return index<5?names[index]:ADDRESS("UNKNOWN");
 }
 uint32_t syscon_target_modem_set_mode(uint32_t mode){
     LOG(3,6714,syscon_target_modem_mode_name(mode));B(0x450)=(uint8_t)mode;
@@ -186,7 +187,7 @@ uint32_t syscon_target_modem_poweroff(uint32_t force){
     if(voltage>1699||force){
         LOG(3,6808);
         int32_t status=(int32_t)syscon_target_power_vbus_route_set(0);if(status<0)LOG(1,680c,status);
-        status=(int32_t)syscon_target_power_battery_route_set(0);if(status<0)LOG(1,6810,status);
+        status=(int32_t)syscon_target_power_battery_route_set(0);if(status<0)LOG_TEXT(1,"power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_NONE) failed: %d",status);
         if(syscon_target_modem_always_on()){status=(int32_t)syscon_target_power_header_default();if(status<0)LOG(1,6814,status);}
         else{
             status=(int32_t)syscon_target_power_header_route_set(0);if(status<0)LOG(1,6830,status);

@@ -41,6 +41,8 @@ def relocated_image(tmp_path_factory):
     assert script.count('.irq_bss (NOLOAD) : {')==1
     script=script.replace('.irq_bss (NOLOAD) : {',
                           '.irq_bss ORIGIN(RAM_IRQ_STATE)+8 (NOLOAD) : {')
+    script=script.replace('.application_rodata : {',
+                          '.application_rodata ORIGIN(RECLAIMED_TEXT)+64 : {')
     script=script.replace('.power_bss (NOLOAD) : {',
                           '.power_bss ORIGIN(RAM_POWER_STATE)+8 (NOLOAD) : {')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
@@ -386,4 +388,26 @@ def test_relocated_power_routes_battery_detection_and_shutdown_commands(relocate
         assert all(b'PASS\r\n' in reply for reply in replies)
         assert normalized_log(replies[0])==normalized_log(replies[1])
         assert machines[0].read(0x2000036f,1)==machines[1].read(symbols['syscon_shutdown_reason'],1)==bytes([reason])
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
+
+
+def test_relocated_diagnostic_controls_and_loop_counter(relocated_image):
+    output,manifest,_=relocated_image
+    symbols=manifest['layout_audit']['symbols']
+    flag=symbols['syscon_diagnostics_enabled']
+    state=symbols['syscon_diagnostics_state']
+    assert flag!=0x20000046 and state!=0x200002c0
+    machines=[boot(load_image())[0],boot((output/'firmware.bin').read_bytes(),
+              stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
+    obsolete=vacant_ranges(manifest,[(0x20000046,1),(0x200002c0,16)])
+    for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
+    before=machines[1].read(state,16)
+    for enabled in [0,1,0,1]:
+        replies=[command_reply(machine,'DIAG '+str(enabled)) for machine in machines]
+        assert all(b'PASS\r\n' in reply for reply in replies)
+        assert normalized_log(replies[0])==normalized_log(replies[1])
+        assert machines[0].read(0x20000046,1)==machines[1].read(flag,1)==bytes([enabled])
+    # Main-loop polling must update the linked object, not merely agree on a
+    # stale fixed location. Timing/count values need not be instruction-identical.
+    assert machines[1].read(state,16)!=before
     for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size

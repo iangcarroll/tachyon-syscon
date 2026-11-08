@@ -3,6 +3,7 @@
 /* Firmware 1.0.52 application entry and fixed-layout glue. No host dispatch. */
 #include "application_target.h"
 #include "diagnostics_target.h"
+#include "diagnostics_state.h"
 #include "scheduling_target.h"
 #include "mspm0_core_target.h"
 #include "fault_control_target.h"
@@ -24,7 +25,7 @@
 #define Q 0x200002d8u
 #define P 0x200002edu
 
-void syscon_target_timestamp_constructor(void){W(0x200002ccu)=(uint32_t)syscon_target_now();}
+void syscon_target_timestamp_constructor(void){syscon_diagnostics_state.last_rate_ms=(uint32_t)syscon_target_now();}
 void syscon_target_queue_destructor(void *queue){(void)queue;}
 void syscon_target_queue_constructor(void){
     W(Q)=0x200002d1u;W(Q+4)=4;W(Q+12)=0;W(Q+8)=0;B(Q+16)=0;

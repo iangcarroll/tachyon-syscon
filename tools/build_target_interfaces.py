@@ -16,7 +16,7 @@ TARGETS=['callback_helpers.c','config_state.c','config_helpers.c','config_read.c
     'runtime_scan.c','runtime_scan_abi.S','runtime_scan_printf.c','runtime_scan_wrappers.c',
     'runtime_stdio.c','runtime_support.c','runtime_arithmetic_float.c',
     'adc_target.c','uart_hal_target.c','timers_target.c','tasks_target.c','retained_target.c',
-    'diagnostics_target.c','application_target.c','logger_target.c','logger_state.c','logger_target_abi.S',
+    'diagnostics_target.c','diagnostics_state.c','application_target.c','logger_target.c','logger_state.c','logger_target_abi.S',
     'rgb_target.c','power_key_target.c','power_policy_target.c','power_state.c','i2c_target.c','pwm_target.c',
     'config_update.c','config_update_abi.S','ioexpander_target.c','power_manager_target.c',
     'protocol_target.c','command_table_target.c','config_commands_target.c','control_commands_target.c','runtime_init_target.c',

@@ -3,6 +3,8 @@ ENTRY(syscon_physical_reset)
 MEMORY {
  CODE (rx) : ORIGIN = 0x00000000, LENGTH = 0xab20
  FIXED (r) : ORIGIN = 0xab20, LENGTH = 0x3a58
+ /* Migrated power strings/scales no longer occupy their original ROM block. */
+ RECLAIMED_TEXT (r) : ORIGIN = 0xc61f, LENGTH = 0x75c
  SPARE (rx) : ORIGIN = 0xe578, LENGTH = 0x1280
  VERSION_REGION (r) : ORIGIN = 0xf7f8, LENGTH = 8
  IDENTITY (r) : ORIGIN = 0xf800, LENGTH = 0x400
@@ -32,6 +34,7 @@ PHDRS {
  fixed PT_LOAD FLAGS(4);
  config_data PT_LOAD FLAGS(4);
  peripheral_rodata PT_LOAD FLAGS(4);
+ application_rodata PT_LOAD FLAGS(4);
  version PT_LOAD FLAGS(4);
  state PT_LOAD FLAGS(6);
  auxiliary PT_LOAD FLAGS(6);
@@ -57,7 +60,7 @@ SECTIONS {
  __ram_extra_load = LOADADDR(.ram_extra);
  .fixed_actions 0xab20 : {KEEP(*(.fixed.ab20))} > FIXED :fixed
  .command_table 0xc419 : {KEEP(*(.rodata.syscon_target_commands))} > FIXED :fixed
- .fixed_strings 0xc61f : {KEEP(*(.fixed.c61f))} > FIXED :fixed
+ .fixed_strings 0xcd7b : {KEEP(*(.fixed.cd7b))} > FIXED :fixed
  .constructors 0xe2d8 : {KEEP(*(.physical.constructors))} > FIXED :fixed
  .initial_data 0xe2e8 : {__physical_initial_data = .;KEEP(*(.physical.initial_data))} > FIXED :fixed
  .version 0xf7f8 : {KEEP(*(.physical.version))} > VERSION_REGION :version
@@ -94,6 +97,11 @@ SECTIONS {
    *target_power_manager_target.o(.rodata*) *target_power_policy_target.o(.rodata*)
    *target_power_state.o(.rodata*)
  } > SPARE :peripheral_rodata
+ .application_rodata : {
+   *target_diagnostics_target.o(.rodata*)
+   *target_sg560d_target.o(.rodata*)
+   *target_application_target.o(.rodata*)
+ } > RECLAIMED_TEXT :application_rodata
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
  .peripheral_data : ALIGN(4) {
@@ -124,7 +132,7 @@ SECTIONS {
  .power_bss (NOLOAD) : {
    __power_bss_start = .;
    *(.bss.syscon_shutdown_reason) *(.bss.syscon_usb_reattach_state)
-   *(.bss.syscon_shutdown_state)
+   *(.bss.syscon_shutdown_state) *(.bss.syscon_diagnostics_state)
    . = ALIGN(4); __power_bss_end = .;
  } > RAM_POWER_STATE :power_state
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized

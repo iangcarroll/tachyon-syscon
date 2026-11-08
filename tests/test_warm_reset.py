@@ -71,6 +71,11 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                 address=int.from_bytes(m.read(names+offset,4),'little')
                 result.append(bytes(m.read(address,64)).split(b'\0',1)[0])
             return tuple(result)
+        diagnostic_blocks=([(0x20000046,1),(0x200002c0,16)]
+                           if image==load_image() else
+                           [(symbols['syscon_diagnostics_enabled'],1),
+                            (symbols['syscon_diagnostics_state'],16)])
+        for address,size in diagnostic_blocks:m.write_ram(address,b'\xa5'*size)
         log_flag=0x2000080c if image==load_image() else symbols['syscon_log_enabled']
         m.write_ram(log_flag,b'\xa5')
         reset_count=m.reset_count
@@ -93,7 +98,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in uart_blocks),
                                m.read(log_flag,1),
                                tuple(m.read(address,size) for address,size in power_blocks),
-                               power_names()))
+                               power_names(),
+                               tuple(m.read(address,size) for address,size in diagnostic_blocks)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)

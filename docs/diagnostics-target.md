@@ -1,8 +1,11 @@
 # Target diagnostics and configuration accessors
 
 `target/diagnostics_target.c` implements eleven original entries with the
-firmware's fixed RAM layout and ARM argument ABI. It includes the complete
-periodic diagnostic body, not just its side effects with log calls omitted.
+ARM argument ABI, including the complete periodic diagnostic body. Enable
+state and loop/rate counters are named linker-allocated objects declared in
+`include/diagnostics_state.h` and defined in `target/diagnostics_state.c`. The
+application timestamp constructor uses that same state. All text is ordinary C
+data; the module has no original private RAM or ROM address dependencies.
 
 The six flags remain full byte values. The unaligned timing words use four
 byte reads in the original order (second, first, third, fourth). Revision
@@ -21,7 +24,12 @@ low/high counter reads. Clock, power measurements, GPIO, temperature, modem
 state, minimum voltage and the final logger sink are explicit test endpoints.
 Private buffer pointers are compared by their consumed string contents.
 
-The tests are bounded comparisons. They do not prove arbitrary interrupt
-interleavings, private-stack aliasing, every call input, or a whole physical
-image. Original-address constant strings remain a layout dependency. These
-entries are not permission to flash a reconstructed image.
+ROM-poisoning tests check string independence. Whole-image relocation exercises
+DIAG commands and main-loop counter progress with old storage poisoned, while
+warm reset verifies that the enable byte returns to its original initial value
+of one and that the counters are reinitialized. The freed power-string ROM
+block now holds linker-allocated constants; it is no longer an imported blob.
+
+These are bounded comparisons, not proofs of every interrupt interleaving or
+private-stack alias. Synthetic MCU temperature inputs do not establish sensor
+accuracy or physical battery thermal behavior.
