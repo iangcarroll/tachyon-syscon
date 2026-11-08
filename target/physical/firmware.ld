@@ -4,7 +4,7 @@ MEMORY {
  CODE (rx) : ORIGIN = 0x00000000, LENGTH = 0xab20
  FIXED (r) : ORIGIN = 0xab20, LENGTH = 0x3a58
  /* Migrated power strings/scales no longer occupy their original ROM block. */
- RECLAIMED_TEXT (r) : ORIGIN = 0xbb09, LENGTH = 0x1272
+ RECLAIMED_TEXT (r) : ORIGIN = 0xb4ac, LENGTH = 0x18cf
  SPARE (rx) : ORIGIN = 0xe578, LENGTH = 0x1280
  VERSION_REGION (r) : ORIGIN = 0xf7f8, LENGTH = 8
  IDENTITY (r) : ORIGIN = 0xf800, LENGTH = 0x400
@@ -21,6 +21,8 @@ MEMORY {
  /* Reclaim old power-name tables and migrated power/key/RGB state. */
  RAM_POWER_DATA (rw) : ORIGIN = 0x20000370, LENGTH = 0x54
  RAM_POWER_STATE (rw) : ORIGIN = 0x2000005c, LENGTH = 0x58
+ RAM_PROTOCOL_DATA (rw) : ORIGIN = 0x20000030, LENGTH = 0x2c
+ RAM_APPLICATION (rw) : ORIGIN = 0x200002c0, LENGTH = 0xb0
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
 /* Separate PT_LOAD flags distinguish code and read-only data in the ELF.
@@ -44,6 +46,8 @@ PHDRS {
  irq_state PT_LOAD FLAGS(6);
  power_data PT_LOAD FLAGS(6);
  power_state PT_LOAD FLAGS(6);
+ protocol_data PT_LOAD FLAGS(6);
+ application_state PT_LOAD FLAGS(6);
 }
 SECTIONS {
  .vectors : {KEEP(*(.vectors))} > CODE :vectors
@@ -139,6 +143,19 @@ SECTIONS {
    *(.bss.syscon_protocol_debug)
    . = ALIGN(4); __power_bss_end = .;
  } > RAM_POWER_STATE :power_state
+ .protocol_data : ALIGN(4) {
+   __protocol_data_start = .; *(.data.syscon_console_parser)
+   . = ALIGN(4); __protocol_data_end = .;
+ } > RAM_PROTOCOL_DATA AT> CODE :protocol_data
+ __protocol_data_load = LOADADDR(.protocol_data);
+ .application_bss (NOLOAD) : {
+   __application_bss_start = .;
+   *(.bss.syscon_key_events) *(.bss.syscon_console_buffer)
+   *(.bss.syscon_key_event_buffer) *(.bss.syscon_shutdown_pending)
+   *(.bss.syscon_key_started_off) *(.bss.syscon_wakeup_pending)
+   *(.bss.syscon_application_dso) *(.bss.syscon_ioexpander_initialized)
+   . = ALIGN(4); __application_bss_end = .;
+ } > RAM_APPLICATION :application_state
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
  __data_load = LOADADDR(.data);
  .state_bss ORIGIN(RAM_STATE) (NOLOAD) : {

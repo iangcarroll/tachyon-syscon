@@ -9,8 +9,8 @@ The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L
 | Flash `0x0000..0x00bf` | 48 source-defined vectors, initial MSP `0x20001000` |
 | Flash `0x00c0..0x00ef` | Load image for the new source-built RAM executor, padded to its original 48-byte slot |
 | Flash after the RAM executor load image, through `0xab1f` | Linker-sized code, constants and initialized-data load image; actual sizes/headroom are in the build manifest |
-| Flash `0xab20..0xbb08` | Data-only recovered actions/configuration constants/strings, with explicit source-symbol pointer relocations |
-| Flash `0xbb09..0xcd7a` | Reclaimed space for linker-allocated command descriptors and command/application/diagnostic/modem constants |
+| Flash `0xab20..0xb4ab` | Data-only recovered actions/configuration constants/strings, with explicit source-symbol pointer relocations |
+| Flash `0xb4ac..0xcd7a` | Reclaimed space for linker-allocated command descriptors and command/application/diagnostic/modem constants |
 | Flash `0xcd7b..0xe2d7` | Remaining recovered strings and immutable data |
 | Flash `0xe2d8..0xe2df` | Relocated timestamp and queue constructor pointers |
 | Flash `0xe2e0..0xe2e7` | Original code-relative unwind entry excluded |
@@ -19,8 +19,10 @@ The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L
 | Flash `0xf7f8..0xf7fe` | Original version string retained as a comparison-data dependency |
 | Flash `0xf800..0xffff` | Identity/config sectors excluded from emitted binary |
 | SRAM `0x20000000..0x2000002f` | New 36-byte original-ABI flash executor, padded to 48 bytes and copied at reset |
-| SRAM `0x20000030..0x200002bf` | Remaining legacy initialized globals; the old configuration-cache bytes are unused |
-| SRAM `0x200002c0..0x20000533` | Remaining original zeroed globals and vacant migrated locations |
+| SRAM `0x20000030..0x2000005b` | Linker-allocated console parser context |
+| SRAM `0x2000005c..0x200002bf` | Migrated peripheral/power arenas and remaining legacy runtime data |
+| SRAM `0x200002c0..0x2000036f` | Linker-allocated application queue, console buffer and flags |
+| SRAM `0x20000370..0x20000533` | Power-name arena and remaining modem state |
 | SRAM `0x20000534..0x2000067f` | Reclaimed task/timer storage; linker-allocated scheduling/retained objects in `.state_bss` |
 | SRAM `0x20000680..0x2000081f` | Remaining original zeroed globals and vacant migrated ADC storage |
 | SRAM `0x20000820..0x20000fff` | Linker-allocated `.data`/BSS, followed by available stack space |

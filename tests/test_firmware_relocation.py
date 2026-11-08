@@ -51,6 +51,10 @@ def relocated_image(tmp_path_factory):
     script=script.replace('.application_rodata : {',
                           '.application_rodata : { . += 64;')
     script=script.replace('.command_table : {', '.command_table ORIGIN(RECLAIMED_TEXT)+32 : {')
+    script=script.replace('.protocol_data : ALIGN(4) {',
+                          '.protocol_data ORIGIN(RAM_PROTOCOL_DATA)+4 : ALIGN(4) {')
+    script=script.replace('.application_bss (NOLOAD) : {',
+                          '.application_bss ORIGIN(RAM_APPLICATION)+8 (NOLOAD) : {')
     script=script.replace('.power_bss (NOLOAD) : {',
                           '.power_bss ORIGIN(RAM_POWER_STATE)+8 (NOLOAD) : {')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
@@ -119,24 +123,27 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
                      ('syscon_power_names',0x20000060),('syscon_minimum_vph_mv',0x2000005c),
                      ('syscon_shutdown_reason',0x2000036f),
                      ('syscon_usb_reattach_state',0x20000370),
-                     ('syscon_shutdown_state',0x20000380)]:
+                     ('syscon_shutdown_state',0x20000380),
+                     ('syscon_key_events',0x200002d8),('syscon_key_event_buffer',0x200002d1),
+                     ('syscon_console_parser',0x20000048),('syscon_console_buffer',0x200002ef),
+                     ('syscon_ioexpander_initialized',0x200002d0),
+                     ('syscon_shutdown_pending',0x200002ec),('syscon_key_started_off',0x200002ed),
+                     ('syscon_wakeup_pending',0x20000680)]:
         assert symbols[name]!=old
     # A writer/reader pair retaining the same old callback address could still
     # agree with itself. Require registration in the actual relocated object.
     registered=int.from_bytes(machines[1].read(symbols['syscon_gpio_handlers'],4),'little')
     assert registered==symbols['syscon_target_powerkey_edge']
-    poison=b'\xa5'*22
-    machines[1].cpu.mem_write(0x20000030,poison)
     # The former task/timer region now holds the linker-allocated state arena;
     # it is live memory, so only genuinely vacant locations are poisoned.
-    obsolete=[(0x2000005c,88),(0x2000036f,33),(0x200000da,3),
+    obsolete=[(0x20000030,22),(0x2000005c,88),(0x2000036f,33),(0x200000da,3),
               (0x200000b4,36),(0x200000d8,2),(0x20000390,24),
               (0x20000685,11),(0x20000694,1)]
     # The old ADC table now holds relocated LED/PWM objects. Poison only the
     # unallocated prefix; a stale ADC lookup would instead encounter LED data.
     peripheral_start=manifest['layout_audit']['sections']['.peripheral_data']['address']
     obsolete.append((0x200000f4,peripheral_start-0x200000f4))
-    obsolete+= [(0x2000013c,12),(0x2000016c,200),(0x20000254,1),
+    obsolete+= [(0x200002d0,31),(0x20000680,1),(0x2000013c,12),(0x2000016c,200),(0x20000254,1),
                 (0x20000698,200),(0x20000760,2)]
     obsolete=vacant_ranges(manifest,obsolete)
     for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
@@ -147,7 +154,6 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
         assert all(b'PASS\r\n' in reply for reply in replies)
         assert normalized_log(replies[0])==normalized_log(replies[1])
     assert b'sys.edl_timer: 17' in replies[1]
-    assert bytes(machines[1].cpu.mem_read(0x20000030,len(poison)))==poison
     assert machines[0].flash[0xf800:]==machines[1].flash[0xf800:]
     assert int.from_bytes(machines[1].read(ticks,8),'little')>clock_before
     for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
@@ -424,7 +430,7 @@ def test_relocated_diagnostic_controls_and_loop_counter(relocated_image):
 def test_source_added_command_and_help_use_linker_resolved_descriptors(relocated_image):
     output,manifest,_=relocated_image
     original,_=boot(load_image())
-    candidate,_=boot((output/'firmware.bin').read_bytes(),stack_floor=candidate_stack_floor(output))
+    candidate,_=boot((output/'firmware.bin').read_bytes(),stack_floor=candidate_stack_floor(output/'firmware.bin'))
     symbols=manifest['layout_audit']['symbols']
     count=int.from_bytes(candidate.read(symbols['syscon_target_command_count'],4),'little')
     original_count=len(__import__('inventory').command_table(load_image()))
