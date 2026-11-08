@@ -230,10 +230,58 @@ intermediate effects fail. Only logger timestamps are normalized.
 
 Events and instruction slices are bounded. This is an initial stateful corpus,
 not arbitrary byte-stream fuzzing, a validated timing model, or coverage of every
-power/fault combination. Long button holds, concurrent rail failures, interrupted
-flash operations, watchdog interactions and broader seed campaigns still need
-additional whole-image scenarios. Existing subsystem/fault tests cover some of
+power/fault combination. Long button holds, concurrent rail failures, in-flight
+non-atomic flash failures, watchdog interactions and broader seed campaigns still need
+additional whole-image scenarios. Atomic flash-boundary recovery is covered
+below. Existing subsystem/fault tests cover some of
 these separately; they do not establish every combined behavior.
+
+## Interrupted configuration writes
+
+`tests/test_flash_interruption_images.py` drives real `CONFIG_SET` commands in
+both complete images. Its synthetic persistent inputs cover an append and a
+full namespace that requires compaction. Read-only observations record every
+successful controller mutation. Each recorded flash prefix is a possible point
+at which volatile state can be lost; a fresh CPU then boots from those bytes and
+must answer configuration queries and VERSION.
+
+```sh
+.venv/bin/python -m pytest -q tests/test_flash_interruption_images.py
+```
+
+The append has eight eight-byte programs plus its initial boundary. Compaction
+issues fifteen sector erases, followed by twenty-four programs restoring three
+entries, plus its initial boundary. All ordered operations and persistent bytes
+are compared. Byte-identical images from repeated erases or no-op programs share
+a single recovery replay; no distinct flash image is dropped. CI separates
+append and compaction into two jobs and uploads persistent bytes, operation
+records, boundary-to-replay groups and recovery traces, without embedding the
+original executable in those reports.
+
+Independent expectations require application/identity preservation, responsive
+protocol output and the legacy initialization rule. That rule has important
+limitations: GET selects the latest matching key even if its checksum is bad,
+and initialization checks only for a `confVersion` key. A partially written slot
+whose key bytes are complete can therefore shadow an older complete value with
+incomplete value bytes. During compaction, absence of `confVersion` makes the next boot erase and initialize the
+runtime sector, losing entries that had not been safely restored. The rebuilt
+image must initially preserve these behaviors; this suite does not quietly make
+the storage transactional.
+
+The compaction stack diagnostic is measured, not required to have the original
+numeric value: the rebuilt call chain uses eight more bytes in this corpus.
+A read-only observer at each image's logger entry verifies the reported depth
+equals SRAM-top minus the live MSP. Only after that check does comparison replace
+the number with a symbolic stack-depth label. All other diagnostic bytes remain
+compared, with the usual logger timestamp normalization. Incorrect depth values
+and missing observations are negative controls.
+
+These are atomic digital boundaries: the model completes an eight-byte program
+or a sector erase as one operation, then recovery discards CPU/peripheral state.
+It does not establish physical reset behavior during an active flash pulse,
+partial-cell programming, ECC recovery, or analog brownout timing. Warm resets,
+flash-controller errors and power routing have separate tests; combined cases
+and hardware evidence remain necessary.
 
 ## Battery and power curves
 
