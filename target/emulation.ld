@@ -15,6 +15,11 @@ MEMORY {
     TEST_ADC_VREF (rw) : ORIGIN = 0x20000694, LENGTH = 1
     TEST_PWM (rw) : ORIGIN = 0x20000148, LENGTH = 36
     TEST_RGB (rw) : ORIGIN = 0x200003a8, LENGTH = 28
+    TEST_GPIO_PINS (rw) : ORIGIN = 0x2000016c, LENGTH = 200
+    TEST_GPIO_HANDLERS (rw) : ORIGIN = 0x20000698, LENGTH = 200
+    TEST_RESET_CAUSE (rw) : ORIGIN = 0x20000254, LENGTH = 1
+    TEST_I2C_BUS (rw) : ORIGIN = 0x2000013c, LENGTH = 12
+    TEST_I2C_STATE (rw) : ORIGIN = 0x20000760, LENGTH = 2
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
 }
@@ -30,6 +35,11 @@ PHDRS {
     adc_vref PT_LOAD FLAGS(6);
     pwm PT_LOAD FLAGS(6);
     rgb PT_LOAD FLAGS(6);
+    gpio_pins PT_LOAD FLAGS(6);
+    gpio_handlers PT_LOAD FLAGS(6);
+    reset_cause PT_LOAD FLAGS(6);
+    i2c_bus PT_LOAD FLAGS(6);
+    i2c_state PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
     data PT_LOAD FLAGS(6);
@@ -50,6 +60,11 @@ SECTIONS {
     .adc_vref (NOLOAD) : { *(.bss.syscon_adc_vref_initialized) } > TEST_ADC_VREF :adc_vref
     .pwm : { *(.data.syscon_pwm_channels) } > TEST_PWM AT> TEST_CODE :pwm
     .rgb (NOLOAD) : { *(.bss.syscon_rgb_runtime) } > TEST_RGB :rgb
+    .gpio_pins : { *(.data.syscon_gpio_pins) } > TEST_GPIO_PINS AT> TEST_CODE :gpio_pins
+    .gpio_handlers (NOLOAD) : { *(.bss.syscon_gpio_handlers) } > TEST_GPIO_HANDLERS :gpio_handlers
+    .reset_cause : { *(.data.syscon_reset_cause_cache) } > TEST_RESET_CAUSE AT> TEST_CODE :reset_cause
+    .i2c_bus : { *(.data.syscon_i2c_bus) } > TEST_I2C_BUS AT> TEST_CODE :i2c_bus
+    .i2c_state (NOLOAD) : { *(.bss.syscon_i2c_state) } > TEST_I2C_STATE :i2c_state
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers
     .data : { *(.data*) } > TEST_DATA AT> TEST_CODE :data

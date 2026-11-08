@@ -88,6 +88,8 @@ Start with these production source groups when making a change:
 | ADC conversion and calibration | `target/adc_target.c`, ADC lookup in `target/hal_helpers.c` | `include/adc_state.h` |
 | RGB animation and PWM | `target/rgb_target.c`, `target/pwm_target.c`, PWM routing in `target/hal_helpers.c` | `include/rgb_state.h`, editable presets/palette in `include/rgb_data.h`, `include/pwm_state.h` |
 | Modem power | `target/sg560d_target.c`, `target/power_policy_target.c`, `target/power_manager_target.c` | Remaining fixed state/tables are still being migrated |
+| GPIO, reset causes and watchdog | `target/mspm0_core_target.c`, `target/gpio_state.c` | `include/gpio_state.h` |
+| I2C and fault diagnostics | `target/i2c_target.c`, `target/fault_control_target.c` | `include/i2c_state.h`, bus routing in `target/hal_helpers.c` |
 | Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
 
 Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide

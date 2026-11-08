@@ -13,6 +13,7 @@ LINKER_SYMBOLS={'__state_bss_start','__state_bss_end','__extra_bss_end','__extra
 LINKER_SYMBOLS.update({'__data_load','__data_start','__data_end'})
 LINKER_SYMBOLS.update({'__peripheral_data_load','__peripheral_data_start',
                       '__peripheral_data_end','__peripheral_bss_start','__peripheral_bss_end'})
+LINKER_SYMBOLS.update({'__irq_bss_start','__irq_bss_end'})
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def run(command):return subprocess.run(command,text=True,capture_output=True)
@@ -47,6 +48,7 @@ def elf_audit(path):
         state_end=max(symbols.get('__extra_bss_end',0x20001000),
                       symbols.get('__state_bss_end',0),
                       symbols.get('__peripheral_bss_end',0),
+                      symbols.get('__irq_bss_end',0),
                       symbols.get('__peripheral_data_end',0))
         return {'sections':sections,'load_segments':loads,'symbols':symbols,'issues':issues,'flash_io_words':callbacks,
                 'stack_floor_address':state_end,'stack_headroom_bytes':0x20001000-state_end}

@@ -44,6 +44,15 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                     [(symbols['syscon_pwm_channels'],36),
                      (symbols['syscon_rgb_runtime'],28)])
         for address,size in led_blocks:m.write_ram(address,b'\xa5'*size)
+        gpio_i2c_blocks=([(0x2000016c,200),(0x20000698,200),(0x20000254,1),
+                          (0x2000013c,12),(0x20000760,2)]
+                         if image==load_image() else
+                         [(symbols['syscon_gpio_pins'],200),
+                          (symbols['syscon_gpio_handlers'],200),
+                          (symbols['syscon_reset_cause_cache'],1),
+                          (symbols['syscon_i2c_bus'],12),
+                          (symbols['syscon_i2c_state'],2)])
+        for address,size in gpio_i2c_blocks:m.write_ram(address,b'\xa5'*size)
         reset_count=m.reset_count
         loaded=[];return_pc=None;loop=False
         def writes(cpu,kind,address,size,value,unused):
@@ -59,7 +68,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                bytes(m.read(cache,22)),
                                tuple(m.read(address,size) for address,size in button_blocks),
                                tuple(m.read(address,size) for address,size in adc_blocks),
-                               tuple(m.read(address,size) for address,size in led_blocks)))
+                               tuple(m.read(address,size) for address,size in led_blocks),
+                               tuple(m.read(address,size) for address,size in gpio_i2c_blocks)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)

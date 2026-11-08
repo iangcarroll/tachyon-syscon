@@ -20,7 +20,7 @@ def build(out):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     trap=out/'logger.c';trap.write_text('void syscon_target_logger(unsigned a,const char *b,const char *c,...){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
     sources=[ROOT/'target/i2c_target.c',ROOT/'target/pwm_target.c',ROOT/'target/hal_helpers.c',
-        ROOT/'target/mspm0_core_target.c',ROOT/'target/core_helpers.c',ROOT/'target/fault_control_target.c',
+        ROOT/'target/mspm0_core_target.c',ROOT/'target/gpio_state.c',ROOT/'target/core_helpers.c',ROOT/'target/fault_control_target.c',
         ROOT/'src/runtime_memory.c',trap]
     objects=[]
     flags=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-mfloat-abi=soft','-ffreestanding','-fno-builtin',
@@ -59,8 +59,8 @@ class Pair:
                 raise AssertionBoundary((string(value[0]),value[1],string(value[2])))
             m.hooks[0x2678 if not i else m.symbols['syscon_target_assert']&~1]=assertion
             def logger(o,index=i):
-                args=tuple(o.arg(n) for n in range(3))
-                if args[2]==0xdfa9:args+=(o.arg(3),)
+                args=(o.arg(0),o.cstring(o.arg(1)),o.cstring(o.arg(2)))
+                if args[2]==b'I2C timeout: %s':args+=(o.cstring(o.arg(3)),)
                 self.events[index].append(('logger',args));return 0
             m.hooks[0x8f88 if not i else m.symbols['syscon_target_logger']&~1]=logger
     def code(self,index):

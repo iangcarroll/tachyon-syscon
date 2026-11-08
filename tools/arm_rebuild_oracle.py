@@ -20,6 +20,16 @@ class ArmRebuildOracle:
     SENTINEL=0x010fff00
     STATE=0x20000000
 
+    def cstring(self, address, limit=1024):
+        """Read diagnostic contents without comparing private string addresses."""
+        if not address:return None
+        result=bytearray()
+        for offset in range(limit):
+            byte=self.cpu.mem_read(address+offset,1)[0]
+            if not byte:return bytes(result)
+            result.append(byte)
+        raise ValueError(f'unterminated string at {address:#x}')
+
     def __init__(self,elf_path):
         self.cpu=Uc(UC_ARCH_ARM,UC_MODE_THUMB|UC_MODE_MCLASS)
         self.cpu.mem_map(self.CODE,0x100000)
@@ -45,7 +55,7 @@ class ArmRebuildOracle:
                 assert ((self.CODE<=address and address+size<=self.CODE+0x80000) or
                         (self.DATA<=address and address+size<=self.DATA+0x8000) or
                         (any(address==self.STATE+offset and size<=limit for offset,limit in
-                             [(0x30,22),(0xb4,36),(0xd8,2),(0x390,24),(0x3a8,28),(0xda,3),(0xf4,72),(0x148,36),(0x685,11),(0x694,1),(0x534,216),(0x610,112)]) and not segment['p_flags']&1))
+                             [(0x30,22),(0xb4,36),(0xd8,2),(0x390,24),(0x3a8,28),(0xda,3),(0xf4,72),(0x148,36),(0x685,11),(0x694,1),(0x16c,200),(0x698,200),(0x254,1),(0x13c,12),(0x760,2),(0x534,216),(0x610,112)]) and not segment['p_flags']&1))
                 if segment['p_filesz']:self.cpu.mem_write(address,segment.data())
             for symbol in elf.get_section_by_name('.symtab').iter_symbols():
                 if symbol['st_shndx']!='SHN_UNDEF':self.symbols[symbol.name]=symbol['st_value']

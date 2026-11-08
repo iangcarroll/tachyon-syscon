@@ -21,7 +21,7 @@ def build(out):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     trap=out/'assert.c';trap.write_text('void syscon_target_assert(unsigned a,unsigned b,unsigned c){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
     sources=[ROOT/'target/adc_target.c',ROOT/'target/uart_hal_target.c',ROOT/'target/hal_helpers.c',
-        ROOT/'target/mspm0_core_target.c',ROOT/'target/core_helpers.c',ROOT/'src/runtime_memory.c',
+        ROOT/'target/mspm0_core_target.c',ROOT/'target/gpio_state.c',ROOT/'target/core_helpers.c',ROOT/'src/runtime_memory.c',
         ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime_arithmetic_abi.S',ROOT/'target/runtime_arithmetic_float.c',
         *sorted((ROOT/'vendor/gcc-soft-fp').glob('*.c')),trap]
     objects=[]

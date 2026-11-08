@@ -21,7 +21,7 @@ def fault_target_elf(tmp_path_factory):
     trap.write_text('\n'.join('void '+n+'(void){__asm__("bkpt #0");}' for n in names)+'\n')
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb','-ffreestanding','-fno-builtin',
         '-nostdlib','-Wall','-Wextra','-Werror','-I',str(ROOT/'include'),str(ROOT/'target/fault_control_target.c'),
-        str(ROOT/'src/runtime_memory.c'),str(trap),'-Wl,-T,'+str(ROOT/'target/emulation.ld'),
+        str(ROOT/'target/gpio_state.c'),str(ROOT/'src/runtime_memory.c'),str(trap),'-Wl,-T,'+str(ROOT/'target/emulation.ld'),
         '-Wl,-e,syscon_target_assert','-o',str(elf)],check=True)
     return elf
 
@@ -42,7 +42,9 @@ class Pair:
                 ins=next(decoder.disasm(raw,address))
                 self.events[i].append(('instruction',ins.mnemonic,ins.op_str))
             machine.cpu.hook_add(UC_HOOK_CODE,instruction)
-            def logger(cpu,i=index):self.events[i].append(('log',tuple(cpu.arg(n) for n in range(7))));return 0
+            def logger(cpu,i=index):
+                args=(cpu.arg(0),cpu.cstring(cpu.arg(1)),cpu.cstring(cpu.arg(2)),*(cpu.arg(n) for n in range(3,7)))
+                self.events[i].append(('log',args));return 0
             def config(cpu,i=index):self.events[i].append(('config',cpu.arg(0),bytes(cpu.cpu.mem_read(cpu.arg(1),12))));return 0
             def toggle(cpu,i=index):self.events[i].append(('toggle',cpu.arg(0)));return 0
             def delay(cpu,i=index):self.events[i].append(('delay',cpu.arg(0)));return 0
@@ -75,10 +77,22 @@ def test_target_breadcrumbs_live_words_cached_bytes_pointer_identity_and_clock_m
     for value in [*range(24),255,256,0xffffffff]+[rng.getrandbits(32) for _ in range(200)]:
         p.o.call(0x7b78,value);p.a.call('syscon_target_fault_stage_set',value)
         assert p.o.call(0x7b88)==p.a.call('syscon_target_fault_stage_get')==value&255
-        assert p.o.call(0x7b9c,value)==p.a.call('syscon_target_fault_stage_name',value)
+        assert p.o.cstring(p.o.call(0x7b9c,value))==p.a.cstring(p.a.call('syscon_target_fault_stage_name',value))
         p.put(0x400b0104,struct.pack('<I',value))
         assert p.o.call(0x7be0)==p.a.call('syscon_target_enable_mftick')==0
         assert p.o.u32(0x400b0104)==p.a.u32(0x400b0104)==value|0x1000
         assert p.events[0]==p.events[1]
     for value in range(256):
         p.put(0x20000254,bytes([value]));assert p.o.call(0x7bfc)==p.a.call('syscon_target_cached_reason')==value
+
+
+def test_fault_diagnostics_ignore_original_private_rom(fault_target_elf):
+    p=Pair(fault_target_elf)
+    p.a.put(0xacc0,b'\xa5'*(0xacfa-0xacc0))
+    p.a.put(0xdd7b,b'\xa5'*(0xde7b-0xdd7b))
+    for stage in range(23):
+        assert p.o.cstring(p.o.call(0x7b9c,stage))==p.a.cstring(p.a.call('syscon_target_fault_stage_name',stage))
+    for machine,entry in [(p.o,0x2678),(p.a,'syscon_target_assert')]:
+        with pytest.raises(RuntimeError,match='budget exhausted'):
+            machine.call(entry,0x20000900,17,0x20000940,count=5000)
+    assert p.events[0]==p.events[1]

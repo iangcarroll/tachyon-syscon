@@ -12,8 +12,10 @@ MEMORY {
  /* Reuse the now-vacant task/timer SRAM instead of reserving a second copy.
     This partition is transitional until remaining fixed-state users migrate. */
  RAM_STATE (rw) : ORIGIN = 0x20000534, LENGTH = 0x14c
- /* Former ADC descriptors are vacant; reuse them for movable peripheral data. */
- RAM_PERIPHERALS (rw) : ORIGIN = 0x200000f4, LENGTH = 0x48
+ /* Former ADC/I2C/PWM/GPIO descriptors are now one allocation arena. */
+ RAM_PERIPHERALS (rw) : ORIGIN = 0x200000f4, LENGTH = 0x140
+ /* Former ADC scratch and GPIO callback storage, below the remaining UART state. */
+ RAM_IRQ_STATE (rw) : ORIGIN = 0x20000684, LENGTH = 0xdc
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
 /* Separate PT_LOAD flags distinguish code and read-only data in the ELF.
@@ -26,12 +28,14 @@ PHDRS {
  text PT_LOAD FLAGS(5);
  fixed PT_LOAD FLAGS(4);
  config_data PT_LOAD FLAGS(4);
+ peripheral_rodata PT_LOAD FLAGS(4);
  version PT_LOAD FLAGS(4);
  state PT_LOAD FLAGS(6);
  auxiliary PT_LOAD FLAGS(6);
  initialized PT_LOAD FLAGS(6);
  peripherals PT_LOAD FLAGS(6);
  peripheral_bss PT_LOAD FLAGS(6);
+ irq_state PT_LOAD FLAGS(6);
 }
 SECTIONS {
  .vectors : {KEEP(*(.vectors))} > CODE :vectors
@@ -77,10 +81,17 @@ SECTIONS {
  /* Configuration constants are independently relocatable C data. Other modules
     still use recovered fixed data until their own source migration. */
  .config_data : { *target_config*.o(.rodata*) } > SPARE :config_data
+ .peripheral_rodata : {
+   *target_mspm0_core_target.o(.rodata*)
+   *target_fault_control_target.o(.rodata*)
+   *target_i2c_target.o(.rodata*)
+ } > SPARE :peripheral_rodata
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
  .peripheral_data : ALIGN(4) {
    __peripheral_data_start = .; *(.data.syscon_pwm_channels)
+   *(.data.syscon_gpio_pins) *(.data.syscon_i2c_bus)
+   *(.data.syscon_reset_cause_cache)
    . = ALIGN(4); __peripheral_data_end = .;
  } > RAM_PERIPHERALS AT> CODE :peripherals
  __peripheral_data_load = LOADADDR(.peripheral_data);
@@ -88,6 +99,11 @@ SECTIONS {
    __peripheral_bss_start = .; *(.bss.syscon_rgb_runtime)
    . = ALIGN(4); __peripheral_bss_end = .;
  } > RAM_PERIPHERALS :peripheral_bss
+ .irq_bss (NOLOAD) : {
+   __irq_bss_start = .;
+   *(.bss.syscon_gpio_handlers) *(.bss.syscon_i2c_state)
+   . = ALIGN(4); __irq_bss_end = .;
+ } > RAM_IRQ_STATE :irq_state
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
  __data_load = LOADADDR(.data);
  .state_bss ORIGIN(RAM_STATE) (NOLOAD) : {

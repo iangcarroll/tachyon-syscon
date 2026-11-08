@@ -28,7 +28,7 @@ def core_elf(tmp_path_factory):
     trap=out/'assert.c';trap.write_text('void syscon_target_assert(unsigned a,unsigned b,unsigned c){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),
-        str(ROOT/'target/mspm0_core_target.c'),str(ROOT/'src/runtime_memory.c'),str(trap),
+        str(ROOT/'target/mspm0_core_target.c'),str(ROOT/'target/gpio_state.c'),str(ROOT/'src/runtime_memory.c'),str(trap),
         '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_target_gpio_config','-o',str(elf)],check=True)
     return elf
 
@@ -43,7 +43,7 @@ class Pair:
             m.put(CALLBACK,bytes.fromhex('014a10605160704700090020'))
             m.cpu.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,self.record(i))
             def assertion(o,index=i):
-                args=tuple(o.arg(n) for n in range(3));self.assertions[index].append(args)
+                args=(o.cstring(o.arg(0)),o.arg(1),o.cstring(o.arg(2)));self.assertions[index].append(args)
                 raise AssertReached(args)
             address=0x2678 if not i else m.symbols['syscon_target_assert']&~1
             m.hooks[address]=assertion
@@ -75,6 +75,7 @@ class Pair:
             assert [m.cpu.reg_read(reg) for reg in saved]==[0x89ab0000+i*0x123 for i in range(8)]
             assert m.cpu.reg_read(UC_ARM_REG_SP)==(0x20000ff0 if not index else 0x2100ff00)
             if entry==0x8148:result|=m.cpu.reg_read(UC_ARM_REG_R1)<<32
+            if entry==0x7c3c:result=m.cstring(result)
             if entry in (0x7a50,0x8258):result=None
             return ('return',result)
         except AssertReached as e:return ('assert',e.args)
@@ -104,7 +105,19 @@ def test_gpio_lookup_all_byte_indices_and_full_width_invalids(core_elf):
         assert not p.events[0]
 
 
-def test_reset_cause_cached_byte_domain_mmio_mask_and_exact_name_pointers(core_elf):
+def test_gpio_reset_names_and_assertions_ignore_original_private_rom(core_elf):
+    p=Pair(core_elf)
+    p.candidate.put(0xdd7b,b'\xa5'*(0xdfa9-0xdd7b))
+    p.candidate.put(0xcceb,b'\xa5'*8)
+    for raw in range(32):
+        p.put(0x20000254,b'\xff');p.word(0x400b0220,raw)
+        p.run(0x7c08)
+    for cause in [*range(8),0xffffffff]:p.run(0x7c3c,cause)
+    assert p.run(0x7f58,0,0)[0]=='assert'
+    assert p.run(0x8054,25,0)[0]=='assert'
+
+
+def test_reset_cause_cached_byte_domain_mmio_mask_and_name_contents(core_elf):
     p=Pair(core_elf)
     for cached in range(256):
         p.put(0x20000254,bytes([cached]));p.word(0x400b0220,0xffffffff)
@@ -173,13 +186,13 @@ def test_invalid_pin_asserts_before_gpio_access_with_exact_file_line_expression(
         assert result[0]=='assert'
         assert p.assertions[0]==p.assertions[1]
         file,observed_line,expression=p.assertions[0][0]
-        assert p.original.cstring(file)==b'hal_gpio.cpp' and observed_line==line
-        assert p.original.cstring(expression)==b'pin < HAL_PLATFORM_PIN_NUM'
+        assert file==b'hal_gpio.cpp' and observed_line==line
+        assert expression==b'pin < HAL_PLATFORM_PIN_NUM'
         assert not p.events[0]
     if entry==0x7f58:
         for pin in [0,25,0xffffffff]:
             assert p.run(entry,pin,0)[0]=='assert'
-            assert p.assertions[0][0][1:]==(0x21,0xdf37)
+            assert p.assertions[0][0][1:]==(0x21,b'config != nullptr')
 
 
 def test_gpio_irq_real_callback_dispatch_full_scan_and_first_match_precedence(core_elf):
@@ -270,7 +283,7 @@ def test_invalid_callback_and_unmapped_port_fault_without_synthetic_success(core
 def test_assert_basename_no_separator_and_noop_preserves_incoming_r0(core_elf):
     p=Pair(core_elf);p.put(0xdf49,b'hal_gpio.cpp\0')
     assert p.run(0x8054,25,0)[0]=='assert'
-    assert p.assertions[0][0]==(0xdf49,0x61,0xdf8e)
+    assert p.assertions[0][0]==(b'hal_gpio.cpp',0x61,b'pin < HAL_PLATFORM_PIN_NUM')
     for value in [0,1,0x80000000,0xffffffff]:
         p.run(0x7a50,value)
         assert all(m.cpu.reg_read(UC_ARM_REG_R0)==value for m in p.machines)
