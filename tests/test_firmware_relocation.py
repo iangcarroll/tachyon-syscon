@@ -424,7 +424,7 @@ def test_relocated_diagnostic_controls_and_loop_counter(relocated_image):
 def test_source_added_command_and_help_use_linker_resolved_descriptors(relocated_image):
     output,manifest,_=relocated_image
     original,_=boot(load_image())
-    candidate,_=boot((output/'firmware.bin').read_bytes(),stack_floor=candidate_stack_floor(output))
+    candidate,_=boot((output/'firmware.bin').read_bytes(),stack_floor=candidate_stack_floor(output/'firmware.bin'))
     symbols=manifest['layout_audit']['symbols']
     count=int.from_bytes(candidate.read(symbols['syscon_target_command_count'],4),'little')
     original_count=len(__import__('inventory').command_table(load_image()))
