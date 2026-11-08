@@ -6,9 +6,7 @@ by reconstructing and open-sourcing the missing syscon firmware.
 
 The reconstruction was written by **GPT-6 Astra**, with human direction and hardware
 testing. It aims to preserve the original functionality while making the source
-understandable and editable. Code, strings and global state use linker-resolved
-symbols; fixed addresses are limited to hardware and storage contracts. See the
-[source guide](target/README.md) to get started.
+understandable and editable. See the [source guide](target/README.md) to get started.
 
 **Experimental: use at your own risk.** This is reconstructed firmware. Differential
 testing and MCU emulation provide evidence of similar behavior, not proof of complete
