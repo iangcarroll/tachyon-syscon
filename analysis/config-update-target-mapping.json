@@ -9,7 +9,6 @@
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_update_abi.S",
         "target/config/config_storage.c"
       ]
     },
@@ -22,7 +21,6 @@
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_update_abi.S",
         "target/config/config_storage.c"
       ]
     },
@@ -35,7 +33,6 @@
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_update_abi.S",
         "target/config/config_storage.c"
       ]
     },
@@ -48,7 +45,6 @@
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_update_abi.S",
         "target/config/config_storage.c"
       ]
     }

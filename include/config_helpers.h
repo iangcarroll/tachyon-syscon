@@ -33,10 +33,8 @@ uint32_t syscon_cfg_write_slot(uint32_t,const char *,const char *);
 void syscon_cfg_flash_report(void);
 void syscon_cfg_bool_get(uint32_t,char *,uint8_t *);
 void syscon_cfg_u32_get(uint32_t,char *,uint32_t *);
-uint32_t syscon_cfg_compact(uint32_t,const char *,const char *);
-uint32_t syscon_cfg_compact_body(uint32_t,const char *,const char *,uint32_t);
+uint32_t syscon_cfg_compact(uint32_t base, const char *key, const char *value);
 void syscon_cfg_store_init(uint32_t,uint32_t);
 void syscon_target_config_init(void);
-uint32_t syscon_cfg_runtime_update(const char *,const char *);
-uint32_t syscon_cfg_runtime_update_body(const char *,const char *,uint32_t);
+uint32_t syscon_cfg_runtime_update(const char *key, const char *value);
 #endif

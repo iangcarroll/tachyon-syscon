@@ -26,6 +26,15 @@ def relocated_image(tmp_path_factory):
     header=tree/'include/config_text.h'
     header.write_text(header.read_text().replace('Key checksum mismatch',
                       'Configuration key checksum mismatch (longer editable text)'))
+    compaction=tree/'target/config/config_update.c'
+    text=compaction.read_text()
+    declaration='    char kept[8][2][31], candidate[31];'
+    assert text.count(declaration)==1
+    text=text.replace(declaration,declaration+'\n    volatile uint8_t edit_workspace[96] = {0};')
+    completion='    syscon_target_logger(3, CONF, SYSCON_CFG_COMPACT_COMPLETE, count);'
+    assert text.count(completion)==1
+    text=text.replace(completion,completion+'\n    __asm__ volatile("" : "+m"(edit_workspace) : : "memory");')
+    compaction.write_text(text)
     commands=tree/'target/protocol/command_table_target.c'
     text=commands.read_text()
     # Add a command in source without changing a count, address or linker size.
@@ -89,6 +98,27 @@ def relocated_image(tmp_path_factory):
     assert data['address']<=cache<data['address']+data['bytes']
     assert cache>=data['address']+64
     return output,manifest,script
+
+
+def test_source_added_compaction_workspace_keeps_stack_diagnostic_truthful(relocated_image,tmp_path):
+    from build_physical_firmware import build
+    from flash_interruptions import capture,compare_captures
+
+    baseline=tmp_path/'baseline'
+    layout=build(baseline)['layout_audit']
+    current=capture((baseline/'firmware.bin').read_bytes(),'compact',
+                    layout['stack_floor_address'],layout['symbols']['syscon_logger_target'])
+    output,manifest,_=relocated_image
+    edited=capture((output/'firmware.bin').read_bytes(),'compact',
+                   manifest['layout_audit']['stack_floor_address'],
+                   manifest['layout_audit']['symbols']['syscon_logger_target'])
+    original=capture(load_image(),'compact',0x20000820,0x8f88)
+    compare_captures(original,current)
+    compare_captures(original,edited)
+    # Each capture independently checked the diagnostic against live MSP.
+    # The source edit must really enlarge the frame, not be optimized away.
+    assert len(current['stack'])==len(edited['stack'])==1
+    assert edited['stack'][0]['reported']>=current['stack'][0]['reported']+96
 
 
 def vacant_ranges(manifest,ranges):

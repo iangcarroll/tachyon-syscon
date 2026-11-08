@@ -1,4 +1,4 @@
-/* Runtime namespace compaction/update and initialization at the original ABI. */
+/* Runtime namespace compaction, update and initialization. */
 #include "config_helpers.h"
 #include "config_text.h"
 #include "runtime_memory.h"
@@ -8,11 +8,14 @@ static void feed(void)
 {
     *(volatile uint32_t *)(uintptr_t)0x40081108 = 0xa7;
 }
-uint32_t syscon_cfg_compact_body(uint32_t base, const char *key, const char *value,
-                                 uint32_t original_frame)
+uint32_t syscon_cfg_compact(uint32_t base, const char *key, const char *value)
 {
     char kept[8][2][31], candidate[31];
-    syscon_target_logger(3, CONF, SYSCON_CFG_COMPACT_STACK, 0x20001000u - original_frame);
+    uintptr_t stack_pointer;
+    /* Measure this compiled frame; callers and locals may change independently.
+     * This is the active ARM stack pointer, not an assumed compiler frame size. */
+    __asm__ volatile("mov %0, sp" : "=r"(stack_pointer) : : "memory");
+    syscon_target_logger(3, CONF, SYSCON_CFG_COMPACT_STACK, 0x20001000u - stack_pointer);
     feed();
     syscon_rt_strncpy(kept[0][0], key, 30);
     kept[0][0][30] = 0;
@@ -93,7 +96,7 @@ void syscon_target_config_init(void)
     syscon_cfg_store_init(0xfc00, 960);
     syscon_cfg_load();
 }
-uint32_t syscon_cfg_runtime_update_body(const char *key, const char *value, uint32_t original_frame)
+uint32_t syscon_cfg_runtime_update(const char *key, const char *value)
 {
     if (syscon_rt_strlen(key) >= 31 || syscon_rt_strlen(value) >= 31) {
         syscon_target_logger(1, CONF, SYSCON_CFG_FIELD_TOO_LONG);
@@ -113,7 +116,7 @@ uint32_t syscon_cfg_runtime_update_body(const char *key, const char *value, uint
     uint32_t slot = 0;
     if (!syscon_cfg_find_slot(0xfc00, 960, (char *)key, 0, &slot)) {
         syscon_target_logger(3, CONF, SYSCON_CFG_COMPACT_REQUIRED);
-        result = syscon_cfg_compact_body(0xfc00, key, value, original_frame - 584u);
+        result = syscon_cfg_compact(0xfc00, key, value);
     } else {
         if (!syscon_rt_strlen(value))
             return 0;
