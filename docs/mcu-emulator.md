@@ -230,11 +230,17 @@ intermediate effects fail. Only logger timestamps are normalized.
 
 Events and instruction slices are bounded. This is an initial stateful corpus,
 not arbitrary byte-stream fuzzing, a validated timing model, or coverage of every
-power/fault combination. Long button holds, concurrent rail failures, in-flight
-non-atomic flash failures, watchdog expiry during active flash operations and broader seed campaigns still need
-additional whole-image scenarios. Atomic flash-boundary recovery is covered
+power/fault combination. Concurrent rail failures, in-flight non-atomic flash failures, watchdog expiry during active flash operations and broader seed campaigns still need additional whole-image scenarios. Long button holds have separate whole-image cases below. Atomic flash-boundary recovery is covered
 below. Existing subsystem/fault tests cover some of
 these separately; they do not establish every combined behavior.
+
+## Whole-image button boot selection
+
+`tests/test_button_boot_images.py` configures both complete images through UART, then drives the physical button's modeled GPIO input from a synthetic cold/OFF state. The cases cover a 3.5-second hold with fastboot disabled, an 8.5-second hold with fastboot enabled, and that same longer hold after changing `sys.edl_timer` from 3 to 5 seconds. The requested outcomes are EDL, FASTBOOT and EDL respectively, exercising configuration loading, GPIO interrupts, debounce, press classification, the main loop and the complete boot action sequence together.
+
+The external processor-rail sample rises only after the firmware asserts its power-key output. Both images must select the expected mode, complete the task, release the output after assertion, preserve flash and answer VERSION afterward. Tests compare timestamp-normalized UART bytes and all ordered effective GPIO/expander power transitions. Periodic diagnostics are disabled with the public `DIAG 0` command because they report compiler-dependent loop throughput; their output is not silently removed by the comparator. Negative controls reject missing progress and the wrong boot mode. CI runs these cases in a separate `button-boot` job and retains inputs and traces as artifacts.
+
+Hold durations use the emulator's virtual SysTick clock and instruction budgets. These cases do not measure physical button timing, analog rail settling or a real processor entering its USB bootloader.
 
 ## Watchdog reset recovery
 
