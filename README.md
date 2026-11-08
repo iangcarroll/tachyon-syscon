@@ -4,7 +4,7 @@ Particle seems to have abandoned Tachyon, leaving parts of the platform without 
 
 The reconstruction was written by **GPT-6 Astra**, with human direction and hardware testing. It aims to preserve the original functionality while making the source understandable and editable. See the [source guide](src/README.md) to get started.
 
-Project-authored code is available under the [MIT License](LICENSE), copyright Cautela LLC. Bundled third-party code retains its existing licenses.
+Project-authored code is available under the [MIT License](LICENSE). Bundled third-party code retains its existing licenses.
 
 **Experimental: use at your own risk.** This reconstructed firmware has been tested on real Tachyon hardware, including a full cold boot. Automated differential tests compare its behavior with the original Particle firmware, and MCU emulation exercises complete images. These tests do not prove complete equivalence or safety. We recommend having a [Tachyon debug board and compatible SWD probe](docs/debug-probe.md) available for recovery: the syscon controls board power, and a bad image can prevent Linux from booting.
 
