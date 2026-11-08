@@ -1,5 +1,6 @@
-/* ARM frame adapters. Exposed bytes retain the original stack layout while
- * reconstructed C implements the logger and formatter algorithms. */
+/* ARM variadic adapters. The legacy exposed buffers keep their layout, while
+ * return addresses are ordinary linked call returns, never original literals. */
+#include "logger_frame.h"
 .syntax unified
 .cpu cortex-m0plus
 .thumb
@@ -8,44 +9,25 @@
 .type syscon_logger_target_vlog,%function
 .thumb_func
 syscon_logger_target_vlog:
-    mov r12,lr
-    b .Lframe
 .global syscon_logger_target_variadic_frame
 .type syscon_logger_target_variadic_frame,%function
 .thumb_func
 syscon_logger_target_variadic_frame:
-    push {r0}
-    ldr r0,=0x8f97
-    mov r12,r0
-    pop {r0}
-    b .Lframe
 .global syscon_logger_target_mfg_frame
 .type syscon_logger_target_mfg_frame,%function
 .thumb_func
 syscon_logger_target_mfg_frame:
-    push {r0}
-    ldr r0,=0x8fb3
-    mov r12,r0
-    pop {r0}
-.Lframe:
     push {r4,r5,r6,r7,lr}
-    sub sp,#348
+    sub sp,#SYSCON_LOG_FRAME_SIZE
     movs r4,r3
     movs r5,r0
     movs r6,r2
     movs r7,r1
-    /* Preserve the actual relocated return separately below the exposed frame. */
+    /* Fifth C argument, with padding to preserve eight-byte call alignment. */
     mov r0,sp
-    sub sp,#16
+    sub sp,#SYSCON_LOG_CALL_ARGS_SIZE
     str r4,[sp]
-    mov r1,lr
-    str r1,[sp,#4]
-    mov r1,r12
-    str r1,[sp,#8]
-    movs r2,#255
-    adds r2,#109
-    str r1,[r0,r2]
-    ldr r3,=0x2000080c
+    ldr r3,=syscon_log_enabled
     ldrb r3,[r3]
     cmp r3,#0
     beq .Ldisabled
@@ -54,7 +36,7 @@ syscon_logger_target_mfg_frame:
     movs r3,r6
     bl syscon_logger_target_body
     mov r1,sp
-    adds r1,#104
+    adds r1,#SYSCON_LOG_SUFFIX_OFFSET
     movs r0,#0
     movs r2,#2
     bl syscon_target_uart_write
@@ -65,24 +47,10 @@ syscon_logger_target_mfg_frame:
     movs r2,r6
     movs r3,#0
 .Lcleanup:
-    push {r0,r1,r2,r3}
-    /* An external write may corrupt the saved return. Preserve that behavior;
-     * remap only the unchanged original return to this relocated wrapper. */
-    mov r0,sp
-    adds r0,#255
-    adds r0,#141
-    ldr r3,[r0]
-    ldr r2,[sp,#24]
-    cmp r3,r2
-    bne 1f
-    ldr r3,[sp,#20]
-1:  mov r12,r3
-    pop {r0,r1,r2,r3}
-    add sp,#16
-    add sp,#348
-    pop {r4,r5,r6,r7}
-    add sp,#4
-    bx r12
+    /* Preserve UART R0-R3 results; return through the actual saved LR. */
+    add sp,#SYSCON_LOG_CALL_ARGS_SIZE
+    add sp,#SYSCON_LOG_FRAME_SIZE
+    pop {r4,r5,r6,r7,pc}
 .global syscon_logger_target
 .type syscon_logger_target,%function
 .thumb_func
@@ -104,7 +72,7 @@ syscon_logger_target_mfg:
     push {r0,r1,r2,lr}
     movs r2,r0
     movs r0,#3
-    ldr r1,=0xb849
+    ldr r1,=syscon_log_mfg_tag
     add r3,sp,#20
     str r3,[sp,#4]
     bl syscon_logger_target_mfg_frame
@@ -131,12 +99,12 @@ syscon_logger_target_snprintf:
 syscon_logger_target_sg560d:
     push {r0,r1,r2,r3}
     push {r4,lr}
-    sub sp,#136
+    sub sp,#SYSCON_SG_FRAME_SIZE
     mov r0,sp
-    ldr r1,[sp,#144]
-    add r2,sp,#148
+    ldr r1,[sp,#(SYSCON_SG_FRAME_SIZE+8)]
+    add r2,sp,#(SYSCON_SG_FRAME_SIZE+12)
     bl syscon_logger_target_sg_body
-    add sp,#136
+    add sp,#SYSCON_SG_FRAME_SIZE
     pop {r4}
     pop {r3}
     add sp,#16

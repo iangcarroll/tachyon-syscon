@@ -8,14 +8,15 @@ import hashlib
 import json
 import subprocess
 from pathlib import Path
+import toolchain_process
 ROOT=Path(__file__).resolve().parents[1]
 TARGETS=['callback_helpers.c','config_state.c','config_helpers.c','config_read.c','config_storage.c',
     'core_helpers.c','interface_bindings.c','fault_control_target.c','fault_handlers.c','hal_helpers.c',
-    'mspm0_core_target.c','uart_ring.c','uart_ring_abi.S','runtime_arithmetic_abi.S','runtime_heap.c',
+    'mspm0_core_target.c','gpio_state.c','uart_ring.c','uart_state.c','uart_ring_abi.S','runtime_arithmetic_abi.S','runtime_heap.c',
     'runtime_scan.c','runtime_scan_abi.S','runtime_scan_printf.c','runtime_scan_wrappers.c',
     'runtime_stdio.c','runtime_support.c','runtime_arithmetic_float.c',
     'adc_target.c','uart_hal_target.c','timers_target.c','tasks_target.c','retained_target.c',
-    'diagnostics_target.c','application_target.c','logger_target.c','logger_target_abi.S',
+    'diagnostics_target.c','application_target.c','logger_target.c','logger_state.c','logger_target_abi.S',
     'rgb_target.c','power_key_target.c','power_policy_target.c','i2c_target.c','pwm_target.c',
     'config_update.c','config_update_abi.S','ioexpander_target.c','power_manager_target.c',
     'protocol_target.c','command_table_target.c','config_commands_target.c','control_commands_target.c','runtime_init_target.c',
@@ -34,19 +35,19 @@ def build(output):
         extra=['-O2'] if source=='src/runtime_arithmetic.c' or source.startswith('vendor/gcc-soft-fp/') else []
         if source.startswith('vendor/gcc-soft-fp/'):extra+=['-std=gnu11','-I'+str(ROOT/'vendor/gcc-soft-fp')]
         if source.endswith('/floatunsisf.c'):extra+=['-Wno-type-limits']
-        subprocess.run(['arm-none-eabi-gcc',*FLAGS,*extra,'-I'+str(ROOT/'include'),'-c',str(ROOT/source),'-o',str(obj)],check=True)
+        toolchain_process.run(['arm-none-eabi-gcc',*FLAGS,*extra,'-I'+str(ROOT/'include'),'-c',str(ROOT/source),'-o',str(obj)],check=True)
         objects.append(obj)
     combined=output/'target-interfaces.o';archive=output/'libsyscon-target-interfaces.a'
-    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-r',*map(str,objects),'-o',str(combined)],check=True)
+    toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-r',*map(str,objects),'-o',str(combined)],check=True)
     # Replacing the archive avoids stale members silently surviving source-list edits.
     if archive.exists():archive.unlink()
-    subprocess.run(['arm-none-eabi-ar','rcs',str(archive),str(combined)],check=True)
+    toolchain_process.run(['arm-none-eabi-ar','rcs',str(archive),str(combined)],check=True)
     unresolved=[]
-    for line in subprocess.check_output(['arm-none-eabi-nm','-u',str(combined)],text=True).splitlines():
+    for line in toolchain_process.check_output(['arm-none-eabi-nm','-u',str(combined)],text=True).splitlines():
         fields=line.split()
         if fields:unresolved.append(fields[-1])
     inputs=SOURCES+[str(p.relative_to(ROOT)) for p in sorted((ROOT/'include').glob('*.h'))]
-    report=dict(compiler=subprocess.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0],
+    report=dict(compiler=toolchain_process.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0],
         flags=FLAGS,runtime_arithmetic_optimization='-O2',source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in inputs},
         unresolved_symbols=sorted(unresolved),combined_object_sha256=hashlib.sha256(combined.read_bytes()).hexdigest(),
         archive_sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),archive_libraries=[],

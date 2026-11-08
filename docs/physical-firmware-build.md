@@ -96,8 +96,11 @@ could not detect that collision with newer objects above its boundary.
 The linker now allocates scheduler/retained objects in the freed task/timer
 region instead of reserving a second copy in auxiliary RAM. Object addresses
 remain linker-resolved, and the whole-image regression changes their order.
-LED state and PWM descriptors similarly reuse the former ADC-table region;
-the relocation test shifts both by eight bytes. Startup copies this initialized
+LED state, PWM/GPIO/I2C/UART descriptors and reset-cause cache now share reclaimed
+peripheral-table storage; GPIO callbacks and I2C state reuse the former ADC
+scratch/callback region, extended through the freed UART receive-buffer region.
+UART configuration and rings are now allocated in the same arena.
+The relocation test shifts these arenas by eight bytes. Startup copies this initialized
 data and clears its BSS before constructors. Its 64 bytes of reclaimed storage
 matter: keeping a duplicate raised the stack floor to `0x2000094c`, and the
 compaction test caught an actual stack descent to `0x20000944`.

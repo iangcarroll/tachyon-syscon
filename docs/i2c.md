@@ -1,5 +1,8 @@
 # I2C HAL reconstruction
 
+This page describes the historical host test scaffold. Editable production
+firmware is documented in [the target I2C driver](i2c-target.md).
+
 `src/i2c.c` reconstructs the only configured I2C controller from syscon 1.0.52. The host interface preserves its RAM mapping at offset `0x13c`, GPIO mapping at `0x16c`, sticky interrupt-error byte at `0x760`, and transfer-mode byte at `0x761`.
 
 | Entry | Operation |

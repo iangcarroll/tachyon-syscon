@@ -1,5 +1,6 @@
 """Source policy target and explicit original-ABI module endpoints."""
 from pathlib import Path
+import toolchain_process
 import subprocess
 ROOT=Path(__file__).resolve().parents[1]
 MAPPINGS={0x5358:'power_report',0x54cc:'power_policy_init',0x559c:'power_minimum_update',
@@ -19,7 +20,7 @@ def build(destination):
     binding=destination/'memory.c'
     binding.write_text('#include "runtime_memory.h"\nvoid *memcpy(void *d,const void *s,unsigned n){return syscon_rt_memcpy(d,s,n); }\n')
     elf=destination/'policy.elf'
-    subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
+    toolchain_process.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror',
         '-I'+str(ROOT/'include'),str(ROOT/'target/power_policy_target.c'),str(ROOT/'src/runtime_memory.c'),str(binding),str(stub),
         '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_target_power_policy_init','-o',str(elf)],check=True)

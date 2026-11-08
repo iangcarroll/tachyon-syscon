@@ -7,6 +7,7 @@ extern uint32_t __state_bss_start[],__state_bss_end[];
 extern uint32_t __data_load[],__data_start[],__data_end[];
 extern uint32_t __peripheral_data_load[],__peripheral_data_start[],__peripheral_data_end[];
 extern uint32_t __peripheral_bss_start[],__peripheral_bss_end[];
+extern uint32_t __irq_bss_start[],__irq_bss_end[];
 extern void syscon_target_runtime_init(void);
 extern void syscon_target_timestamp_constructor(void),syscon_target_queue_constructor(void);
 extern void syscon_target_main(void),syscon_hardfault(void),syscon_nmi(void),syscon_default_exception(void);
@@ -23,6 +24,7 @@ _Noreturn void syscon_physical_reset(void){
     copy(__data_start,__data_load,__data_end);
     copy(__peripheral_data_start,__peripheral_data_load,__peripheral_data_end);
     for(volatile uint32_t *p=__peripheral_bss_start;p<__peripheral_bss_end;p++)*p=0;
+    for(volatile uint32_t *p=__irq_bss_start;p<__irq_bss_end;p++)*p=0;
     for(volatile uint32_t *p=__extra_bss_start;p<__extra_bss_end;p++)*p=0;
     for(volatile uint32_t *p=__state_bss_start;p<__state_bss_end;p++)*p=0;
     /* The original preinit list is empty and its init hook at7a50 returns. */

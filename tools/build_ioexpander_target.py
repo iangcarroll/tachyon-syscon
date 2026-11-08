@@ -1,6 +1,7 @@
 """Build source-only IO expander ABI test image; no production flash output."""
 import hashlib,json,subprocess
 from pathlib import Path
+import toolchain_process
 ROOT=Path(__file__).resolve().parents[1]
 SOURCES=['target/ioexpander_target.c','src/runtime_memory.c','target/ioexpander_test_fixture.c',
          'src/runtime_arithmetic.c','target/runtime_arithmetic_abi.S']
@@ -20,15 +21,15 @@ def build(destination):
     for source in SOURCES:
         obj=destination.parent/(Path(source).stem+'.o');objects.append(str(obj))
         command=base+(['-O2'] if source=='src/runtime_arithmetic.c' else [])+['-c',str(ROOT/source),'-o',str(obj)]
-        subprocess.run(command,check=True);commands.append(command)
+        toolchain_process.run(command,check=True);commands.append(command)
     command=base+objects+['-Wl,-T,'+str(ROOT/'target/emulation.ld'),
         '-Wl,-e,syscon_target_ioexpander_init','-o',str(destination)]
-    subprocess.run(command,check=True)
+    toolchain_process.run(command,check=True)
     inputs=SOURCES+['include/ioexpander_target.h','include/ioexpander.h','include/i2c_target.h',
         'include/mspm0_core_target.h','include/logger_target.h','include/runtime_memory.h','include/runtime_arithmetic.h',
         'target/emulation.ld','tools/build_ioexpander_target.py']
     destination.with_suffix('.json').write_text(json.dumps({'command':command,'compile_commands':commands,
-        'compiler':subprocess.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0],
+        'compiler':toolchain_process.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0],
         'inputs':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in inputs},
         'sha256':hashlib.sha256(destination.read_bytes()).hexdigest(),'libraries':[],
         'mappings':{hex(a):n for a,n in MAPPINGS.items()},'flash_candidate':False},indent=2)+'\n')

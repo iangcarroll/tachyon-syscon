@@ -1,5 +1,8 @@
 # UART receive/transmit reconstruction
 
+This page describes historical host test scaffolding. Production firmware uses
+[the UART driver](uart-hal-target.md) and [receive rings](uart-ring-target.md).
+
 Implemented original routines `0x8c34` (single transmit), `0x8c8c` (buffer transmit),
 `0x8cf0` (available), `0x8d70` (receive IRQ), and `0x8de4` (read). Native source is
 `src/uart.c`; the two 76-byte ring structures preserve the original byte layout.

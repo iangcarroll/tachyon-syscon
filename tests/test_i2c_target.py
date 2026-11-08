@@ -25,6 +25,17 @@ def test_i2c_irq_all_reason_bytes(elf):
         p.put(0x20000760,b'\0');p.word(BASE+0x1020,reason|0xabcd0000);p.run(0x8798)
         assert p.candidate.read(0x20000760,1)==bytes([int(reason in (8,11))])
 
+
+def test_i2c_assertions_and_fault_logs_ignore_original_private_rom(elf):
+    p=setup(elf)
+    p.candidate.put(0xdf37,b'\xa5'*(0xe04c-0xdf37))
+    p.candidate.put(0xdd7b,b'\xa5'*(0xde7b-0xdd7b))
+    for bus,config in [(1,CFG),(0,0)]:assert p.run(0x82f0,bus,config)[0]=='assert'
+    for reason in [8,11]:
+        p.word(BASE+0x1020,reason);p.run(0x8798)
+    for stage in [9,10,11,12,13,14,15,16,21]:
+        p.word(BASE+0x123c,0x800);p.run(0x82b4,0x2000013c,stage)
+
 def test_i2c_tx_success_zero_length_and_address_mask(elf):
     for count in [0,1,2,8,9,15,255]:
         for address in [0,0x7f,0x80,0x3ff,0xffffffff]:
@@ -53,7 +64,7 @@ def test_i2c_each_status_timeout_uses_real_cycle_loop(elf,entry,stage,sequence):
     assert result==('return',(count<<32 if entry==0x860c else 0)|0xffffffff)
     assert p.delay_count[0]==10000
     logs=[e for e in p.events[0] if e[0]=='logger'];assert len(logs)==1
-    assert logs[0][1][3]==0xdd7f+stage*12
+    assert logs[0][1][3]==p.original.cstring(0xdd7f+stage*12)
 
 def test_i2c_fifo_waits_error_injection_and_transfer_assertions(elf):
     p=setup(elf);p.script(BASE+0x1218,[0x20,0x40,0]);p.script(BASE+0x123c,[0,0,0x800,0x800,0x800])
@@ -78,7 +89,7 @@ def test_i2c_fifo_timeouts_preserve_full_retry_count(elf):
         result=p.run(entry,0,0x22,DATA,1)
         assert result==('return',(1<<32 if entry==0x860c else 0)|0xffffffff)
         assert p.delay_count[0]==10000
-        assert [e for e in p.events[0] if e[0]=='logger'][0][1][3]==0xdd7f+stage*12
+        assert [e for e in p.events[0] if e[0]=='logger'][0][1][3]==p.original.cstring(0xdd7f+stage*12)
 
 def test_i2c_late_ready_descriptor_reload_and_async_error(elf):
     p=setup(elf);p.script(BASE+0x1218,[0]*9999+[0x20,0x40,0]);p.run(0x844c,0,2,DATA,1)

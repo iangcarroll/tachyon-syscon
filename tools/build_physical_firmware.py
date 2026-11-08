@@ -5,6 +5,7 @@ original executable payload can satisfy missing implementation symbols.
 """
 import argparse,hashlib,json,re,subprocess
 from pathlib import Path
+import toolchain_process
 from elftools.elf.elffile import ELFFile
 from build_target_interfaces import SOURCES,FLAGS,ROOT
 EXTRA=['target/power_manager_target.c','target/ioexpander_target.c','target/protocol_target.c','target/command_table_target.c','target/runtime_init_target.c','target/flash_abi_target.c']
@@ -13,16 +14,17 @@ LINKER_SYMBOLS={'__state_bss_start','__state_bss_end','__extra_bss_end','__extra
 LINKER_SYMBOLS.update({'__data_load','__data_start','__data_end'})
 LINKER_SYMBOLS.update({'__peripheral_data_load','__peripheral_data_start',
                       '__peripheral_data_end','__peripheral_bss_start','__peripheral_bss_end'})
+LINKER_SYMBOLS.update({'__irq_bss_start','__irq_bss_end'})
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-def run(command):return subprocess.run(command,text=True,capture_output=True)
+def run(command):return toolchain_process.run(command,text=True,capture_output=True)
 def emit_binary(elf_path,binary_path):
     # GNU objcopy can use an empty allocated section's SRAM VMA as its LMA,
     # padding the raw image up to SRAM even though that section has no bytes.
     with Path(elf_path).open('rb') as stream:
         empty=['--remove-section='+section.name for section in ELFFile(stream).iter_sections()
                if section['sh_flags']&2 and section['sh_size']==0]
-    subprocess.run(['arm-none-eabi-objcopy','-O','binary','--gap-fill=0xff',*empty,
+    toolchain_process.run(['arm-none-eabi-objcopy','-O','binary','--gap-fill=0xff',*empty,
                     str(elf_path),str(binary_path)],check=True)
 def elf_audit(path):
     with Path(path).open('rb') as stream:
@@ -47,6 +49,7 @@ def elf_audit(path):
         state_end=max(symbols.get('__extra_bss_end',0x20001000),
                       symbols.get('__state_bss_end',0),
                       symbols.get('__peripheral_bss_end',0),
+                      symbols.get('__irq_bss_end',0),
                       symbols.get('__peripheral_data_end',0))
         return {'sections':sections,'load_segments':loads,'symbols':symbols,'issues':issues,'flash_io_words':callbacks,
                 'stack_floor_address':state_end,'stack_headroom_bytes':0x20001000-state_end}
@@ -75,10 +78,10 @@ def build(output):
         result=run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-r',*map(str,objects),'-o',str(combined)])
         if result.returncode:report['relocatable_link_error']=result.stderr
         else:
-            unresolved=[line.split()[-1] for line in subprocess.check_output(['arm-none-eabi-nm','-u',str(combined)],text=True).splitlines() if line.split()]
+            unresolved=[line.split()[-1] for line in toolchain_process.check_output(['arm-none-eabi-nm','-u',str(combined)],text=True).splitlines() if line.split()]
             report['linker_defined_symbols']=sorted(set(unresolved)&LINKER_SYMBOLS)
             report['unresolved_symbols']=sorted(set(unresolved)-LINKER_SYMBOLS)
-            report['section_size_report']=subprocess.check_output(['arm-none-eabi-size','-A',str(combined)],text=True)
+            report['section_size_report']=toolchain_process.check_output(['arm-none-eabi-size','-A',str(combined)],text=True)
         # No --unresolved-symbols=ignore-all, weak fallback stubs, or test fixtures.
         result=run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*map(str,objects),'-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-Wl,--gc-sections','-Wl,-Map,'+str(output/'firmware.map'),'-o',str(output/'firmware.elf')])
         if result.returncode:report['physical_link_error']=result.stderr;(output/'firmware.elf').unlink(missing_ok=True)

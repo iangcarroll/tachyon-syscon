@@ -1,5 +1,8 @@
 # UART initialization and deinitialization
 
+This page describes historical host test scaffolding. Production firmware uses
+[the UART driver](uart-hal-target.md) and [receive rings](uart-ring-target.md).
+
 `src/uart_hal.c` reconstructs interrupt masking (`0x891c`/`0x8938`),
 initialization (`0x8954`), deinitialization (`0x8b50`), line configuration
 (`0x95f0`), and clock selection (`0x9638`). Transmit, receive, and ring-buffer

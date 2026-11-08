@@ -8,7 +8,9 @@ TAG=0x20000600
 ARGS=0x20000300
 
 @pytest.fixture(scope='module',autouse=True)
-def own_engines():
+def own_engines(elf,uart_logger_elf):
+    # Compile both fixtures before retaining hundreds of Unicorn mappings.
+    # Forking a compiler after that is expensive on macOS.
     gc.collect();LoggerPair.owners=[]
     yield
     LoggerPair.owners=None;gc.collect()
@@ -114,6 +116,35 @@ def test_nontrivial_prefix_negative_control(elf):
     with pytest.raises(AssertionError):p.call(0x8e8c,'syscon_logger_target_vlog',3,TAG,FMT,ARGS)
 
 
+def test_private_return_normalization_rejects_an_original_address_literal(elf):
+    p=LoggerPair(elf,colors=(1,1))
+    p.put(TAG,b'T'*400+b'\0');p.put(FMT,b'message\0')
+    changed=False
+    def stale_return(pair,index,port,address,size):
+        nonlocal changed
+        if index==1 and size==7 and not changed:
+            changed=True
+            frame,linked_return=pair.frames[index]
+            assert linked_return!=0x8f97
+            pair.cpus[index].put(frame+364,struct.pack('<I',0x8f97))
+    p.after_write=stale_return
+    with pytest.raises(AssertionError,match='Saved return does not match linked call'):
+        p.call(0x8f88,'syscon_logger_target',3,TAG,FMT)
+    assert changed
+
+
+def test_logger_strings_are_independent_of_original_rom(elf):
+    for entry,symbol,args in [(0x8f88,'syscon_logger_target',(3,TAG,FMT,42)),
+                              (0x8fa0,'syscon_logger_target_mfg',(FMT,42)),
+                              (0x5edc,'syscon_logger_target_sg560d',(FMT,42))]:
+        p=LoggerPair(elf,colors=(1,1))
+        p.cpus[1].put(0xe0f4,b'\xa5'*(0xe126-0xe0f4))
+        p.cpus[1].put(0xb849,b'\xa5'*5)
+        p.cpus[1].put(0xb894,b'\xa5'*3)
+        p.put(TAG,b'TAG\0');p.put(FMT,b'number=%u\0')
+        p.call(entry,symbol,*args)
+
+
 def test_color_sequences_signed_time_extremes_and_message_thresholds(elf):
     rng=random.Random(0x8e8c)
     for i in range(60):
@@ -154,4 +185,10 @@ def test_logger_real_uart_mmio_and_all_output_registers(uart_logger_elf):
                     p.call(entry,symbol,*args)
                     left=[p.cpus[0].cpu.reg_read(r) for r in REGS[:4]]
                     right=[p.cpus[1].cpu.reg_read(r) for r in REGS[:4]]
+                    if entry==0x8fa0 and not enabled:
+                        # Disabled manufacturing logging leaves its tag in R1.
+                        # Validate the linked object and contents, not its old PC.
+                        assert right[1]==p.cpus[1].symbols['syscon_log_mfg_tag']
+                        assert p.cpus[0].cstring(left[1])==p.cpus[1].cstring(right[1])
+                        right[1]=left[1]
                     assert left==right,(entry,enabled,disabled,colors,left,right)

@@ -2,6 +2,7 @@
 import struct
 import subprocess
 from pathlib import Path
+import toolchain_process
 from oracle import Oracle
 ROOT=Path(__file__).resolve().parents[1]
 CODE=0x01000000
@@ -15,17 +16,17 @@ class RuntimeImage:
         flags=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-fno-inline','-fno-ipa-cp','-fno-ipa-pure-const','-ffunction-sections','-fdata-sections','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include')]
         objects=[]
         for i,source in enumerate(sources):
-            obj=directory/f'{i}.o';subprocess.run(['arm-none-eabi-gcc',*flags,*(['-O2'] if source.name=='runtime_arithmetic.c' else []),'-c',str(source),'-o',str(obj)],check=True);objects.append(str(obj))
+            obj=directory/f'{i}.o';toolchain_process.run(['arm-none-eabi-gcc',*flags,*(['-O2'] if source.name=='runtime_arithmetic.c' else []),'-c',str(source),'-o',str(obj)],check=True);objects.append(str(obj))
         retained=[]
         for obj in objects[:2]:
-            for line in subprocess.check_output(['arm-none-eabi-nm',obj],text=True).splitlines():
+            for line in toolchain_process.check_output(['arm-none-eabi-nm',obj],text=True).splitlines():
                 fields=line.split()
                 if len(fields)==3 and fields[1] in ('T','W'):retained.append('-Wl,--undefined='+fields[2])
         elf=directory/'runtime.elf';binary=directory/'runtime.bin'
-        subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-Ttext=0x01000000','-Wl,-e,syscon_rt_malloc_r','-Wl,--gc-sections',*retained,*objects,'-o',str(elf)],check=True)
-        subprocess.run(['arm-none-eabi-objcopy','-O','binary',str(elf),str(binary)],check=True)
+        toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-Ttext=0x01000000','-Wl,-e,syscon_rt_malloc_r','-Wl,--gc-sections',*retained,*objects,'-o',str(elf)],check=True)
+        toolchain_process.run(['arm-none-eabi-objcopy','-O','binary',str(elf),str(binary)],check=True)
         self.code=binary.read_bytes();self.symbols={}
-        for line in subprocess.check_output(['arm-none-eabi-nm',str(elf)],text=True).splitlines():
+        for line in toolchain_process.check_output(['arm-none-eabi-nm',str(elf)],text=True).splitlines():
             fields=line.split()
             if len(fields)==3:self.symbols[fields[2]]=int(fields[0],16)
 class RuntimeOracle(Oracle):

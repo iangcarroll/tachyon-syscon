@@ -2,6 +2,8 @@
 #include "hal_helpers.h"
 #include "adc_state.h"
 #include "pwm_state.h"
+#include "i2c_state.h"
+#include "uart_state.h"
 #define U8(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 #define U16(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 #define U32(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
@@ -41,11 +43,22 @@ uint32_t syscon_hal_pwm_lookup(uint32_t id)
     }
     return 0;
 }
-uint32_t syscon_hal_uart_lookup(uint32_t index) {
-    return index < 2u ? 0x20000234u + index*16u : 0;
+/* Linux console and modem command UART routing. */
+volatile syscon_uart_port_t syscon_uart_ports[SYSCON_UART_PORTS]
+    __attribute__((section(".data.syscon_uart_ports"))) = {
+        {4, 2, 1, 5, 2, 1, {0}, 0x40108000u, 15, {0}},
+        {6, 6, 1, 7, 6, 1, {0}, 0x40100000u, 13, {0}},
+    };
+uint32_t syscon_hal_uart_lookup(uint32_t index)
+{
+    return index < SYSCON_UART_PORTS ? (uint32_t)(uintptr_t)&syscon_uart_ports[index] : 0;
 }
+volatile syscon_i2c_bus_t syscon_i2c_bus
+    __attribute__((section(".data.syscon_i2c_bus"))) = {
+        21, 3, 22, 3, 0x400f0000u, 24, {0}
+    };
 uint32_t syscon_hal_i2c_lookup(uint32_t index) {
-    return index == 0 ? 0x2000013cu : 0;
+    return index == 0 ? (uint32_t)(uintptr_t)&syscon_i2c_bus : 0;
 }
 void syscon_hal_adc_clock(uint32_t base, uint32_t config) {
     uint32_t source = U8(config);

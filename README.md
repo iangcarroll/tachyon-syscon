@@ -33,12 +33,13 @@ schematics are fetched separately; see [references](references/README.md).
 
 Use `make quick-test` for daily feedback after setup. It runs helper and ARM
 differential tests for UART parsing, configuration writes, ADC conversion,
-time-varying power inputs and runtime memory, plus input-fetch validation.
-With fetched inputs it measured 25.5 seconds locally (200 passed, one optional
-network check skipped); elapsed time depends on the host.
+time-varying power inputs, RGB/PWM and runtime memory, plus input-fetch and
+build-tool validation. Elapsed time depends on the host. Compiler launches on
+macOS avoid copying accumulated emulator mappings when no inheritable private
+descriptors need closing.
 It writes a separate partial-coverage report under `build/`. `make test` retains
 the full suite, including complete-image cold starts and extensive fault cases;
-CI runs that complete suite in parallel core and cold-start jobs. The quick
+CI runs that complete suite in parallel core, integration and cold-start jobs. The quick
 selection is not a replacement for whole-image validation before a firmware PR.
 
 `make arm` builds a static archive. `make physical-firmware` links the complete
@@ -88,6 +89,10 @@ Start with these production source groups when making a change:
 | ADC conversion and calibration | `target/adc_target.c`, ADC lookup in `target/hal_helpers.c` | `include/adc_state.h` |
 | RGB animation and PWM | `target/rgb_target.c`, `target/pwm_target.c`, PWM routing in `target/hal_helpers.c` | `include/rgb_state.h`, editable presets/palette in `include/rgb_data.h`, `include/pwm_state.h` |
 | Modem power | `target/sg560d_target.c`, `target/power_policy_target.c`, `target/power_manager_target.c` | Remaining fixed state/tables are still being migrated |
+| GPIO, reset causes and watchdog | `target/mspm0_core_target.c`, `target/gpio_state.c` | `include/gpio_state.h` |
+| I2C and fault diagnostics | `target/i2c_target.c`, `target/fault_control_target.c` | `include/i2c_state.h`, bus routing in `target/hal_helpers.c` |
+| UART initialization and receive buffering | `target/uart_hal_target.c`, `target/uart_ring.c`, `target/uart_state.c` | `include/uart_state.h`, port routing in `target/hal_helpers.c` |
+| Logging and ARM variadic calls | `target/logger_target.c`, `target/logger_target_abi.S`, `target/logger_state.c` | `include/logger_state.h` |
 | Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
 
 Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide

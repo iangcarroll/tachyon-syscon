@@ -1,3 +1,4 @@
+#include "logger_state.h"
 /* Firmware 1.0.52 application entry and fixed-layout glue. No host dispatch. */
 #include "application_target.h"
 #include "diagnostics_target.h"
@@ -51,7 +52,7 @@ void syscon_target_diagnostic_write(uint32_t data,uint32_t length){
     syscon_target_fault_stage_set(17);syscon_target_uart_write_buffer(0,data,length);
 }
 void syscon_target_parser_poll(void){syscon_target_protocol_poll(0x20000048u);}
-void syscon_target_log_enable(uint32_t enabled){B(0x2000080cu)=(uint8_t)enabled;}
+void syscon_target_log_enable(uint32_t enabled){syscon_log_enabled=(uint8_t)enabled;}
 void syscon_target_application_gpio_init(void){
     uint8_t cfg[12]={0};cfg[5]=2;
     syscon_target_gpio_config(10,(uint32_t)(uintptr_t)cfg);

@@ -38,6 +38,9 @@ def relocated_image(tmp_path_factory):
     assert script.count('.peripheral_data : ALIGN(4) {')==1
     script=script.replace('.peripheral_data : ALIGN(4) {',
                           '.peripheral_data ORIGIN(RAM_PERIPHERALS)+8 : ALIGN(4) {')
+    assert script.count('.irq_bss (NOLOAD) : {')==1
+    script=script.replace('.irq_bss (NOLOAD) : {',
+                          '.irq_bss ORIGIN(RAM_IRQ_STATE)+8 (NOLOAD) : {')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
     assert script.count(needle)==1
     script=script.replace(needle,'__ram_exec_start = .; '+4*'SHORT(0xde00); '+'KEEP(*(.ram_original_flash))')
@@ -64,6 +67,21 @@ def relocated_image(tmp_path_factory):
     return output,manifest,script
 
 
+def vacant_ranges(manifest,ranges):
+    """Subtract live linker allocations before poisoning obsolete locations."""
+    segments=[(address,address+size) for address,size in ranges]
+    for section in manifest['layout_audit']['sections'].values():
+        start=section['address'];end=start+section['bytes']
+        if not 0x20000000<=start<0x20001000 or start==end:continue
+        remaining=[]
+        for low,high in segments:
+            if high<=start or low>=end:remaining.append((low,high));continue
+            if low<start:remaining.append((low,start))
+            if high>end:remaining.append((end,high))
+        segments=remaining
+    return [(low,high-low) for low,high in segments if low<high]
+
+
 def test_relocated_reset_uart_and_fresh_boot_persistence(relocated_image):
     output,manifest,_=relocated_image
     assert candidate_stack_floor(output/'firmware.bin')==manifest['layout_audit']['stack_floor_address']
@@ -81,6 +99,16 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     # poisoning the old cache. No handler replacement or guest code patching.
     floor=manifest['layout_audit']['stack_floor_address']
     machines=[boot(load_image())[0],boot((output/'firmware.bin').read_bytes(),stack_floor=floor)[0]]
+    symbols=manifest['layout_audit']['symbols']
+    for name,old in [('syscon_gpio_pins',0x2000016c),
+                     ('syscon_gpio_handlers',0x20000698),
+                     ('syscon_reset_cause_cache',0x20000254),
+                     ('syscon_i2c_bus',0x2000013c),('syscon_i2c_state',0x20000760)]:
+        assert symbols[name]!=old
+    # A writer/reader pair retaining the same old callback address could still
+    # agree with itself. Require registration in the actual relocated object.
+    registered=int.from_bytes(machines[1].read(symbols['syscon_gpio_handlers'],4),'little')
+    assert registered==symbols['syscon_target_powerkey_edge']
     poison=b'\xa5'*22
     machines[1].cpu.mem_write(0x20000030,poison)
     # The former task/timer region now holds the linker-allocated state arena;
@@ -92,6 +120,9 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     # unallocated prefix; a stale ADC lookup would instead encounter LED data.
     peripheral_start=manifest['layout_audit']['sections']['.peripheral_data']['address']
     obsolete.append((0x200000f4,peripheral_start-0x200000f4))
+    obsolete+= [(0x2000013c,12),(0x2000016c,200),(0x20000254,1),
+                (0x20000698,200),(0x20000760,2)]
+    obsolete=vacant_ranges(manifest,obsolete)
     for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
     ticks=manifest['layout_audit']['symbols']['syscon_timer_state']+104
     clock_before=int.from_bytes(machines[1].read(ticks,8),'little')
@@ -190,6 +221,7 @@ def test_relocated_rgb_animation_reaches_pwm_outputs(relocated_image):
               boot((output/'firmware.bin').read_bytes(),
                    stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
     obsolete=[(0x20000148,36),(0x200003a8,28)]
+    obsolete=vacant_ranges(manifest,obsolete)
     for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
     entries=[0x5c38,manifest['layout_audit']['symbols']['syscon_target_rgb_configure']&~1]
     # Observe output values, not instruction timestamps. The external tick
@@ -229,3 +261,90 @@ def test_relocated_rgb_animation_reaches_pwm_outputs(relocated_image):
         results.append((writes,normalized_log(reply),normalized_log(status)))
     assert results[0]==results[1]
     for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
+
+
+def test_relocated_i2c_nack_runs_real_fault_path(relocated_image,tmp_path):
+    from rebuilt_system import SCENARIO
+    from unicorn.arm_const import UC_ARM_REG_PRIMASK
+    output,manifest,_=relocated_image
+    inputs=json.loads(SCENARIO.read_text());inputs['i2c_failures']=['nack']*4
+    scenario=tmp_path/'i2c-nack.json';scenario.write_text(json.dumps(inputs))
+    machines=[];outputs=[]
+    for image,floor in [(load_image(),0x20000820),
+                         ((output/'firmware.bin').read_bytes(),manifest['layout_audit']['stack_floor_address'])]:
+        with pytest.raises(AssertionError,match='Reset did not reach application loop'):
+            boot(image,scenario,budget=1000000,observer=machines.append,stack_floor=floor)
+        machine=machines[-1]
+        wire=normalized_log(bytes(machine.device.tx[0]))
+        assert b'Assertion failed:' in wire
+        assert machine.cpu.reg_read(UC_ARM_REG_PRIMASK)==1
+        assert not machine.systick_ctrl&2
+        assert machine.device.expander.events
+        outputs.append(wire)
+    assert outputs[0]==outputs[1]
+
+
+def test_relocated_uart_stream_uses_linked_receive_ring(relocated_image):
+    output,manifest,_=relocated_image
+    symbols=manifest['layout_audit']['symbols']
+    for name,old in [('syscon_uart_ports',0x20000234),
+                     ('syscon_uart_config',0x20000762),('syscon_uart_rings',0x20000774)]:
+        assert symbols[name]!=old
+    machines=[boot(load_image())[0],
+              boot((output/'firmware.bin').read_bytes(),
+                   stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
+    obsolete=vacant_ranges(manifest,[(0x20000234,32),(0x20000762,18),(0x20000774,152)])
+    for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
+    rings=[0x20000774,symbols['syscon_uart_rings']]
+    before=[machine.read(address+64,8) for machine,address in zip(machines,rings)]
+    # Enough real command input to wrap the 64-byte ring. Compare replies and
+    # actual linked indices, so paired stale writer/reader addresses cannot pass.
+    for command in ['VERSION','CONFIG_SET uart.edit relocatable',
+                    'CONFIG_GET uart.edit','VERSION','CONFIG_GET uart.edit']:
+        replies=[command_reply(machine,command) for machine in machines]
+        assert all(b'PASS\r\n' in reply for reply in replies)
+        assert normalized_log(replies[0])==normalized_log(replies[1])
+        indices=[machine.read(address+64,8) for machine,address in zip(machines,rings)]
+        assert indices[0]==indices[1]
+    assert b'uart.edit = relocatable' in replies[1]
+    assert all(previous!=current for previous,current in zip(before,indices))
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
+
+
+def test_relocated_logger_enable_disable_and_real_command_registers(relocated_image):
+    output,manifest,_=relocated_image
+    symbol=manifest['layout_audit']['symbols']['syscon_log_enabled']
+    assert symbol!=0x2000080c
+    machines=[boot(load_image())[0],
+              boot((output/'firmware.bin').read_bytes(),
+                   stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
+    machines[1].write_ram(0x2000080c,b'\xa5')
+    flags=[0x2000080c,symbol]
+    traces=[]
+    for machine,flag in zip(machines,flags):
+        before=len(machine.device.tx[0])
+        # LOG 0 cannot use command_reply: the status logger is disabled before
+        # the handler returns. Feed real UART bytes and check continued polling.
+        for value in b'LOG 0\n':
+            machine.device.inject_uart(0,bytes([value]));machine.run(5000)
+        deadline=machine.instructions+2_000_000
+        while machine.read(flag,1)!=b'\0' and machine.instructions<deadline:
+            machine.run(10000)
+        assert machine.read(flag,1)==b'\0'
+        muted=len(machine.device.tx[0])
+        for value in b'VERSION\n':
+            machine.device.inject_uart(0,bytes([value]));machine.run(5000)
+        machine.run(20000)
+        reply=command_reply(machine,'LOG 1')
+        assert b'PASS\r\n' in reply and machine.read(flag,1)==b'\1'
+        # UART echo is independent of logger enable. The muted VERSION must
+        # finish before LOG 1 by FIFO order, without its formatted response.
+        assert b'Version=' not in bytes(machine.device.tx[0][muted:])
+        assert b'Version=1.0.52\r\n' in command_reply(machine,'VERSION')
+        # Preserve the real logger -> UART caller-register behavior used by
+        # the legacy SET_RGB parser, while its private return addresses move.
+        for token in ['0','%u','%s','%p','%d','%x','%c','%3u']:
+            assert b'PASS\r\n' in command_reply(machine,f'SET_RGB {token}:2:3:4:0:')
+        traces.append(normalized_log(bytes(machine.device.tx[0][before:])))
+    assert traces[0]==traces[1]
+    assert machines[1].read(0x2000080c,1)==b'\xa5'
