@@ -1,6 +1,7 @@
 """Build isolated original-ABI target modules; deliberately not a flash image."""
 import hashlib,json,subprocess
 from pathlib import Path
+import toolchain_process
 ROOT=Path(__file__).resolve().parents[1]
 SOURCES=['target/timers_target.c','target/tasks_target.c','target/retained_target.c',
          'src/runtime_memory.c','target/scheduling_test_fixture.c']
@@ -19,12 +20,12 @@ def build(destination,physical_fixture=False):
              *(['-DSYSCON_SCHEDULING_PHYSICAL_FIXTURE'] if physical_fixture else []),
              '-I',str(ROOT/'include'),*[str(ROOT/s) for s in SOURCES],
              '-Wl,-T,'+str(ROOT/linker),'-Wl,-e,fixture_thread','-o',str(destination)]
-    subprocess.run(command,check=True)
+    toolchain_process.run(command,check=True)
     files=SOURCES+['include/scheduling_target.h','include/scheduling_state.h','include/syscon.h','include/timers.h',
                    'include/runtime_memory.h',linker,'tools/build_scheduling_target.py']
     manifest={'description':'Non-production original-ABI test image with compiled test environment',
               'physical_exception_fixture':physical_fixture,
-              'compiler':subprocess.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0],
+              'compiler':toolchain_process.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0],
               'command':command,'sha256':hashlib.sha256(destination.read_bytes()).hexdigest(),
               'inputs':{f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in files},
               'mappings':{hex(k):v for k,v in MAPPINGS.items()},'libraries':[]}

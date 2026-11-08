@@ -1,5 +1,6 @@
 """Source-only target driver build and explicit register/dependency comparison."""
 from pathlib import Path
+import toolchain_process
 from collections import deque
 import struct
 import subprocess
@@ -30,9 +31,9 @@ def build(out):
         optimize='-O2' if source.name=='runtime_arithmetic.c' or source.parent.name=='gcc-soft-fp' else '-Os'
         extra=['-Wno-type-limits'] if source.name=='floatunsisf.c' else []
         if source.parent.name=='gcc-soft-fp':extra.append('-std=gnu11')
-        subprocess.run(['arm-none-eabi-gcc',*flags,optimize,*extra,'-c',str(source),'-o',str(obj)],check=True)
+        toolchain_process.run(['arm-none-eabi-gcc',*flags,optimize,*extra,'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'drivers.elf'
-    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
+    toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
         '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,--gc-sections','-Wl,-e,syscon_target_i2c_init',
         *['-Wl,--undefined=syscon_target_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
     return elf

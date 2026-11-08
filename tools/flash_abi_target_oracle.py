@@ -1,5 +1,6 @@
 """Source-compiled original flash ABI, including actual code at SRAM20000000."""
 from pathlib import Path
+import toolchain_process
 import subprocess,struct
 from collections import deque
 from elftools.elf.elffile import ELFFile
@@ -16,8 +17,8 @@ def build(out):
     objects=[]
     for i,source in enumerate([ROOT/'target/flash_abi_target.c',stub]):
         obj=out/f'{i}.o';objects.append(str(obj))
-        subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-fno-inline','-ffreestanding','-fno-builtin','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
-    elf=out/'flash-abi.elf';subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/flash_abi_test.ld'),'-o',str(elf)],check=True);return elf
+        toolchain_process.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-fno-inline','-ffreestanding','-fno-builtin','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
+    elf=out/'flash-abi.elf';toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/flash_abi_test.ld'),'-o',str(elf)],check=True);return elf
 class FlashTargetOracle(ArmRebuildOracle):
     def __init__(self,elf_path):
         self.cpu=Uc(UC_ARCH_ARM,UC_MODE_THUMB|UC_MODE_MCLASS)

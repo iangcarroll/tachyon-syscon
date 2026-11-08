@@ -1,5 +1,6 @@
 """Actual original/Cortex-M0+ manager bodies with declared leaf dependencies."""
 from pathlib import Path
+import toolchain_process
 import subprocess,struct,re
 from unicorn import UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE,UC_MEM_READ,UcError
 from unicorn.arm_const import UC_ARM_REG_R1,UC_ARM_REG_SP
@@ -20,9 +21,9 @@ def build(out,integrated=False):
     if integrated:sources += [ROOT/'target/tasks_target.c',ROOT/'target/retained_target.c']
     for i,source in enumerate(sources):
         obj=out/f'{i}.o';objects.append(str(obj))
-        subprocess.run(['arm-none-eabi-gcc','-std=gnu11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-ffunction-sections','-fdata-sections','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
+        toolchain_process.run(['arm-none-eabi-gcc','-std=gnu11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-ffunction-sections','-fdata-sections','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'power-manager.elf'
-    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,--gc-sections',*(['-Wl,--undefined=syscon_target_tasks_poll','-Wl,--undefined=syscon_target_tasks_init'] if integrated else []),'-Wl,-e,syscon_target_power_measure',*['-Wl,--undefined=syscon_target_power_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
+    toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,--gc-sections',*(['-Wl,--undefined=syscon_target_tasks_poll','-Wl,--undefined=syscon_target_tasks_init'] if integrated else []),'-Wl,-e,syscon_target_power_measure',*['-Wl,--undefined=syscon_target_power_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
     return elf
 
 class Pair:
