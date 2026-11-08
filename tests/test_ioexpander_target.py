@@ -88,3 +88,13 @@ def test_unchecked_write_large_indices_and_nonboolean_clear(ioexpander_elf):
         for initial in (0,255,0xa5):
             for value in (0,1,2,0xffffffff):
                 p.put(REGS,bytes([initial])*256);p.run(0x379c,pin,value)
+
+
+def test_expander_errors_do_not_depend_on_removed_rom_text(ioexpander_elf):
+    p=Pair(ioexpander_elf)
+    p.a.put(0xb2c7,b'\xa5'*(0xb4ac-0xb2c7))
+    p.run(0x3808,1)
+    # Reading an input is valid; writing it emits a diagnostic and returns -1.
+    p.run(0x39e8,3,0x20000910)
+    assert p.run(0x3940,3,1)==0xffffffff
+    p.run(0x39e8,16,0x20000910,terminal=True)

@@ -7,6 +7,7 @@ from elftools.elf.elffile import ELFFile
 from unicorn import *
 from unicorn.arm_const import *
 from oracle import Oracle
+from power_state_comparison import log_arguments
 from arm_rebuild_oracle import ArmRebuildOracle
 from flash_controller_oracle import FlashControllerModel
 ROOT=Path(__file__).resolve().parents[1]
@@ -46,7 +47,7 @@ class Pair:
             m.cpu.mem_map(0x400cd000,0x3000)
             if model:self.models.append(FlashControllerModel(lambda a,n,m=m:bytes(m.cpu.mem_read(a,n)),m.put))
             m.cpu.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,self.memory(i))
-            m.hooks[0x8f88 if not i else m.symbols['syscon_target_logger']&~1]=lambda o,i=i:self.events[i].append(('log',*(o.arg(n) for n in range(3))))
+            m.hooks[0x8f88 if not i else m.symbols['syscon_target_logger']&~1]=lambda o,i=i:self.events[i].append(('log',*log_arguments(o,2)))
     def memory(self,i):
         def hook(uc,kind,a,size,value,_):
             if not(0x400cd000<=a<0x400d0000 or 0x20000030<=a<0x20000e00):return

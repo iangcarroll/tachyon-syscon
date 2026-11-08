@@ -70,3 +70,12 @@ def test_base_pointer_wrap_and_fault_semantics(elf):
             p=Pair(elf)
             if base in [BASE,BASE+0x100]:p.word(base+0x13d0,3)
             p.run(entry,base,*args)
+
+
+def test_flash_status_text_is_linked_and_survives_poisoned_legacy_rom(elf):
+    p=Pair(elf)
+    p.machines[1].put(0xacfa,b'\xa5'*(0xadbe-0xacfa))
+    for value in [0,0x10,0x20,0x40,0x80,0x1000,0x1010]:
+        p.word(BASE+0x13d0,value)
+        p.run(0x2738)
+        assert p.events[0][-1][0]=='log'

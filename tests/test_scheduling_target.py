@@ -13,6 +13,7 @@ from unicorn import UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE,UC_MEM_WRITE,UC_PROT_READ
 from unicorn.arm_const import UC_ARM_REG_PC,UC_ARM_REG_R1,UC_ARM_REG_PRIMASK,UC_ARM_REG_R4,UC_ARM_REG_R5,UC_ARM_REG_R6,UC_ARM_REG_R7,UC_ARM_REG_R8,UC_ARM_REG_R9,UC_ARM_REG_R10,UC_ARM_REG_R11
 from arm_rebuild_oracle import ArmRebuildOracle
 from oracle import Oracle,REPLACED_ENDPOINTS,EXECUTED_ORIGINAL
+from power_state_comparison import text_argument
 from build_scheduling_target import build,MAPPINGS
 
 E=0x21008000
@@ -64,7 +65,13 @@ class Pair:
         for m in self.machines:m.put(address,data)
     def word(self,address,value):self.put(address,struct.pack('<I',value))
     def symbol(self,name):return self.a.symbols[name]
-    def events(self,m):return m.read(E+64,24*m.u32(E))
+    def events(self,m):
+        events=[]
+        for offset in range(m.u32(E)):
+            row=list(struct.unpack('<6I',m.read(E+64+24*offset,24)))
+            if row[0]<=3:row[1],row[2]=text_argument(m,row[1]),text_argument(m,row[2])
+            events.append(tuple(row))
+        return events
     def run(self,entry,*args,returns=False):
         for m in self.machines:m.put(E,bytes(4))
         for trace in self.traces:trace.clear()
@@ -271,3 +278,21 @@ def test_actual_systick_exception_executes_target_handler_and_callback_without_h
     bad=bytearray(image);struct.pack_into('<I',bad,15*4,symbols['syscon_target_timer_tick']&~1)
     m=MCU(bad,peripherals=False);m.pend(15)
     with pytest.raises(BusFault):m.run(100)
+
+
+def test_scheduler_and_retained_logs_survive_poisoned_legacy_text(scheduling_elf):
+    p=Pair(scheduling_elf)
+    p.a.put(0xcdab,b'\xa5'*(0xcdf0-0xcdab))
+    p.a.put(0xdbf6,b'\xa5'*(0xdd05-0xdbf6))
+    p.word(0x400b0400,0x12)
+    p.run(0x59d8)
+    assert p.a.read(R,3)==bytes([0x5b,0,0])
+    p.run(0x7540)
+    p.run(0x7554,0,13,returns=True)
+    actions=0x20000900
+    p.put(actions,struct.pack('<B3xI',1,1))
+    p.run(0x7554,actions,1,returns=True)
+    assert p.a.call('syscon_target_tasks_active')==1
+    p.put(T+104,struct.pack('<Q',1));p.run(0x75d8)
+    p.put(T+104,struct.pack('<Q',2));p.run(0x75d8)
+    assert p.a.call('syscon_target_tasks_active')==0

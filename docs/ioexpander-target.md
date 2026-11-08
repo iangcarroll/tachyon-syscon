@@ -34,9 +34,9 @@ I²C dependencies use the canonical `i2c_target.h` API: init82f0 and receive860c
 return 64-bit register pairs, with the lower word used for result checks;
 transmit844c returns a word. GPIO80f8/8054, assertion2678, logger8f88, and our
 C `runtime_memory.c` string/copy helpers are ordinary link dependencies.
-The target still requires the source filename and assertion/log strings at
-their original addresses in `0xb2c7..0xb4a7`. The fixture maps the original
-image as read-only rodata; candidate execution from it is forbidden.
+The initialization flag, diagnostic basename and assertion/log strings are
+linker-resolved objects. The removed `0xb2c7..0xb4ab` ROM block is poisoned in
+a differential regression; input/read/write/error behavior still matches.
 
 ## Differential tests
 
@@ -76,7 +76,7 @@ identified instructions** across the eleven entries. The remaining thirteen
 are unreachable for the pinned image and ordinary dependency contract:
 
 * Ten filename fallback instructions require a filename without `/`, while
-  the constant filename at `0xb2c7` contains `/`: 369a/369c, 36ec/36ee,
+  the original filename at `0xb2c7` contains `/` (the rebuilt source uses its diagnostic basename directly): 369a/369c, 36ec/36ee,
   3728/372a, 377a/377c, 3838/383a.
 * Three wrapper error instructions at 3648/364a/364c require 39e8 to return
   nonzero. Its successful path returns zero and its failure paths assert or

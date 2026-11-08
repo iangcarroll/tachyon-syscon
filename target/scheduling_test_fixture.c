@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 #include "scheduling_target.h"
+#include "runtime_memory.h"
 #define V(a) (*(volatile uint32_t *)(uintptr_t)(a))
 #define B(a) (*(volatile uint8_t *)(uintptr_t)(a))
 #ifdef SYSCON_SCHEDULING_PHYSICAL_FIXTURE
@@ -18,12 +19,14 @@ static void event(uint32_t a,uint32_t b,uint32_t c,uint32_t d,uint32_t e,uint32_
 }
 void syscon_target_logger(uint32_t level,const char *tag,const char *format,...) {
     uint32_t f=(uint32_t)(uintptr_t)format,args[3]={0,0,0};unsigned n=0;
-    if(f==0xdc35 || f==0xcdd2)n=2;
-    if(f==0xcdab)n=3;
-    if(f==0xdc8d || f==0xdce1)n=1;
+    for (const char *p=format; *p; ++p) {
+        if (*p!='%') continue;
+        if (p[1]=='%') { ++p; continue; }
+        ++n;
+    }
     va_list ap;va_start(ap,format);for(unsigned i=0;i<n;++i)args[i]=va_arg(ap,uint32_t);va_end(ap);
     event(level,(uint32_t)(uintptr_t)tag,f,args[0],args[1],args[2]);
-    if(E[6] && f==0xcdab)B(0x200000da)=(uint8_t)E[6];
+    if(E[6] && syscon_rt_strcmp(format,"Retained data raw: 0x%X 0x%X 0x%X")==0)B(0x200000da)=(uint8_t)E[6];
 }
 uint32_t syscon_target_watchdog_feed(void){++E[3];((void (*)(void))(uintptr_t)E[2])();return 0;}
 void fixture_timer_callback(uint32_t argument) {

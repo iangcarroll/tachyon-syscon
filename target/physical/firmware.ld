@@ -4,7 +4,7 @@ MEMORY {
  CODE (rx) : ORIGIN = 0x00000000, LENGTH = 0xab20
  FIXED (r) : ORIGIN = 0xab20, LENGTH = 0x3a58
  /* Migrated power strings/scales no longer occupy their original ROM block. */
- RECLAIMED_TEXT (r) : ORIGIN = 0xb4ac, LENGTH = 0x18cf
+ RECLAIMED_TEXT (r) : ORIGIN = 0xb2c7, LENGTH = 0x1ab4
  SPARE (rx) : ORIGIN = 0xe578, LENGTH = 0x1280
  VERSION_REGION (r) : ORIGIN = 0xf7f8, LENGTH = 8
  IDENTITY (r) : ORIGIN = 0xf800, LENGTH = 0x400
@@ -102,6 +102,9 @@ SECTIONS {
    *target_power_state.o(.rodata*)
  } > SPARE :peripheral_rodata
  .application_rodata : {
+   *target_core_helpers.o(.rodata*) *target_flash_abi_target.o(.rodata*)
+   *target_ioexpander_target.o(.rodata*)
+   *target_retained_target.o(.rodata*) *target_tasks_target.o(.rodata*) *target_timers_target.o(.rodata*)
    *target_diagnostics_target.o(.rodata*)
    *target_sg560d_target.o(.rodata*)
    *target_application_target.o(.rodata*)
