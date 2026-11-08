@@ -4,7 +4,7 @@
     {"address":"0x9012","symbol":"syscon_target_buffer_output"},
     {"address":"0x9026","symbol":"syscon_target_null_output"}
   ],
-  "source":"target/callback_helpers.c",
+  "source":"target/runtime/callback_helpers.c",
   "tests":"tests/test_callback_helpers.py",
   "docs":"docs/callback-helpers.md",
   "universal_proof":false,

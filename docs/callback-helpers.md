@@ -1,6 +1,6 @@
 # Standalone callback helper entries
 
-`target/callback_helpers.c` implements original ARM interfaces for the three
+`target/runtime/callback_helpers.c` implements original ARM interfaces for the three
 helpers previously counted only as folded caller behavior:
 
 | Original | Target entry |

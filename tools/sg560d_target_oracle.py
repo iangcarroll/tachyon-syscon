@@ -10,7 +10,7 @@ from modem_state_comparison import ModemStateComparison
 from unicorn import UC_HOOK_MEM_WRITE
 from unicorn.arm_const import UC_ARM_REG_R1
 import build_runtime_scan_image as runtime
-ENTRIES={0x5e30:'uart_stop',0x5f30:'power_check',0x614c:'uart_start',0x61b8:'fct_complete',0x61d0:'volume_release',0x61f0:'usbboot_release',0x6210:'powerkey_release_task',0x6230:'action_6230',0x6238:'action_6238',0x6240:'action_6240',0x6248:'pins_off',0x6282:'pins_on',0x62ec:'retry_delay',0x6384:'retry_schedule',0x6428:'poweron',0x64a0:'edl',0x6520:'special_boot',0x65d0:'fct',0x65da:'fct_callback',0x65e4:'fastboot',0x65f0:'wake_schedule',0x6650:'wake_remaining',0x6690:'off',0x66a0:'mode_name',0x66bc:'set_mode',0x6720:'poweroff',0x6838:'prepare_special',0x68a4:'prepare_edl',0x68fc:'prepare_normal',0x6948:'init',0x6a28:'key_assert',0x6a48:'key_release',0x6a68:'poll',0x7468:'key_pulse',0x7488:'action_7488',0x74a8:'action_74a8',0x74c8:'action_74c8',0x74e8:'raw_send'}
+ENTRIES={0x5e30:'uart_stop',0x5f30:'power_check',0x614c:'uart_start',0x61b8:'fct_complete',0x61d0:'volume_release',0x61f0:'usbboot_release',0x6210:'powerkey_release_task',0x6230:'normal_key_release',0x6238:'special_key_release',0x6240:'edl_key_release',0x6248:'pins_off',0x6282:'pins_on',0x62ec:'retry_delay',0x6384:'retry_schedule',0x6428:'poweron',0x64a0:'edl',0x6520:'special_boot',0x65d0:'fct',0x65da:'fct_callback',0x65e4:'fastboot',0x65f0:'wake_schedule',0x6650:'wake_remaining',0x6690:'off',0x66a0:'mode_name',0x66bc:'set_mode',0x6720:'poweroff',0x6838:'prepare_special',0x68a4:'prepare_edl',0x68fc:'prepare_normal',0x6948:'init',0x6a28:'key_assert',0x6a48:'key_release',0x6a68:'poll',0x7468:'key_pulse',0x7488:'fct_powerkey_pulse',0x74a8:'fct_second_reset_pulse',0x74c8:'fct_first_reset_pulse',0x74e8:'raw_send'}
 VOID={0x5e30,0x614c,0x6248,0x6282,0x6384,0x65f0,0x6a28,0x6a48,0x6a68}
 # address -> (target symbol, explicit argument count). Return64 declarations are
 # handled separately, because original Oracle hooks otherwise only set R0.
@@ -31,7 +31,7 @@ def build(destination):
     traps.write_text('.syntax unified\n.thumb\n'+''.join(f'.global {n}\n.type {n},%function\n.thumb_func\n{n}:\n bkpt #0\n bx lr\n' for n in names))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S','target/hal_helpers.c','target/sg560d_target.c','target/modem_state.c','target/power_state.c',str(traps)]
+        runtime.SOURCES=old+['src/format.c','target/logging/logger_target.c','target/logging/logger_state.c','target/logging/logger_target_abi.S','target/drivers/hal_helpers.c','target/modem/sg560d_target.c','target/modem/modem_state.c','target/power/power_state.c',str(traps)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old
 

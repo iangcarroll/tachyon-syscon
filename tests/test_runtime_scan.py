@@ -237,3 +237,31 @@ def test_original_abi_initial_octal_size_stack_seed_and_later_size_reuse(scan_el
                     if wrapper:p.call(0x976c,'syscon_rt_snprintf',OUT,128,FMT,*words)
                     else:p.call(0x9b24,'syscon_rt_vfprintf',REENT,FILE,FMT,ARGS);p.equal(FILE,104)
                     p.equal(OUT,128);p.equal(REENT,4)
+
+
+def test_snprintf_assembly_uses_relocated_runtime_pointer(tmp_path,monkeypatch):
+    import shutil
+    import build_runtime_scan_image as runtime
+    tree=tmp_path/'source'
+    for directory in ['target','include','src']:
+        shutil.copytree(runtime.ROOT/directory,tree/directory)
+    linker=tree/'target/testing/emulation.ld'
+    source=linker.read_text()
+    source=source.replace('TEST_RUNTIME_CURRENT (rw) : ORIGIN = 0x20000258',
+                          'TEST_RUNTIME_CURRENT (rw) : ORIGIN = 0x21001000')
+    linker.write_text(source)
+    monkeypatch.setattr(runtime,'ROOT',tree)
+    candidate=ArmRebuildOracle(runtime.build(tmp_path/'relocated'))
+    reference=Oracle()
+    current=candidate.symbols['syscon_runtime_current']
+    assert current!=0x20000258
+    context=candidate.u32(current)
+    candidate.put(0x20000258,struct.pack('<I',0xdeadbeef))
+    for cpu in [reference,candidate]:cpu.put(FMT,b'%u\0')
+    for size in [0xffffffff,16,1,0]:
+        expected=call_original_varargs(reference,0x976c,OUT,size,FMT,1234)
+        actual=candidate.call('syscon_rt_snprintf',OUT,size,FMT,1234)
+        assert actual==expected
+        assert candidate.u32(context)==reference.u32(0x2000025c)
+        assert candidate.read(OUT,16)==bytes(reference.cpu.mem_read(OUT,16))
+    assert candidate.u32(0x20000258)==0xdeadbeef

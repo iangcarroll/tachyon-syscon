@@ -1,6 +1,6 @@
 # UART configuration and board routing
 
-`target/uart_hal_target.c` implements the four interfaces in `include/uart_hal_target.h` without host-context callbacks:
+`target/drivers/uart_hal_target.c` implements the four interfaces in `include/uart_hal_target.h` without host-context callbacks:
 
 | Original | Target symbol | Meaning |
 |---|---|---|
@@ -9,7 +9,7 @@
 | `0x95f0` | `syscon_target_uart_line_config` | Module/control and line-format configuration |
 | `0x9638` | `syscon_target_uart_clock_config` | Clock source/divider configuration |
 
-Initialization uses the typed `syscon_uart_ports` board table in `target/hal_helpers.c`, GPIO descriptor lookup, pin mux writes, protected reset/power writes, and ordinary C default-line bytes. The linker chooses the table address. `include/uart_state.h` names the UART descriptor, packed configuration and ring fields; `target/uart_state.c` owns their runtime storage. Invalid port asserts before null config. Configuration inputs are read in their actual byte/halfword order, including bytewise reads of the packed baud field.
+Initialization uses the typed `syscon_uart_ports` board table in `target/drivers/hal_helpers.c`, GPIO descriptor lookup, pin mux writes, protected reset/power writes, and ordinary C default-line bytes. The linker chooses the table address. `include/uart_state.h` names the UART descriptor, packed configuration and ring fields; `target/drivers/uart_state.c` owns their runtime storage. Invalid port asserts before null config. Configuration inputs are read in their actual byte/halfword order, including bytewise reads of the packed baud field.
 
 The baud path executes the complete reconstructed arithmetic chain: unsigned integer division of 2000000 by baud, unsigned-to-float conversion, float-to-unsigned conversion and 16-bit truncation, signed-to-float conversion, subtraction, multiplication by 64, float-to-double extension, addition of 0.5, and unsigned conversion before the six-bit fractional-field update. This source does not replace the chain with a precomputed fractional zero. The integer division's zero-denominator policy comes from the reconstructed arithmetic helper.
 

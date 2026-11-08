@@ -14,8 +14,8 @@ def build(destination,real_uart=False):
     traps.write_text('.syntax unified\n.thumb\n'+''.join(f'.global {n}\n.type {n},%function\n.thumb_func\n{n}:\n bkpt #0\n bx lr\n' for n in ports))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S',str(traps)]
-        if real_uart:runtime.SOURCES+=['target/uart_ring.c','target/uart_state.c','target/uart_ring_abi.S','target/hal_helpers.c','target/logger_uart_test_fixture.c']
+        runtime.SOURCES=old+['src/format.c','target/logging/logger_target.c','target/logging/logger_state.c','target/logging/logger_target_abi.S',str(traps)]
+        if real_uart:runtime.SOURCES+=['target/drivers/uart_ring.c','target/drivers/uart_state.c','target/drivers/uart_ring_abi.S','target/drivers/hal_helpers.c','target/testing/logger_uart_test_fixture.c']
         return runtime.build(destination)
     finally:runtime.SOURCES=old
 

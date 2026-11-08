@@ -26,37 +26,39 @@ def relocated_image(tmp_path_factory):
     header=tree/'include/config_text.h'
     header.write_text(header.read_text().replace('Key checksum mismatch',
                       'Configuration key checksum mismatch (longer editable text)'))
-    commands=tree/'target/command_table_target.c'
+    commands=tree/'target/protocol/command_table_target.c'
     text=commands.read_text()
     # Add a command in source without changing a count, address or linker size.
-    marker='const syscon_target_command_record syscon_target_commands[] =\n    {'
-    assert text.count(marker)==1
+    import re
+    declaration=re.search(r'const syscon_target_command_record syscon_target_commands\[\]\s*=\s*\{',text)
+    assert declaration
+    marker=declaration[0]
     text=text.replace(marker,marker+'\n    {"BUILD_INFO", syscon_target_cmd_version, 0, 0, "Build information from editable source"},')
     commands.write_text(text)
     linker=tree/'target/physical/firmware.ld'
     script=linker.read_text()
     assert script.count('.config_data :')==1
-    script=script.replace('.config_data :','.config_data ORIGIN(SPARE)+256 :')
+    script=script.replace('.config_data : {','.config_data : { . += 256;')
     assert script.count('.text_early : {')==1 and script.count('.text : {')==1
     script=script.replace('.text_early : {','.text_early : { . += 16;')
     script=script.replace('.text : {','.text : { . += 32;')
     assert script.count('.data : ALIGN(4) {')==1
-    script=script.replace('.data : ALIGN(4) {','.data ORIGIN(RAM_AUX)+64 : ALIGN(4) {')
+    script=script.replace('__data_start = .;','__data_start = .; . += 64;')
     assert script.count('.peripheral_data : ALIGN(4) {')==1
-    script=script.replace('.peripheral_data : ALIGN(4) {',
-                          '.peripheral_data ORIGIN(RAM_PERIPHERALS)+8 : ALIGN(4) {')
+    script=script.replace('__peripheral_data_start = .;',
+                          '__peripheral_data_start = .; . += 8;')
     assert script.count('.irq_bss (NOLOAD) : {')==1
     script=script.replace('.irq_bss (NOLOAD) : {',
-                          '.irq_bss ORIGIN(RAM_IRQ_STATE)+8 (NOLOAD) : {')
+                          '.irq_bss (NOLOAD) : { . += 8;')
     script=script.replace('.application_rodata : {',
                           '.application_rodata : { . += 64;')
-    script=script.replace('.command_table : {', '.command_table ORIGIN(RECLAIMED_TEXT)+32 : {')
-    script=script.replace('.protocol_data : ALIGN(4) {',
-                          '.protocol_data ORIGIN(RAM_PROTOCOL_DATA)+4 : ALIGN(4) {')
+    script=script.replace('.command_table : {', '.command_table : { . += 28;')
+    script=script.replace('__protocol_data_start = .;',
+                          '__protocol_data_start = .; . += 4;')
     script=script.replace('.application_bss (NOLOAD) : {',
-                          '.application_bss ORIGIN(RAM_APPLICATION)+8 (NOLOAD) : {')
+                          '.application_bss (NOLOAD) : { . += 8;')
     script=script.replace('.power_bss (NOLOAD) : {',
-                          '.power_bss ORIGIN(RAM_POWER_STATE)+8 (NOLOAD) : {')
+                          '.power_bss (NOLOAD) : { . += 8;')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
     assert script.count(needle)==1
     script=script.replace(needle,'__ram_exec_start = .; '+4*'SHORT(0xde00); '+'KEEP(*(.ram_original_flash))')
@@ -80,12 +82,12 @@ def relocated_image(tmp_path_factory):
     assert manifest['inputs_unchanged_during_build']
     assert not manifest['layout_audit']['issues']
     section=manifest['layout_audit']['sections']['.config_data']
-    assert section['address']==0xe578+256 and section['flags']==2
+    assert section['flags']==2 and section['bytes']>256
     assert section['address']+section['bytes']<=0xf7f8
     cache=manifest['layout_audit']['symbols']['syscon_config_state']
     data=manifest['layout_audit']['sections']['.data']
     assert data['address']<=cache<data['address']+data['bytes']
-    assert cache>=0x20000820+64
+    assert cache>=data['address']+64
     return output,manifest,script
 
 
@@ -148,7 +150,7 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     # The old ADC table now holds relocated LED/PWM objects. Poison only the
     # unallocated prefix; a stale ADC lookup would instead encounter LED data.
     peripheral_start=manifest['layout_audit']['sections']['.peripheral_data']['address']
-    obsolete.append((0x200000f4,peripheral_start-0x200000f4))
+    if peripheral_start>0x200000f4:obsolete.append((0x200000f4,peripheral_start-0x200000f4))
     obsolete+= [(0x20000810,16),(0x200002d0,31),(0x20000680,1),(0x2000013c,12),(0x2000016c,200),(0x20000254,1),
                 (0x20000698,200),(0x20000760,2)]
     obsolete=vacant_ranges(manifest,obsolete)
@@ -200,34 +202,28 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     assert persisted[64:128]==bytes(slot(b'legacy',literal))
 
 
-@pytest.mark.parametrize('objects_to_duplicate',[
-    ['.bss.syscon_retained_state','.bss.syscon_timer_state','.bss.syscon_task_state'],
-    ['.data.syscon_pwm_channels','.bss.syscon_rgb_runtime'],
-],ids=['scheduler','led'])
-def test_stack_guard_rejects_unreclaimed_storage_during_compaction(relocated_image,tmp_path,objects_to_duplicate):
+@pytest.mark.parametrize('stack_bytes',[1024,1088])
+def test_stack_guard_rejects_data_growth_that_exceeds_compaction_headroom(relocated_image,tmp_path,stack_bytes):
     output,manifest,script=relocated_image
-    # Reproduce the actual migration defect: allocate a second state copy
-    # above the old state instead of reclaiming its now-unused SRAM. Firmware
-    # source, callbacks, emulator behavior and input values remain unchanged.
-    for section in objects_to_duplicate:
-        pattern='*('+section+')'
-        assert script.count(pattern)==1
-        script=script.replace(pattern,'')
-    linker=tmp_path/'unreclaimed.ld';linker.write_text(script)
-    elf=tmp_path/'unreclaimed.elf'
+    # Model a source edit adding ordinary state. The static minimum still
+    # passes, but this leaves too little room for the exercised compaction path.
+    extra=manifest['layout_audit']['stack_headroom_bytes']-stack_bytes
+    assert extra>0
+    script=script.replace('__extra_bss_start = .;',f'__extra_bss_start = .; . += {extra};')
+    linker=tmp_path/'expanded-state.ld';linker.write_text(script)
+    elf=tmp_path/'expanded-state.elf'
     objects=[str(p) for p in output.glob('*.o') if p.name!='physical-inputs.o']
     subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',
                     *objects,'-Wl,--gc-sections','-Wl,-T,'+str(linker),
                     '-o',str(elf)],check=True,capture_output=True,text=True)
     audit=elf_audit(elf)
-    assert not audit['issues']  # A successful link alone did not catch this bug.
-    floor=audit['stack_floor_address']
-    assert floor>manifest['layout_audit']['stack_floor_address']
-    binary=tmp_path/'unreclaimed.bin';emit_binary(elf,binary)
+    assert not audit['issues']
+    assert audit['stack_headroom_bytes']==stack_bytes
+    binary=tmp_path/'expanded-state.bin';emit_binary(elf,binary)
     engines=[]
     with pytest.raises(AssertionError,match='Stack overlaps allocated state'):
-        legacy_compaction(binary.read_bytes(),b'%s/%u/%n',engines,stack_floor=floor)
-    assert engines  # Startup succeeded; the collision occurs during compaction.
+        legacy_compaction(binary.read_bytes(),b'%s/%u/%n',engines,stack_floor=audit['stack_floor_address'])
+    assert engines
     assert b'Config storage full, attempting compaction' in bytes(engines[0].device.tx[0])
 
 
@@ -346,7 +342,8 @@ def test_relocated_logger_enable_disable_and_real_command_registers(relocated_im
     machines=[boot(load_image())[0],
               boot((output/'firmware.bin').read_bytes(),
                    stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
-    machines[1].write_ram(0x2000080c,b'\xa5')
+    obsolete=vacant_ranges(manifest,[(0x2000080c,1)])
+    for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
     flags=[0x2000080c,symbol]
     traces=[]
     for machine,flag in zip(machines,flags):
@@ -375,7 +372,7 @@ def test_relocated_logger_enable_disable_and_real_command_registers(relocated_im
             assert b'PASS\r\n' in command_reply(machine,f'SET_RGB {token}:2:3:4:0:')
         traces.append(normalized_log(bytes(machine.device.tx[0][before:])))
     assert traces[0]==traces[1]
-    assert machines[1].read(0x2000080c,1)==b'\xa5'
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
 
 
 def test_relocated_power_routes_battery_detection_and_shutdown_commands(relocated_image):

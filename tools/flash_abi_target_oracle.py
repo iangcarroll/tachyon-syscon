@@ -16,10 +16,10 @@ def build(out):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     stub=out/'logger.c';stub.write_text('void syscon_target_logger(void){__asm__("bkpt #0");}\n')
     objects=[]
-    for i,source in enumerate([ROOT/'target/flash_abi_target.c',stub]):
+    for i,source in enumerate([ROOT/'target/drivers/flash_abi_target.c',stub]):
         obj=out/f'{i}.o';objects.append(str(obj))
         toolchain_process.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-fno-inline','-ffreestanding','-fno-builtin','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
-    elf=out/'flash-abi.elf';toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/flash_abi_test.ld'),'-o',str(elf)],check=True);return elf
+    elf=out/'flash-abi.elf';toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/drivers/flash_abi_test.ld'),'-o',str(elf)],check=True);return elf
 class FlashTargetOracle(ArmRebuildOracle):
     def __init__(self,elf_path):
         self.cpu=Uc(UC_ARCH_ARM,UC_MODE_THUMB|UC_MODE_MCLASS)

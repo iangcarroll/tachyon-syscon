@@ -1,44 +1,7 @@
 {
   "reference_sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6",
-  "data_segments": [
-    {
-      "section": "physical.constructors",
-      "start": "0xe2d8",
-      "end_exclusive": "0xe2e0"
-    },
-    {
-      "section": "physical.initial_data",
-      "start": "0xe2e8",
-      "end_exclusive": "0xe578"
-    },
-    {
-      "section": "physical.version",
-      "start": "0xf7f8",
-      "end_exclusive": "0xf7ff"
-    }
-  ],
-  "code_pointer_relocations": [
-    {
-      "field": "0xe2d8",
-      "original_target": "0x3611",
-      "symbol": "syscon_target_timestamp_constructor"
-    },
-    {
-      "field": "0xe2dc",
-      "original_target": "0x3ec1",
-      "symbol": "syscon_target_queue_constructor"
-    },
-    {
-      "field": "0xe310",
-      "original_target": "0x8fa1",
-      "symbol": "syscon_target_mfg_logger"
-    },
-    {
-      "field": "0xe3a8",
-      "original_target": "0x5edd",
-      "symbol": "syscon_target_sg560d_printf"
-    }
-  ],
+  "data_segments": [],
+  "code_pointer_relocations": [],
   "excluded_original_regions": [
     "0x0000..0xab1f vectors/code/RAM-executor",
     "0xc419..0xc61e originalcommand descriptors replacedbysource table",
@@ -53,5 +16,6 @@
       "bytes_hex": "00",
       "reason": "Original missing snprintf vararg remains numeric R3=0x2919; legacy %s observes a NUL there. Source-defined data only, no original instruction bytes imported."
     }
-  ]
+  ],
+  "note": "No imported data payload remains in the production image. All private objects and constructor calls are defined in source; only the version slot and persistent sectors retain their updater contract."
 }

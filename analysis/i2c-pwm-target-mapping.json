@@ -3,7 +3,7 @@
     {
       "address": "0x82b4",
       "symbol": "syscon_target_i2c_error",
-      "source": "target/i2c_target.c",
+      "source": "target/drivers/i2c_target.c",
       "header": "include/i2c_target.h",
       "tests": "tests/test_i2c_target.py",
       "docs": "docs/i2c-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x82f0",
       "symbol": "syscon_target_i2c_init",
-      "source": "target/i2c_target.c",
+      "source": "target/drivers/i2c_target.c",
       "header": "include/i2c_target.h",
       "tests": "tests/test_i2c_target.py",
       "docs": "docs/i2c-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x844c",
       "symbol": "syscon_target_i2c_transmit",
-      "source": "target/i2c_target.c",
+      "source": "target/drivers/i2c_target.c",
       "header": "include/i2c_target.h",
       "tests": "tests/test_i2c_target.py",
       "docs": "docs/i2c-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x860c",
       "symbol": "syscon_target_i2c_receive",
-      "source": "target/i2c_target.c",
+      "source": "target/drivers/i2c_target.c",
       "header": "include/i2c_target.h",
       "tests": "tests/test_i2c_target.py",
       "docs": "docs/i2c-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x8798",
       "symbol": "syscon_target_i2c_irq",
-      "source": "target/i2c_target.c",
+      "source": "target/drivers/i2c_target.c",
       "header": "include/i2c_target.h",
       "tests": "tests/test_i2c_target.py",
       "docs": "docs/i2c-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x87dc",
       "symbol": "syscon_target_pwm_init",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x88c0",
       "symbol": "syscon_target_pwm_write",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x9400",
       "symbol": "syscon_target_pwm_clock",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",
@@ -75,7 +75,7 @@
     {
       "address": "0x941c",
       "symbol": "syscon_target_pwm_compare",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",
@@ -84,7 +84,7 @@
     {
       "address": "0x942c",
       "symbol": "syscon_target_pwm_capture",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x9450",
       "symbol": "syscon_target_pwm_action",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",
@@ -102,7 +102,7 @@
     {
       "address": "0x9470",
       "symbol": "syscon_target_pwm_output",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",
@@ -111,7 +111,7 @@
     {
       "address": "0x948c",
       "symbol": "syscon_target_pwm_configure",
-      "source": "target/pwm_target.c",
+      "source": "target/drivers/pwm_target.c",
       "header": "include/pwm_target.h",
       "tests": "tests/test_pwm_target.py",
       "docs": "docs/pwm-target.md",

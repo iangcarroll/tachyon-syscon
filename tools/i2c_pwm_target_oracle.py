@@ -20,8 +20,8 @@ class BusBoundary(Exception):pass
 def build(out):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     trap=out/'logger.c';trap.write_text('void syscon_target_logger(unsigned a,const char *b,const char *c,...){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
-    sources=[ROOT/'target/i2c_target.c',ROOT/'target/pwm_target.c',ROOT/'target/hal_helpers.c',
-        ROOT/'target/mspm0_core_target.c',ROOT/'target/gpio_state.c',ROOT/'target/core_helpers.c',ROOT/'target/fault_control_target.c',
+    sources=[ROOT/'target/drivers/i2c_target.c',ROOT/'target/drivers/pwm_target.c',ROOT/'target/drivers/hal_helpers.c',
+        ROOT/'target/drivers/mspm0_core_target.c',ROOT/'target/drivers/gpio_state.c',ROOT/'target/drivers/core_helpers.c',ROOT/'target/drivers/fault_control_target.c',
         ROOT/'src/runtime_memory.c',trap]
     objects=[]
     flags=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-mfloat-abi=soft','-ffreestanding','-fno-builtin',
@@ -34,7 +34,7 @@ def build(out):
         toolchain_process.run(['arm-none-eabi-gcc',*flags,optimize,*extra,'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'drivers.elf'
     toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
-        '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,--gc-sections','-Wl,-e,syscon_target_i2c_init',
+        '-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,--gc-sections','-Wl,-e,syscon_target_i2c_init',
         *['-Wl,--undefined=syscon_target_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
     return elf
 

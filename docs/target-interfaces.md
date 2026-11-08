@@ -10,7 +10,7 @@ The link includes configuration storage helpers, callbacks, GPIO/core, ADC,
 UART initialization/rings, assertions, fault breadcrumbs, scheduler/timers,
 retained state, diagnostics, the complete application main loop, power-key and
 RGB state machines, logger/formatting, integer/soft-float/memory runtime, heap,
-stdio, scanning and printf. `target/interface_bindings.c` supplies real memory,
+stdio, scanning and printf. `target/runtime/interface_bindings.c` supplies real memory,
 assertion, color and logger UART bindings. Diagnostic UART output retains the
 original fault-stage-17 update before transmission; modem output uses UART1.
 

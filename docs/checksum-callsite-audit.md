@@ -4,7 +4,7 @@ Audited original SHA-256:
 `5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6`.
 Audited pre-fix physical ELF SHA-256:
 `eb47c94142e5eb6eabeec2ba6c4161cb725753a1747828583db8541b7382eb97`.
-Source checksum: `syscon_cfg_checksum` in `target/config_read.c`, physical
+Source checksum: `syscon_cfg_checksum` in `target/config/config_read.c`, physical
 entry `0x3a6`, size20. The original `0x282c` body and physical symbol are the
 same20 bytes. This identity concerns the actual target function, not the
 separate native `src/config.c` helper.
@@ -75,7 +75,7 @@ ARM witness: when slot+63 is changed during the first key checksum data read,
 the original returns1 and the old candidate returns0. The complete ordered
 read traces differ before that change too.
 
-The authorized fix in `target/config_read.c` uses ordered volatile byte loads
+The authorized fix in `target/config/config_read.c` uses ordered volatile byte loads
 for slot+31 and slot+63 before either checksum. On value-check failure it
 preserves the original separate live reread of slot+63 for the diagnostic.
 It does not change the checksum body or stable-slot semantics.

@@ -1,9 +1,9 @@
 # Original-ABI command parser
 
-`target/protocol_target.c` implements the entire UART polling/parser body. Its
+`target/protocol/protocol_target.c` implements the entire UART polling/parser body. Its
 context has named volatile fields for port, buffer pointer, used count,
 echo/enabled bytes and print callback. The twenty-byte ARM calling layout is
-preserved; production globals are being migrated separately. `target/command_table_target.c`
+preserved; production globals are being migrated separately. `target/protocol/command_table_target.c`
 owns the command names, help strings and handler pointers as ordinary C data.
 The parser and HELP handler derive their count from this array, so adding a
 record does not require changing a private address or a second count. The

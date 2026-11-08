@@ -1,6 +1,6 @@
 # Original-ABI I/O expander
 
-`target/ioexpander_target.c` and `include/ioexpander_target.h` implement eleven
+`target/drivers/ioexpander_target.c` and `include/ioexpander_target.h` implement eleven
 entries with their original arguments, direct pointers, SRAM initialized flag
 at `0x200002d0`, target I²C calls, GPIO calls, logger, and assertion boundary.
 There is no host context or private device-state copy in the implementation.

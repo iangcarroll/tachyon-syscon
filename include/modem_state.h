@@ -9,7 +9,7 @@ typedef struct {
 } syscon_modem_timestamp;
 typedef struct {
     uint8_t mode, reserved[3];
-    uint32_t label;
+    const char *label;
     uint8_t rgb[3], restarting;
 } syscon_modem_boot_state;
 typedef struct {

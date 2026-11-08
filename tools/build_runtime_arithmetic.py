@@ -11,7 +11,7 @@ def build(output):
         source=ROOT/'vendor/gcc-soft-fp'/item['file']
         if hashlib.sha256(source.read_bytes()).hexdigest()!=item['sha256']:
             raise ValueError(f'Upstream source changed: {source}')
-    sources=[ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime_arithmetic_abi.S',ROOT/'target/runtime_arithmetic_float.c',*sorted((ROOT/'vendor/gcc-soft-fp').glob('*.c'))]
+    sources=[ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime/runtime_arithmetic_abi.S',ROOT/'target/runtime/runtime_arithmetic_float.c',*sorted((ROOT/'vendor/gcc-soft-fp').glob('*.c'))]
     objects=[]
     for source in sources:
         obj=output/(source.stem+'.o');objects.append(obj)

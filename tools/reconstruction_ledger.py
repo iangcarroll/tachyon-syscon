@@ -48,7 +48,7 @@ register('timers','76f8 776c 77b4 77c0 77fc 781c 7880',doc='docs/timers-retained
 register('mspm0_core','798c 79d0 79f0 7a50 7a54 7c08 7c3c 7f58 8054 80ac 80f8 8148 81f8 8258',
     note='Passive register/callback model; invalid GPIO input may return host rejection at assertion boundary.')
 register('fault_control','2678 7b78 7b88 7b9c 7be0 7bfc')
-register('fault_handlers','79e4 7bb8 7bcc',source='target/fault_handlers.c',note='Compiled Cortex-M0+ candidate compared with original bounded halt execution; hardfault/NMI also have host fault_control adapters.')
+register('fault_handlers','79e4 7bb8 7bcc',source='target/drivers/fault_handlers.c',note='Compiled Cortex-M0+ candidate compared with original bounded halt execution; hardfault/NMI also have host fault_control adapters.')
 register('flash_controller','2738 7af4 7b10 7b44 7b60 aae0',note='0xaae0 veneer is folded into the reconstructed copied-RAM polling executor. No actual flash access.')
 register('adc','7c54 7d54 7e7c 7f24')
 register('adc','7a68 930c 9664 9688',status='folded_caller_domain',note='Lookup and driver effects folded into ADC caller for observed arguments; generic helper ABI/configurations not fully reconstructed.')
@@ -65,10 +65,10 @@ register('format','8fcc 9038 92ac',doc='docs/formatting.md')
 register('format','9012 9026',status='folded_caller_domain',note='Output/no-op callbacks folded into buffer and null-output formatter paths; no target callback ABI.',doc='docs/formatting.md')
 
 register('application_glue','30f0 4c24 74e8 76f0 8e6c 8e7c 8fc0',note='Seven wrappers integrated with existing config/GPIO/UART bodies; six differential cases passed; host context ABI.')
-register('core_helpers','74f8 7ae8',source='target/core_helpers.c',note='Target ARM tests compare sleep sequencing with explicit wake/log boundaries and exact delay instructions; no physical timing claim.')
+register('core_helpers','74f8 7ae8',source='target/drivers/core_helpers.c',note='Target ARM tests compare sleep sequencing with explicit wake/log boundaries and exact delay instructions; no physical timing claim.')
 
-register('format_wrappers','8f88 8fa0 92f4',source='target/format_wrappers.c',tests=['tests/test_arm_rebuild.py'],doc='docs/arm-rebuild.md',note='Recompiled Cortex-M0+ wrappers compare observable output; incidental return registers and exact bytes not claimed.')
-MAP[0x5edc]['additional_sources']=['target/format_wrappers.c']
+register('format_wrappers','8f88 8fa0 92f4',source='target/testing/format_wrappers.c',tests=['tests/test_arm_rebuild.py'],doc='docs/arm-rebuild.md',note='Recompiled Cortex-M0+ wrappers compare observable output; incidental return registers and exact bytes not claimed.')
+MAP[0x5edc]['additional_sources']=['target/testing/format_wrappers.c']
 MAP[0x5edc]['additional_documentation']=['docs/arm-rebuild.md']
 MAP[0x5edc]['module_tests'].append('tests/test_arm_rebuild.py')
 
@@ -84,13 +84,13 @@ for address,(symbol,source) in ARITHMETIC_MAPPINGS.items():
     register('runtime_arithmetic',f'{address:x}',source=source,
         note=f'{symbol}: AAPCS/flags adapters and pinned GCC soft-fp source; documented arithmetic domains and unreachable guards.',
         tests=['tests/test_runtime_arithmetic.py'],doc='docs/runtime-arithmetic.md')
-    MAP[address]['additional_sources']=['src/runtime_arithmetic.c','target/runtime_arithmetic_abi.S','target/runtime_arithmetic_float.c']
-register('runtime_support','969c 96aa 96b8 971c 9a40 9a54 a828 a8ac a8ae a8c6',source='target/runtime_support.c',
+    MAP[address]['additional_sources']=['src/runtime_arithmetic.c','target/runtime/runtime_arithmetic_abi.S','target/runtime/runtime_arithmetic_float.c']
+register('runtime_support','969c 96aa 96b8 971c 9a40 9a54 a828 a8ac a8ae a8c6',source='target/runtime/runtime_support.c',
     tests=['tests/test_runtime_support.py','tests/test_runtime_support_integration.py'],
     note='Image-specific locale/reent/weak-exit behavior and original wrappers; direct ARM plus source-only linked integration.')
-register('runtime_heap','a8ec a980 aa3c aa88 aaac aabc aacc',source='target/runtime_heap.c',
+register('runtime_heap','a8ec a980 aa3c aa88 aaac aabc aacc',source='target/runtime/runtime_heap.c',
     note='Original allocator metadata, 32-bit pointers and overread behavior; real image sbrk failure and separate scripted backing tests.')
-register('runtime_stdio','9a60 9d24 9d9c a0d4 a1b4 a714 a830',source='target/runtime_stdio.c',
+register('runtime_stdio','9a60 9d24 9d9c a0d4 a1b4 a714 a830',source='target/runtime/runtime_stdio.c',
     note='Original FILE/reent layout, callback ABI and stream/error behavior; source-only ARM integration.')
 scan_mapping=json.loads((ROOT/'analysis/runtime-scan-mapping.json').read_text())
 for entry in scan_mapping['entries']:
@@ -261,7 +261,7 @@ def main():
                  note='Original %p branch discovered by execution; static inventory refresh may include it after this checkpoint.')],
         scoped_solver_proofs=[
             dict(address='0x282c',symbol='syscon_checksum31',source='src/config.c',evidence=proof_path,contract=proof['scope'],status=proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False),
-            dict(address='0x282c',symbol='syscon_cfg_checksum',source='target/config_read.c',evidence=physical_proof_path,contract=physical_proof['scope'],status=physical_proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False)],
+            dict(address='0x282c',symbol='syscon_cfg_checksum',source='target/config/config_read.c',evidence=physical_proof_path,contract=physical_proof['scope'],status=physical_proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False)],
         runtime_matches_without_identified_function_entry=unidentified_matches,
         global_limitations=['No completion percentage is calculated. Semantic reconstruction, instruction exercise, byte matches, and hardware validation are different evidence axes.',
             'Identified runtime entries now have scoped source replacements; full target image integration, complete board emulation, and physical validation remain incomplete. No flash candidate exists.',

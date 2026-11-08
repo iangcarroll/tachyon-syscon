@@ -3,7 +3,7 @@
     {
       "address": "0x3610",
       "symbol": "syscon_target_timestamp_constructor",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x3ec0",
       "symbol": "syscon_target_queue_constructor",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x3a8c",
       "symbol": "syscon_target_queue_event",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x3b0c",
       "symbol": "syscon_target_queue_count",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x3ad4",
       "symbol": "syscon_target_request_off",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x3af4",
       "symbol": "syscon_target_diagnostic_write",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x4c14",
       "symbol": "syscon_target_parser_poll",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x78ac",
       "symbol": "syscon_target_wakeup_irq",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -75,7 +75,7 @@
     {
       "address": "0x7910",
       "symbol": "syscon_target_wakeup_init",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -84,7 +84,7 @@
     {
       "address": "0x7928",
       "symbol": "syscon_target_wakeup_enable",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x7974",
       "symbol": "syscon_target_wakeup_poll",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -102,7 +102,7 @@
     {
       "address": "0x4c24",
       "symbol": "syscon_target_application_gpio_init",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -111,7 +111,7 @@
     {
       "address": "0x8fc0",
       "symbol": "syscon_target_log_enable",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -120,7 +120,7 @@
     {
       "address": "0x3b34",
       "symbol": "syscon_target_main",
-      "source": "target/application_target.c",
+      "source": "target/app/application_target.c",
       "tests": "tests/test_application_target.py",
       "header": "include/application_target.h",
       "docs": "docs/application-target.md",
@@ -129,7 +129,7 @@
     {
       "address": "0x96d4",
       "symbol": "syscon_target_runtime_init",
-      "source": "target/runtime_init_target.c",
+      "source": "target/app/runtime_init_target.c",
       "tests": "tests/test_target_interfaces.py",
       "docs": "docs/target-interfaces.md",
       "original_abi": true
@@ -137,7 +137,7 @@
     {
       "address": "0x76f0",
       "symbol": "syscon_rt_sbrk",
-      "source": "target/runtime_heap.c",
+      "source": "target/runtime/runtime_heap.c",
       "tests": "tests/test_target_interfaces.py",
       "docs": "docs/target-interfaces.md",
       "original_abi": true

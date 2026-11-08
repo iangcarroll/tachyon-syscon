@@ -13,7 +13,7 @@ REENT=0x20000840
 class RuntimeImage:
     def __init__(self,directory):
         directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
-        sources=[ROOT/'target/runtime_heap.c',ROOT/'target/runtime_stdio.c',ROOT/'src/runtime_memory.c',ROOT/'target/runtime_support.c',ROOT/'target/runtime_state.c',ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime_arithmetic_abi.S']
+        sources=[ROOT/'target/runtime/runtime_heap.c',ROOT/'target/runtime/runtime_stdio.c',ROOT/'src/runtime_memory.c',ROOT/'target/runtime/runtime_support.c',ROOT/'target/runtime/runtime_state.c',ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime/runtime_arithmetic_abi.S']
         flags=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-fno-inline','-fno-ipa-cp','-fno-ipa-pure-const','-ffunction-sections','-fdata-sections','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include')]
         objects=[]
         for i,source in enumerate(sources):
@@ -24,7 +24,7 @@ class RuntimeImage:
                 fields=line.split()
                 if len(fields)==3 and fields[1] in ('T','W'):retained.append('-Wl,--undefined='+fields[2])
         elf=directory/'runtime.elf';binary=directory/'runtime.bin'
-        toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_rt_malloc_r','-Wl,--gc-sections',*retained,*objects,'-o',str(elf)],check=True)
+        toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,-e,syscon_rt_malloc_r','-Wl,--gc-sections',*retained,*objects,'-o',str(elf)],check=True)
         with elf.open('rb') as stream:
             self.segments=[(p['p_vaddr'],p.data()) for p in ELFFile(stream).iter_segments()
                            if p['p_type']=='PT_LOAD' and p['p_filesz']]

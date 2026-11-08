@@ -223,7 +223,7 @@ def test_queue_capacity_edit_changes_storage_and_full_detection(tmp_path,monkeyp
     original=header.read_text()
     assert original.count('SYSCON_KEY_QUEUE_CAPACITY = 4')==1
     header.write_text(original.replace('SYSCON_KEY_QUEUE_CAPACITY = 4','SYSCON_KEY_QUEUE_CAPACITY = 8'))
-    linker=source/'target/emulation.ld'
+    linker=source/'target/testing/emulation.ld'
     script=linker.read_text()
     old='TEST_KEY_EVENT_BUFFER (rw) : ORIGIN = 0x200002d1, LENGTH = 4'
     assert script.count(old)==1

@@ -23,8 +23,8 @@ def diagnostic_elf(tmp_path_factory):
         f'.global syscon_target_{name}\n.type syscon_target_{name},%function\n.thumb_func\nsyscon_target_{name}:\n bkpt #0\n bx lr\n' for name in names))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['target/diagnostics_target.c','target/diagnostics_state.c','src/format.c','src/logging.c',
-                            'target/format_wrappers.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S',str(stub)]
+        runtime.SOURCES=old+['target/app/diagnostics_target.c','target/app/diagnostics_state.c','src/format.c','src/logging.c',
+                            'target/testing/format_wrappers.c','target/logging/logger_target.c','target/logging/logger_state.c','target/logging/logger_target_abi.S',str(stub)]
         return runtime.build(directory)
     finally:runtime.SOURCES=old
 
