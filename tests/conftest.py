@@ -7,6 +7,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
+pytest_plugins = ('pytest_sharding',)
 
 
 @pytest.fixture(scope='session')

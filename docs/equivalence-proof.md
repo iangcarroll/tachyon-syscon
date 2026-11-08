@@ -101,7 +101,7 @@ ISA, all firmware inputs, physical timing, or whole-image equivalence.
 ## Target integration and remaining proof obligations
 
 The source-only physical image now links with zero unresolved symbols. It uses
-source reset/vector code, constructor calls, fixed-layout initialized data,
+source reset/vector code, constructor calls, linker-allocated initialized data,
 source command descriptors and relocated callback tables. Its copied SRAM flash
 executor is compiled source. No original executable payload, installed runtime
 archive or Python firmware-function replacement enters this image.
@@ -118,8 +118,8 @@ write-only register assumptions; it is not an identified board readback.
 | Physical image | Strict layout audit, real reset and IRQ execution, protected config sectors | Full reachability and stack/heap/state separation under every allowed interrupt interleaving |
 | Dependency dispatch | All linked application, modem, power, peripheral and runtime dependencies resolve to source | Discharge each call contract and terminal/fault path for the declared input domain |
 | ABI and state | Direct target signatures, fixed data layout, ordered memory/MMIO comparisons | Full observable register, pointer, private stack and aliasing relation |
-| Code/data references | Audited callback relocations and source command table; only declared original data retained | Arbitrary data reads of old code addresses, corrupted function pointers and exposed return addresses |
-| Unsafe input domains | Target logger preserves its exposed frame; config ABI preserves the historical omitted argument; actual assertion paths execute | Missing variadic arguments, corrupted private frames, arbitrary formats and fault continuations beyond tested examples |
+| Code/data references | Named source objects and callbacks, source command table, no imported original data segments; executable source-edit and relocation tests | Corrupted function pointers and arbitrary invalid accesses beyond the tested input domains |
+| Unsafe input domains | Target logger retains its documented frame behavior; configuration compaction copies legacy text literally as the approved correction described below; actual assertion paths execute | Missing variadic arguments in other formatting paths, corrupted private frames, arbitrary formats and fault continuations beyond tested examples |
 | Runtime binding | Single source runtime, no external libc/libgcc fallback; cross-unit type audit | Universal memory, arithmetic, formatting, stream and allocator contracts |
 | Observable timing | Real IRQ/exception handling and deterministic instruction-quanta clock | A justified timing relation between different compiled schedules; physical-cycle correspondence is not established |
 

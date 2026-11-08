@@ -13,11 +13,11 @@ from unicorn import UC_HOOK_MEM_READ, UC_HOOK_MEM_WRITE, UC_MEM_READ
 
 import build_runtime_scan_image as runtime
 from sg560d_target_oracle import Pair as ModemPair, ENTRIES as MODEM_ENTRIES, DEPENDENCIES, AssertionBoundary
-from power_manager_target_oracle import ENTRIES as POWER_ENTRIES
+from power_manager_target_oracle import SYMBOLS as POWER_SYMBOLS
 from power_policy_target_oracle import MAPPINGS as POLICY_ENTRIES
 
 # All these formerly abstract SG dependencies execute their real target bodies.
-INTEGRATED = {a for a in DEPENDENCIES if a in POWER_ENTRIES or a in POLICY_ENTRIES or a == 0x7d54}
+INTEGRATED = {a for a in DEPENDENCIES if a in POWER_SYMBOLS or a in POLICY_ENTRIES or a == 0x7d54}
 EXTRA_PORTS = {
     0x3620: ('syscon_target_pin_read', 1),
     0x5ad4: ('syscon_target_retained_set_battery', 1),
@@ -61,6 +61,9 @@ def retain_engines():
 class CurvePair(ModemPair):
     def __init__(self, elf):
         super().__init__(elf, self.environment)
+        # Normalize real power-task callback identities at the declared task port.
+        self.pointer_map.update({self.cpus[1].symbols[symbol] | 1: entry | 1
+                                 for entry, symbol in POWER_SYMBOLS.items()})
         self.now = 1000
         self.samples = {channel: 0 for channel in range(32)}
         self.samples[11] = 2000
@@ -119,7 +122,7 @@ class CurvePair(ModemPair):
         if entry in MODEM_ENTRIES:
             result=super().call(entry,*args,check_return=check_return)
         else:
-            if entry in POWER_ENTRIES:symbol='syscon_target_power_'+POWER_ENTRIES[entry]
+            if entry in POWER_SYMBOLS:symbol=POWER_SYMBOLS[entry]
             elif entry in POLICY_ENTRIES:symbol='syscon_target_'+POLICY_ENTRIES[entry]
             elif entry==0x7d54:symbol='syscon_target_adc_temperature'
             else:raise AssertionError(hex(entry))
@@ -305,3 +308,31 @@ def test_depleted_battery_startup_restores_real_battery_fifty_ms_after_v18_rise(
     switching=[args for args in p.writes() if args[0] in (33,34,36,38)]
     assert switching==[(33,0),(34,0),(36,0),(38,0),(33,1)]
     assert p.gpio[0][36]==p.gpio[0][38]==0
+
+
+def test_usb_reattach_cooldown_and_supply_guards_use_real_power_bodies(curve_elf):
+    p = CurvePair(curve_elf)
+    assert p.call(0x517c) == 0
+    p.call(0x4ed4, 1)  # Booster on and USB present permit the real request.
+    p.curve(1000, p16=1282)
+    assert p.call(0x51c0) == 0
+    submissions = [event for event in p.events[0] if event[0] == 0x7554]
+    assert len(submissions) == 1 and submissions[0][1] == (3,)
+    assert p.call(0x517c) == 1
+    p.call(0x5148)  # Real isolate callback; scheduling is covered separately.
+    assert p.call(0x517c) == 1
+    assert p.gpio[0][32] == 1 and p.gpio[0][28] == 0
+    p.now = 10_000
+    p.call(0x50f4)  # Real release callback records this timestamp.
+    assert p.gpio[0][32] == 0 and p.gpio[0][28] == 1
+    for elapsed in [0, 1999, 2000, 2001]:
+        p.now = 10_000 + elapsed
+        assert p.call(0x517c) == (elapsed < 2000)
+
+    p.call(0x4ed4, 0)  # Booster off.
+    for usb_raw in [1281, 1282]:
+        # Actual ADC code straddles the USB-present threshold; absence and a
+        # disabled booster must both reject reattachment without a task.
+        p.curve(13_000, p16=usb_raw)
+        assert p.call(0x51c0) == 0xffffffff
+        assert not any(event[0] == 0x7554 for event in p.events[0])
