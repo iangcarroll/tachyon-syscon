@@ -231,10 +231,16 @@ intermediate effects fail. Only logger timestamps are normalized.
 Events and instruction slices are bounded. This is an initial stateful corpus,
 not arbitrary byte-stream fuzzing, a validated timing model, or coverage of every
 power/fault combination. Long button holds, concurrent rail failures, in-flight
-non-atomic flash failures, watchdog interactions and broader seed campaigns still need
+non-atomic flash failures, watchdog expiry during active flash operations and broader seed campaigns still need
 additional whole-image scenarios. Atomic flash-boundary recovery is covered
 below. Existing subsystem/fault tests cover some of
 these separately; they do not establish every combined behavior.
+
+## Watchdog reset recovery
+
+`tests/test_warm_reset.py` boots both complete images, stores a configuration value through UART and lets the firmware-configured watchdog expire while the CPU is stalled. It checks the tick immediately before expiry and the expiry boundary, then runs the reset vector and ordinary startup without directly requesting reset or replacing guest functions. Idle and partially received configuration-command cases must recover the saved value, discard the unfinished command, report `WDT(14)`, increment the retained boot counter and resume watchdog feeding. Tests compare the reboot log, UART replies, persistent bytes and ordered power outputs, and reject unexpected flash erase/program operations during recovery.
+
+This covers digital reset and application recovery with the model's configured clock ratio. It does not establish the physical watchdog timeout, low-power clock gating or expiry during an active flash pulse. The existing software-reset cases separately check initialization after dirty SRAM and retained-state restoration.
 
 ## Interrupted configuration writes
 
