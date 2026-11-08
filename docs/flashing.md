@@ -12,12 +12,15 @@ adb shell
 Then, in the Tachyon shell:
 
 ```sh
-sudo /usr/bin/particle-tachyon-syscon.sh upgrade --force --firmware /var/tmp/syscon-firmware.bin
-sudo /usr/bin/particle-tachyon-syscon.sh syscon_version
+sudo flock --nonblock /usr/bin/particle-tachyon-syscon.sh \
+  env MSPM0FLASH_CTRL=/usr/bin/mspm0flash_ctrl.sh \
+  /usr/bin/mspm0flash -S /dev/ttyHS1 -b 115200 -s -v -v -v -v \
+  prog /var/tmp/syscon-firmware.bin
+sudo /usr/bin/particle-tachyon-syscon-ctl --timeout 8 VERSION
 ```
 
-Wait for programming and `VERIFY` to report `OK`, followed by `Syscon upgrade done.` The updater starts the new firmware automatically; no Linux reboot is needed. The version command should return `1.0.52` for the current reconstruction. `--force` is necessary because it deliberately uses the same version as the original firmware.
+Wait for programming and `VERIFY` to report `OK`. The updater starts the new firmware automatically; no Linux reboot is needed. The version command should return `Version=1.0.52` for the current reconstruction; its version string intentionally matches the original.
 
-These commands use the `--firmware` option in Particle's `particle-tachyon-syscon` 1.1.1-1 package. Use Particle's supplied updater; other `mspm0flash` builds can erase configuration and identity data. If flashing fails, keep Linux running and retain the error output before attempting recovery.
+Use the updater supplied by Particle's `particle-tachyon-syscon` package; other `mspm0flash` builds can erase configuration and identity data. The lock prevents another packaged update from running at the same time. If flashing fails, keep Linux running and retain the error output before attempting recovery.
 
-To restore the original firmware while Linux is available, copy its image to Tachyon and run the same upgrade command with that file's path.
+To restore the original firmware while Linux is available, copy its image to Tachyon and run the same flash command with that file's path.
