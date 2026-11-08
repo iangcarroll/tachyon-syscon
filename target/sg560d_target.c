@@ -5,6 +5,7 @@
 #include "scheduling_target.h"
 #include "power_manager_target.h"
 #include "power_policy_target.h"
+#include "power_state.h"
 #include "mspm0_core_target.h"
 #include "uart_hal_target.h"
 #include "uart_ring_target.h"
@@ -52,7 +53,7 @@ void syscon_target_modem_uart_start(void){
 uint32_t syscon_target_modem_power_check(void){
     int32_t battery=(int32_t)syscon_target_power_battery_detect();
     int32_t route=(int32_t)syscon_target_power_battery_route();
-    LOG(3,60f0,U32(D_60ec+(uint32_t)route*4));
+    LOG(3,60f0,syscon_power_name(syscon_power_names.battery_route,route));
     if(measure(15)>1699){LOG(1,60f8,1699);check(0x152,D_6100);}
     if(!syscon_target_hwrevision_new()){if(route)check(0x159,D_6134);}
     else if(route)LOG(1,6104);
@@ -103,7 +104,7 @@ uint32_t syscon_target_modem_retry_delay(uint32_t reason,uint32_t attempts){
     uint32_t initial=reason<7?U32(D_6364+4*reason):900000,delay=initial;
     if(temperature>=500){
         if(initial<120000)delay=120000;
-        if(initial<=119999)LOG(3,6374,temperature/10,temperature%10,U32(D_6370+4*reason));
+        if(initial<=119999)LOG(3,6374,temperature/10,temperature%10,syscon_power_name(syscon_power_names.shutdown,reason));
     }
     for(uint32_t i=0;i!=attempts;i++){if(delay>449999)return 900000;delay*=2;}
     return delay;
@@ -114,7 +115,7 @@ void syscon_target_modem_retry_schedule(uint32_t reason){
         if(!continuing)W(0x4f4)=0;
         B(0x508)=1;
         uint32_t delay=syscon_target_modem_retry_delay(reason,W(0x4f4));write64(0x500,syscon_target_now()+delay);
-        LOG(3,6420,U32(D_6414+reason*4),continuing?D_6418:D_641c,delay/1000,W(0x4f4));
+        LOG(3,6420,syscon_power_name(syscon_power_names.shutdown,reason),continuing?D_6418:D_641c,delay/1000,W(0x4f4));
     }
 }
 #define ACTION(fn) {0,{0,0,0},(uint32_t)(uintptr_t)(fn)}
@@ -251,7 +252,7 @@ void syscon_target_modem_poll(void){
                 B(0x4f1)=2;B(0x4f2)=2;write64(0x518,0);
                 syscon_target_modem_uart_start();
                 uint32_t vph=(uint32_t)measure(12),route=syscon_target_power_battery_route();
-                LOG(3,6c08,vph,U32(D_6c04+route*4));
+                LOG(3,6c08,vph,syscon_power_name(syscon_power_names.battery_route,route));
                 if(B(0x4f8))write64(0x4e8,syscon_target_now()+50);
                 syscon_target_power_minimum_reset();write64(0x4e0,syscon_target_now());
                 if(read64(0x458)){LOG(3,6c14);write64(0x458,0);}
@@ -259,7 +260,7 @@ void syscon_target_modem_poll(void){
                     B(0x3cf)=0;
                     uint32_t reason=syscon_target_shutdown_reason(),stale=syscon_target_shutdown_stale();
                     if(reason==1)LOG(3,6c24,stale?D_6c1c:D_6c20);
-                    else LOG(2,6c44,U32(D_6c40+reason*4),stale?D_6c1c:D_6c20);
+                    else LOG(2,6c44,syscon_power_name(syscon_power_names.shutdown,reason),stale?D_6c1c:D_6c20);
                     syscon_target_shutdown_set(0);B(0x508)=0;B(0x528)=0;
                     if(B(0x450)==5){
                         uint32_t elapsed=(uint32_t)syscon_target_now()-W(0x454);
@@ -289,7 +290,7 @@ void syscon_target_modem_poll(void){
             uint32_t battery=(uint32_t)measure(14);
             if(!syscon_target_shutdown_reason()&&floor<=2499)syscon_target_shutdown_set(6);
             uint32_t reason=syscon_target_shutdown_reason(),stale=syscon_target_shutdown_stale();
-            LOG(2,6fe4,U32(D_6fd8+reason*4),stale?D_6fdc:D_6fe0,floor,battery);
+            LOG(2,6fe4,syscon_power_name(syscon_power_names.shutdown,reason),stale?D_6fdc:D_6fe0,floor,battery);
             syscon_target_power_minimum_reset();reason=syscon_target_shutdown_active();
             B(0x4f2)=1;B(0x3cf)=1;write64(0x4e0,0);B(0x4f1)=0;
             write64(0x518,syscon_target_now()+250);syscon_target_modem_retry_schedule(reason);
@@ -306,7 +307,7 @@ transition_done:
             B(0x3cf)=0;uint32_t reason=syscon_target_shutdown_active();
             if(reason==1){LOG(3,6f94);syscon_target_modem_poweron();}
             else{
-                if((uint8_t)(reason-3)<4||!reason)LOG(3,6fec,U32(D_6fd8+reason*4));
+                if((uint8_t)(reason-3)<4||!reason)LOG(3,6fec,syscon_power_name(syscon_power_names.shutdown,reason));
                 else LOG(3,6fe8);
                 syscon_target_modem_poweroff(1);
             }
@@ -356,7 +357,7 @@ transition_done:
             if(permitted){LOG(3,735c);write64(0x458,0);syscon_target_modem_poweron();}
             else if(syscon_target_now()>=read64(0x510)){
                 write64(0x510,syscon_target_now()+60000);
-                uint32_t name=U32(D_734c+reason*4);uint64_t elapsed=syscon_target_shutdown_elapsed();
+                const char *name=syscon_power_name(syscon_power_names.shutdown,reason);uint64_t elapsed=syscon_target_shutdown_elapsed();
                 LOG(2,7350,name,(uint32_t)(elapsed/1000),temperature/10,temperature%10);
             }
         }
@@ -367,7 +368,7 @@ transition_done:
                 if(!blocked){
                     uint8_t reason=B(0x528);W(0x4f4)=W(0x4f4)+1;
                     uint32_t delay=syscon_target_modem_retry_delay(reason,W(0x4f4));write64(0x500,syscon_target_now()+delay);
-                    LOG(3,7370,W(0x4f4),U32(D_734c+(uint32_t)reason*4),delay/1000);
+                    LOG(3,7370,W(0x4f4),syscon_power_name(syscon_power_names.shutdown,reason),delay/1000);
                     syscon_target_modem_poweron();B(0x528)=reason;B(0x508)=1;B(0x509)=0;
                 }
             }
@@ -390,7 +391,7 @@ transition_done:
             }else LOG(3,7464);
         }else if(!B(0x4f0)&&present){
             uint32_t selected=B(0x508)?B(0x528):reason;
-            LOG(3,7448,U32(D_7440+selected*4));
+            LOG(3,7448,syscon_power_name(syscon_power_names.shutdown,selected));
         }
     }
     B(0x509)=0;

@@ -118,6 +118,42 @@ def test_callback_mutation_preserves_table_reload_and_gpio_order(elf):
     assert p.run(0x4e34,2)==('return',0x12345678<<32)
     p=Pair(elf)
     def change_after_log(o,e,address,args):
-        if address==0x8f88 and args[2]==0xc71e:e.stuck.add(25)
+        if address==0x8f88 and args[2]==b'Set 5V output':e.stuck.add(25)
     p.on_call=change_after_log
     assert p.run(0x4ee0,2)[0]=='assert'
+
+
+def test_power_manager_has_no_original_rom_dependency(elf):
+    for entry,args in [(0x4c50,(12,)),(0x4e34,(2,)),(0x5048,(2,)),(0x4ee0,(2,)),(0x5274,())]:
+        p=Pair(elf)
+        p.candidate.put(0xc61f,b'\xa5'*(0xcd7c-0xc61f))
+        p.candidate.put(0xae64,b'\xa5'*6)
+        for environment in p.envs:
+            environment.adc[12]=[1000]
+            environment.adc[13]=[1800]
+            environment.adc[14]=[900]
+            environment.adc[23]=[800]
+        p.run(entry,*args)
+
+
+def test_editing_voltage_scale_changes_only_the_selected_channel(tmp_path,monkeypatch):
+    import shutil
+    import power_manager_target_oracle as builder
+    tree=tmp_path/'source'
+    for directory in ('target','include','src'):
+        shutil.copytree(builder.ROOT/directory,tree/directory)
+    source=tree/'target/power_manager_target.c'
+    text=source.read_text()
+    assert text.count('scale[] = {3, 3, 3, 2, 8, 1}')==1
+    source.write_text(text.replace('scale[] = {3, 3, 3, 2, 8, 1}',
+                                   'scale[] = {4, 3, 3, 2, 8, 1}'))
+    monkeypatch.setattr(builder,'ROOT',tree)
+    p=Pair(builder.build(tmp_path/'variant'))
+    for pin in (12,13,14,15,16,23):
+        for environment in p.envs:environment.adc[pin]=[1234]
+        original=p.execute(0,0x4c50,(pin,))
+        candidate=p.execute(1,0x4c50,(pin,))
+        if pin==12:
+            assert candidate[0]==original[0]=='return'
+            assert candidate[1]>original[1]
+        else:assert candidate==original

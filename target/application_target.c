@@ -1,4 +1,5 @@
 #include "logger_state.h"
+#include "power_state.h"
 /* Firmware 1.0.52 application entry and fixed-layout glue. No host dispatch. */
 #include "application_target.h"
 #include "diagnostics_target.h"
@@ -108,7 +109,7 @@ _Noreturn void syscon_target_main(void){
     uint32_t mode=syscon_target_retained_modem();
     uint32_t mode_name=syscon_target_modem_mode_name(mode);
     uint32_t battery=syscon_target_retained_battery();
-    uint32_t battery_name=W(0x2000006cu+(battery<<2));
+    const char *battery_name=syscon_power_name(syscon_power_names.battery,battery);
     uint32_t boots=syscon_target_retained_boots();
     syscon_target_logger(3,S(0xb4d6),S(0xb55d),mode_name,battery_name,boots);
     syscon_target_logger(3,S(0xb4d6),S(0xb507));

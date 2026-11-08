@@ -41,6 +41,8 @@ def relocated_image(tmp_path_factory):
     assert script.count('.irq_bss (NOLOAD) : {')==1
     script=script.replace('.irq_bss (NOLOAD) : {',
                           '.irq_bss ORIGIN(RAM_IRQ_STATE)+8 (NOLOAD) : {')
+    script=script.replace('.power_bss (NOLOAD) : {',
+                          '.power_bss ORIGIN(RAM_POWER_STATE)+8 (NOLOAD) : {')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
     assert script.count(needle)==1
     script=script.replace(needle,'__ram_exec_start = .; '+4*'SHORT(0xde00); '+'KEEP(*(.ram_original_flash))')
@@ -103,7 +105,11 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     for name,old in [('syscon_gpio_pins',0x2000016c),
                      ('syscon_gpio_handlers',0x20000698),
                      ('syscon_reset_cause_cache',0x20000254),
-                     ('syscon_i2c_bus',0x2000013c),('syscon_i2c_state',0x20000760)]:
+                     ('syscon_i2c_bus',0x2000013c),('syscon_i2c_state',0x20000760),
+                     ('syscon_power_names',0x20000060),('syscon_minimum_vph_mv',0x2000005c),
+                     ('syscon_shutdown_reason',0x2000036f),
+                     ('syscon_usb_reattach_state',0x20000370),
+                     ('syscon_shutdown_state',0x20000380)]:
         assert symbols[name]!=old
     # A writer/reader pair retaining the same old callback address could still
     # agree with itself. Require registration in the actual relocated object.
@@ -113,7 +119,7 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     machines[1].cpu.mem_write(0x20000030,poison)
     # The former task/timer region now holds the linker-allocated state arena;
     # it is live memory, so only genuinely vacant locations are poisoned.
-    obsolete=[(0x200000da,3),
+    obsolete=[(0x2000005c,88),(0x2000036f,33),(0x200000da,3),
               (0x200000b4,36),(0x200000d8,2),(0x20000390,24),
               (0x20000685,11),(0x20000694,1)]
     # The old ADC table now holds relocated LED/PWM objects. Poison only the
@@ -348,3 +354,36 @@ def test_relocated_logger_enable_disable_and_real_command_registers(relocated_im
         traces.append(normalized_log(bytes(machine.device.tx[0][before:])))
     assert traces[0]==traces[1]
     assert machines[1].read(0x2000080c,1)==b'\xa5'
+
+
+def test_relocated_power_routes_battery_detection_and_shutdown_commands(relocated_image):
+    import re
+    output,manifest,_=relocated_image
+    symbols=manifest['layout_audit']['symbols']
+    machines=[boot(load_image())[0],boot((output/'firmware.bin').read_bytes(),
+              stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
+    obsolete=vacant_ranges(manifest,[(0x2000005c,88),(0x2000036f,33)])
+    for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
+    battery_states=[]
+    # External ADC stimuli cross the real battery-presence and NTC window
+    # boundaries. Commands traverse UART, parser, ADC and expander code.
+    for battery,ntc in [(3000,0),(2275,910),(2275,911),(1517,2732),(1517,2733),(2276,0)]:
+        for machine in machines:
+            machine.device.adc_inputs[2]=battery
+            machine.device.adc_inputs[8]=ntc
+        for command in ['BATCHECK','PWRSTATUS']:
+            replies=[command_reply(machine,command) for machine in machines]
+            assert all(b'PASS\r\n' in reply for reply in replies)
+            assert normalized_log(replies[0])==normalized_log(replies[1])
+        match=re.search(rb'Battery\s+: ([A-Z_]+) ',replies[1])
+        assert match,replies[1]
+        battery_states.append(match[1])
+    assert len(set(battery_states))==2
+    assert battery_states[0]==battery_states[2]==battery_states[3]==battery_states[5]
+    assert battery_states[1]==battery_states[4]!=battery_states[0]
+    for reason,name in enumerate(['REBOOT','POWEROFF','BATTERY_LOW','THERMAL_HIGH','THERMAL_LOW'],1):
+        replies=[command_reply(machine,'SHUTDOWN_REASON '+name) for machine in machines]
+        assert all(b'PASS\r\n' in reply for reply in replies)
+        assert normalized_log(replies[0])==normalized_log(replies[1])
+        assert machines[0].read(0x2000036f,1)==machines[1].read(symbols['syscon_shutdown_reason'],1)==bytes([reason])
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
