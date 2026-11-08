@@ -5,6 +5,7 @@ import struct
 import pytest
 from unicorn import UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE,UC_MEM_READ
 from oracle import Oracle
+from power_state_comparison import log_arguments
 from arm_rebuild_oracle import ArmRebuildOracle
 from inventory import load_image,command_table
 from protocol_target_oracle import build,COMMANDS,DEPENDENCIES
@@ -56,7 +57,7 @@ class Pair:
         if address==0x8de4:self.events[i].append(('read',cpu.arg(0)));return self.queues[i].popleft()
         if address==0x8c34:self.events[i].append(('echo',cpu.arg(0),cpu.arg(1)))
         if address==0x8f88:
-            args=tuple(cpu.arg(j) for j in range(5 if cpu.arg(2)==0xbab8 else 3))
+            args=log_arguments(cpu,2)
             self.events[i].append(('log',args))
         if address==0x2678:
             self.events[i].append(('assert',string(cpu,cpu.arg(0)),cpu.arg(1),string(cpu,cpu.arg(2))))
@@ -123,3 +124,23 @@ def test_parser_callback_mutation_reloads_used_and_buffer_before_next_byte(parse
 def test_parser_aliasing_append_count_store_precedes_buffer_store(parser_elf):
     for offset in [0,1,4,8,9,12,13]:
         p=Pair(parser_elf);p.put(CTX+4,struct.pack('<I',CTX+offset));p.feed(b'A')
+
+
+def test_command_metadata_and_dispatch_survive_removed_original_rom(parser_elf):
+    p=Pair(parser_elf)
+    candidate=p.cpus[1]
+    table=candidate.symbols['syscon_target_commands']
+    commands=command_table(load_image())
+    assert candidate.u32(candidate.symbols['syscon_target_command_count'])==len(commands)
+    for index,expected in enumerate(commands):
+        name,handler,policy,uppercase,help_text=struct.unpack('<IIBBI',candidate.read(table+14*index,14))
+        for pointer,text in [(name,expected['name']),(help_text,expected['help'])]:
+            assert candidate.CODE<=pointer<candidate.CODE+0x80000
+            assert candidate.cstring(pointer)==text.encode()
+        assert handler==candidate.symbols[COMMANDS[expected['handler']]]|1
+        assert (policy,uppercase)==(expected['argument_policy'],expected['flag'])
+    # The whole old command-data block is unavailable to the replacement.
+    candidate.put(0xbb09,b'\xa5'*(0xc61f-0xbb09))
+    for command in commands:
+        suffix=b':value:;' if command['argument_policy'] else b''
+        p.feed(command['name'].encode()+suffix+b'\n')

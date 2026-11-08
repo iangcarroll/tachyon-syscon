@@ -76,6 +76,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                            [(symbols['syscon_diagnostics_enabled'],1),
                             (symbols['syscon_diagnostics_state'],16)])
         for address,size in diagnostic_blocks:m.write_ram(address,b'\xa5'*size)
+        protocol_debug=0x200002ee if image==load_image() else symbols['syscon_protocol_debug']
+        m.write_ram(protocol_debug,b'\xa5')
         log_flag=0x2000080c if image==load_image() else symbols['syscon_log_enabled']
         m.write_ram(log_flag,b'\xa5')
         reset_count=m.reset_count
@@ -96,7 +98,7 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in led_blocks),
                                tuple(m.read(address,size) for address,size in gpio_i2c_blocks),
                                tuple(m.read(address,size) for address,size in uart_blocks),
-                               m.read(log_flag,1),
+                               m.read(log_flag,1),m.read(protocol_debug,1),
                                tuple(m.read(address,size) for address,size in power_blocks),
                                power_names(),
                                tuple(m.read(address,size) for address,size in diagnostic_blocks)))

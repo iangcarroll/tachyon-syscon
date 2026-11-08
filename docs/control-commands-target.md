@@ -4,7 +4,8 @@
 to this module. Each uses the original `(uint32_t arguments, uint32_t printer)`
 ABI from `protocol_target.h`. The printer is an actual ARM variadic function
 pointer. The source command table relocates function pointers to these bodies;
-the source string pointers retain their original addresses.
+command names, help, tokens and output strings are ordinary C data. The
+version remains at the packaged updater's documented flash boundary.
 
 Implemented entries are 3ef0, 3f24, 3f80, 3fd0, 40a0, 40fc, 4110, 41a4, 422c,
 4258, 42c8, 4320, 4364, 4420, 47b0, 47bc, 47fc, 4850, 48a4, 48e0, 4904, 4970,
@@ -19,7 +20,7 @@ assignment counts, integer saturation/errno, whitespace/sign/trailing-text
 behavior, and distinctions between scanf validation and permissive atoi.
 There is no host decimal parser in the execution path.
 
-The implementations retain fixed string pointers, output ordering, callback
+The implementations retain output ordering, callback
 arguments, nonboolean dependency results, pin truncation, direct modem-length
 underflow, and terminal behavior. KEYS passes both SG key-pulse arguments
 `(pin, 0)`. A hard reboot resets expander registers and clears retained
@@ -66,7 +67,7 @@ loop test also executes the original post-request barrier and wait loop under
 an explicitly passive reset-register environment.
 
 Comparisons include R0, callee-saved registers on returning commands, ordered
-dependency and callback records, persistent RAM and guard bytes through
+dependency and callback records (text is compared by contents), persistent RAM and guard bytes through
 `0x20000aff`, and ordered persistent-RAM writes. The original
 parser→handler→sscanf stack reaches `0x20000b7c`, so higher stack scratch is
 excluded. The rebuilt test stack resides in separate emulation memory.

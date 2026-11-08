@@ -3,7 +3,7 @@
 Printer/logger callbacks execute real ARM variadic fixture code on both sides.
 No scan/string/command/parser implementation is replaced by a Python model.
 """
-import hashlib,json,struct
+import hashlib,json,struct,re
 from pathlib import Path
 from elftools.elf.elffile import ELFFile
 from unicorn import UC_HOOK_MEM_WRITE,UC_PROT_READ,UC_PROT_EXEC
@@ -12,6 +12,7 @@ from ioexpander_target_oracle import CALLEE
 import build_runtime_scan_image as runtime
 from arm_rebuild_oracle import ArmRebuildOracle
 from oracle import Oracle,REPLACED_ENDPOINTS
+from power_state_comparison import text_argument
 ROOT=Path(__file__).resolve().parents[1]
 ALL_COMMANDS={int(a,16):n for a,n in json.loads((ROOT/'analysis/command-target-symbols.json').read_text()).items()}
 OWNED=[0x3ef0,0x3f24,0x3f80,0x3fd0,0x40a0,0x40fc,0x4110,0x41a4,0x422c,0x4258,0x42c8,0x4320,0x4364,0x4420,0x47b0,0x47bc,0x47fc,0x4850,0x48a4,0x48e0,0x4904,0x4970,0x49ac]
@@ -40,7 +41,7 @@ def build(destination):
     old=runtime.SOURCES
     try:
         runtime.SOURCES=old+['target/control_commands_target.c','target/control_commands_test_fixture.c',
-            'target/protocol_target.c','target/command_table_target.c','target/callback_helpers.c',str(trap)]
+            'target/protocol_target.c','target/protocol_state.c','target/command_table_target.c','target/callback_helpers.c',str(trap)]
         elf=runtime.build(destination)
     finally:runtime.SOURCES=old
     (destination/'control-mappings.json').write_text(json.dumps({'entries':{hex(a):n for a,n in MAPPINGS.items()},
@@ -90,6 +91,7 @@ class Pair:
         elif entry==0x74e8:
             payload=m.read(args[0],args[1]) if args[1]<=128 else None
             args[0]=0
+        if entry==0x2678:args=[text_argument(m,args[0]),args[1],text_argument(m,args[2])]
         self.calls[index].append((entry,args,payload))
         if entry==0x2678:raise Terminal('assert')
         if entry==0x4c50:return self.results.get(entry,1000)+args[0]
@@ -97,7 +99,18 @@ class Pair:
     def put(self,address,data):
         for m in self.machines:m.put(address,data)
     def word(self,address,value):self.put(address,struct.pack('<I',value&0xffffffff))
-    def output(self,m):return m.read(E+256,m.u32(E)*192)
+    def output(self,m):
+        events=[]
+        for index in range(m.u32(E)):
+            data=m.read(E+256+index*192,192)
+            words=struct.unpack_from('<16I',data)
+            kind,fmt,tag,level,count=words[:5]
+            text=data[64:64+words[12]]
+            conversions=re.findall(rb'%(?!%)[-+ #0]*[0-9.*]*[hl]*([diuxXscp])',text)
+            values=tuple(text_argument(m,words[5+i]) if i<len(conversions) and conversions[i]==b's'
+                         else words[5+i] for i in range(count))
+            events.append((kind,text,text_argument(m,tag),level,values))
+        return events
     def run(self,entry,args=None,terminal=False,raw_pointer=None,spin_reset=False):
         self.spin_reset=spin_reset
         pointer=raw_pointer if raw_pointer is not None else 0 if args is None else 0x20000900

@@ -19,7 +19,7 @@ TARGETS=['callback_helpers.c','config_state.c','config_helpers.c','config_read.c
     'diagnostics_target.c','diagnostics_state.c','application_target.c','logger_target.c','logger_state.c','logger_target_abi.S',
     'rgb_target.c','power_key_target.c','power_policy_target.c','power_state.c','i2c_target.c','pwm_target.c',
     'config_update.c','config_update_abi.S','ioexpander_target.c','power_manager_target.c',
-    'protocol_target.c','command_table_target.c','config_commands_target.c','control_commands_target.c','runtime_init_target.c',
+    'protocol_target.c','protocol_state.c','command_table_target.c','config_commands_target.c','control_commands_target.c','runtime_init_target.c',
     'format_core_target.c','sg560d_target.c']
 SOURCES=['target/'+name for name in TARGETS]+['src/runtime_memory.c','src/runtime_arithmetic.c','src/flash_controller.c','src/format.c']+sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.c'))
 FLAGS=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-mfloat-abi=soft','-Os','-ffreestanding',

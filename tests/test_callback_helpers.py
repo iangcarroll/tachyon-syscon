@@ -73,7 +73,7 @@ def test_buffer_fault_keeps_preceding_counter_write_and_no_output_validation(cal
             assert machine.u32(CTX+8)==1
 
 
-def test_failure_callback_order_pointer_identity_return_and_preserved_registers(callback_elf):
+def test_failure_callback_order_text_return_and_preserved_registers(callback_elf):
     rng=random.Random(0x3f08)
     for command in (0,CTX,0xffffffff):
         o=Oracle();a=ArmRebuildOracle(callback_elf);events=[[],[]]
@@ -93,7 +93,9 @@ def test_failure_callback_order_pointer_identity_return_and_preserved_registers(
         actual=o.call(0x3f08,command,reason,original_callback|1)
         rebuilt=a.call('syscon_target_failure',command,reason,replacement_callback)
         assert actual==rebuilt==returns[len(events[0])-1]
-        assert events[0]==events[1]==([command] if command else [])+[reason,0xb6c6]
+        assert events[0][:-1]==events[1][:-1]==([command] if command else [])+[reason]
+        assert o.cstring(events[0][-1])==a.cstring(events[1][-1])==b'FAIL'
+        assert a.CODE<=events[1][-1]<a.CODE+0x80000
         for machine in (o,a):assert [machine.cpu.reg_read(r) for r in CALLEE]==saved
 
 

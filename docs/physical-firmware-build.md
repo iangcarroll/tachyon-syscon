@@ -9,9 +9,8 @@ The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L
 | Flash `0x0000..0x00bf` | 48 source-defined vectors, initial MSP `0x20001000` |
 | Flash `0x00c0..0x00ef` | Load image for the new source-built RAM executor, padded to its original 48-byte slot |
 | Flash after the RAM executor load image, through `0xab1f` | Linker-sized code, constants and initialized-data load image; actual sizes/headroom are in the build manifest |
-| Flash `0xab20..0xc418` | Data-only recovered actions/configuration constants/strings, with explicit source-symbol pointer relocations |
-| Flash `0xc419..0xc61e` | Source-defined 37×14-byte command descriptors |
-| Flash `0xc61f..0xcd7a` | Reclaimed space for linker-allocated application/diagnostic/modem constants |
+| Flash `0xab20..0xbb08` | Data-only recovered actions/configuration constants/strings, with explicit source-symbol pointer relocations |
+| Flash `0xbb09..0xcd7a` | Reclaimed space for linker-allocated command descriptors and command/application/diagnostic/modem constants |
 | Flash `0xcd7b..0xe2d7` | Remaining recovered strings and immutable data |
 | Flash `0xe2d8..0xe2df` | Relocated timestamp and queue constructor pointers |
 | Flash `0xe2e0..0xe2e7` | Original code-relative unwind entry excluded |
@@ -46,7 +45,7 @@ A regression moves the executor eight bytes within its reserved SRAM region, exe
 - Constructor fields at `0xe2d8` and `0xe2dc`.
 - Printer fields at flash `0xe310` and `0xe3a8`, copied to SRAM `0x20000058` and `0x200000f0`.
 
-Command descriptors come from reconstructed C and relocate their handlers. SG callback names use the owning module's canonical source symbols. No heuristic rewriting of arbitrary odd values is used. Tests scan imported bytes for all currently identified original function pointers and confirm that every match is explicitly relocated; this does not prove the static inventory is exhaustive.
+Command descriptors come from reconstructed C; names, help, handlers and the table itself are linker-resolved. SG callback names use the owning module's canonical source symbols. No heuristic rewriting of arbitrary odd values is used. Tests scan imported bytes for all currently identified original function pointers and confirm that every match is explicitly relocated; this does not prove the static inventory is exhaustive.
 
 The raw disassembler listing contains false instruction interpretations inside strings such as `DIAG` and diagnostic messages. Data-boundary checks use identified function-owned ranges rather than falsely classifying every raw listing line as executable code. Imported data has non-executable ELF section flags; this MCU has no MPU enforcing flash data nonexecution in hardware.
 
