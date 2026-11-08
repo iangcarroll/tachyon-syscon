@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [core, integration, cold-start, stateful]
+        suite: [core, integration, cold-start, stateful, flash-append, flash-compact]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -64,10 +64,13 @@ jobs:
             python -m pytest -q tests/test_functional_scenarios.py --durations=15 --junitxml=build/ci/functional-tests.xml
           elif [ "${{ matrix.suite }}" = "stateful" ]; then
             python -m pytest -q tests/test_stateful_images.py --durations=15 --junitxml=build/ci/functional-tests.xml
+          elif [[ "${{ matrix.suite }}" == flash-* ]]; then
+            flash_case="${{ matrix.suite }}"
+            python -m pytest -q tests/test_flash_interruption_images.py -k "${flash_case#flash-}" --durations=15 --junitxml=build/ci/functional-tests.xml
           elif [ "${{ matrix.suite }}" = "integration" ]; then
             python -m pytest -q "${integration[@]}" --durations=15 --junitxml=build/ci/functional-tests.xml
           else
-            ignores=(--ignore=tests/test_functional_scenarios.py --ignore=tests/test_stateful_images.py)
+            ignores=(--ignore=tests/test_functional_scenarios.py --ignore=tests/test_stateful_images.py --ignore=tests/test_flash_interruption_images.py)
             for path in "${integration[@]}"; do ignores+=("--ignore=$path"); done
             python -m pytest -q tests "${ignores[@]}" --durations=15 --junitxml=build/ci/functional-tests.xml
           fi

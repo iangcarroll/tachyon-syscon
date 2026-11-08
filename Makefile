@@ -11,7 +11,7 @@ QUICK_TESTS := tests/test_differential.py tests/test_uart.py \
 	tests/test_config_commands_target.py tests/test_config_slot_read_order.py \
 	tests/test_adc_target.py tests/test_power_curves.py tests/test_power_key_target.py tests/test_runtime_memory.py \
 	tests/test_rgb_target.py tests/test_pwm_target.py \
-	tests/test_firmware_fetch.py tests/test_reference_fetch.py tests/test_toolchain_process.py tests/test_source_addresses.py tests/test_stateful_replay.py
+	tests/test_firmware_fetch.py tests/test_reference_fetch.py tests/test_toolchain_process.py tests/test_source_addresses.py tests/test_stateful_replay.py tests/test_flash_interruptions.py
 
 .PHONY: all arm host-models test quick-test inputs firmware-fetch inventory binary-check boot-probe references-fetch references-check ledger emulate target-interfaces physical-firmware rebuilt-system proof-checksum proof-physical-checksum proof-test
 all: physical-firmware

@@ -39,7 +39,7 @@ macOS avoid copying accumulated emulator mappings when no inheritable private
 descriptors need closing.
 It writes a separate partial-coverage report under `build/`. `make test` retains
 the full suite, including complete-image cold starts and extensive fault cases;
-CI runs that complete suite in parallel core, integration, cold-start and stateful jobs. The quick
+CI runs that complete suite in parallel core, integration, cold-start, stateful and flash-recovery jobs. The quick
 selection is not a replacement for whole-image validation before a firmware PR.
 
 `make`, `make arm` and `make physical-firmware` link the complete
@@ -134,6 +134,10 @@ power effects as well as protocol output. This is a bounded seed grammar, not
 arbitrary input-stream or exhaustive fault fuzzing. See the
 [scenario commands](docs/mcu-emulator.md#replayable-cold-start-scenarios) and
 [stateful replays](docs/mcu-emulator.md#stateful-whole-image-replays).
+Flash-recovery tests also compare every committed prefix of a normal append and
+a full compaction, then boot fresh CPUs from every distinct persisted image.
+They preserve the original's nontransactional recovery behavior; they do not
+model torn programming cells. See [interrupted writes](docs/mcu-emulator.md#interrupted-configuration-writes).
 
 Battery and power tests must include time-varying supply inputs, routing changes,
 brownout/recovery paths, thermal behavior and externally reported shutdowns.
