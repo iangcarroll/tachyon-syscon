@@ -151,5 +151,5 @@ def test_fatal_assertion_stops_both_paths_before_later_actions(elf):
         with pytest.raises(AssertionBoundary):p.cpus[0].call(entry)
         with pytest.raises(AssertionBoundary):p.cpus[1].call('syscon_target_modem_'+ENTRIES[entry])
         assert p.events[0]==p.events[1]
-        assert bytes(p.cpus[0].cpu.mem_read(0x20000000,0x800))==p.cpus[1].read(0x20000000,0x800)
+        assert bytes(p.cpus[0].cpu.mem_read(0x20000000,0x800))==p.power_state.memory(0x20000000,p.cpus[1].read(0x20000000,0x800))
         assert p.events[0][-1][0]==0x2678
