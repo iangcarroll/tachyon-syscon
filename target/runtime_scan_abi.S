@@ -35,7 +35,7 @@ syscon_rt_snprintf:
      * This makes its child's uninitialized n reside at callerSP-272 too. */
     push {r2,r3}
     push {r4,r5,lr}
-    ldr r3,=0x20000258
+    ldr r3,=syscon_runtime_current
     movs r4,r1
     ldr r5,[r3]
     sub sp,#116
