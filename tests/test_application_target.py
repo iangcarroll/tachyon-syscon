@@ -197,3 +197,48 @@ def test_main_comparison_rejects_changed_compiled_event_handler(application_elf)
     # loop must detect its missing shutdown request rather than just booting.
     candidate.put(candidate.symbols['syscon_target_request_off']&~1,b'\x70\x47')
     with pytest.raises(AssertionError):p.main(1)
+
+
+def test_application_runs_without_original_private_log_strings(application_elf):
+    p=Pair(application_elf)
+    p.cpus[1].put(0xb4ac,b'\xa5'*(0xb6bb-0xb4ac))
+    p.cpus[1].put(0xdd05,b'\xa5'*(0xdd79-0xdd05))
+    p.inputs=[seed_event(2,0)]
+    p.responses=dict(reset_cause=2,modem_off=1,alt_powerkey=1,
+                     gpio_read=0,wakeup_enabled=1)
+    p.main(1)
+    p.call(0x78ac,'wakeup_irq',17,0)
+    assert p.cpus[1].read(p.cpus[1].symbols['syscon_wakeup_pending'],1)==b'\x01'
+    p.call(0x7974,'wakeup_poll')
+    assert p.cpus[1].read(p.cpus[1].symbols['syscon_wakeup_pending'],1)==b'\0'
+
+
+def test_queue_capacity_edit_changes_storage_and_full_detection(tmp_path,monkeypatch):
+    import shutil
+    import build_runtime_scan_image as runtime
+    source=tmp_path/'source'
+    for directory in ('include','target','src'):
+        shutil.copytree(runtime.ROOT/directory,source/directory)
+    header=source/'include/application_state.h'
+    original=header.read_text()
+    assert original.count('SYSCON_KEY_QUEUE_CAPACITY = 4')==1
+    header.write_text(original.replace('SYSCON_KEY_QUEUE_CAPACITY = 4','SYSCON_KEY_QUEUE_CAPACITY = 8'))
+    linker=source/'target/emulation.ld'
+    script=linker.read_text()
+    old='TEST_KEY_EVENT_BUFFER (rw) : ORIGIN = 0x200002d1, LENGTH = 4'
+    assert script.count(old)==1
+    linker.write_text(script.replace(old,'TEST_KEY_EVENT_BUFFER (rw) : ORIGIN = 0x21001000, LENGTH = 8'))
+    monkeypatch.setattr(runtime,'ROOT',source)
+    candidate=ArmRebuildOracle(build(tmp_path/'edited'))
+    candidate.hooks[candidate.symbols['syscon_target_logger']&~1]=lambda cpu:0
+    candidate.call('syscon_target_queue_constructor')
+    queue=candidate.symbols['syscon_key_events']
+    buffer=candidate.symbols['syscon_key_event_buffer']
+    assert candidate.u32(queue)==buffer
+    for event in range(8):
+        candidate.call('syscon_target_queue_event',event+10)
+        assert candidate.call('syscon_target_queue_count',queue)==event+1
+    before=candidate.read(buffer,8)
+    candidate.call('syscon_target_queue_event',99)
+    assert candidate.read(buffer,8)==before==bytes(range(10,18))
+    assert candidate.call('syscon_target_queue_count',queue)==8

@@ -133,12 +133,14 @@ def test_actual_runtime_initializer_and_weak_sbrk_original_abi(linked_target_int
     assert not original.hook_calls and not candidate.hook_calls
 
 
-@pytest.mark.parametrize('corrupt',['ring_payload','power_name'])
+@pytest.mark.parametrize('corrupt',['ring_payload','power_name','console_printer'])
 def test_linked_uart_comparison_rejects_corruption_outside_pointer_relocation(linked_target_interfaces,corrupt):
     from test_uart_ring_target import Pair,RING
     pair=Pair(linked_target_interfaces)
     if corrupt=='ring_payload':
         pair.a.put(RING,b'\xa5')
-    else:
+    elif corrupt=='power_name':
         pair.a.put(pair.a.symbols['syscon_power_names'],bytes(4))
+    else:
+        pair.a.put(pair.a.symbols['syscon_console_parser']+16,bytes(4))
     with pytest.raises(AssertionError):pair.call(0x8cf0,'available',0)
