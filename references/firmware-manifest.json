@@ -32,6 +32,13 @@
       "path": "build/reference-tools/mspm0flash",
       "bytes": 26992,
       "sha256": "a64185e0623d773c51fa933f82e394375801bd2cfd3a8d49606c3708ec0d48de"
+    },
+    {
+      "role": "updater",
+      "member": "usr/bin/particle-tachyon-syscon.sh",
+      "path": "build/reference-tools/particle-tachyon-syscon.sh",
+      "bytes": 19279,
+      "sha256": "e4e4fc8c5dcedcfdbf75a4f2591245c453864baad384564e542c80be6f822772"
     }
   ]
 }

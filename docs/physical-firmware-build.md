@@ -6,7 +6,8 @@ The builder uses `src/physical/firmware.ld` and follows the emulator's MSPM0L130
 
 | Region | Contract |
 |---|---|
-| Flash `0x0000..0xf7f7` | Source vectors, code, read-only objects and initialized-data load images; allocated by the linker |
+| Flash `0x0000..0xf7f6` | Source vectors, code, read-only objects and initialized-data load images; allocated by the linker |
+| Flash `0xf7f7` | NUL delimiter for the packaged updater's version parser |
 | Flash `0xf7f8..0xf7ff` | Eight-byte firmware-version slot required by the packaged updater |
 | Flash `0xf800..0xfbff` | Persistent identity sector; excluded from the emitted image |
 | Flash `0xfc00..0xffff` | Persistent configuration sector; excluded from the emitted image |
@@ -19,6 +20,8 @@ relocation tests; they share the real MCU regions rather than reproducing the
 original map. The manifest records their actual addresses and sizes on each
 build. The version slot keeps the emitted image length independent of used code
 size. Factory/NONMAIN contents are never invented.
+
+The high-level Particle updater parses the last 256 file bytes by splitting at NULs. The linker emits a NUL immediately before the unchanged version slot so `0xff` gap fill cannot become part of the version text. `tests/test_updater_version.py` executes only the version-reader function from the hash-pinned package against original, rebuilt and deliberately malformed images; it never runs the updater dispatcher or accesses hardware.
 
 ## Reset and flash execution
 

@@ -1,8 +1,8 @@
 /* Physical geometry of the unconfirmed MSPM0L1306 profile; not flash approval. */
 ENTRY(syscon_physical_reset)
 MEMORY {
- CODE (rx) : ORIGIN = 0x00000000, LENGTH = 0xf7f8
- VERSION_REGION (r) : ORIGIN = 0xf7f8, LENGTH = 8
+ CODE (rx) : ORIGIN = 0x00000000, LENGTH = 0xf7f7
+ VERSION_REGION (r) : ORIGIN = 0xf7f7, LENGTH = 9
  IDENTITY (r) : ORIGIN = 0xf800, LENGTH = 0x400
  CONFIG (r) : ORIGIN = 0xfc00, LENGTH = 0x400
  SRAM (rwx) : ORIGIN = 0x20000000, LENGTH = 0x1000
@@ -47,7 +47,9 @@ SECTIONS {
  } > SRAM AT> CODE :ram_extra
  __ram_extra_load = LOADADDR(.ram_extra);
  .command_table : {KEEP(*(.rodata.syscon_target_commands))} > CODE :application_rodata
- .version : {KEEP(*(.firmware_version))} > VERSION_REGION :version
+ /* Particle's updater splits the final 256 bytes at NULs. Reserve a
+    separator before the fixed version slot so erased-gap fill is not text. */
+ .version ORIGIN(VERSION_REGION) : {BYTE(0); KEEP(*(.firmware_version))} > VERSION_REGION :version
  .text_early : {
    *src_runtime_callback_helpers.o(.text*)
    *src_config_config_helpers.o(.text*)
@@ -168,5 +170,6 @@ SECTIONS {
  ASSERT(__extra_bss_end<=__stack_top-1024,"Less than1KiB stack remains; whole-image stack bound required")
  ASSERT((__data_load & 3)==0 && (__data_start & 3)==0 && (__data_end & 3)==0,"Reset data copy requires word alignment")
  ASSERT(SIZEOF(.data)==0 || __data_load+SIZEOF(.data)<=ORIGIN(CODE)+LENGTH(CODE),"Initialized data load image exceeds code region")
- ASSERT(SIZEOF(.version)<=8,"Version must not enter identity sector")
+ ASSERT(syscon_firmware_version==ORIGIN(VERSION_REGION)+1,"Version moved from updater ABI slot")
+ ASSERT(SIZEOF(.version)<=LENGTH(VERSION_REGION),"Version must not enter identity sector")
 }
