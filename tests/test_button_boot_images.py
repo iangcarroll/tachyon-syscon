@@ -100,7 +100,7 @@ def exercise(image, stack_floor, scenario, fastboot, edl_seconds, hold_ticks, ou
                       modes=[mode.decode() for mode in re.findall(rb'\[560D\] setting mode to ([^\r]+)', log)],
                       rail_applied=rail_applied, task_completed=b'[STAT] Task completed\r\n' in log,
                       key_released_after_assert=released,
-                      version_responded=b'Version=1.0.52\r\n' in version,
+                      version_responded=(b'Version=' + image[0xf7f8:].split(b'\0', 1)[0] + b'\r\n') in version,
                       flash_unchanged=bytes(machine.flash) == persisted and len(machine.device.flash.events) == flash_events,
                       persistent=bytes(machine.flash[0xf800:]).hex())
         (output / 'result.json').write_text(json.dumps(result, indent=2) + '\n')
