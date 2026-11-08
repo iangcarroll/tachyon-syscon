@@ -6,7 +6,7 @@ The reconstruction was written by **GPT-6 Astra**, with human direction and hard
 
 Project-authored code is available under the [MIT License](LICENSE), copyright Cautela LLC. Bundled third-party code retains its existing licenses.
 
-**Experimental: use at your own risk.** This is reconstructed firmware. Differential testing and MCU emulation provide evidence of similar behavior, not proof of complete equivalence or safety. The syscon controls board power; a bad image can leave the board unable to boot or recover through Linux.
+**Experimental: use at your own risk.** This reconstructed firmware has been tested on real Tachyon hardware, including a full cold boot. Automated differential tests compare its behavior with the original Particle firmware, and MCU emulation exercises complete images. These tests do not prove complete equivalence or safety. We recommend having a [Tachyon debug board and compatible SWD probe](docs/debug-probe.md) available for recovery: the syscon controls board power, and a bad image can prevent Linux from booting.
 
 ## Build and installation
 
@@ -31,7 +31,7 @@ To install experimentally:
 
 **Software:** The original Thumb binary runs under Unicorn as an oracle. We compare reconstructed functions and complete images in an MCU emulator with modeled memory, interrupts and peripherals. Tests cover boot/reset, UART, persistent configuration, source/layout changes, battery ADC curves, power actions, injected faults and recovery at flash-write boundaries. `make quick-test` is the short development loop; `make test` and CI run the full suite. See [emulator details](docs/mcu-emulator.md).
 
-**Hardware:** The rebuilt firmware works on a real Tachyon, including a full cold boot tested on 2026-11-08. We flashed and CRC-verified it, successfully restored the original while Linux stayed running, then reinstalled the rebuilt image and removed all power for 20 seconds. Linux booted again, configuration and identity were unchanged, and a device-side CRC confirmed our image was still installed. The board remains on the rebuilt firmware. Recovery from a broken image without Linux, independent SWD recovery and sustained charging remain unverified. See the [hardware record and recovery limits](docs/debug-probe.md#controlled-replacement-round-trip).
+**Hardware:** On 2026-11-08, rebuilt firmware passed a flash/restore round trip and a full cold boot on a real Tachyon. Configuration and identity data were preserved, Linux booted after complete power removal, and a device-side CRC verified the rebuilt image. Recovery from a broken image without Linux, independent SWD recovery and sustained charging remain unverified. See the [hardware record and recovery limits](docs/debug-probe.md#controlled-replacement-round-trip).
 
 ## Configuration options
 
