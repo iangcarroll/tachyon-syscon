@@ -1,20 +1,7 @@
-# Remaining target-ABI audit
+# Production source mapping
 
-This audit reads the `target_abi` overlays in `analysis/reconstruction-ledger.json`, then checks current target files. The ledger's original `source` field often still names the historical host adapter; that field alone does not establish an implementation gap.
+The [generated firmware source inventory](reconstruction-ledger.md) checks every statically identified function against the production build's source list. Its table uses the production mapping where one exists and keeps legacy host-model provenance separate. Run `make ledger` to inspect the current tree; an old checked-in report is not current evidence.
 
-Outside ongoing SG560D, control-command and formatter work, the remaining distinctions are:
+A source mapping is one part of validation. The physical-image tests check reset/vector integration and build boundaries; relocation tests edit source and move code, data and globals; complete-image tests exercise UART, configuration, retained state, power inputs and reset paths. Their current results come from the exact tested commit's CI artifacts. The [emulator documentation](mcu-emulator.md) describes modeled behavior and limits.
 
-| Entries | Current state |
-|---|---|
-| `0x2738`, `0x7af4`, `0x7b10`, `0x7b44`, `0x7b60`, `0xaae0`, copied RAM executor | New original-ABI source and direct ARM tests in `flash_abi_target`; production image now binds config-storage calls to these direct entries and places the source RAM executor at the original address |
-| `0x96d4` | New `src/app/runtime_init_target.c`; physical reset now calls it |
-| `0x79f0` | Physical reset source in `src/physical/startup.c`; tested with explicitly labelled dependencies, not a complete rebuilt-board boot |
-| `0x8e6c`, `0x8e7c` | Physical startup's UART wrappers use original bases and source UART IRQ body; mapping/integration evidence remains distinct from standalone original-instruction comparison |
-| `0x76f0` | Already implemented as original always-failing `syscon_rt_sbrk` in `src/runtime/runtime_heap.c`; needs ledger target mapping, not another host-context implementation |
-| `0x74f8`, `0x7ae8` | Already source target sleep/cycle helpers in `src/drivers/core_helpers.c`; fixed-cycle helper has separate emitted-byte evidence |
-| `0x79e4`, `0x7bb8`, `0x7bcc` | Already direct source exception handlers in `src/drivers/fault_handlers.c`; no host context |
-| `0x74e8` | Original raw modem sender belongs to ongoing SG target work |
-
-After applying the current overlays and inspecting these files, no additional application function outside those scopes was found to exist solely as a host-context adapter. This is an audit of the identified function inventory, not a proof that the static inventory is exhaustive or that all target implementations are universally equivalent. Runtime memory/arithmetic/stdio/heap implementations already have actual target ABI tests, but their documented bounds and unresolved full-domain proof obligations still apply.
-
-The remaining work is therefore integration and evidence as well as source coverage: finish/review active modules, resolve production code pointers, establish a complete-image stack bound, compare full reset/IRQ/application paths, and address counterexamples. A clean inventory does not mean the board is safe to flash.
+Copied flash-programming code remains part of the identified flash-controller implementation, rather than an extra function in the static flash inventory. Its execution address in the rebuilt image is linker-resolved; original SRAM addresses in oracle tests describe the original image. A clean source inventory does not prove exhaustive discovery, complete behavioral equivalence, or safe physical recovery. See the [hardware record](debug-probe.md#controlled-replacement-round-trip) for commit-specific live results and remaining recovery limits.

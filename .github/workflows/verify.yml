@@ -90,6 +90,9 @@ jobs:
       - name: Build the experimental physical image
         if: ${{ matrix.suite == 'core' }}
         run: python tools/build_physical_firmware.py --output build/ci/physical
+      - name: Index current production sources and scoped test results
+        if: ${{ matrix.suite == 'core' }}
+        run: python tools/reconstruction_ledger.py --checkpoint build/ci/test-checkpoint.json --output build/ci/ledger
       - name: Preserve test evidence
         if: always()
         uses: actions/upload-artifact@v4

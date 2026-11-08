@@ -3,24 +3,27 @@
 The map is reviewed against C implementations, module docs, and decompilation;
 address mentions or hook entries alone are never treated as implementations.
 """
+import argparse
 import csv
 import hashlib
 import json
 from collections import Counter
-from datetime import datetime, timezone
 from pathlib import Path
 from coverage_report import input_hashes
+from build_physical_firmware import production_sources
+from inventory import EXPECTED
 
 ROOT = Path(__file__).resolve().parents[1]
 MAP = {}
 SHARED_SOURCES = {'runtime_memory': 'src/runtime/runtime_memory.c', 'runtime_arithmetic': 'src/runtime/runtime_arithmetic.c', 'format': 'src/runtime/format.c', 'flash_controller': 'src/drivers/flash_controller.c'}
 
 def register(module, entries, status='reconstructed_bounded', note='', source=None, tests=None, doc=None):
+    source = source or SHARED_SOURCES.get(module, f'tests/models/{module}.c')
     for token in entries.split():
         address = int(token, 16)
         assert address not in MAP, hex(address)
         MAP[address] = dict(module=module, semantic_status=status,
-            source=source or SHARED_SOURCES.get(module, f'tests/models/{module}.c'),
+            source=source, legacy_model=source if source.startswith('tests/') else None,
             module_tests=tests or [f'tests/test_{module}.py'],
             documentation=doc or f'docs/{module.replace("_", "-")}.md', note=note)
 
@@ -138,180 +141,109 @@ GAPS = {}
 
 
 
-def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def checkpoint_status(path, current_inputs):
+    """Bind an optional test invocation to its exact inputs, never infer coverage."""
+    if path is None:
+        return {'status': 'not_supplied'}
+    checkpoint = json.loads(Path(path).read_text())
+    if checkpoint.get('reference_sha256') != EXPECTED:
+        raise ValueError('Checkpoint uses a different reference firmware')
+    initial = checkpoint.get('input_sha256')
+    changed = None if initial is None else sorted(
+        name for name in set(initial) | set(current_inputs)
+        if initial.get(name) != current_inputs.get(name))
+    if checkpoint.get('pytest_exitstatus') != 0:
+        status = 'failed'
+    elif initial is None or checkpoint.get('inputs_unchanged_during_run') is not True:
+        status = 'unverified_inputs'
+    elif changed:
+        status = 'stale'
+    else:
+        status = 'passed_for_recorded_invocation'
+    return dict(status=status, path=str(path), sha256=sha(Path(path)),
+                invocation=checkpoint.get('invocation'),
+                test_counts=checkpoint.get('test_counts'),
+                changed_since_checkpoint=changed,
+                note='Only the recorded invocation is covered; a quick or partial suite is not a full-suite result.')
+
+
+def build_inventory(root=ROOT, mapping=None, sources=None):
+    """Index curated function mappings against the actual production build list."""
+    mapping = MAP if mapping is None else mapping
+    sources = set(production_sources() if sources is None else sources)
+    with (root / 'analysis/functions.tsv').open() as stream:
+        functions = list(csv.DictReader(stream, delimiter='\t'))
+    addresses = [int(row['address'], 16) for row in functions]
+    if len(set(addresses)) != len(addresses) or set(addresses) != set(mapping):
+        raise ValueError('Static function inventory and curated mapping disagree')
+    rows = []
+    paths = {'analysis/functions.tsv'}
+    for function, address in zip(functions, addresses):
+        model = mapping[address]
+        target = model.get('target_abi', {})
+        source = target.get('source', model['source'])
+        if source not in sources:
+            raise ValueError(f'{address:#x}: mapped source is not a production build input: {source}')
+        tests = target.get('tests', model['module_tests'])
+        tests = [tests] if isinstance(tests, str) else list(tests)
+        documentation = target.get('documentation', model['documentation'])
+        legacy = model['legacy_model']
+        for relative in [source, *tests, documentation, *([legacy] if legacy else [])]:
+            path = (root / relative).resolve()
+            if not path.is_relative_to(root.resolve()) or not path.is_file():
+                raise ValueError(f'{address:#x}: missing or escaping mapped file: {relative}')
+            paths.add(relative)
+        rows.append(dict(address=hex(address), name=target.get('symbol', function['name']),
+                         source=source, source_tree=source.split('/')[0],
+                         build_input=True, semantic_scope=model['semantic_status'],
+                         test_type='mapped ARM comparison' if target else 'mapped module tests',
+                         tests=tests, documentation=documentation, legacy_model=legacy,
+                         proof_status='not_assessed', hardware_status='not_assessed'))
+    return dict(schema_version=2, reference_sha256=EXPECTED,
+                summary=dict(identified_functions=len(rows),
+                             sources_by_tree=dict(Counter(row['source_tree'] for row in rows))),
+                functions=rows, mapped_file_sha256={name: sha(root / name) for name in sorted(paths)},
+                limitations=[
+                    'This is a source index, not proof of complete reconstruction or equivalent behavior.',
+                    'A mapped file being a production build input does not establish that every function or path is linked and exercised.',
+                    'Test files are mapped evidence entry points, not a claim that they passed in this invocation.',
+                    'Proof and hardware status are not inferred from old generated reports. See the scoped proof tools and hardware record.',
+                    'Static analysis can miss code; all identified functions is not all possible behavior.'])
+
+
+def markdown(ledger):
+    lines = ['# Firmware source inventory', '',
+             'Generated from the current curated mappings and production build inputs. Test links identify where to validate a function; they do not report a passing test result.', '',
+             f'Identified functions: {ledger["summary"]["identified_functions"]}. Checkpoint: `{ledger["checkpoint"]["status"]}`.', '',
+             'Proof and hardware status are not assessed by this index. A supplied checkpoint covers only its recorded invocation.', '',
+             '| Entry | Function | Tree | Source | Test type | Tests | Proof status |',
+             '| --- | --- | --- | --- | --- | --- | --- |']
+    for row in ledger['functions']:
+        tests = ', '.join(f'`{test}`' for test in row['tests'])
+        lines.append(f'| `{row["address"]}` | `{row["name"]}` | {row["source_tree"]} | `{row["source"]}` | {row["test_type"]} | {tests} | {row["proof_status"]} |')
+    return '\n'.join(lines) + '\n'
+
+
 def main():
-    functions=list(csv.DictReader((ROOT/'analysis/functions.tsv').open(),delimiter='\t'))
-    ranges=list(csv.DictReader((ROOT/'analysis/function-ranges.tsv').open(),delimiter='\t'))
-    listing={int(line.split()[0],16) for line in (ROOT/'analysis/listing.txt').read_text().splitlines()}
-    coverage=json.loads((ROOT/'analysis/full-suite-checkpoint.json').read_text())
-    initial_inputs=coverage.get('input_sha256')
-    changed_since_checkpoint=[] if initial_inputs is not None else None
-    if initial_inputs is not None:
-        current_inputs=input_hashes()
-        changed_since_checkpoint=sorted(path for path in set(initial_inputs)|set(current_inputs) if initial_inputs.get(path)!=current_inputs.get(path))
-    executed={int(a,16) for a in coverage['executed_original_addresses']}
-    hooks={int(a,16) for a in coverage['replaced_endpoint_addresses']}
-    fingerprints=json.loads((ROOT/'analysis/runtime-fingerprints.json').read_text())
-    comparisons=[('analysis/binary-comparison.json',json.loads((ROOT/'analysis/binary-comparison.json').read_text()))]
-    extra=ROOT/'analysis/core-helper-binary-comparison.json'
-    if extra.exists():comparisons.append(('analysis/core-helper-binary-comparison.json',json.loads(extra.read_text())))
-    runtime_path='analysis/runtime-memory-binary-comparison.json'
-    runtime_comparison=json.loads((ROOT/runtime_path).read_text())
-    assert runtime_comparison['reference_sha256']==coverage['reference_sha256']
-    assert runtime_comparison['source_sha256']==sha(ROOT/'src/runtime/runtime_memory.c'), 'stale runtime binary comparison'
-    comparisons.extend((runtime_path,row) for row in runtime_comparison['functions'])
-    arithmetic_path='analysis/runtime-arithmetic-binary-comparison.json'
-    arithmetic_comparison=json.loads((ROOT/arithmetic_path).read_text())
-    assert arithmetic_comparison['reference_sha256']==coverage['reference_sha256']
-    for source,digest in arithmetic_comparison['source_sha256'].items():
-        assert sha(ROOT/source)==digest, f'stale arithmetic binary comparison: {source}'
-    for row in arithmetic_comparison['functions']:
-        comparisons.append((arithmetic_path,dict(row,function=row['symbol'],
-            original_size=row['original_extent_bytes'],reconstructed_size=row['rebuilt_size'])))
-    proof_path='analysis/proof-checksum/report.json'
-    proof=json.loads((ROOT/proof_path).read_text())
-    assert proof['reference_sha256']==coverage['reference_sha256']
-    assert proof['source_sha256']==sha(ROOT/'tests/models/config.c')
-    assert proof['proof_tool_sha256']==sha(ROOT/'tools/proof_checksum.py')
-    assert proof['project_header_sha256']==sha(ROOT/'include/syscon.h')
-    assert proof['status']=='unsat' and proof['contract_satisfiable']
-    physical_proof_path='analysis/proof-physical-checksum/report.json'
-    physical_proof=json.loads((ROOT/physical_proof_path).read_text())
-    assert physical_proof['reference_sha256']==coverage['reference_sha256']
-    assert physical_proof['status']=='unsat' and physical_proof['physical_symbol_bound']
-    for key in ['physical_build_inputs_sha256','build_tools_sha256','proof_inputs_sha256']:
-        for source,digest in physical_proof[key].items():
-            assert sha(ROOT/source)==digest, f'stale physical checksum proof: {source}'
-    assert coverage['pytest_exitstatus']==0, 'coverage checkpoint is not successful'
-    for _,comparison in comparisons:
-        if comparison['exact_bytes']:
-            assert not comparison.get('unresolved_relocations'), 'unresolved relocation cannot prove exact linked bytes'
-            assert comparison['original_size']==comparison['reconstructed_size']
-    rows=[]
-    for f in functions:
-        address=int(f['address'],16)
-        fr=[(int(r['start'],16),int(r['end_inclusive'],16)) for r in ranges if r['function']==f['address']]
-        instructions={i for lo,hi in fr for i in listing if lo<=i<=hi}
-        semantic=MAP.get(address)
-        if semantic is None:
-            if address in GAPS:
-                label,note=GAPS[address]
-                semantic=dict(module=label,semantic_status='unimplemented',source=None,module_tests=[],documentation=None,note=note)
-            else:
-                assert address<0x2678 or address>=0x969c, f'unmapped application/HAL entry requires review: {address:#x}'
-                semantic=dict(module='runtime_candidate',semantic_status='unreconstructed_runtime_candidate',source=None,module_tests=[],documentation=None,
-                    note='Placement/decompilation suggests compiler/libc support; identity and complete replacement remain unverified. Host libc or minimal test runtime use does not reconstruct this routine.')
-        candidates=[dict(m) for m in fingerprints['matches'] if int(m['address'],16)==address]
-        if address in (0x8f88,0x92f4):
-            for m in candidates:m['identity_assessment']='rejected_generic_wrapper_match'
-        else:
-            for m in candidates:
-                m['identity_assessment']='candidate_not_proven'
-                if m['size']<32 or not m['unique_match']:m['identity_caution']='Short or nonunique sequence; verify call/data relocation targets before assigning symbol.'
-        exact=dict(reconstructed_function_match=False,whole_firmware_match=False)
-        for evidence,comparison in comparisons:
-            match_address=comparison['original_address']
-            if isinstance(match_address,str):match_address=int(match_address,16)
-            if address==match_address:
-                exact.update(reconstructed_function_match=bool(comparison['exact_bytes']) and not comparison.get('unresolved_relocations',[]),evidence=evidence,function=comparison['function'],unresolved_relocations=comparison.get('unresolved_relocations',[]))
-        rows.append(dict(address=hex(address),identified_name=f['name'],identified_body_bytes=int(f['bytes']),
-            static_ranges=[[hex(a),hex(b)] for a,b in fr],**semantic,
-            work_in_progress='parent implementing; validation pending' if address in PENDING_ROOT else None,
-            original_instruction_exercise=dict(checkpoint='analysis/full-suite-checkpoint.json',denominator='current hashed listing and function ranges; observed address set from historical checkpoint',identified=len(instructions),exercised=len(instructions&executed),
-                entry_observed=address in executed,entry_hooked_in_some_tests=address in hooks,
-                status='all_identified_exercised' if instructions and instructions<=executed else 'partially_exercised' if instructions&executed else 'not_exercised'),
-            exact_binary=exact,runtime_fingerprints=candidates,hardware_validation='not_performed'))
-    assert len({r['address'] for r in rows})==len(functions)
-    assert not(set(MAP)-{int(f['address'],16) for f in functions}), 'curated entries missing from current static inventory'
-    inputs=['analysis/functions.tsv','analysis/function-ranges.tsv','analysis/listing.txt','analysis/full-suite-checkpoint.json','analysis/runtime-fingerprints.json','analysis/binary-comparison.json']
-    inputs += ['analysis/runtime-scan-mapping.json',*TARGET_MAPPING_FILES,proof_path,physical_proof_path,'analysis/proof-checksum-negative/report.json','analysis/proof-checksum-checkpoint.json']
-    inputs += [evidence for evidence,_ in comparisons if evidence not in inputs]
-    inputs+=sorted({r['source'] for r in rows if r['source']})
-    inputs+=sorted({p for r in rows for p in r.get('additional_sources',[])})
-    inputs+=sorted({p for r in rows for p in r.get('additional_documentation',[])})
-    inputs+=sorted({p for r in rows for p in r['module_tests']})
-    inputs+=sorted({r['documentation'] for r in rows if r['documentation']})
-    for p in inputs:assert (ROOT/p).is_file(),p
-    unidentified_matches=[m for m in fingerprints['matches'] if int(m['address'],16) not in {int(f['address'],16) for f in functions}]
-    ram_reports=[]
-    for path in sorted((ROOT/'analysis/coverage-runs').glob('*.json')):
-        j=json.loads(path.read_text())
-        if j.get('pytest_exitstatus')!=0 or j.get('reference_sha256')!=coverage['reference_sha256']:continue
-        ram=sorted({int(a,16) for a in j['executed_original_addresses'] if 0x20000000<=int(a,16)<0x2000002c})
-        if ram:ram_reports.append(dict(report=str(path.relative_to(ROOT)),sha256=sha(path),executed_ram_addresses=[hex(a) for a in ram]))
-    artifact=dict(schema_version=1,generated_utc=datetime.now(timezone.utc).isoformat(),reference_sha256=coverage['reference_sha256'],
-        summary=dict(identified_functions=len(rows),semantic_status_counts=dict(Counter(r['semantic_status'] for r in rows)),
-            exercise_status_counts=dict(Counter(r['original_instruction_exercise']['status'] for r in rows)),
-            exact_reconstructed_function_matches=sum(r['exact_binary']['reconstructed_function_match'] for r in rows),hardware_validated_functions=0,newly_audited_target_entries=sum('target_abi' in r for r in rows),scoped_solver_proofs=2),
-        snapshot_inputs=[dict(path=p,sha256=sha(ROOT/p)) for p in dict.fromkeys(inputs)],
-        coverage_checkpoint=dict(path='analysis/full-suite-checkpoint.json',sha256=sha(ROOT/'analysis/full-suite-checkpoint.json'),pytest_exitstatus=coverage['pytest_exitstatus'],
-            test_counts=coverage.get('test_counts'),initial_input_sha256=initial_inputs,
-            inputs_unchanged_during_run=coverage.get('inputs_unchanged_during_run'),
-            changed_since_checkpoint=changed_since_checkpoint,
-            current_code_matches_passed_snapshot=(not changed_since_checkpoint and coverage.get('inputs_unchanged_during_run') is True) if initial_inputs is not None else None,
-            invocation=coverage['invocation'],note='Recorded full-suite invocation; input hashes identify this inventory snapshot. Later source edits require another run, not inferred success.'),
-        definitions=dict(reconstructed_bounded='Semantic C implementation with explicit module scope, dependencies and unsupported domains; neither complete behavior proof nor ABI/binary equivalence.',
-            folded_caller_domain='Original helper effects incorporated in caller C for its validated domain; standalone target helper ABI or arbitrary input domain remains incomplete.',
-            unimplemented='Known app/HAL/wrapper body absent from replacement; original execution or hooks do not fill this gap.',
-            unreconstructed_runtime_candidate='No complete audited source replacement. Fingerprints are evidence candidates only, and identities may be ambiguous.'),
-        known_static_analysis_exceptions=[
-            dict(kind='copied_ram_code',image_start='0xaaf0',runtime_start='0x20000000',code_size_bytes=44,copied_size_bytes=48,veneer='0xaae0',source='src/drivers/flash_controller.c',tests=['tests/test_flash_controller.py'],
-                 note='RAM instructions are not members of the identified flash function inventory. Final four copied bytes are the STATCMD offset literal. Successful scoped reports below record execution separately.',scoped_evidence=ram_reports),
-            dict(kind='previously_missing_formatter_block',addresses=[hex(a) for a in [0x9256,0x9258,0x925a,0x925c,0x925e,0x9260,0x9262,0x9266,0x9268]],owner='0x9038',source='src/runtime/format.c',
-                 currently_missing_from_listing=[hex(a) for a in [0x9256,0x9258,0x925a,0x925c,0x925e,0x9260,0x9262,0x9266,0x9268] if a not in listing],
-                 note='Original %p branch discovered by execution; static inventory refresh may include it after this checkpoint.')],
-        scoped_solver_proofs=[
-            dict(address='0x282c',symbol='syscon_checksum31',source='tests/models/config.c',evidence=proof_path,contract=proof['scope'],status=proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False),
-            dict(address='0x282c',symbol='syscon_cfg_checksum',source='src/config/config_read.c',evidence=physical_proof_path,contract=physical_proof['scope'],status=physical_proof['status'],whole_domain_equivalence=False,whole_firmware_equivalence=False)],
-        runtime_matches_without_identified_function_entry=unidentified_matches,
-        global_limitations=['No completion percentage is calculated. Semantic reconstruction, instruction exercise, byte matches, and hardware validation are different evidence axes.',
-            'Identified runtime entries now have scoped source replacements; full target image integration, complete board emulation, and physical validation remain incomplete. No flash candidate exists.',
-            'Dynamic hook-address lists are unions across tests: an entry may be hooked in one test and execute genuinely in another.',
-            'All identified-instruction coverage is not branch/path/domain completeness and can miss undiscovered code, interrupts, timing and corrupt-state behavior.',
-            'Runtime fingerprints from installed archives are separate from the nine reconstructed-source exact body matches. Masked relocation fields have not been validated.',
-            'Host adapters may suppress logs or replace fatal calls with sentinels; module documentation defines the tested boundary.',
-            'Snapshot source/test hashes detect later edits; regenerate and review mappings when modules change.'],functions=rows,
-        complete_reconstruction=False,full_board_emulation=False,flash_candidate=False)
-    (ROOT/'analysis/reconstruction-ledger.json').write_text(json.dumps(artifact,indent=2)+'\n')
-    write_markdown(artifact)
-    print(json.dumps(artifact['summary'],indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=ROOT / 'build/ledger')
+    parser.add_argument('--checkpoint', type=Path,
+                        help='Optional coverage report for one test invocation; stale inputs are reported explicitly')
+    args = parser.parse_args()
+    ledger = build_inventory()
+    ledger['checkpoint'] = checkpoint_status(args.checkpoint, input_hashes())
+    ledger['mapping_input_sha256'] = {name: sha(ROOT / name) for name in
+        ['tools/reconstruction_ledger.py', 'tools/build_target_interfaces.py',
+         'tools/build_physical_firmware.py', 'analysis/runtime-scan-mapping.json', *TARGET_MAPPING_FILES]}
+    args.output.mkdir(parents=True, exist_ok=True)
+    (args.output / 'reconstruction-ledger.json').write_text(json.dumps(ledger, indent=2) + '\n')
+    (args.output / 'reconstruction-ledger.md').write_text(markdown(ledger))
+    print(json.dumps(dict(**ledger['summary'], checkpoint=ledger['checkpoint']['status'], output=str(args.output))))
 
 
-def write_markdown(ledger):
-    lines=['# Reconstruction ledger','',
-        'This is a function-by-function evidence inventory, not a completion percentage. The machine-readable companion is `analysis/reconstruction-ledger.json`; regenerate with `python3 tools/reconstruction_ledger.py` after reviewing the curated mapping when implementations change.','',
-        f'The current static inventory contains {ledger["summary"]["identified_functions"]} identified functions. Their semantic states are:','',
-        '| State | Count |','| --- | ---: |']
-    for k,n in ledger['summary']['semantic_status_counts'].items():lines.append(f'| {k} | {n} |')
-    lines+=['','“Reconstructed” means a scoped C adapter exists. It does not mean every input/path, original ABI, exact machine bytes, or board behavior is verified. “Folded” helpers are implemented only as effects within their tested callers, not complete generic entry points. All currently identified runtime candidates now have scoped replacements; undiscovered code and unsupported domains are not implied complete.','',
-        '## Independent evidence axes','',
-        '- Semantic mapping points to actual C sources, module tests, and scope documentation. Unreviewed Ghidra output and endpoint hooks do not count as replacement code.',
-        '- Original instruction exercise uses observed addresses from the pinned successful `analysis/full-suite-checkpoint.json` invocation, recomputed against the current hashed listing/ranges. Counts can differ from that report after static-analysis corrections. The snapshot may precede recent additions: a reconstructed routine with zero exercise at that checkpoint is not automatically unimplemented. Module tests and later scoped reports supply separate evidence.',
-        '- Nine rebuilt bodies have exact bytes: checksum `0x282c` (20 bytes), delay `0x7ae8` (10), memset `0x975a` (16), strchr `0x9828` (28), switch dispatch `0xc0` (18), `0xd4` (18), `0x2660` (20), divide-by-zero `0x3d0` (2), and float-to-int `0x135c` (64). Unresolved relocations disqualify strrchr. These isolated matches do not establish whole-firmware binary equivalence. Runtime archive fragments are listed separately; a short relocation-masked match does not establish identity. In particular, matches identifying `0x8f88` and `0x92f4` as newlib I/O routines are rejected generic-wrapper matches.',
-        '- The `target_abi` records identify standalone target interfaces, not universal input-domain equivalence. Two checksum theorems have distinct scopes: the host adapter uses a SRAM/sequential/AAPCS contract; the actual physical symbol has a full-register/read-event relation documented in `docs/physical-checksum-proof.md`. Neither proves all callers or the whole image.',
-        '- Hardware validation is `not_performed` for every ledger entry. A complete experimental target image links and boots in the model; no safe flash candidate is established.','',
-        'The JSON includes hashes of every mapped source/test/document and static/coverage inputs. When the test checkpoint records initial code/test/tool hashes, the ledger checks whether inputs stayed unchanged during the run and still match current files; a missing historical hash record remains unverified.','',
-        f'Checkpoint test counts: `{ledger["coverage_checkpoint"]["test_counts"]}`. Inputs unchanged during the run: `{ledger["coverage_checkpoint"]["inputs_unchanged_during_run"]}`. Current code matches that passed snapshot: `{ledger["coverage_checkpoint"]["current_code_matches_passed_snapshot"]}`.','',
-        '## Known application and HAL gaps','',
-        '| Entry | Missing behavior |','| --- | --- |']
-    for r in ledger['functions']:
-        if r['semantic_status']=='unimplemented':
-            pending=' **Implementation in progress; validation pending.**' if r['work_in_progress'] else ''
-            lines.append(f'| `{r["address"]}` | {r["note"]}{pending} |')
-    if not any(r['semantic_status']=='unimplemented' for r in ledger['functions']):
-        lines.append('| — | Every currently identified app/HAL entry has a scoped or caller-folded implementation. This does not cover arbitrary helper domains or full target integration. |')
-    lines+=['','All currently identified compiler/libc runtime entries have source replacements and direct ARM comparisons. Arithmetic, memory, support, heap, stdio, and scan/printf scope is documented separately. The runtime builds use reviewed source rather than installed libc/libgcc archives. This does not prove complete path coverage or full-image ABI integration.','',
-        '## Static inventory exceptions','',
-        'FLASHCTL executes 44 instruction bytes copied from image `0xaaf0` to SRAM `0x20000000`, with a four-byte literal following them. The `0xaae0` veneer is identified, but the RAM body is not an extra flash function in the identified flash-function inventory. The JSON separately records successful scoped reports containing its actual RAM instruction addresses. Its modeled status/polling behavior is in `src/drivers/flash_controller.c` and `docs/flash-controller.md`.',
-        '',
-        'Execution also discovered the `%p` block at `0x9256..0x9268`, previously missing from Ghidra\'s listing. It belongs to formatter `0x9038`; the JSON records which instruction addresses remain absent from the current listing. Updated static analysis can change counts without changing replacement correctness. Runtime fingerprints at non-entry/interior addresses are retained separately for future boundary review.','',
-        '## Every identified function','',
-        '`Exercise` is exercised/identified instruction addresses in the checkpoint, not semantic completion. `C` is a scoped replacement; `folded` is only its caller domain; `missing` is a known app/HAL gap; `runtime` is an unreconstructed runtime candidate.','',
-        '| Entry | Static name | Semantic state | Source | Exercise |','| --- | --- | --- | --- | ---: |']
-    labels={'reconstructed_bounded':'C','folded_caller_domain':'folded','unimplemented':'missing','unreconstructed_runtime_candidate':'runtime'}
-    for r in ledger['functions']:
-        e=r['original_instruction_exercise'];source=f'`{r["source"]}`' if r['source'] else '—'
-        lines.append(f'| `{r["address"]}` | `{r["identified_name"]}` | {labels[r["semantic_status"]]} | {source} | {e["exercised"]}/{e["identified"]} |')
-    (ROOT/'docs/reconstruction-ledger.md').write_text('\n'.join(lines)+'\n')
-
-if __name__=='__main__':main()
+if __name__ == '__main__':
+    main()

@@ -132,7 +132,7 @@
       "source": "src/config/config_read.c",
       "tests": [
         "tests/test_config_helpers.py",
-        "tests/test_proof_physical_checksum.py"
+        "tools/tests/test_proof_physical_checksum.py"
       ],
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
