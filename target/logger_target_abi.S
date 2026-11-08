@@ -1,5 +1,6 @@
 /* ARM variadic adapters. The legacy exposed buffers keep their layout, while
  * return addresses are ordinary linked call returns, never original literals. */
+#include "logger_frame.h"
 .syntax unified
 .cpu cortex-m0plus
 .thumb
@@ -17,14 +18,14 @@ syscon_logger_target_variadic_frame:
 .thumb_func
 syscon_logger_target_mfg_frame:
     push {r4,r5,r6,r7,lr}
-    sub sp,#348
+    sub sp,#SYSCON_LOG_FRAME_SIZE
     movs r4,r3
     movs r5,r0
     movs r6,r2
     movs r7,r1
     /* Fifth C argument, with padding to preserve eight-byte call alignment. */
     mov r0,sp
-    sub sp,#8
+    sub sp,#SYSCON_LOG_CALL_ARGS_SIZE
     str r4,[sp]
     ldr r3,=syscon_log_enabled
     ldrb r3,[r3]
@@ -35,7 +36,7 @@ syscon_logger_target_mfg_frame:
     movs r3,r6
     bl syscon_logger_target_body
     mov r1,sp
-    adds r1,#96
+    adds r1,#SYSCON_LOG_SUFFIX_OFFSET
     movs r0,#0
     movs r2,#2
     bl syscon_target_uart_write
@@ -47,8 +48,8 @@ syscon_logger_target_mfg_frame:
     movs r3,#0
 .Lcleanup:
     /* Preserve UART R0-R3 results; return through the actual saved LR. */
-    add sp,#8
-    add sp,#348
+    add sp,#SYSCON_LOG_CALL_ARGS_SIZE
+    add sp,#SYSCON_LOG_FRAME_SIZE
     pop {r4,r5,r6,r7,pc}
 .global syscon_logger_target
 .type syscon_logger_target,%function
@@ -98,12 +99,12 @@ syscon_logger_target_snprintf:
 syscon_logger_target_sg560d:
     push {r0,r1,r2,r3}
     push {r4,lr}
-    sub sp,#136
+    sub sp,#SYSCON_SG_FRAME_SIZE
     mov r0,sp
-    ldr r1,[sp,#144]
-    add r2,sp,#148
+    ldr r1,[sp,#(SYSCON_SG_FRAME_SIZE+8)]
+    add r2,sp,#(SYSCON_SG_FRAME_SIZE+12)
     bl syscon_logger_target_sg_body
-    add sp,#136
+    add sp,#SYSCON_SG_FRAME_SIZE
     pop {r4}
     pop {r3}
     add sp,#16

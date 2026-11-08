@@ -8,7 +8,9 @@ TAG=0x20000600
 ARGS=0x20000300
 
 @pytest.fixture(scope='module',autouse=True)
-def own_engines():
+def own_engines(elf,uart_logger_elf):
+    # Compile both fixtures before retaining hundreds of Unicorn mappings.
+    # Forking a compiler after that is expensive on macOS.
     gc.collect();LoggerPair.owners=[]
     yield
     LoggerPair.owners=None;gc.collect()
@@ -183,4 +185,10 @@ def test_logger_real_uart_mmio_and_all_output_registers(uart_logger_elf):
                     p.call(entry,symbol,*args)
                     left=[p.cpus[0].cpu.reg_read(r) for r in REGS[:4]]
                     right=[p.cpus[1].cpu.reg_read(r) for r in REGS[:4]]
+                    if entry==0x8fa0 and not enabled:
+                        # Disabled manufacturing logging leaves its tag in R1.
+                        # Validate the linked object and contents, not its old PC.
+                        assert right[1]==p.cpus[1].symbols['syscon_log_mfg_tag']
+                        assert p.cpus[0].cstring(left[1])==p.cpus[1].cstring(right[1])
+                        right[1]=left[1]
                     assert left==right,(entry,enabled,disabled,colors,left,right)

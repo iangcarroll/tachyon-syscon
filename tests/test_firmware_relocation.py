@@ -327,15 +327,20 @@ def test_relocated_logger_enable_disable_and_real_command_registers(relocated_im
         # the handler returns. Feed real UART bytes and check continued polling.
         for value in b'LOG 0\n':
             machine.device.inject_uart(0,bytes([value]));machine.run(5000)
-        machine.run(20000)
+        deadline=machine.instructions+2_000_000
+        while machine.read(flag,1)!=b'\0' and machine.instructions<deadline:
+            machine.run(10000)
         assert machine.read(flag,1)==b'\0'
         muted=len(machine.device.tx[0])
         for value in b'VERSION\n':
             machine.device.inject_uart(0,bytes([value]));machine.run(5000)
         machine.run(20000)
-        assert len(machine.device.tx[0])==muted
         reply=command_reply(machine,'LOG 1')
         assert b'PASS\r\n' in reply and machine.read(flag,1)==b'\1'
+        # UART echo is independent of logger enable. The muted VERSION must
+        # finish before LOG 1 by FIFO order, without its formatted response.
+        assert b'Version=' not in bytes(machine.device.tx[0][muted:])
+        assert b'Version=1.0.52\r\n' in command_reply(machine,'VERSION')
         # Preserve the real logger -> UART caller-register behavior used by
         # the legacy SET_RGB parser, while its private return addresses move.
         for token in ['0','%u','%s','%p','%d','%x','%c','%3u']:

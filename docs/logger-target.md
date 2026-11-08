@@ -4,7 +4,8 @@
 `target/logger_target_abi.S` collects ARM variadic arguments and preserves the
 UART return-register effects used by the existing command parser. Enable state
 and the manufacturing tag are named objects in `target/logger_state.c`, declared
-by `include/logger_state.h`. Text and colors are ordinary C strings.
+by `include/logger_state.h`. Text and colors are ordinary C strings. `include/logger_frame.h` gives the
+exposed stack buffers named fields and shares their layout with assembly.
 
 | Original entry | Rebuilt symbol | Existing link alias |
 | --- | --- | --- |
@@ -56,7 +57,8 @@ Tests cover prefix overreads and RAM-boundary faults, formatting thresholds,
 variadic alignment, buffer overlap, live format/argument mutations, changed
 saved registers/returns, disabled logging and invalid pointers. Original-ROM
 poisoning checks text/color/tag independence. The real-UART variant executes
-actual register writes and checks R0–R3, whose values can become missing
+actual register writes and checks R0–R3, allowing the validated manufacturing
+tag object to move in disabled logging. Register values can become missing
 variadic arguments in the original SET_RGB parser.
 
 Whole-image relocation exercises LOG disable/re-enable and SET_RGB tokens through
