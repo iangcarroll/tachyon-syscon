@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SOURCES=['src/rgb.c','src/sg560d.c','src/tasks.c','src/timers.c','src/retained.c',
          'src/application.c','src/mspm0_core.c','src/format.c','src/logging.c','src/runtime_memory.c',
-         'target/emulation_runtime.c','target/format_wrappers.c','target/logger_target.c','target/logger_target_abi.S']
+         'target/emulation_runtime.c','target/format_wrappers.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S']
 RUNTIME_SOURCES=['src/runtime_arithmetic.c','target/runtime_arithmetic_abi.S',
                  'target/runtime_arithmetic_float.c',
                  *sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.c'))]

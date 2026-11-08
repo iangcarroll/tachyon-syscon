@@ -23,6 +23,7 @@ MEMORY {
     TEST_UART_PORTS (rw) : ORIGIN = 0x20000234, LENGTH = 32
     TEST_UART_CONFIG (rw) : ORIGIN = 0x20000762, LENGTH = 18
     TEST_UART_RINGS (rw) : ORIGIN = 0x20000774, LENGTH = 152
+    TEST_LOG (rw) : ORIGIN = 0x2000080c, LENGTH = 1
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
 }
@@ -46,6 +47,7 @@ PHDRS {
     uart_ports PT_LOAD FLAGS(6);
     uart_config PT_LOAD FLAGS(6);
     uart_rings PT_LOAD FLAGS(6);
+    log PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
     data PT_LOAD FLAGS(6);
@@ -74,6 +76,7 @@ SECTIONS {
     .uart_ports : { *(.data.syscon_uart_ports) } > TEST_UART_PORTS AT> TEST_CODE :uart_ports
     .uart_config (NOLOAD) : { *(.bss.syscon_uart_config) } > TEST_UART_CONFIG :uart_config
     .uart_rings (NOLOAD) : { *(.bss.syscon_uart_rings) } > TEST_UART_RINGS :uart_rings
+    .log (NOLOAD) : { *(.bss.syscon_log_enabled) } > TEST_LOG :log
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers
     .data : { *(.data*) } > TEST_DATA AT> TEST_CODE :data

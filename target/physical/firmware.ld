@@ -105,6 +105,7 @@ SECTIONS {
    __irq_bss_start = .;
    *(.bss.syscon_gpio_handlers) *(.bss.syscon_i2c_state)
    *(.bss.syscon_uart_config) *(.bss.syscon_uart_rings)
+   *(.bss.syscon_log_enabled)
    . = ALIGN(4); __irq_bss_end = .;
  } > RAM_IRQ_STATE :irq_state
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized

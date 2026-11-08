@@ -59,6 +59,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                       (symbols['syscon_uart_config'],18),
                       (symbols['syscon_uart_rings'],152)])
         for address,size in uart_blocks:m.write_ram(address,b'\xa5'*size)
+        log_flag=0x2000080c if image==load_image() else symbols['syscon_log_enabled']
+        m.write_ram(log_flag,b'\xa5')
         reset_count=m.reset_count
         loaded=[];return_pc=None;loop=False
         def writes(cpu,kind,address,size,value,unused):
@@ -76,7 +78,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in adc_blocks),
                                tuple(m.read(address,size) for address,size in led_blocks),
                                tuple(m.read(address,size) for address,size in gpio_i2c_blocks),
-                               tuple(m.read(address,size) for address,size in uart_blocks)))
+                               tuple(m.read(address,size) for address,size in uart_blocks),
+                               m.read(log_flag,1)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)

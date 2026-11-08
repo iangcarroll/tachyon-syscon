@@ -23,7 +23,7 @@ def diagnostic_elf(tmp_path_factory):
     old=runtime.SOURCES
     try:
         runtime.SOURCES=old+['target/diagnostics_target.c','src/format.c','src/logging.c',
-                            'target/format_wrappers.c','target/logger_target.c','target/logger_target_abi.S',str(stub)]
+                            'target/format_wrappers.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S',str(stub)]
         return runtime.build(directory)
     finally:runtime.SOURCES=old
 

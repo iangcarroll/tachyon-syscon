@@ -27,7 +27,7 @@ def build(destination):
     traps.write_text('.syntax unified\n.thumb\n'+''.join(f'.global {n}\n.type {n},%function\n.thumb_func\n{n}:\n bkpt #0\n bx lr\n' for n in names))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_target_abi.S','target/hal_helpers.c','target/sg560d_target.c',str(traps)]
+        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S','target/hal_helpers.c','target/sg560d_target.c',str(traps)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old
 

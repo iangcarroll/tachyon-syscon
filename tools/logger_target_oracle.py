@@ -1,7 +1,7 @@
 """Source-backed ARM logger frames, with explicit UART/time/color test ports."""
 from pathlib import Path
 import struct
-from unicorn import UC_HOOK_MEM_INVALID,UcError
+from unicorn import UC_HOOK_MEM_INVALID,UC_HOOK_CODE,UcError
 from unicorn.arm_const import UC_ARM_REG_R0,UC_ARM_REG_R1,UC_ARM_REG_R2,UC_ARM_REG_R3,UC_ARM_REG_R4,UC_ARM_REG_R5,UC_ARM_REG_R6,UC_ARM_REG_R7,UC_ARM_REG_R8,UC_ARM_REG_R9,UC_ARM_REG_R10,UC_ARM_REG_R11,UC_ARM_REG_R12,UC_ARM_REG_SP,UC_ARM_REG_LR,UC_ARM_REG_PC
 from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
@@ -14,7 +14,7 @@ def build(destination,real_uart=False):
     traps.write_text('.syntax unified\n.thumb\n'+''.join(f'.global {n}\n.type {n},%function\n.thumb_func\n{n}:\n bkpt #0\n bx lr\n' for n in ports))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_target_abi.S',str(traps)]
+        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S',str(traps)]
         if real_uart:runtime.SOURCES+=['target/uart_ring.c','target/uart_state.c','target/uart_ring_abi.S','target/hal_helpers.c','target/logger_uart_test_fixture.c']
         return runtime.build(destination)
     finally:runtime.SOURCES=old
@@ -27,7 +27,13 @@ class LoggerPair:
         self.cpus=[Oracle(),ArmRebuildOracle(elf)]
         self.cpus[0].cpu.mem_map(0x010ff000,4096)
         self.events=[[],[]];self.faults=[[],[]];self.colors=[list(colors),list(colors)];self.now=now;self.after_write=None
+        self.frames=[None,None]
         for index,cpu in enumerate(self.cpus):
+            entry=0x8e8c if index==0 else cpu.symbols['syscon_logger_target_vlog']&~1
+            def enter(uc,address,size,user,index=index,entry=entry):
+                if address==entry:
+                    self.frames[index]=(uc.reg_read(UC_ARM_REG_SP)-368,uc.reg_read(UC_ARM_REG_LR))
+            cpu.cpu.hook_add(UC_HOOK_CODE,enter)
             def invalid(uc,access,address,size,value,user,index=index):
                 self.faults[index].append((access,address,size,value));return False
             cpu.cpu.hook_add(UC_HOOK_MEM_INVALID,invalid)
@@ -66,6 +72,28 @@ class LoggerPair:
                 raise
         self.events[index].append(('write',port,address,size,bytes(data)))
         if self.after_write:self.after_write(self,index,port,address,size)
+    def normalized_events(self,index):
+        """Compare bytes/order while allowing linked constants and return PCs.
+
+        The original's overlong-prefix bug can expose its saved LR. Check that
+        word against the actual observed call return before normalizing it;
+        a stale original-address literal must fail, not be hidden by a mask.
+        """
+        result=[]
+        for event in self.events[index]:
+            if event[0] not in ('write','uart-fault'):
+                result.append(event);continue
+            kind,port,address,size,data,*fault=event
+            frame=self.frames[index]
+            if frame and address==frame[0]+24 and len(data)>=344:
+                saved=data[340:344]
+                assert saved==struct.pack('<I',frame[1]),'Saved return does not match linked call'
+                data=data[:340]+b'RETN'+data[344:]
+            # A UART write's constant source address is private implementation
+            # data; contents, port, size and all fault addresses remain exact.
+            source='constant' if address<0x10000 or 0x01000000<=address<0x01080000 else address
+            result.append((kind,port,source,size,data,*fault))
+        return result
     def call(self,address,symbol,*args,compare_result=False):
         results=[]
         for index,cpu in enumerate(self.cpus):
@@ -80,7 +108,7 @@ class LoggerPair:
                 assert cpu.cpu.reg_read(UC_ARM_REG_PC)==0x010fff00
                 results.append(('return',cpu.cpu.reg_read(UC_ARM_REG_R0)))
             except UcError as e:results.append(('fault',e.errno))
-        assert self.events[0]==self.events[1],self.events
+        assert self.normalized_events(0)==self.normalized_events(1),self.events
         assert results[0][0]==results[1][0],results
         assert self.faults[0]==self.faults[1],self.faults
         if results[0][0]=='return':

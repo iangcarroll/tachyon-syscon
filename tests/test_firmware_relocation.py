@@ -309,3 +309,37 @@ def test_relocated_uart_stream_uses_linked_receive_ring(relocated_image):
     assert b'uart.edit = relocatable' in replies[1]
     assert all(previous!=current for previous,current in zip(before,indices))
     for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
+
+
+def test_relocated_logger_enable_disable_and_real_command_registers(relocated_image):
+    output,manifest,_=relocated_image
+    symbol=manifest['layout_audit']['symbols']['syscon_log_enabled']
+    assert symbol!=0x2000080c
+    machines=[boot(load_image())[0],
+              boot((output/'firmware.bin').read_bytes(),
+                   stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
+    machines[1].write_ram(0x2000080c,b'\xa5')
+    flags=[0x2000080c,symbol]
+    traces=[]
+    for machine,flag in zip(machines,flags):
+        before=len(machine.device.tx[0])
+        # LOG 0 cannot use command_reply: the status logger is disabled before
+        # the handler returns. Feed real UART bytes and check continued polling.
+        for value in b'LOG 0\n':
+            machine.device.inject_uart(0,bytes([value]));machine.run(5000)
+        machine.run(20000)
+        assert machine.read(flag,1)==b'\0'
+        muted=len(machine.device.tx[0])
+        for value in b'VERSION\n':
+            machine.device.inject_uart(0,bytes([value]));machine.run(5000)
+        machine.run(20000)
+        assert len(machine.device.tx[0])==muted
+        reply=command_reply(machine,'LOG 1')
+        assert b'PASS\r\n' in reply and machine.read(flag,1)==b'\1'
+        # Preserve the real logger -> UART caller-register behavior used by
+        # the legacy SET_RGB parser, while its private return addresses move.
+        for token in ['0','%u','%s','%p','%d','%x','%c','%3u']:
+            assert b'PASS\r\n' in command_reply(machine,f'SET_RGB {token}:2:3:4:0:')
+        traces.append(normalized_log(bytes(machine.device.tx[0][before:])))
+    assert traces[0]==traces[1]
+    assert machines[1].read(0x2000080c,1)==b'\xa5'
