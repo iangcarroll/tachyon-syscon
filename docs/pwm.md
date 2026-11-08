@@ -3,7 +3,7 @@
 This page describes the historical host test scaffold. Editable production
 firmware lives in [the target PWM driver](pwm-target.md) and [RGB module](rgb-target.md).
 
-`src/pwm.c` reconstructs the original PWM initialization (`0x87dc`) and value
+`tests/models/pwm.c` reconstructs the original PWM initialization (`0x87dc`) and value
 write (`0x88c0`) paths, together with timer-driver helpers at `0x9400`, `0x941c`,
 `0x942c`, `0x9450`, `0x9470`, and `0x948c`. It executes through explicit 32-bit
 register-read/write callbacks. The original board mappings are retained in

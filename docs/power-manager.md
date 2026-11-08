@@ -1,6 +1,6 @@
 # Power routing, ADC scaling, and USB recovery
 
-`src/power_manager.c` reconstructs entry points from `0x4c50` through `0x5274`:
+`tests/models/power_manager.c` reconstructs entry points from `0x4c50` through `0x5274`:
 ADC scaling/retry, three two-GPIO selectors, rail/USB controls, selector changes,
 USB isolation/recovery tasks and cooldown, and battery-type detection. The host
 executor operates on a 4 KiB RAM image using original global offsets. Dependencies

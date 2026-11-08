@@ -1,6 +1,6 @@
 # Application integration helpers
 
-`src/application_glue.c` reconstructs seven small entry points that previously
+`tests/models/application_glue.c` reconstructs seven small entry points that previously
 remained dependency boundaries despite their lower-level implementations existing.
 
 | Original | Replacement | Behavior |

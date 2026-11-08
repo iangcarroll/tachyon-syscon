@@ -1,6 +1,6 @@
 # Persistent configuration reconstruction
 
-This is a host-testable C reconstruction of syscon 1.0.52 configuration logic, not a flashable replacement. The pinned original ARM instructions are the differential oracle. The following entry points have corresponding implementations in `src/config.c`:
+This is a host-testable C reconstruction of syscon 1.0.52 configuration logic, not a flashable replacement. The pinned original ARM instructions are the differential oracle. The following entry points have corresponding implementations in `tests/models/config.c`:
 
 | Original | Reconstructed operation |
 | --- | --- |
@@ -47,7 +47,7 @@ Run `syscon-re/.venv/bin/python -m pytest -q syscon-re/tests/test_config_updates
 
 ## Serial command integration
 
-`src/config_commands.c` implements eleven command handlers through `syscon_config_dispatch`: the runtime and identity variants of GET, SET, FIND, DUMP, and ERASE, plus CONFIG_INTERNAL. This adapter reloads the packed runtime state when the corresponding original handler does. An identical runtime update returns early without reloading; a successful identity append does reload. Runtime erase reloads settings, while identity erase leaves the previous runtime cache untouched until a subsequent reload. CONFIG_INTERNAL reports the cached runtime state, not fresh flash contents.
+`tests/models/config_commands.c` implements eleven command handlers through `syscon_config_dispatch`: the runtime and identity variants of GET, SET, FIND, DUMP, and ERASE, plus CONFIG_INTERNAL. This adapter reloads the packed runtime state when the corresponding original handler does. An identical runtime update returns early without reloading; a successful identity append does reload. Runtime erase reloads settings, while identity erase leaves the previous runtime cache untouched until a subsequent reload. CONFIG_INTERNAL reports the cached runtime state, not fresh flash contents.
 
 The two erase passwords differ in the original image: runtime erase checks `particle` (`0xb1f4`), while identity erase checks `B23000` (`0xb1b1`). The differential pipeline caught and corrected an initial incorrect assumption that they were the same. These are literal firmware command gates, not host/account credentials.
 

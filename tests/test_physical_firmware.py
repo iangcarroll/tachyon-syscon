@@ -1,4 +1,5 @@
 """Physical reset/placement experiments; fixtures are never production inputs."""
+from inventory import load_image
 import json,re,struct,subprocess
 from pathlib import Path
 import pytest
@@ -6,6 +7,16 @@ from elftools.elf.elffile import ELFFile
 from unicorn import *
 from unicorn.arm_const import *
 from build_physical_firmware import ROOT,elf_audit,emit_binary,PHYSICAL
+
+
+@pytest.mark.parametrize('test_source', ['tests/models/config.c', 'tests/fixtures/target/format_wrappers.c'])
+def test_physical_build_rejects_test_models_and_fixtures(tmp_path, monkeypatch, test_source):
+    import build_physical_firmware as physical
+
+    monkeypatch.setattr(physical, 'SOURCES', [*physical.SOURCES, test_source])
+    with pytest.raises(ValueError, match='Test-only source forbidden'):
+        physical.build(tmp_path / 'forbidden')
+    assert not (tmp_path / 'forbidden/firmware.bin').exists()
 
 @pytest.fixture(scope='module')
 def physical_fixture(tmp_path_factory):
@@ -27,13 +38,13 @@ void syscon_target_main(void){fixture_bss++;syscon_config_state.flags[SYSCON_CON
 __attribute__((section(".rodata.syscon_target_commands"),used)) const uint8_t syscon_target_commands[518]={0};
 '''+''.join('void '+name+'(void){}\n' for name in sorted(names))
     fixture=out/'fixture.c';fixture.write_text(source)
-    inputs=[(ROOT/'target/config/config_state.c','config-state.o'),(ROOT/'target/physical/startup.c','startup.o'),(ROOT/'target/physical/firmware_version.c','version.o'),(ROOT/'target/app/runtime_init_target.c','runtime-init.o'),(ROOT/'target/drivers/flash_abi_target.c','flash.o'),(fixture,'target_config_config_storage.o')]
+    inputs=[(ROOT/'src/config/config_state.c','config-state.o'),(ROOT/'src/physical/startup.c','startup.o'),(ROOT/'src/physical/firmware_version.c','version.o'),(ROOT/'src/app/runtime_init_target.c','runtime-init.o'),(ROOT/'src/drivers/flash_abi_target.c','flash.o'),(fixture,'src_config_config_storage.o')]
     objects=[]
     for source,name in inputs:
         obj=out/name;objects.append(str(obj))
         subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-fno-inline','-ffunction-sections','-fdata-sections','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'fixture-only.elf'
-    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,--gc-sections','-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-o',str(elf)],check=True)
+    subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,--gc-sections','-Wl,-T,'+str(ROOT/'src/physical/firmware.ld'),'-o',str(elf)],check=True)
     binary=out/'fixture-only.bin';emit_binary(elf,binary)
     return elf,binary,elf_audit(elf)
 
@@ -118,7 +129,7 @@ def test_empty_initialized_data_does_not_emit_an_sram_sized_binary(physical_fixt
     empty=tmp_path/'empty-data.elf'
     subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
         '-Wl,--defsym,syscon_config_state=0x20000030','-Wl,--gc-sections',
-        '-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-o',str(empty)],check=True)
+        '-Wl,-T,'+str(ROOT/'src/physical/firmware.ld'),'-o',str(empty)],check=True)
     with empty.open('rb') as stream:
         parsed=ELFFile(stream)
         assert parsed.get_section_by_name('.data')['sh_size']==0
@@ -127,7 +138,7 @@ def test_empty_initialized_data_does_not_emit_an_sram_sized_binary(physical_fixt
     assert binary.stat().st_size<=0xf800
 
 def test_recovered_constant_bytes_except_explicit_pointer_relocations(physical_fixture):
-    _,binary,_=physical_fixture;image=binary.read_bytes();reference=(ROOT/'firmware/syscon-1.0.52.bin').read_bytes()
+    _,binary,_=physical_fixture;image=binary.read_bytes();reference=load_image()
     meta=json.loads((ROOT/'analysis/physical-data-manifest.json').read_text())
     relocated={a for r in meta['code_pointer_relocations'] for a in range(int(r['field'],16),int(r['field'],16)+4)}
     for segment in meta['data_segments']:
@@ -147,7 +158,7 @@ def test_audit_rejects_flash_executor_outside_copied_sram(physical_fixture,tmp_p
 
 def test_all_known_original_code_pointers_in_imported_data_are_relocations():
     import csv
-    data=(ROOT/'firmware/syscon-1.0.52.bin').read_bytes()
+    data=load_image()
     entries={int(r['address'],16)|1 for r in csv.DictReader((ROOT/'analysis/functions.tsv').open(),delimiter='\t')}
     meta=json.loads((ROOT/'analysis/physical-data-manifest.json').read_text());fields={int(r['field'],16) for r in meta['code_pointer_relocations']}
     observed=set()
@@ -161,7 +172,7 @@ def test_linker_rejects_ram_executor_slot_overflow(physical_fixture,tmp_path):
     elf,_,_=physical_fixture
     extra=tmp_path/'overflow.S';extra.write_text('.section .ram_original_flash,"ax",%progbits\n.global physical_test_overflow\nphysical_test_overflow:\n.space 16\n')
     obj=tmp_path/'overflow.o';subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-c',str(extra),'-o',str(obj)],check=True)
-    result=subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*map(str,elf.parent.glob('*.o')),str(obj),'-Wl,--undefined=physical_test_overflow','-Wl,--gc-sections','-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-o',str(tmp_path/'invalid.elf')],text=True,capture_output=True)
+    result=subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*map(str,elf.parent.glob('*.o')),str(obj),'-Wl,--undefined=physical_test_overflow','-Wl,--gc-sections','-Wl,-T,'+str(ROOT/'src/physical/firmware.ld'),'-o',str(tmp_path/'invalid.elf')],text=True,capture_output=True)
     assert result.returncode!=0
     assert 'backwards' in result.stderr or 'RAM executor exceeds' in result.stderr
 
@@ -208,7 +219,7 @@ def test_original_reset_global_initialization_and_constructor_order(physical_fix
 
 def test_initialized_data_load_is_aligned_after_halfword_text(physical_fixture,tmp_path):
     elf,_,_=physical_fixture
-    script=(ROOT/'target/physical/firmware.ld').read_text()
+    script=(ROOT/'src/physical/firmware.ld').read_text()
     old='.text : { *(.text*) *(.rodata*) }'
     assert old in script
     script=script.replace(old,'.text : { *(.text*) *(.rodata*) . = ALIGN(4); SHORT(0); }')
@@ -251,7 +262,7 @@ def test_initialized_data_load_is_aligned_after_halfword_text(physical_fixture,t
 @pytest.mark.parametrize('stale_call',[False,True])
 def test_linker_moved_flash_executor_is_copied_and_executes_only_sram(physical_fixture,tmp_path,stale_call):
     elf,_,original_audit=physical_fixture
-    script=(ROOT/'target/physical/firmware.ld').read_text()
+    script=(ROOT/'src/physical/firmware.ld').read_text()
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
     assert script.count(needle)==1
     script=script.replace(needle,'__ram_exec_start = .; '+4*'SHORT(0xde00); '+'KEEP(*(.ram_original_flash))')
@@ -262,7 +273,7 @@ def test_linker_moved_flash_executor_is_copied_and_executes_only_sram(physical_f
         # Reintroduce the removed defect in source, then compile and link it.
         # A test that merely allows zero-padding fallthrough must fail this
         # negative control rather than report a successful moved executor.
-        source=(ROOT/'target/drivers/flash_abi_target.c').read_text()
+        source=(ROOT/'src/drivers/flash_abi_target.c').read_text()
         call='return syscon_target_flash_ram_execute(base);'
         assert source.count(call)==1
         source=source.replace(call,'return ((uint32_t (*)(uint32_t))(uintptr_t)0x20000001u)(base);')

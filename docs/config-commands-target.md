@@ -1,6 +1,6 @@
 # Original-ABI configuration commands
 
-`target/config/config_commands_target.c` implements the eleven configuration command
+`src/config/config_commands_target.c` implements the eleven configuration command
 handlers and shared dump routine, using original signatures and source-backed
 scan/printf, namespace storage and flash operations. It retains password
 parsing, partial scanset conversions, getter mutation of keys, exact return

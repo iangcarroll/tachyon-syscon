@@ -1,7 +1,7 @@
 # RGB LED reconstruction
 
 The RGB subsystem in the pinned syscon 1.0.52 image has been reconstructed in
-`src/rgb.c`. It is host-testable C and cross-compiles for Cortex-M0+. No complete
+`tests/models/rgb.c`. It is host-testable C and cross-compiles for Cortex-M0+. No complete
 firmware image or byte-for-byte match is claimed.
 
 | Original entry | Reconstructed operation |

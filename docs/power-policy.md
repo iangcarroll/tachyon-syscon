@@ -1,6 +1,6 @@
 # Power report, initialization, and shutdown-reason policy
 
-`src/power_policy.c` reconstructs eleven entry points from syscon 1.0.52 using the original 4 KiB RAM layout. This is a host-test ABI, not a flashable replacement. `syscon_power_policy_execute` returns `UINT64_MAX` for unsupported entry points and report table indices outside the supplied RAM image. Void original functions return zero in this host adapter; tests do not compare their incidental register contents.
+`tests/models/power_policy.c` reconstructs eleven entry points from syscon 1.0.52 using the original 4 KiB RAM layout. This is a host-test ABI, not a flashable replacement. `syscon_power_policy_execute` returns `UINT64_MAX` for unsupported entry points and report table indices outside the supplied RAM image. Void original functions return zero in this host adapter; tests do not compare their incidental register contents.
 
 | Entry | Behavior |
 | --- | --- |

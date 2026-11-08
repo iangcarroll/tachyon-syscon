@@ -1,6 +1,6 @@
 # MSPM0 core, watchdog and GPIO reconstruction
 
-`src/mspm0_core.c` reconstructs register-access and RAM-initialization behavior
+`tests/models/mspm0_core.c` reconstructs register-access and RAM-initialization behavior
 from the pinned syscon firmware. Its native-test entry points take explicit RAM,
 register read/write functions, and a callback dispatcher. They are not a binary
 replacement ABI. No physical peripheral simulator or flash image is provided.

@@ -9,17 +9,17 @@ firmware equivalence or flash-safety result.
 
 ## Source and ABI
 
-`src/runtime_arithmetic.c` implements integer division, multiplication, leading
+`src/runtime/runtime_arithmetic.c` implements integer division, multiplication, leading
 zero counts and float-bit comparisons in C. It avoids native floating point,
 undefined shifts and signed overflow. The unsigned 64-bit division algorithm
 is adapted from GCC's `TARGET_HAS_NO_HW_DIVIDE` implementation, with explicit
 full-width-shift behavior for direct zero-divisor calls.
 
-`target/runtime/runtime_arithmetic_abi.S` contains the small helpers whose interfaces
+`src/runtime/runtime_arithmetic_abi.S` contains the small helpers whose interfaces
 cannot be expressed as ordinary C functions: switch dispatch using the table
 following LR, flag-producing float comparisons, the identity divide-by-zero
 handler, and unsigned 64-bit division returning quotient in R0/R1 and remainder
-in R2/R3. `target/runtime/runtime_arithmetic_float.c` preserves the original unsigned
+in R2/R3. `src/runtime/runtime_arithmetic_float.c` preserves the original unsigned
 float-to-integer conversion policy by composing reconstructed signed
 conversion and subtraction.
 
@@ -149,11 +149,11 @@ RAM-fit claim here.
 ## Linking consumers
 
 For unsigned/signed 32-bit division and 64-bit multiplication, compile
-`src/runtime_arithmetic.c` with `-mcpu=cortex-m0plus -mthumb -mfloat-abi=soft`
+`src/runtime/runtime_arithmetic.c` with `-mcpu=cortex-m0plus -mthumb -mfloat-abi=soft`
 and `-Iinclude`, then link that object instead of installed `libgcc`. The ARM
 build exports the verified `__aeabi_uidiv`, `__aeabi_uidivmod`, signed variants,
 `__aeabi_lmul`, leading-zero and comparison symbols. Add
-`target/runtime/runtime_arithmetic_abi.S` for `__aeabi_uldivmod`, condition-flag compare
+`src/runtime/runtime_arithmetic_abi.S` for `__aeabi_uldivmod`, condition-flag compare
 helpers and the three `__gnu_thumb1_case_*` dispatch symbols. Source consumers
 requiring soft-float operations should use the complete source set in the
 builder. Native builds intentionally omit ARM ABI aliases; arithmetic test

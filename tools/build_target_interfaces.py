@@ -21,7 +21,7 @@ TARGETS=['physical/firmware_version.c','runtime/callback_helpers.c','config/conf
     'config/config_update.c','drivers/ioexpander_target.c','power/power_manager_target.c',
     'protocol/protocol_target.c','protocol/protocol_state.c','protocol/command_table_target.c','config/config_commands_target.c','protocol/control_commands_target.c','app/runtime_init_target.c',
     'runtime/format_core_target.c','modem/sg560d_target.c','modem/modem_state.c']
-SOURCES=['target/'+name for name in TARGETS]+['src/runtime_memory.c','src/runtime_arithmetic.c','src/flash_controller.c','src/format.c']+sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.c'))
+SOURCES=['src/'+name for name in TARGETS]+['src/runtime/runtime_memory.c','src/runtime/runtime_arithmetic.c','src/drivers/flash_controller.c','src/runtime/format.c']+sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.c'))
 FLAGS=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-mfloat-abi=soft','-Os','-ffreestanding',
     '-fno-builtin','-fwrapv','-fno-inline','-fno-ipa-cp','-fno-ipa-pure-const',
     '-ffunction-sections','-fdata-sections','-fno-unwind-tables','-fno-asynchronous-unwind-tables',
@@ -32,7 +32,7 @@ def build(output):
     objects=[]
     for source in SOURCES:
         obj=output/(source.replace('/','_').replace('.c','.o').replace('.S','.o'))
-        extra=['-O2'] if source=='src/runtime_arithmetic.c' or source.startswith('vendor/gcc-soft-fp/') else []
+        extra=['-O2'] if source=='src/runtime/runtime_arithmetic.c' or source.startswith('vendor/gcc-soft-fp/') else []
         if source.startswith('vendor/gcc-soft-fp/'):extra+=['-std=gnu11','-I'+str(ROOT/'vendor/gcc-soft-fp')]
         if source.endswith('/floatunsisf.c'):extra+=['-Wno-type-limits']
         toolchain_process.run(['arm-none-eabi-gcc',*FLAGS,*extra,'-I'+str(ROOT/'include'),'-c',str(ROOT/source),'-o',str(obj)],check=True)

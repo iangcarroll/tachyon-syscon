@@ -13,7 +13,7 @@ from unicorn.arm_const import UC_ARM_REG_MSP
 from emulate import from_scenario
 from inventory import ROOT, load_image
 
-SCENARIO=ROOT/'fixtures/emulator/tachyon-synthetic.json'
+SCENARIO=ROOT/'tests/fixtures/emulator/tachyon-synthetic.json'
 
 
 def boot(image,scenario=SCENARIO,budget=2000000,observer=None,stack_floor=0x20000820):

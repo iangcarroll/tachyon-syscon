@@ -1,6 +1,6 @@
 # Formatting and UART logging
 
-`src/format.c` reconstructs the formatter at `0x9038`, integer conversion at
+`src/runtime/format.c` reconstructs the formatter at `0x9038`, integer conversion at
 `0x8fcc`, and bounded-output semantics of `0x92ac`. The interface takes a virtual
 32-bit ARM format-string pointer and va_list pointer. A checked target-memory
 reader preserves pointer width, 8-byte alignment for 64-bit arguments, and access
@@ -14,7 +14,7 @@ conversion is signed. `%p` always emits a lowercase `0x` prefix, including zero.
 Output length counts bytes that would have been emitted, while buffers are
 terminated and truncated exactly as in the original.
 
-`src/logging.c` implements:
+`tests/models/logging.c` implements:
 
 - `0x5edc`: SG560D UART1 formatting into a zeroed 128-byte buffer, sending only
   through the first NUL and then a separate CRLF.

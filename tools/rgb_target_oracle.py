@@ -14,6 +14,6 @@ def build(destination):
         for name,_ in DEPENDENCIES.values()))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=['target/power/rgb_target.c','src/runtime_memory.c',str(stubs)]
+        runtime.SOURCES=['src/power/rgb_target.c','src/runtime/runtime_memory.c',str(stubs)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old

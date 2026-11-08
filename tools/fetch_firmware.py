@@ -18,7 +18,7 @@ import urllib.parse
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MANIFEST = ROOT / 'firmware/fetch-manifest.json'
+DEFAULT_MANIFEST = ROOT / 'references/firmware-manifest.json'
 
 
 def safe_relative(value):

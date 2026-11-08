@@ -3,7 +3,7 @@
 Reconstructed six routines: edge callback `0x570c`, periodic sampling `0x5740`,
 debounce callback `0x5844`, callback registration `0x5908`, and mode selection
 `0x591c`, and outer GPIO/timer initialization `0x5970`. Source:
-`src/power_key.c`; tests: `tests/test_power_key.py`.
+`tests/models/power_key.c`; tests: `tests/test_power_key.py`.
 
 The state preserves the three 12-byte threshold records at original RAM
 `0x200000b4`, mode/event bytes at `0x200000d8`, and counter/callback/pin state

@@ -1,6 +1,6 @@
 # Target sleep and cycle-delay helpers
 
-`target/drivers/core_helpers.c` supplies target-only implementations for MCU sleep
+`src/drivers/core_helpers.c` supplies target-only implementations for MCU sleep
 (`0x74f8`) and the busy delay (`0x7ae8`). The tests compile Cortex-M0+ code and
 execute it alongside the original image in separate Unicorn instances.
 

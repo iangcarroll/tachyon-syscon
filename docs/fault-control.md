@@ -1,6 +1,6 @@
 # Assertion, fault vectors, and retained breadcrumbs
 
-`src/fault_control.c` reconstructs the body of the original fatal assertion
+`tests/models/fault_control.c` reconstructs the body of the original fatal assertion
 handler at `0x2678`, rather than treating the entire handler as immediate reset.
 
 The recovered sequence is:

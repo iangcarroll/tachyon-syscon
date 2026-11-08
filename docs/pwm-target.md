@@ -1,6 +1,6 @@
 # PWM timer drivers and board routing
 
-`target/drivers/pwm_target.c` and `include/pwm_target.h` reconstruct eight entries with direct target memory/MMIO operations.
+`src/drivers/pwm_target.c` and `include/pwm_target.h` reconstruct eight entries with direct target memory/MMIO operations.
 
 | Original | Symbol | Behavior |
 |---|---|---|
@@ -18,7 +18,7 @@ Initialization performs both lookups before validating either result. The PWM lo
 Configuration preserves all three mode classes: zero, `0x20`, and every other byte. The first two use period minus one with unsigned wrap; other modes use period shifted right one. Extra-channel setup reads mode before its writes; main setup rereads mode afterward, so aliasing configuration memory with affected registers is observable. It reads control byte 6, mode byte 4 and period word in original order. Final control uses mask `0x3000ffbf`. Return R0 is the input base and R1 is the captured control byte, represented by a `uint64_t` target return.
 
 The three channels are named `syscon_pwm_channels` objects defined in
-`target/drivers/hal_helpers.c` and declared in `include/pwm_state.h`. The linker chooses
+`src/drivers/hal_helpers.c` and declared in `include/pwm_state.h`. The linker chooses
 their addresses. Assertion strings are ordinary C text. Only isolated oracle
 fixtures retain the original table placement to compare ordered accesses.
 GPIO lookup is still a dependency on the remaining GPIO migration. Assertions

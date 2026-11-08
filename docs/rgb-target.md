@@ -1,6 +1,6 @@
 # RGB animation and editable presets
 
-`target/power/rgb_target.c` provides all thirteen identified RGB entries using the
+`src/power/rgb_target.c` provides all thirteen identified RGB entries using the
 linker-allocated `syscon_rgb_runtime` object in `include/rgb_state.h`. It includes source callback registration, color
 scaling, PWM output order, initialization, brightness/pattern configuration,
 presets, timer expiry, state/configuration queries and key feedback.
@@ -13,7 +13,7 @@ changing those IDs would change the protocol. The preset named `off` retains
 the original solid-red setting; the name is not a reason to change its behavior.
 
 PWM pin/timer routing is a separate board description in
-`target/drivers/hal_helpers.c`, declared by `include/pwm_state.h`. The physical linker
+`src/drivers/hal_helpers.c`, declared by `include/pwm_state.h`. The physical linker
 temporarily places LED state and PWM descriptors in reclaimed SRAM to avoid
 duplicating old reservations. See [memory layout](physical-firmware-build.md#reclaiming-sram-during-source-migration).
 

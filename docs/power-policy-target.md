@@ -1,8 +1,8 @@
 # Power reports and shutdown policy
 
-`target/power/power_policy_target.c` implements the report callback, ADC/expander
+`src/power/power_policy_target.c` implements the report callback, ADC/expander
 initialization, minimum VPH tracking and shutdown reason/time/staleness logic.
-Its globals and diagnostic tables are named C objects in `target/power/power_state.c`.
+Its globals and diagnostic tables are named C objects in `src/power/power_state.c`.
 All seven shutdown names, including BROWNOUT, are source strings. The physical
 linker allocates them; only the isolated differential fixture uses old locations.
 

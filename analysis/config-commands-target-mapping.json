@@ -3,7 +3,7 @@
     {
       "address": "0x3fdc",
       "symbol": "syscon_target_cmd_config_internal",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x4490",
       "symbol": "syscon_target_cmd_config_id_find",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x44dc",
       "symbol": "syscon_target_cmd_config_find",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x4528",
       "symbol": "syscon_target_config_dump",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x45e0",
       "symbol": "syscon_target_cmd_config_id_dump",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x45ec",
       "symbol": "syscon_target_cmd_config_dump",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x45f8",
       "symbol": "syscon_target_cmd_config_id_erase",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x4638",
       "symbol": "syscon_target_cmd_config_id_get",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -75,7 +75,7 @@
     {
       "address": "0x4684",
       "symbol": "syscon_target_cmd_config_id_set",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -84,7 +84,7 @@
     {
       "address": "0x46d4",
       "symbol": "syscon_target_cmd_config_erase",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x4714",
       "symbol": "syscon_target_cmd_config_get",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",
@@ -102,7 +102,7 @@
     {
       "address": "0x4760",
       "symbol": "syscon_target_cmd_config_set",
-      "source": "target/config/config_commands_target.c",
+      "source": "src/config/config_commands_target.c",
       "header": "include/config_commands_target.h",
       "tests": "tests/test_config_commands_target.py",
       "docs": "docs/config-commands-target.md",

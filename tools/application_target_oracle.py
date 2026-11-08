@@ -29,6 +29,6 @@ def build(destination):
         for name in [*(name for _,name,_ in DEPENDENCIES),'mfg_logger']))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['target/app/application_target.c','target/app/application_state.c','target/app/diagnostics_state.c','target/power/power_state.c','target/logging/logger_state.c',str(stubs)]
+        runtime.SOURCES=old+['src/app/application_target.c','src/app/application_state.c','src/app/diagnostics_state.c','src/power/power_state.c','src/logging/logger_state.c',str(stubs)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old

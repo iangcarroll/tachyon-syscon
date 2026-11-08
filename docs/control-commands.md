@@ -1,6 +1,6 @@
 # Control CLI handlers
 
-`src/control_commands.c` reconstructs the 26 command-table records outside the
+`tests/models/control_commands.c` reconstructs the 26 command-table records outside the
 configuration subsystem: 23 unique handler entry points, plus the POWER,
 REBOOT, and STATUS aliases. The other 11 records, including CONFIG_INTERNAL,
 belong to the separate configuration reconstruction.

@@ -3,10 +3,10 @@
 This page describes historical host test scaffolding. Production firmware uses
 [the UART driver](uart-hal-target.md) and [receive rings](uart-ring-target.md).
 
-`src/uart_hal.c` reconstructs interrupt masking (`0x891c`/`0x8938`),
+`tests/models/uart_hal.c` reconstructs interrupt masking (`0x891c`/`0x8938`),
 initialization (`0x8954`), deinitialization (`0x8b50`), line configuration
 (`0x95f0`), and clock selection (`0x9638`). Transmit, receive, and ring-buffer
-operations are in the separate `src/uart.c` module.
+operations are in the separate `tests/models/uart.c` module.
 
 The two original 16-byte descriptors select UART bases `0x40108000` and
 `0x40100000`, logical TX/RX pins 4/5 and 6/7, and IRQs 15 and 13. Descriptor

@@ -18,13 +18,13 @@ def build(out,integrated=False):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     stub=out/'dependencies.c';stub.write_text('\n'.join('void '+name+'(void){__asm__("bkpt #0");}' for address,(name,_) in DEPENDENCIES.items() if not integrated or address not in (0x7554,0x5ad4)))
     objects=[]
-    sources=[ROOT/'target/power/power_state.c',ROOT/'target/power/power_manager_target.c',ROOT/'src/runtime_memory.c',stub]
-    if integrated:sources += [ROOT/'target/scheduling/tasks_target.c',ROOT/'target/power/retained_target.c']
+    sources=[ROOT/'src/power/power_state.c',ROOT/'src/power/power_manager_target.c',ROOT/'src/runtime/runtime_memory.c',stub]
+    if integrated:sources += [ROOT/'src/scheduling/tasks_target.c',ROOT/'src/power/retained_target.c']
     for i,source in enumerate(sources):
         obj=out/f'{i}.o';objects.append(str(obj))
         toolchain_process.run(['arm-none-eabi-gcc','-std=gnu11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-ffunction-sections','-fdata-sections','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'power-manager.elf'
-    toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,--gc-sections',*(['-Wl,--undefined=syscon_target_tasks_poll','-Wl,--undefined=syscon_target_tasks_init'] if integrated else []),'-Wl,-e,syscon_target_power_measure',*['-Wl,--undefined=syscon_target_power_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
+    toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),'-Wl,--gc-sections',*(['-Wl,--undefined=syscon_target_tasks_poll','-Wl,--undefined=syscon_target_tasks_init'] if integrated else []),'-Wl,-e,syscon_target_power_measure',*['-Wl,--undefined=syscon_target_power_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
     return elf
 
 class Pair:

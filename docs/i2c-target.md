@@ -1,6 +1,6 @@
 # I2C master transfers and fault handling
 
-`target/drivers/i2c_target.c` reconstructs five original entries as directly compiled Cortex-M0+ functions. `include/i2c_target.h` defines their target ABI. These functions use real 32-bit target pointers and volatile accesses, without the host environment argument used by the older adapter.
+`src/drivers/i2c_target.c` reconstructs five original entries as directly compiled Cortex-M0+ functions. `include/i2c_target.h` defines their target ABI. These functions use real 32-bit target pointers and volatile accesses, without the host environment argument used by the older adapter.
 
 | Original | Symbol | Contract |
 |---|---|---|
@@ -13,10 +13,10 @@
 Only bus zero resolves through the board descriptor; high bits are not truncated. Initialization rejects a null configuration after validating the bus. Transfer routines validate the saved mode byte, but do not add buffer validation absent from the original. Filename/expression contents and assertion line numbers are preserved.
 
 `include/i2c_state.h` declares the typed bus descriptor and error/mode state.
-`target/drivers/hal_helpers.c` defines Tachyon's SCL/SDA routing, peripheral base and IRQ;
-`target/drivers/i2c_target.c` owns transfer state. These objects and diagnostic strings
+`src/drivers/hal_helpers.c` defines Tachyon's SCL/SDA routing, peripheral base and IRQ;
+`src/drivers/i2c_target.c` owns transfer state. These objects and diagnostic strings
 are linker resolved. Only differential fixtures use their former placements.
-The fault-stage names are editable C strings in `target/drivers/fault_control_target.c`.
+The fault-stage names are editable C strings in `src/drivers/fault_control_target.c`.
 
 Initialization preserves the ordering of descriptor, GPIO, configuration and MMIO reads. A nonzero configuration mode does **not** overwrite the saved mode byte. Signed IRQ numbers suppress NVIC accesses when bit 7 is set; nonnegative IRQ numbers retain ARM's masked shift behavior. The actual 1000-count cycle loop runs.
 
@@ -26,7 +26,7 @@ Progress counters wrap at eight bits even though lengths are 32-bit. Counts of 2
 
 ## Dependencies and validation
 
-`tools/i2c_pwm_target_oracle.py` builds this source with `target/drivers/pwm_target.c`, `target/drivers/hal_helpers.c`, `target/drivers/mspm0_core_target.c`, `target/drivers/gpio_state.c`, `target/drivers/core_helpers.c`, `target/drivers/fault_control_target.c` and `src/runtime_memory.c`. It links no installed libc/libgcc. FIFO helpers, descriptor lookup, stage set/name and actual cycle-delay instructions execute on both sides. Direct tests trap only logger `0x8f88` and nonreturning assertion `0x2678`; the linked full assertion body is not executed by these tests. Logger arguments are compared at the variadic call boundary, not substituted with an invented hardware result.
+`tools/i2c_pwm_target_oracle.py` builds this source with `src/drivers/pwm_target.c`, `src/drivers/hal_helpers.c`, `src/drivers/mspm0_core_target.c`, `src/drivers/gpio_state.c`, `src/drivers/core_helpers.c`, `src/drivers/fault_control_target.c` and `src/runtime/runtime_memory.c`. It links no installed libc/libgcc. FIFO helpers, descriptor lookup, stage set/name and actual cycle-delay instructions execute on both sides. Direct tests trap only logger `0x8f88` and nonreturning assertion `0x2678`; the linked full assertion body is not executed by these tests. Logger arguments are compared at the variadic call boundary, not substituted with an invented hardware result.
 
 `tests/test_i2c_target.py` compares original and recompiled ARM return values, ordered RAM/MMIO reads and writes, logs, assertions, and RAM effects under the same scripted register environment. Cases include each IRQ reason byte, valid/invalid modes and buses, signed IRQ boundaries, all timeout stages, last-iteration readiness, dynamic descriptor replacement during actual delay execution, FIFO stalls, asynchronous/stale errors, payload/configuration aliases, invalid pointers, every initialization bus-fault prefix, and nontermination controls. Scripts describe external register inputs; these tests do not claim full I2C silicon or expander behavior. Higher-level device integration is a separate checkpoint.
 

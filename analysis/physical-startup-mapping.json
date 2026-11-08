@@ -3,7 +3,7 @@
     {
       "address": "0x79f0",
       "symbol": "syscon_physical_reset",
-      "source": "target/physical/startup.c",
+      "source": "src/physical/startup.c",
       "tests": "tests/test_physical_firmware.py",
       "docs": "docs/physical-firmware-build.md",
       "original_abi": true
@@ -11,7 +11,7 @@
     {
       "address": "0x8e6c",
       "symbol": "syscon_physical_uart0_irq",
-      "source": "target/physical/startup.c",
+      "source": "src/physical/startup.c",
       "tests": "tests/test_physical_firmware.py",
       "docs": "docs/physical-firmware-build.md",
       "original_abi": true
@@ -19,7 +19,7 @@
     {
       "address": "0x8e7c",
       "symbol": "syscon_physical_uart1_irq",
-      "source": "target/physical/startup.c",
+      "source": "src/physical/startup.c",
       "tests": "tests/test_physical_firmware.py",
       "docs": "docs/physical-firmware-build.md",
       "original_abi": true

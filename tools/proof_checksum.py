@@ -113,7 +113,7 @@ class Thumb:
 
 def compile_candidate(output,mutant=False):
     output=Path(output);output.mkdir(parents=True,exist_ok=True)
-    source=(ROOT/'src/config.c').read_text()
+    source=(ROOT/'tests/models/config.c').read_text()
     if mutant:
         old='checksum ^= field[i]';assert source.count(old)==1
         source=source.replace(old,'checksum |= field[i]')

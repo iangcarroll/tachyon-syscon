@@ -3,49 +3,49 @@
     {
       "address": "0x2abc",
       "symbol": "syscon_cfg_compact",
-      "source": "target/config/config_update.c",
+      "source": "src/config/config_update.c",
       "header": "include/config_helpers.h",
       "tests": "tests/test_config_target_updates.py",
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_storage.c"
+        "src/config/config_storage.c"
       ]
     },
     {
       "address": "0x2fa0",
       "symbol": "syscon_cfg_store_init",
-      "source": "target/config/config_update.c",
+      "source": "src/config/config_update.c",
       "header": "include/config_helpers.h",
       "tests": "tests/test_config_target_updates.py",
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_storage.c"
+        "src/config/config_storage.c"
       ]
     },
     {
       "address": "0x30f0",
       "symbol": "syscon_target_config_init",
-      "source": "target/config/config_update.c",
+      "source": "src/config/config_update.c",
       "header": "include/config_helpers.h",
       "tests": "tests/test_config_target_updates.py",
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_storage.c"
+        "src/config/config_storage.c"
       ]
     },
     {
       "address": "0x32c8",
       "symbol": "syscon_cfg_runtime_update",
-      "source": "target/config/config_update.c",
+      "source": "src/config/config_update.c",
       "header": "include/config_helpers.h",
       "tests": "tests/test_config_target_updates.py",
       "docs": "docs/config-helpers.md",
       "original_abi": true,
       "additional_sources": [
-        "target/config/config_storage.c"
+        "src/config/config_storage.c"
       ]
     }
   ],

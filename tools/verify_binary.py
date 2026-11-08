@@ -10,7 +10,7 @@ from inventory import ROOT, load_image
 def main():
     subprocess.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-Os',
                     '-ffunction-sections','-fdata-sections','-ffreestanding',
-                    '-I',str(ROOT/'include'),'-c',str(ROOT/'src/config.c'),
+                    '-I',str(ROOT/'include'),'-c',str(ROOT/'tests/models/config.c'),
                     '-o',str(ROOT/'build/config.arm.o')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary',
                     '--only-section=.text.syscon_checksum31',

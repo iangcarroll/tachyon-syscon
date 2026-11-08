@@ -1,6 +1,6 @@
 # Application startup and bounded main-loop reconstruction
 
-`src/application.c` reconstructs the main application orchestration around
+`tests/models/application.c` reconstructs the main application orchestration around
 `0x3b34`. The infinite loop is exposed as initialization plus a single bounded
 tick, using the original RAM layout and explicit dependency calls. Constructors,
 the four-byte power-key event queue, helper wrappers, boot decisions, event

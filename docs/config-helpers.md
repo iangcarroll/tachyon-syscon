@@ -1,6 +1,6 @@
 # Original-ABI configuration entries
 
-`target/config/config_helpers.c` replaces the twelve previously folded namespace entries with independently callable ARM32 functions. `target/config/config_read.c` and `target/config/config_storage.c` add actual source-backed read/search, append/erase, parsing and runtime loading dependencies. These are additional target implementations; the host adapter in `src/config.c` is unchanged.
+`src/config/config_helpers.c` replaces the twelve previously folded namespace entries with independently callable ARM32 functions. `src/config/config_read.c` and `src/config/config_storage.c` add actual source-backed read/search, append/erase, parsing and runtime loading dependencies. These are additional target implementations; the host adapter in `tests/models/config.c` is unchanged.
 
 | Original entries | Target source | Behavior |
 | --- | --- | --- |
@@ -14,7 +14,7 @@ The ABI uses target pointers and 32-bit integers, fixed original namespace addre
 
 ## Genuine integration and explicit dependencies
 
-`tools/config_helpers_oracle.py` builds the configuration files together with reconstructed runtime memory, arithmetic, scanner/formatter, heap, stdio, target formatting adapters and `src/flash_controller.c`. No host libc or archive `libgcc` implements the target logic. The builder's manifest records exact source/header hashes, compiler and flags. No shared build script or ledger was modified.
+`tools/config_helpers_oracle.py` builds the configuration files together with reconstructed runtime memory, arithmetic, scanner/formatter, heap, stdio, target formatting adapters and `src/drivers/flash_controller.c`. No host libc or archive `libgcc` implements the target logic. The builder's manifest records exact source/header hashes, compiler and flags. No shared build script or ledger was modified.
 
 The integrated tests run namespace append → field validation → slot search → actual nano `snprintf` → flash-controller programming → runtime reload, then lookup/indexed readback and namespace erase. Both ARM executions use the same register-triggered `FlashControllerModel`; this is a peripheral model at MMIO, not a replacement configuration or flash function. Watchdog writes at `0x40081108` are also observed. Tests compare the complete ordered FLASHCTL read/write trace, completed command events, controller register state, both 1 KiB flash sectors, runtime configuration bytes and errno. Integrated cases assert that **neither CPU invoked any function-entry hook**.
 
@@ -37,7 +37,7 @@ Validation: the twenty configuration cases passed in 4.69 seconds. Configuration
 
 ## Remaining proof boundaries
 
-`target/config/config_update.c` provides compaction, namespace initialization and runtime update as ordinary C entry points. The stack diagnostic reads the active ARM stack pointer inside the compiled compaction frame; it has no fixed compiler-frame sizes or assembly forwarding wrapper. `tests/test_config_target_updates.py` exercises initialization sequencing, repeated compactions, corrupted records, duplicate keys, capacity bounds, enabled diagnostics and every retained-record program failure position. The whole-image source-edit test adds live local workspace and checks the changed depth against MSP while preserving controller transactions and persistent bytes.
+`src/config/config_update.c` provides compaction, namespace initialization and runtime update as ordinary C entry points. The stack diagnostic reads the active ARM stack pointer inside the compiled compaction frame; it has no fixed compiler-frame sizes or assembly forwarding wrapper. `tests/test_config_target_updates.py` exercises initialization sequencing, repeated compactions, corrupted records, duplicate keys, capacity bounds, enabled diagnostics and every retained-record program failure position. The whole-image source-edit test adds live local workspace and checks the changed depth against MSP while preserving controller transactions and persistent bytes.
 
 `syscon_cfg_write_slot` copies keys and values literally into the persistent slot: at most 30 bytes per field, a NUL terminator, erased-byte padding and the existing checksums. Legacy `%` characters are preserved rather than interpreted as printf formats. This is an approved behavioral correction: ordinary configuration commands already reject `%`. The original instruction oracle remains a witness to the old corruption, while candidate tests check literal bytes, field bounds, flash effects, UART readback and fresh-boot persistence. `tools/config_target_counterexample.py` replays the historical `%u` case and writes its current result under `build/`; historical analysis snapshots describe earlier implementations. The old assembly frame adapter and numeric saved-return argument are removed.
 

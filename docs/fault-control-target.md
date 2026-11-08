@@ -1,6 +1,6 @@
 # Direct target assertion and retained breadcrumbs
 
-`target/drivers/fault_control_target.c` supplies original ARM interfaces for assertion
+`src/drivers/fault_control_target.c` supplies original ARM interfaces for assertion
 `0x2678`, stage set/get/name `0x7b78/0x7b88/0x7b9c`, MFTICK enable `0x7be0`, and
 cached reset reason `0x7bfc`. These are target code, not host context adapters.
 

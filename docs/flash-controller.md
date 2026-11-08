@@ -1,6 +1,6 @@
 # FLASHCTL reconstruction and configuration integration
 
-`src/flash_controller.c` reconstructs the hardware-facing erase (`0x7af4`),
+`src/drivers/flash_controller.c` reconstructs the hardware-facing erase (`0x7af4`),
 program (`0x7b10`), protection-mask clear (`0x7b44`), blank verify (`0x7b60`),
 and command executor routines. The executor is copied from image bytes
 `0xaaf0..0xab1b` into SRAM at `0x20000000`; veneer `0xaae0` branches to it.

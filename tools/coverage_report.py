@@ -10,7 +10,7 @@ from inventory import ROOT, EXPECTED
 
 def input_hashes():
     paths=[ROOT/'Makefile',ROOT/'requirements.txt']
-    for directory in ('src','include','target','tests','tools','vendor','fixtures','references/ti-mspm0'):
+    for directory in ('src','include','tests','tools','vendor','references/ti-mspm0'):
         paths.extend(p for p in (ROOT/directory).rglob('*')
                      if p.is_file() and p.suffix in ('.c','.h','.S','.s','.py','.ld','.sh','.java','.svd','.json'))
     return {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()

@@ -1,4 +1,5 @@
 """Freshly compiled source image, exact MCU map, real reset/IRQ/persistence."""
+from inventory import load_image
 import json
 import re
 import pytest
@@ -78,7 +79,7 @@ def legacy_compaction(image,value,engines,stack_floor=0x20000820):
 
 @pytest.mark.parametrize('value',[b'%s',b'%u'])
 def test_legacy_compaction_preserves_literal_uart_output_and_persistence(rebuilt_image,legacy_engines,value):
-    original=legacy_compaction((ROOT/'firmware/syscon-1.0.52.bin').read_bytes(),value,legacy_engines)
+    original=legacy_compaction(load_image(),value,legacy_engines)
     rebuilt=legacy_compaction(rebuilt_image,value,legacy_engines)
     assert rebuilt[1]==value and original[1]!=value
     from test_config_helpers import slot
@@ -91,7 +92,7 @@ def test_legacy_compaction_preserves_literal_uart_output_and_persistence(rebuilt
 
 
 def test_public_configuration_still_rejects_format_metacharacters(rebuilt_image,legacy_engines):
-    machines=[boot(image)[0] for image in [(ROOT/'firmware/syscon-1.0.52.bin').read_bytes(),rebuilt_image]]
+    machines=[boot(image)[0] for image in [load_image(),rebuilt_image]]
     legacy_engines.extend(machines)
     before=[bytes(machine.flash[0xf800:]) for machine in machines]
     for value in ['%s','%u','%n']:
@@ -102,7 +103,7 @@ def test_public_configuration_still_rejects_format_metacharacters(rebuilt_image,
 
 
 def test_raw_rgb_format_commands_preserve_real_logger_register_effects(rebuilt_image,legacy_engines):
-    machines=[boot(image)[0] for image in [(ROOT/'firmware/syscon-1.0.52.bin').read_bytes(),rebuilt_image]]
+    machines=[boot(image)[0] for image in [load_image(),rebuilt_image]]
     legacy_engines.extend(machines)
     # The original command prints each short token as a format without passing
     # arguments. Its missing R1 argument is the real previous printer's result.

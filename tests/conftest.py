@@ -15,7 +15,9 @@ def lib():
     target.parent.mkdir(exist_ok=True)
     subprocess.run(['clang', '-std=c11', '-Wall', '-Wextra', '-Werror', '-O2',
                     '-shared', '-fPIC', '-I', str(ROOT/'include'),
-                    *map(str, sorted((ROOT/'src').glob('*.c'))), '-o', str(target)], check=True)
+                    *map(str, [*sorted((ROOT/'tests/models').glob('*.c')),
+                               ROOT/'src/runtime/runtime_memory.c', ROOT/'src/runtime/runtime_arithmetic.c',
+                               ROOT/'src/drivers/flash_controller.c', ROOT/'src/runtime/format.c']), '-o', str(target)], check=True)
     dll = ctypes.CDLL(str(target))
     for name in ['syscon_checksum31', 'syscon_field_readable', 'syscon_field_writable', 'syscon_slot_valid']:
         getattr(dll, name).argtypes = [ctypes.c_void_p]

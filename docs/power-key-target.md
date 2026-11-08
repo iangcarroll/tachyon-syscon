@@ -1,6 +1,6 @@
 # Original-ABI power-key implementation
 
-`target/power/power_key_target.c` implements the six power-key entries against the
+`src/power/power_key_target.c` implements the six power-key entries against the
 original split SRAM layout. Public declarations are in
 `include/power_key_target.h`.
 

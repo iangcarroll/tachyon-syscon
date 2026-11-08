@@ -1,9 +1,9 @@
 # ADC HAL reconstruction
 
 This document describes the historical host-test adapter. The production driver is
-[`target/drivers/adc_target.c`](../target/drivers/adc_target.c), documented in [adc-target.md](adc-target.md).
+[`src/drivers/adc_target.c`](../src/drivers/adc_target.c), documented in [adc-target.md](adc-target.md).
 
-`src/adc.c` reconstructs initialization (`0x7c54`), calibrated temperature (`0x7d54`), raw ADC readings (`0x7e7c`), and millivolt conversion (`0x7f24`). The six-entry pin mapping is read from the original initialized RAM table at offset `0xf4`; pin arguments are truncated to eight bits before lookup. Invalid pins and null initialization configuration reach an explicit assertion boundary.
+`tests/models/adc.c` reconstructs initialization (`0x7c54`), calibrated temperature (`0x7d54`), raw ADC readings (`0x7e7c`), and millivolt conversion (`0x7f24`). The six-entry pin mapping is read from the original initialized RAM table at offset `0xf4`; pin arguments are truncated to eight bits before lookup. Invalid pins and null initialization configuration reach an explicit assertion boundary.
 
 The environment supplies every 32-bit register read, register write, cycle delay, and assertion event. It is not a simulated analog device. `tools/adc_oracle.py` maps only required register pages and refuses an unprovided register read. Tests supply initial register contents and scripted status changes explicitly. No register reset values, calibration constants, or electrical behavior are fabricated.
 

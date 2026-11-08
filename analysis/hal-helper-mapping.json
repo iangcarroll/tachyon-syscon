@@ -3,7 +3,7 @@
     {
       "address": "0x7a68",
       "symbol": "syscon_hal_adc_lookup",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -13,7 +13,7 @@
     {
       "address": "0x7a90",
       "symbol": "syscon_hal_pwm_lookup",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -23,7 +23,7 @@
     {
       "address": "0x7ac0",
       "symbol": "syscon_hal_uart_lookup",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -33,7 +33,7 @@
     {
       "address": "0x7ad4",
       "symbol": "syscon_hal_i2c_lookup",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -43,7 +43,7 @@
     {
       "address": "0x930c",
       "symbol": "syscon_hal_adc_clock",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -53,7 +53,7 @@
     {
       "address": "0x934c",
       "symbol": "syscon_hal_i2c_clock",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -63,7 +63,7 @@
     {
       "address": "0x9374",
       "symbol": "syscon_hal_i2c_fill_tx",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -73,7 +73,7 @@
     {
       "address": "0x93a0",
       "symbol": "syscon_hal_i2c_flush_tx",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -83,7 +83,7 @@
     {
       "address": "0x93d0",
       "symbol": "syscon_hal_i2c_flush_rx",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x964c",
       "symbol": "syscon_hal_uart_put_blocking",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -103,7 +103,7 @@
     {
       "address": "0x9664",
       "symbol": "syscon_hal_vref_config",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",
@@ -113,7 +113,7 @@
     {
       "address": "0x9688",
       "symbol": "syscon_hal_vref_clock",
-      "source": "target/drivers/hal_helpers.c",
+      "source": "src/drivers/hal_helpers.c",
       "header": "include/hal_helpers.h",
       "tests": "tests/test_hal_helpers.py",
       "docs": "docs/hal-helpers.md",

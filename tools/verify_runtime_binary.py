@@ -15,7 +15,7 @@ def main():
     flags=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding',
            '-fno-builtin','-ffunction-sections','-fdata-sections']
     subprocess.run(['arm-none-eabi-gcc',*flags,'-I',str(ROOT/'include'),'-c',
-        str(ROOT/'src/runtime_memory.c'),'-o',str(obj)],check=True)
+        str(ROOT/'src/runtime/runtime_memory.c'),'-o',str(obj)],check=True)
     image=load_image();rows=[]
     with obj.open('rb') as file:
         elf=ELFFile(file)
@@ -32,7 +32,7 @@ def main():
                 reconstructed_size=len(code),unresolved_relocations=relocs,
                 exact_bytes=not relocs and code==image[address:address+size]))
     result=dict(compiler=subprocess.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0],
-        compiler_flags=flags,source_sha256=hashlib.sha256((ROOT/'src/runtime_memory.c').read_bytes()).hexdigest(),
+        compiler_flags=flags,source_sha256=hashlib.sha256((ROOT/'src/runtime/runtime_memory.c').read_bytes()).hexdigest(),
         reference_sha256=hashlib.sha256(image).hexdigest(),functions=rows,
         whole_firmware_match=False,flash_candidate=False)
     (ROOT/'analysis/runtime-memory-binary-comparison.json').write_text(json.dumps(result,indent=2)+'\n')

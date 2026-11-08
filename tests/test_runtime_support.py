@@ -18,8 +18,8 @@ def support_elf(tmp_path_factory):
     elf=dest/'test.elf'
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror',
-        '-I',str(ROOT/'include'),str(ROOT/'target/runtime/runtime_support.c'),str(ROOT/'target/runtime/runtime_state.c'),str(trap),
-        '-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,-e,syscon_rt_memmove','-o',str(elf)],check=True)
+        '-I',str(ROOT/'include'),str(ROOT/'src/runtime/runtime_support.c'),str(ROOT/'src/runtime/runtime_state.c'),str(trap),
+        '-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),'-Wl,-e,syscon_rt_memmove','-o',str(elf)],check=True)
     return elf
 
 

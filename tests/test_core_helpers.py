@@ -15,7 +15,7 @@ LOGGER=0x10040
 def helpers(tmp_path_factory):
     root=tmp_path_factory.mktemp('core-helpers-arm');obj=root/'helpers.o';elf=root/'helpers.elf';binary=root/'helpers.bin'
     flags=['-std=c11','-Wall','-Wextra','-Werror','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables']
-    subprocess.run(['arm-none-eabi-gcc',*flags,'-c',str(ROOT/'target/drivers/core_helpers.c'),'-o',str(obj)],check=True)
+    subprocess.run(['arm-none-eabi-gcc',*flags,'-c',str(ROOT/'src/drivers/core_helpers.c'),'-o',str(obj)],check=True)
     subprocess.run(['arm-none-eabi-ld','-e','syscon_mcu_sleep','-Ttext=0x01000000','--defsym=syscon_core_log=0x10041',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary',str(elf),str(binary)],check=True)
     symbols={}

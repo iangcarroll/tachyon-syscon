@@ -15,14 +15,14 @@
     {
       "role": "firmware",
       "member": "usr/lib/firmware/tachyon_syscon.dvt.bin",
-      "path": "firmware/syscon-1.0.52.bin",
+      "path": "build/reference-firmware/syscon-1.0.52.bin",
       "bytes": 63487,
       "sha256": "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6"
     },
     {
       "role": "firmware",
       "member": "usr/lib/firmware/tachyon_syscon.dvt.hex",
-      "path": "firmware/syscon-1.0.52.hex",
+      "path": "build/reference-firmware/syscon-1.0.52.hex",
       "bytes": 165298,
       "sha256": "a07e82e4e98590f94df2b69c97f209f828950f54da4c2cf1309cabf19a966b25"
     },

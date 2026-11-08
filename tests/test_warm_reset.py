@@ -1,11 +1,12 @@
-"""Whole-image SYSRESETREQ restores retained PMU values after C startup."""
-from pathlib import Path
+"""Whole-image software and watchdog resets preserve retained and persistent state."""
+import gc
 import pytest
 from unicorn import UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.arm_const import UC_ARM_REG_LR
 
 from build_physical_firmware import build
 from inventory import load_image
+from functional_scenarios import PowerTransitions
 from rebuilt_system import boot,command_reply,normalized_log
 
 @pytest.fixture(scope='module')
@@ -146,12 +147,15 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in power_blocks),
                                power_names(),runtime_state(),modem_state(),
                                tuple(m.read(address,size) for address,size in diagnostic_blocks)))
-            if loop:cpu.emu_stop()
+            if loop:
+                m.stop_reason=('application-loop-stage',2)
+                cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)
         m.run(2000000)
         for hook in hooks:m.cpu.hook_del(hook)
         assert m.reset_count==reset_count+1 and loop and len(loaded)==1
+        assert m.stop_reason==('application-loop-stage',2)
         expected=retained if retained[0]==0x5b else (0x5b,0,0)
         assert loaded[0][0]==bytes(expected) and loaded[0][1]==expected
         # The original reset copies the same configuration defaults on warm boot.
@@ -162,3 +166,85 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                              tuple(m.read_register(0x400b0400+4*i) for i in range(3)),
                              normalized_log(reply),bytes(m.flash[0xf800:])))
     assert observations[0]==observations[1]
+
+
+def run_to_application_loop(machine):
+    reached = False
+
+    def write(cpu, kind, address, size, value, unused):
+        nonlocal reached
+        if address == 0x400b040c and size == 4 and value == 2:
+            reached = True
+
+    def instruction(cpu, address, size, unused):
+        if reached:
+            machine.stop_reason = ('application-loop-stage', 2)
+            cpu.emu_stop()
+
+    hooks = [machine.cpu.hook_add(UC_HOOK_MEM_WRITE, write),
+             machine.cpu.hook_add(UC_HOOK_CODE, instruction)]
+    try:
+        machine.run(2000000)
+    finally:
+        for hook in hooks:
+            machine.cpu.hook_del(hook)
+    assert reached, 'Firmware did not return to its application loop'
+    assert machine.stop_reason == ('application-loop-stage', 2)
+
+
+@pytest.mark.parametrize('partial', [False, True])
+def test_watchdog_expiry_recovers_configuration_and_uart(physical, partial):
+    candidate, symbols = physical
+    results = []
+    for image, floor in [(load_image(), 0x20000820),
+                         (candidate, symbols['__extra_bss_end'])]:
+        gc.collect()
+        machine, _ = boot(image, stack_floor=floor)
+        assert b'PASS\r\n' in command_reply(machine, 'CONFIG_SET wdt.saved preserved')
+        saved_flash = bytes(machine.flash)
+        if partial:
+            for byte in b'CONFIG_SET wdt.partial never':
+                machine.device.inject_uart(0, bytes([byte]))
+                machine.run(5000)
+        run_to_application_loop(machine)
+        assert bytes(machine.flash) == saved_flash
+        retained = tuple(machine.read_register(0x400b0400 + 4 * i) for i in range(3))
+        resets = machine.reset_count
+        feeds = machine.device.watchdog_feeds
+        assert feeds > 0
+        deadline = machine.device.watchdog_deadline
+        assert deadline is not None and deadline > machine.cycles
+        uart_start = len(machine.device.tx[0])
+        flash_start = len(machine.device.flash.events)
+        power = PowerTransitions()
+        power_hook = power.attach(machine, 0)
+        # Let the already configured watchdog clock run while the CPU is stalled.
+        # Do not request reset directly or replace any guest function.
+        machine.advance(deadline - machine.cycles - 1)
+        assert machine._transition is None and machine.reset_count == resets
+        machine.advance(1)
+        assert machine._transition == ('reset', 'wwdt0')
+        assert machine.device.watchdog_violations[-1] == (deadline, 'expired')
+        run_to_application_loop(machine)
+        assert machine.reset_count == resets + 1
+        assert machine.device.watchdog_feeds > feeds
+        assert machine.device.watchdog_deadline > machine.cycles
+        boot_log = normalized_log(bytes(machine.device.tx[0][uart_start:]))
+        assert b'WDT(14)' in boot_log, boot_log
+        after = tuple(machine.read_register(0x400b0400 + 4 * i) for i in range(3))
+        assert after == (retained[0], retained[1], min(retained[2] + 1, 255))
+        replies = [command_reply(machine, command) for command in
+                   ['VERSION', 'CONFIG_GET wdt.saved', 'CONFIG_GET wdt.partial']]
+        assert b'Version=1.0.52\r\n' in replies[0] and b'PASS\r\n' in replies[0]
+        assert b'wdt.saved = preserved' in replies[1] and b'PASS\r\n' in replies[1]
+        assert b'FAIL\r\n' in replies[2]
+        assert bytes(machine.flash) == saved_flash
+        operations = machine.device.flash.events[flash_start:]
+        assert not any(kind in ('erase', 'program') for kind, _, _, _ in operations)
+        machine.cpu.hook_del(power_hook)
+        results.append((boot_log, [normalized_log(reply) for reply in replies],
+                        after, bytes(machine.flash[0xf800:]), power.events, operations))
+        # Release the inactive engine before the next explicit collection;
+        # finalizing a previous Unicorn JIT inside guest callbacks is unsafe.
+        del machine
+    assert results[0] == results[1]

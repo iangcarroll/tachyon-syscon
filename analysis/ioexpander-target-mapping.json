@@ -3,7 +3,7 @@
     {
       "address": "0x3620",
       "symbol": "syscon_target_pin_read",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x364e",
       "symbol": "syscon_target_pin_write",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x3668",
       "symbol": "syscon_target_ioexpander_write16",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x36bc",
       "symbol": "syscon_target_ioexpander_read8",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x374c",
       "symbol": "syscon_target_ioexpander_write8",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x379c",
       "symbol": "syscon_target_ioexpander_write_unchecked",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x37e4",
       "symbol": "syscon_target_ioexpander_reset",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x3808",
       "symbol": "syscon_target_ioexpander_init",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -75,7 +75,7 @@
     {
       "address": "0x386c",
       "symbol": "syscon_target_ioexpander_configure",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -84,7 +84,7 @@
     {
       "address": "0x3940",
       "symbol": "syscon_target_ioexpander_write",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x39e8",
       "symbol": "syscon_target_ioexpander_read",
-      "source": "target/drivers/ioexpander_target.c",
+      "source": "src/drivers/ioexpander_target.c",
       "header": "include/ioexpander_target.h",
       "tests": "tests/test_ioexpander_target.py",
       "docs": "docs/ioexpander-target.md",

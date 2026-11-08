@@ -3,7 +3,7 @@
     {
       "address": "0x570c",
       "symbol": "syscon_target_powerkey_edge",
-      "source": "target/power/power_key_target.c",
+      "source": "src/power/power_key_target.c",
       "header": "include/power_key_target.h",
       "tests": "tests/test_power_key_target.py",
       "docs": "docs/power-key-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x5740",
       "symbol": "syscon_target_powerkey_poll",
-      "source": "target/power/power_key_target.c",
+      "source": "src/power/power_key_target.c",
       "header": "include/power_key_target.h",
       "tests": "tests/test_power_key_target.py",
       "docs": "docs/power-key-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x5844",
       "symbol": "syscon_target_powerkey_debounce",
-      "source": "target/power/power_key_target.c",
+      "source": "src/power/power_key_target.c",
       "header": "include/power_key_target.h",
       "tests": "tests/test_power_key_target.py",
       "docs": "docs/power-key-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x5908",
       "symbol": "syscon_target_powerkey_callback",
-      "source": "target/power/power_key_target.c",
+      "source": "src/power/power_key_target.c",
       "header": "include/power_key_target.h",
       "tests": "tests/test_power_key_target.py",
       "docs": "docs/power-key-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x591c",
       "symbol": "syscon_target_powerkey_mode",
-      "source": "target/power/power_key_target.c",
+      "source": "src/power/power_key_target.c",
       "header": "include/power_key_target.h",
       "tests": "tests/test_power_key_target.py",
       "docs": "docs/power-key-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x5970",
       "symbol": "syscon_target_powerkey_init",
-      "source": "target/power/power_key_target.c",
+      "source": "src/power/power_key_target.c",
       "header": "include/power_key_target.h",
       "tests": "tests/test_power_key_target.py",
       "docs": "docs/power-key-target.md",

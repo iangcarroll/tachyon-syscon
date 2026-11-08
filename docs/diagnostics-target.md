@@ -1,9 +1,9 @@
 # Target diagnostics and configuration accessors
 
-`target/app/diagnostics_target.c` implements eleven original entries with the
+`src/app/diagnostics_target.c` implements eleven original entries with the
 ARM argument ABI, including the complete periodic diagnostic body. Enable
 state and loop/rate counters are named linker-allocated objects declared in
-`include/diagnostics_state.h` and defined in `target/app/diagnostics_state.c`. The
+`include/diagnostics_state.h` and defined in `src/app/diagnostics_state.c`. The
 application timestamp constructor uses that same state. All text is ordinary C
 data; the module has no original private RAM or ROM address dependencies.
 

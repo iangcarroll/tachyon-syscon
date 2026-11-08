@@ -58,7 +58,7 @@ Three negative controls require SAT and replay the witness in Unicorn:
 
 - Increasing the byte-load address by one leaves the checksum unchanged under
   the common response stream, but violates the ordered address trace.
-- The earlier `src/config.c` host adapter compiled at `-O2` returns the same
+- The earlier `tests/models/config.c` host adapter compiled at `-O2` returns the same
   checksum but leaves different R1–R3 values. Its narrower AAPCS theorem cannot
   substitute for the physical function's full-register theorem.
 - Swapping two initial register moves preserves the final registers, flags and
@@ -83,7 +83,7 @@ trace and verified replay are retained in
 `analysis/config-slot-read-order-counterexample/`. That artifact is explicitly
 a relocated function-test image, not the separate physical firmware build.
 
-`target/config/config_read.c` now performs both ordered byte snapshots before the loops.
+`src/config/config_read.c` now performs both ordered byte snapshots before the loops.
 On a value-checksum failure, the original diagnostic rereads the live stored
 value byte; that distinct read is also preserved. Tests compare actual ARM read
 traces for SRAM and MAIN slots, mutation of either stored checksum, the live

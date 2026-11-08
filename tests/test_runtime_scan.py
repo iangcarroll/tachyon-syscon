@@ -243,9 +243,9 @@ def test_snprintf_assembly_uses_relocated_runtime_pointer(tmp_path,monkeypatch):
     import shutil
     import build_runtime_scan_image as runtime
     tree=tmp_path/'source'
-    for directory in ['target','include','src']:
+    for directory in ['src','include','tests/fixtures/target']:
         shutil.copytree(runtime.ROOT/directory,tree/directory)
-    linker=tree/'target/testing/emulation.ld'
+    linker=tree/'tests/fixtures/target/emulation.ld'
     source=linker.read_text()
     source=source.replace('TEST_RUNTIME_CURRENT (rw) : ORIGIN = 0x20000258',
                           'TEST_RUNTIME_CURRENT (rw) : ORIGIN = 0x21001000')

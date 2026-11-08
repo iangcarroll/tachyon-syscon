@@ -24,8 +24,8 @@ in the separate reference CPU.
 
 These are the image's Newlib nano routines. They are separate from the custom
 formatter at `0x9038`; in particular nano printf supports width and precision.
-The source is in `target/runtime/runtime_scan.c`, `target/runtime/runtime_scan_wrappers.c`, and
-`target/runtime/runtime_scan_printf.c`, plus `target/runtime/runtime_scan_abi.S` for the original
+The source is in `src/runtime/runtime_scan.c`, `src/runtime/runtime_scan_wrappers.c`, and
+`src/runtime/runtime_scan_printf.c`, plus `src/runtime/runtime_scan_abi.S` for the original
 stack-dependent entry frames, with declarations in `include/runtime_scan.h`.
 
 ## Source provenance and license

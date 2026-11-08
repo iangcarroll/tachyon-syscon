@@ -4,10 +4,10 @@
       "address": "0x8e8c",
       "symbol": "syscon_logger_target_vlog",
       "legacy_alias": null,
-      "source": "target/logging/logger_target_abi.S",
+      "source": "src/logging/logger_target_abi.S",
       "additional_sources": [
-        "target/logging/logger_target.c",
-        "src/format.c"
+        "src/logging/logger_target.c",
+        "src/runtime/format.c"
       ],
       "tests": [
         "tests/test_logger_target.py",
@@ -19,10 +19,10 @@
       "address": "0x8f88",
       "symbol": "syscon_logger_target",
       "legacy_alias": "syscon_target_logger",
-      "source": "target/logging/logger_target_abi.S",
+      "source": "src/logging/logger_target_abi.S",
       "additional_sources": [
-        "target/logging/logger_target.c",
-        "src/format.c"
+        "src/logging/logger_target.c",
+        "src/runtime/format.c"
       ],
       "tests": [
         "tests/test_logger_target.py",
@@ -34,10 +34,10 @@
       "address": "0x8fa0",
       "symbol": "syscon_logger_target_mfg",
       "legacy_alias": "syscon_target_mfg_logger",
-      "source": "target/logging/logger_target_abi.S",
+      "source": "src/logging/logger_target_abi.S",
       "additional_sources": [
-        "target/logging/logger_target.c",
-        "src/format.c"
+        "src/logging/logger_target.c",
+        "src/runtime/format.c"
       ],
       "tests": [
         "tests/test_logger_target.py",
@@ -49,10 +49,10 @@
       "address": "0x5edc",
       "symbol": "syscon_logger_target_sg560d",
       "legacy_alias": "syscon_target_sg560d_printf",
-      "source": "target/logging/logger_target_abi.S",
+      "source": "src/logging/logger_target_abi.S",
       "additional_sources": [
-        "target/logging/logger_target.c",
-        "src/format.c"
+        "src/logging/logger_target.c",
+        "src/runtime/format.c"
       ],
       "tests": [
         "tests/test_logger_target.py",
@@ -64,10 +64,10 @@
       "address": "0x92ac",
       "symbol": "syscon_logger_target_vformat",
       "legacy_alias": null,
-      "source": "target/logging/logger_target.c",
+      "source": "src/logging/logger_target.c",
       "additional_sources": [
-        "target/logging/logger_target.c",
-        "src/format.c"
+        "src/logging/logger_target.c",
+        "src/runtime/format.c"
       ],
       "tests": [
         "tests/test_logger_target.py",
@@ -79,10 +79,10 @@
       "address": "0x92f4",
       "symbol": "syscon_logger_target_snprintf",
       "legacy_alias": "syscon_target_snprintf",
-      "source": "target/logging/logger_target_abi.S",
+      "source": "src/logging/logger_target_abi.S",
       "additional_sources": [
-        "target/logging/logger_target.c",
-        "src/format.c"
+        "src/logging/logger_target.c",
+        "src/runtime/format.c"
       ],
       "tests": [
         "tests/test_logger_target.py",
@@ -92,9 +92,9 @@
     }
   ],
   "dependencies": [
-    "src/runtime_memory.c",
-    "src/runtime_arithmetic.c",
-    "target/runtime/runtime_arithmetic_abi.S"
+    "src/runtime/runtime_memory.c",
+    "src/runtime/runtime_arithmetic.c",
+    "src/runtime/runtime_arithmetic_abi.S"
   ],
   "external_boundary_symbols": [
     "syscon_target_uart_write",
