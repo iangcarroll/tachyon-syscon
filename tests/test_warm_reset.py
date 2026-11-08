@@ -76,6 +76,25 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                            [(symbols['syscon_diagnostics_enabled'],1),
                             (symbols['syscon_diagnostics_state'],16)])
         for address,size in diagnostic_blocks:m.write_ram(address,b'\xa5'*size)
+        app_blocks=([(0x200002d1,4),(0x200002ec,1),(0x200002ed,1),(0x20000680,1),
+                     (0x200002d0,1),(0x200002ef,128)] if image==load_image() else
+                    [(symbols['syscon_key_event_buffer'],4),(symbols['syscon_shutdown_pending'],1),
+                     (symbols['syscon_key_started_off'],1),(symbols['syscon_wakeup_pending'],1),
+                     (symbols['syscon_ioexpander_initialized'],1),(symbols['syscon_console_buffer'],128)])
+        queue=0x200002d8 if image==load_image() else symbols['syscon_key_events']
+        console=0x20000048 if image==load_image() else symbols['syscon_console_parser']
+        for address,size in [*app_blocks,(queue,20),(console,20)]:m.write_ram(address,b'\xa5'*size)
+        def application_state():
+            # Validate pointer targets against their owning objects, then compare
+            # values. No private pointer bytes are part of the behavior contract.
+            queue_buffer=app_blocks[0][0]
+            console_buffer=app_blocks[-1][0]
+            assert int.from_bytes(m.read(queue,4),'little')==queue_buffer
+            assert int.from_bytes(m.read(console+4,4),'little')==console_buffer
+            printer=0x8fa1 if image==load_image() else symbols['syscon_target_mfg_logger']
+            assert int.from_bytes(m.read(console+16,4),'little')==printer
+            return (tuple(m.read(address,size) for address,size in app_blocks),
+                    m.read(queue+4,16),m.read(console,4),m.read(console+8,8))
         protocol_debug=0x200002ee if image==load_image() else symbols['syscon_protocol_debug']
         m.write_ram(protocol_debug,b'\xa5')
         log_flag=0x2000080c if image==load_image() else symbols['syscon_log_enabled']
@@ -98,7 +117,7 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in led_blocks),
                                tuple(m.read(address,size) for address,size in gpio_i2c_blocks),
                                tuple(m.read(address,size) for address,size in uart_blocks),
-                               m.read(log_flag,1),m.read(protocol_debug,1),
+                               m.read(log_flag,1),m.read(protocol_debug,1),application_state(),
                                tuple(m.read(address,size) for address,size in power_blocks),
                                power_names(),
                                tuple(m.read(address,size) for address,size in diagnostic_blocks)))

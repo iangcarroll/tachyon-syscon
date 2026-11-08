@@ -31,6 +31,14 @@ MEMORY {
     TEST_USB_REATTACH (rw) : ORIGIN = 0x20000370, LENGTH = 16
     TEST_SHUTDOWN (rw) : ORIGIN = 0x20000380, LENGTH = 16
     TEST_PROTOCOL_DEBUG (rw) : ORIGIN = 0x200002ee, LENGTH = 1
+    TEST_CONSOLE_PARSER (rw) : ORIGIN = 0x20000048, LENGTH = 20
+    TEST_CONSOLE_BUFFER (rw) : ORIGIN = 0x200002ef, LENGTH = 128
+    TEST_KEY_EVENTS (rw) : ORIGIN = 0x200002d8, LENGTH = 20
+    TEST_KEY_EVENT_BUFFER (rw) : ORIGIN = 0x200002d1, LENGTH = 4
+    TEST_SHUTDOWN_PENDING (rw) : ORIGIN = 0x200002ec, LENGTH = 1
+    TEST_KEY_STARTED_OFF (rw) : ORIGIN = 0x200002ed, LENGTH = 1
+    TEST_WAKEUP_PENDING (rw) : ORIGIN = 0x20000680, LENGTH = 1
+    TEST_IOEXPANDER_INITIALIZED (rw) : ORIGIN = 0x200002d0, LENGTH = 1
     TEST_LOG (rw) : ORIGIN = 0x2000080c, LENGTH = 1
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
@@ -63,6 +71,14 @@ PHDRS {
     usb_reattach PT_LOAD FLAGS(6);
     shutdown PT_LOAD FLAGS(6);
     protocol_debug PT_LOAD FLAGS(6);
+    console_parser PT_LOAD FLAGS(6);
+    console_buffer PT_LOAD FLAGS(6);
+    key_events PT_LOAD FLAGS(6);
+    key_event_buffer PT_LOAD FLAGS(6);
+    shutdown_pending PT_LOAD FLAGS(6);
+    key_started_off PT_LOAD FLAGS(6);
+    wakeup_pending PT_LOAD FLAGS(6);
+    ioexpander_initialized PT_LOAD FLAGS(6);
     log PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
@@ -100,6 +116,14 @@ SECTIONS {
     .usb_reattach (NOLOAD) : { *(.bss.syscon_usb_reattach_state) } > TEST_USB_REATTACH :usb_reattach
     .shutdown (NOLOAD) : { *(.bss.syscon_shutdown_state) } > TEST_SHUTDOWN :shutdown
     .protocol_debug (NOLOAD) : { *(.bss.syscon_protocol_debug) } > TEST_PROTOCOL_DEBUG :protocol_debug
+    .console_parser : { *(.data.syscon_console_parser) } > TEST_CONSOLE_PARSER AT> TEST_CODE :console_parser
+    .console_buffer (NOLOAD) : { *(.bss.syscon_console_buffer) } > TEST_CONSOLE_BUFFER :console_buffer
+    .key_events (NOLOAD) : { *(.bss.syscon_key_events) } > TEST_KEY_EVENTS :key_events
+    .key_event_buffer (NOLOAD) : { *(.bss.syscon_key_event_buffer) } > TEST_KEY_EVENT_BUFFER :key_event_buffer
+    .shutdown_pending (NOLOAD) : { *(.bss.syscon_shutdown_pending) } > TEST_SHUTDOWN_PENDING :shutdown_pending
+    .key_started_off (NOLOAD) : { *(.bss.syscon_key_started_off) } > TEST_KEY_STARTED_OFF :key_started_off
+    .wakeup_pending (NOLOAD) : { *(.bss.syscon_wakeup_pending) } > TEST_WAKEUP_PENDING :wakeup_pending
+    .ioexpander_initialized (NOLOAD) : { *(.bss.syscon_ioexpander_initialized) } > TEST_IOEXPANDER_INITIALIZED :ioexpander_initialized
     .log (NOLOAD) : { *(.bss.syscon_log_enabled) } > TEST_LOG :log
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers

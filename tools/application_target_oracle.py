@@ -26,9 +26,9 @@ def build(destination):
     stubs=destination/'application_endpoints.S'
     stubs.write_text('.syntax unified\n.thumb\n'+''.join(
         f'.global syscon_target_{name}\n.type syscon_target_{name},%function\n.thumb_func\nsyscon_target_{name}:\n bkpt #0\n bx lr\n'
-        for _,name,_ in DEPENDENCIES))
+        for name in [*(name for _,name,_ in DEPENDENCIES),'mfg_logger']))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['target/application_target.c','target/diagnostics_state.c','target/power_state.c','target/logger_state.c',str(stubs)]
+        runtime.SOURCES=old+['target/application_target.c','target/application_state.c','target/diagnostics_state.c','target/power_state.c','target/logger_state.c',str(stubs)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old

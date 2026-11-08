@@ -3,7 +3,8 @@
 #include "mspm0_core_target.h"
 #include "logger_target.h"
 #include "runtime_memory.h"
-#define INITIALIZED (*(volatile uint8_t *)(uintptr_t)0x200002d0)
+volatile uint8_t syscon_ioexpander_initialized
+    __attribute__((section(".bss.syscon_ioexpander_initialized")));
 #define POINTER(p) ((uint32_t)(uintptr_t)(p))
 static void io_assert(uint32_t line,uint32_t expression){
     uint32_t file=0xb2c7;
@@ -47,10 +48,10 @@ int syscon_target_ioexpander_init(uint32_t cold){
     do{if((uint32_t)syscon_target_i2c_init(0,POINTER(configuration))==0)break;}while(--remaining);
     if(!remaining)io_assert(0x5a,0xb3fe);
     if(cold)(void)syscon_target_ioexpander_reset();
-    INITIALIZED=1;return 0;
+    syscon_ioexpander_initialized=1;return 0;
 }
 int syscon_target_ioexpander_configure(uint32_t pin,const syscon_io_config *configuration){
-    if(!INITIALIZED)io_assert(0x6c,0xb424);
+    if(!syscon_ioexpander_initialized)io_assert(0x6c,0xb424);
     if(!configuration || pin>15)io_assert(0x6d,0xb431);
     const volatile syscon_io_config *config=configuration;
     uint32_t reg=(pin>>3)+6;uint8_t mask=(uint8_t)(1u<<(pin&7)),previous;
@@ -65,7 +66,7 @@ int syscon_target_ioexpander_configure(uint32_t pin,const syscon_io_config *conf
     (void)syscon_target_ioexpander_read8(reg,&previous);return 0;
 }
 int syscon_target_ioexpander_write(uint32_t pin,uint32_t value){
-    if(!INITIALIZED)io_assert(0x8d,0xb424);
+    if(!syscon_ioexpander_initialized)io_assert(0x8d,0xb424);
     if(pin>15)io_assert(0x8e,0xb467);
     uint8_t direction;(void)syscon_target_ioexpander_read8((pin>>3)+6,&direction);
     if(direction&(1u<<(pin&7))){
@@ -74,7 +75,7 @@ int syscon_target_ioexpander_write(uint32_t pin,uint32_t value){
     return syscon_target_ioexpander_write_unchecked(pin,value);
 }
 int syscon_target_ioexpander_read(uint32_t pin,uint8_t *value){
-    if(!INITIALIZED)io_assert(0x9b,0xb424);
+    if(!syscon_ioexpander_initialized)io_assert(0x9b,0xb424);
     if(pin>15)io_assert(0x9c,0xb467);
     uint32_t reg=pin>>3;uint8_t mask=(uint8_t)(1u<<(pin&7)),direction,data;
     (void)syscon_target_ioexpander_read8(reg+6,&direction);

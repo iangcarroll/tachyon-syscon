@@ -6,10 +6,16 @@ UART wrapper, parser wrapper, wakeup handling, log-enable flag and board GPIO
 setup. Unlike the older context-based application adapter, this body retains
 boot/error/key/wakeup log calls and their original arguments.
 
-The queue uses the original RAM at `0x200002d8`, four bytes at `0x200002d1`,
-and wraparound unsigned indices. Volatile reloads and the divide-by-zero
-remainder behavior are intentional. The shutdown and remembered key state are
-bytes at `0x200002ec` and `0x200002ed`; wake state is `0x20000680`. In key event
+`application_state.h` describes the event queue, its editable capacity, the
+console parser/buffer, pending shutdown, remembered key state and wake flag.
+`application_state.c` owns their linker-allocated storage. The parser's printer
+and buffer are initialized from symbols; startup restores them on warm reset.
+The I/O expander's initialized flag is also linker-allocated. No application
+text, global or callback depends on an original private address; the version
+string still uses the packaged firmware's documented version boundary.
+
+Unsigned queue-index wrap, volatile reloads and divide-by-zero remainder
+behavior remain intentional compatibility details. In key event
 3, the remembered state is sampled before the alternate-key callback; other
 events reload at their own observed positions. The main loop is not split
 into independently invoked test ticks.
@@ -41,3 +47,8 @@ stack layout and raw return registers of void functions differ; hardware
 modules and log output are isolated by endpoints in these tests. Static string
 pointers and retained battery-name tables still require placement in a full
 physical image. The code is not yet a flash candidate.
+
+Whole-image tests move both the application RAM and console context, drive real
+button edges and UART commands, and poison only genuinely vacant legacy RAM.
+Warm-reset tests corrupt each object before reset and validate restored values
+and pointer targets. Retained PMU values remain a separate hardware contract.

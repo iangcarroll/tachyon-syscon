@@ -260,8 +260,8 @@ void syscon_target_modem_poll(void){
                 if(B(0x3cf)){
                     B(0x3cf)=0;
                     uint32_t reason=syscon_target_shutdown_reason(),stale=syscon_target_shutdown_stale();
-                    if(reason==1)LOG(3,6c24,stale?D_6c1c:D_6c20);
-                    else LOG(2,6c44,syscon_power_name(syscon_power_names.shutdown,reason),stale?D_6c1c:D_6c20);
+                    if(reason==1)LOG(3,6c24,stale?D_6c1c:ADDRESS(""));
+                    else LOG(2,6c44,syscon_power_name(syscon_power_names.shutdown,reason),stale?D_6c1c:ADDRESS(""));
                     syscon_target_shutdown_set(0);B(0x508)=0;B(0x528)=0;
                     if(B(0x450)==5){
                         uint32_t elapsed=(uint32_t)syscon_target_now()-W(0x454);
@@ -291,7 +291,7 @@ void syscon_target_modem_poll(void){
             uint32_t battery=(uint32_t)measure(14);
             if(!syscon_target_shutdown_reason()&&floor<=2499)syscon_target_shutdown_set(6);
             uint32_t reason=syscon_target_shutdown_reason(),stale=syscon_target_shutdown_stale();
-            LOG(2,6fe4,syscon_power_name(syscon_power_names.shutdown,reason),stale?D_6fdc:D_6fe0,floor,battery);
+            LOG(2,6fe4,syscon_power_name(syscon_power_names.shutdown,reason),stale?D_6fdc:ADDRESS(""),floor,battery);
             syscon_target_power_minimum_reset();reason=syscon_target_shutdown_active();
             B(0x4f2)=1;B(0x3cf)=1;write64(0x4e0,0);B(0x4f1)=0;
             write64(0x518,syscon_target_now()+250);syscon_target_modem_retry_schedule(reason);
