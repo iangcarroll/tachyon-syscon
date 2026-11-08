@@ -68,7 +68,9 @@ def exercise(image, stack_floor, scenario, fastboot, edl_seconds, hold_ticks, ou
     def settle(ticks):
         nonlocal key_asserted_at, rail_applied
         for _ in range(ticks):
-            assert time.monotonic() - started < 400, 'Button scenario exceeded wall-time budget'
+            # Shared CI runners can need over 400 s for the original's long
+            # holds. Keep guest work bounded independently of host speed.
+            assert time.monotonic() - started < 600, 'Button scenario exceeded wall-time budget'
             assert machine.instructions < 30_000_000, 'Button scenario exceeded instruction budget'
             assert machine.systick_ctrl & 3 == 3 and machine.systick_load, 'Button clock stopped'
             period = machine.systick_load + 1
