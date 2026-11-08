@@ -8,9 +8,9 @@ from pathlib import Path
 import toolchain_process
 from elftools.elf.elffile import ELFFile
 from build_target_interfaces import SOURCES,FLAGS,ROOT
-EXTRA=['target/power_manager_target.c','target/ioexpander_target.c','target/protocol_target.c','target/command_table_target.c','target/runtime_init_target.c','target/flash_abi_target.c']
-PHYSICAL=['target/physical/startup.c','target/physical/constants.S']
-LINKER_SYMBOLS={'__state_bss_start','__state_bss_end','__extra_bss_end','__extra_bss_start','__physical_initial_data','__ram_exec_end','__ram_exec_load','__ram_exec_start','__ram_extra_end','__ram_extra_load','__ram_extra_start'}
+EXTRA=['target/power/power_manager_target.c','target/drivers/ioexpander_target.c','target/protocol/protocol_target.c','target/protocol/command_table_target.c','target/app/runtime_init_target.c','target/drivers/flash_abi_target.c']
+PHYSICAL=['target/physical/startup.c']
+LINKER_SYMBOLS={'__state_bss_start','__state_bss_end','__extra_bss_end','__extra_bss_start','__stack_top','__ram_exec_end','__ram_exec_load','__ram_exec_start','__ram_extra_end','__ram_extra_load','__ram_extra_start'}
 LINKER_SYMBOLS.update({'__data_load','__data_start','__data_end'})
 LINKER_SYMBOLS.update({'__peripheral_data_load','__peripheral_data_start',
                       '__peripheral_data_end','__peripheral_bss_start','__peripheral_bss_end'})
@@ -21,6 +21,10 @@ LINKER_SYMBOLS.update({'__protocol_data_load','__protocol_data_start','__protoco
 
 LINKER_SYMBOLS.update({'__modem_bss_start','__modem_bss_end'})
 LINKER_SYMBOLS.update({'__runtime_data_load','__runtime_data_start','__runtime_data_end'})
+
+def production_sources():
+    """Single source inventory for physical builds and architecture checks."""
+    return list(dict.fromkeys([*SOURCES,*EXTRA,*PHYSICAL]))
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def run(command):return toolchain_process.run(command,text=True,capture_output=True)
@@ -41,7 +45,7 @@ def elf_audit(path):
         for section in elf.iter_sections():
             if section['sh_flags']&4:
                 a,n=section['sh_addr'],section['sh_size']
-                if not (0xc0<=a and a+n<=0xab20 or 0x20000000<=a and a+n<=0x20000030 or 0x20000820<=a and a+n<=0x20001000):issues.append('Executable section outside declared code/RAM regions: '+section.name)
+                if not (0xc0<=a and a+n<=0xf7f8 or 0x20000000<=a and a+n<=0x20001000):issues.append('Executable section outside declared code/RAM regions: '+section.name)
         for segment in loads:
             a,n=segment['load_address'],segment['bytes']
             if n and (a>=0xf800 or a+n>0xf800):issues.append('Load segment overlaps identity/config or exceeds physical flash')
@@ -70,8 +74,8 @@ def build(output):
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True)
     # A failed rebuild must never leave an apparently current image behind.
     for name in ['firmware.elf','firmware.bin','firmware.map']:(output/name).unlink(missing_ok=True)
-    sources=list(dict.fromkeys([*SOURCES,*EXTRA,*PHYSICAL]));objects=[];failures=[]
-    forbidden=[s for s in sources if any(part in s for part in ('test_fixture','emulation_runtime','test_stub'))]
+    sources=production_sources();objects=[];failures=[]
+    forbidden=[s for s in sources if any(part in s for part in ('/testing/','test_fixture','emulation_runtime','test_stub'))]
     if forbidden:raise ValueError('Test-only source forbidden in physical build: '+repr(forbidden))
     tracked=[ROOT/s for s in sources]+list((ROOT/'include').glob('*.h'))+[ROOT/'target/physical/firmware.ld',Path(__file__)]
     before={str(p.relative_to(ROOT)):digest(p) for p in tracked if p.exists()}

@@ -1,7 +1,7 @@
 # Original-ABI scheduler, timers, and retained state
 
-The C in `target/tasks_target.c`, `target/timers_target.c`, and
-`target/retained_target.c` uses named linker-allocated state and source text.
+The C in `target/scheduling/tasks_target.c`, `target/scheduling/timers_target.c`, and
+`target/power/retained_target.c` uses named linker-allocated state and source text.
 Only SysTick/NVIC and PMU scratch accesses use fixed hardware addresses.
 Its public functions in `include/scheduling_target.h` take the original ARM
 arguments, without a RAM or environment pointer. Callback words are actual
@@ -43,7 +43,7 @@ other external dependency. Byte copies/clears link our `src/runtime_memory.c`.
 ## Validation
 
 `tools/build_scheduling_target.py` compiles the three modules, recovered memory
-helpers, and explicitly test-only `target/scheduling_test_fixture.c` with GCC
+helpers, and explicitly test-only `target/testing/scheduling_test_fixture.c` with GCC
 for Cortex-M0+, `-Os -ffreestanding -fno-builtin -fno-jump-tables -nostdlib`.
 There are no installed runtime library dependencies. It emits source hashes,
 compiler flags/version, entry mappings, and the ELF hash beside the ELF.
@@ -66,7 +66,7 @@ counts, retained snapshot mutation, logging-triggered state mutation, invalid
 source/callback faults, and untouched guard RAM.
 
 Two additional tests compile an upper-flash fixture using
-`target/scheduling_test.ld`. They run our MCU exception model with no function
+`target/testing/scheduling_test.ld`. They run our MCU exception model with no function
 hooks: SysTick is pended while PRIMASK is set, delivered after unmasking, and
 executes the real rebuilt handler plus compiled callback. The callback observes
 IPSR=15, one-shot state clears, registers restore, and execution returns to
@@ -84,7 +84,7 @@ RAM, and does not boot the complete application.
 
 ## Editable power-button implementation
 
-`target/power_key_target.c` owns the production button state and timing ranges.
+`target/power/power_key_target.c` owns the production button state and timing ranges.
 Its declarations are in `include/power_key_state.h`, and its editable log text
 is in `include/power_key_text.h`. No private numeric address remains in this
 module. The physical linker places the objects normally; only the differential

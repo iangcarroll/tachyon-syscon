@@ -24,12 +24,12 @@ def uart_elf(tmp_path_factory):
     return build_uart_ring(tmp_path_factory.mktemp('uart-ring-target'))
 
 
-def build_uart_ring(out,include=ROOT/'include',linker=ROOT/'target/emulation.ld'):
+def build_uart_ring(out,include=ROOT/'include',linker=ROOT/'target/testing/emulation.ld'):
     elf=out/'test.elf'
     trap=out/'assert.c';trap.write_text('void syscon_target_assert(unsigned a,unsigned b,unsigned c){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror',
-        '-I',str(include),str(ROOT/'target/uart_ring.c'),str(ROOT/'target/uart_state.c'),str(ROOT/'target/uart_ring_abi.S'),str(ROOT/'target/hal_helpers.c'),
+        '-I',str(include),str(ROOT/'target/drivers/uart_ring.c'),str(ROOT/'target/drivers/uart_state.c'),str(ROOT/'target/drivers/uart_ring_abi.S'),str(ROOT/'target/drivers/hal_helpers.c'),
         str(ROOT/'src/runtime_memory.c'),str(trap),'-Wl,-T,'+str(linker),
         '-Wl,-e,syscon_target_uart_read','-o',str(elf)],check=True)
     return elf
@@ -44,7 +44,7 @@ def test_edited_ring_capacity_changes_real_irq_buffering_without_offset_edits(tm
                                        'SYSCON_UART_RX_CAPACITY = 128'))
     # Isolated test SRAM has room for the intentional size change. A physical
     # build still has to satisfy the MCU's independent RAM/stack constraints.
-    linker=tmp_path/'edited.ld';script=(ROOT/'target/emulation.ld').read_text()
+    linker=tmp_path/'edited.ld';script=(ROOT/'target/testing/emulation.ld').read_text()
     old='TEST_UART_RINGS (rw) : ORIGIN = 0x20000774, LENGTH = 152'
     assert script.count(old)==1
     linker.write_text(script.replace(old,'TEST_UART_RINGS (rw) : ORIGIN = 0x21000000, LENGTH = 280'))

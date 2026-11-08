@@ -1,5 +1,5 @@
 """Audited entry mapping, including compiler entries missed by Ghidra discovery."""
-C='src/runtime_arithmetic.c';A='target/runtime_arithmetic_abi.S';F='target/runtime_arithmetic_float.c';V='vendor/gcc-soft-fp/'
+C='src/runtime_arithmetic.c';A='target/runtime/runtime_arithmetic_abi.S';F='target/runtime/runtime_arithmetic_float.c';V='vendor/gcc-soft-fp/'
 MAPPINGS={
  0xc0:('syscon_rt_case_sqi',A),0xd4:('syscon_rt_case_uqi',A),0x2660:('syscon_rt_case_shi',A),
  0xe8:('syscon_rt_udiv32',C),0x1f4:('syscon_rt_udivmod32',C),0x1fc:('syscon_rt_idiv32',C),0x3c8:('syscon_rt_idivmod32',C),0x3d0:('syscon_rt_divzero',A),

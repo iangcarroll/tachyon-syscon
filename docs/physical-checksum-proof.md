@@ -83,7 +83,7 @@ trace and verified replay are retained in
 `analysis/config-slot-read-order-counterexample/`. That artifact is explicitly
 a relocated function-test image, not the separate physical firmware build.
 
-`target/config_read.c` now performs both ordered byte snapshots before the loops.
+`target/config/config_read.c` now performs both ordered byte snapshots before the loops.
 On a value-checksum failure, the original diagnostic rereads the live stored
 value byte; that distinct read is also preserved. Tests compare actual ARM read
 traces for SRAM and MAIN slots, mutation of either stored checksum, the live

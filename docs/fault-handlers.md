@@ -1,6 +1,6 @@
 # Nonreturning exception handlers
 
-`target/fault_handlers.c` is Cortex-M0+ target code, kept outside the native-host
+`target/drivers/fault_handlers.c` is Cortex-M0+ target code, kept outside the native-host
 source directory. Never call these functions directly in a host process: they
 write a physical MCU register and spin forever.
 

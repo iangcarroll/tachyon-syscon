@@ -15,9 +15,9 @@
     {
       "address": "0x8c8c",
       "symbol": "syscon_target_uart_write_buffer",
-      "source": "target/uart_ring_abi.S",
+      "source": "target/drivers/uart_ring_abi.S",
       "additional_sources": [
-        "target/uart_ring.c"
+        "target/drivers/uart_ring.c"
       ],
       "implementation_body": "syscon_target_uart_write_buffer_body",
       "normal_return_registers": {
@@ -40,10 +40,10 @@
       "symbol": "syscon_target_uart_read"
     }
   ],
-  "source": "target/uart_ring.c",
+  "source": "target/drivers/uart_ring.c",
   "additional_sources": [
-    "target/uart_ring_abi.S",
-    "target/hal_helpers.c",
+    "target/drivers/uart_ring_abi.S",
+    "target/drivers/hal_helpers.c",
     "src/runtime_memory.c"
   ],
   "tests": "tests/test_uart_ring_target.py",

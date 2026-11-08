@@ -42,7 +42,7 @@ the full suite, including complete-image cold starts and extensive fault cases;
 CI runs that complete suite in parallel core, integration and cold-start jobs. The quick
 selection is not a replacement for whole-image validation before a firmware PR.
 
-`make arm` builds a static archive. `make physical-firmware` links the complete
+`make`, `make arm` and `make physical-firmware` link the complete
 experimental image under `build/physical-firmware/`. `make rebuilt-system` runs
 both images from reset, exercises UART/configuration commands and checks
 persistence across a fresh emulated boot. No hardware is accessed.
@@ -61,12 +61,11 @@ code from `target/`, shared implementations from `src/`, headers, linker data an
 the retained runtime source. It includes no original executable payload or
 firmware-function replacement hooks.
 
-This linked implementation is the starting point for consolidation into one
-maintainable tree. Duplicate host adapters in `src/` are test scaffolding, not a
-second product implementation to evolve independently. Consolidation must keep
-behavior tests working, replace fixed string/data addresses with named objects,
-and preserve addresses only where a hardware, boot/update or persistent-data
-contract requires them. That migration is not complete yet.
+Production modules are organized by subsystem under `target/`; isolated fixtures
+live under `target/testing/` and are rejected by the physical builder. The four
+shared `src/` implementations listed by the build are used directly; the other
+host adapters are test scaffolding, not a second product to edit independently.
+`make host-models` builds that legacy test archive explicitly.
 
 Private code, strings, tables and global state must use linker-resolved symbols,
 not numeric original-image addresses. Fixed addresses are reserved for documented
@@ -74,34 +73,34 @@ hardware, MCU memory-region and persistent-storage contracts. Layout-change test
 must exercise moved data/code and changed string lengths. Configuration storage
 now preserves legacy values literally, including `%` characters, instead of
 interpreting them as printf formats. This approved bug fix removes the private
-return-address dependency; normal commands still reject `%`. The runtime and modem globals now use named objects. The obsolete startup data
-copy and transitional linker arenas remain to be retired; they are not permanent
-exceptions to this requirement.
+return-address dependency; normal commands still reject `%`. All private globals, strings, tables and callbacks now use source objects.
+Startup initializes only linker-defined objects, and the physical linker uses
+MCU regions rather than original private addresses.
 
 Start with these production source groups when making a change:
 
 | Behavior | Implementation | State and data |
 | --- | --- | --- |
-| Configuration and persistent slots | `target/config_*.c` | `include/config_state.h`, `include/config_text.h` |
-| Power-button debounce and press/release events | `target/power_key_target.c` | `include/power_key_state.h`, `include/power_key_text.h` |
-| Timers, scheduled tasks and retained boot state | `target/timers_target.c`, `target/tasks_target.c`, `target/retained_target.c` | `include/scheduling_state.h` |
-| Diagnostic reporting and loop-rate tracking | `target/diagnostics_target.c`, `target/diagnostics_state.c` | `include/diagnostics_state.h` |
-| UART command parsing and control handlers | `target/protocol_target.c`, `target/control_commands_target.c` | Editable `target/command_table_target.c`; named parser fields/debug flag in `include/protocol_state.h` |
-| Main loop, key-event queue and wakeup | `target/application_target.c`, `target/application_state.c` | `include/application_state.h`; named state and source strings |
-| ADC conversion and calibration | `target/adc_target.c`, ADC lookup in `target/hal_helpers.c` | `include/adc_state.h` |
-| RGB animation and PWM | `target/rgb_target.c`, `target/pwm_target.c`, PWM routing in `target/hal_helpers.c` | `include/rgb_state.h`, editable presets/palette in `include/rgb_data.h`, `include/pwm_state.h` |
-| Power routing, battery detection and shutdown policy | `target/power_policy_target.c`, `target/power_manager_target.c`, `target/power_state.c` | `include/power_state.h`; source voltage scales and diagnostic strings |
-| Modem state machine | `target/sg560d_target.c` | `include/modem_state.h`; named boot/runtime/parser state and source retry table |
-| GPIO, reset causes and watchdog | `target/mspm0_core_target.c`, `target/gpio_state.c` | `include/gpio_state.h` |
-| I2C and fault diagnostics | `target/i2c_target.c`, `target/fault_control_target.c` | `include/i2c_state.h`, bus routing in `target/hal_helpers.c` |
-| UART initialization and receive buffering | `target/uart_hal_target.c`, `target/uart_ring.c`, `target/uart_state.c` | `include/uart_state.h`, port routing in `target/hal_helpers.c` |
-| Logging and ARM variadic calls | `target/logger_target.c`, `target/logger_target_abi.S`, `target/logger_state.c` | `include/logger_state.h` |
+| Configuration and persistent slots | `target/config/` | `include/config_state.h`, `include/config_text.h` |
+| Power-button debounce and press/release events | `target/power/power_key_target.c` | `include/power_key_state.h`, `include/power_key_text.h` |
+| Timers, scheduled tasks and retained boot state | `target/scheduling/timers_target.c`, `target/scheduling/tasks_target.c`, `target/power/retained_target.c` | `include/scheduling_state.h` |
+| Diagnostic reporting and loop-rate tracking | `target/app/diagnostics_target.c`, `target/app/diagnostics_state.c` | `include/diagnostics_state.h` |
+| UART command parsing and control handlers | `target/protocol/protocol_target.c`, `target/protocol/control_commands_target.c` | Editable `target/protocol/command_table_target.c`; named parser fields/debug flag in `include/protocol_state.h` |
+| Main loop, key-event queue and wakeup | `target/app/application_target.c`, `target/app/application_state.c` | `include/application_state.h`; named state and source strings |
+| ADC conversion and calibration | `target/drivers/adc_target.c`, ADC lookup in `target/drivers/hal_helpers.c` | `include/adc_state.h` |
+| RGB animation and PWM | `target/power/rgb_target.c`, `target/drivers/pwm_target.c`, PWM routing in `target/drivers/hal_helpers.c` | `include/rgb_state.h`, editable presets/palette in `include/rgb_data.h`, `include/pwm_state.h` |
+| Power routing, battery detection and shutdown policy | `target/power/power_policy_target.c`, `target/power/power_manager_target.c`, `target/power/power_state.c` | `include/power_state.h`; source voltage scales and diagnostic strings |
+| Modem state machine | `target/modem/sg560d_target.c` | `include/modem_state.h`; named boot/runtime/parser state and source retry table |
+| GPIO, reset causes and watchdog | `target/drivers/mspm0_core_target.c`, `target/drivers/gpio_state.c` | `include/gpio_state.h` |
+| I2C and fault diagnostics | `target/drivers/i2c_target.c`, `target/drivers/fault_control_target.c` | `include/i2c_state.h`, bus routing in `target/drivers/hal_helpers.c` |
+| UART initialization and receive buffering | `target/drivers/uart_hal_target.c`, `target/drivers/uart_ring.c`, `target/drivers/uart_state.c` | `include/uart_state.h`, port routing in `target/drivers/hal_helpers.c` |
+| Logging and ARM variadic calls | `target/logging/logger_target.c`, `target/logging/logger_target_abi.S`, `target/logging/logger_state.c` | `include/logger_state.h` |
 | Runtime context, heap and character rules | `target/runtime_*.c` | `include/runtime_state.h`; linker-resolved state and ASCII rules |
 | Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
 
 Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide
 isolated test environments and are excluded from the physical image. The build
-script's source list is authoritative while directory consolidation continues.
+script's source list is authoritative; see [the module guide](target/README.md).
 The original addresses in differential tests identify oracle inputs; they are
 not a requirement on production object placement.
 

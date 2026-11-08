@@ -1,6 +1,6 @@
 # Direct target control-command handlers
 
-`target/control_commands_target.c` implements the 23 control handlers assigned
+`target/protocol/control_commands_target.c` implements the 23 control handlers assigned
 to this module. Each uses the original `(uint32_t arguments, uint32_t printer)`
 ABI from `protocol_target.h`. The printer is an actual ARM variadic function
 pointer. The source command table relocates function pointers to these bodies;
@@ -44,7 +44,7 @@ identical. This must remain part of the whole-image proof work.
 `tools/control_commands_target_oracle.py` builds these handlers together with
 the source-backed scanner, runtime, UART parser, packed command table, and
 callback helpers. It uses the runtime builder's target compiler settings and
-links no installed runtime archives. `target/control_commands_test_fixture.c`
+links no installed runtime archives. `target/testing/control_commands_test_fixture.c`
 implements real ARM variadic printer/logger consumers; their format pointer,
 defined argument words, format bytes, and ordering are recorded. Local format
 addresses are compared by bytes; fixed rodata and semantic argument pointers

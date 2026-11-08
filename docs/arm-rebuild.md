@@ -12,11 +12,11 @@ It supplements the native C differential tests by testing 32-bit pointers,
 Arm GNU GCC, `-mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -Os`, freestanding,
 and warnings treated as errors. Arithmetic and soft-float dependencies are built
 from the reviewed runtime reconstruction and pinned GCC soft-fp sources at
-`-O2`; no installed libc or `libgcc` archive is linked. `target/emulation_runtime.c`
+`-O2`; no installed libc or `libgcc` archive is linked. `target/testing/emulation_runtime.c`
 supplies minimal byte-copy/fill/compare routines; these harness routines are
 distinct from the separately reconstructed `src/runtime_memory.c` functions.
 
-The linker script `target/emulation.ld` locates code at `0x01000000` and
+The linker script `target/testing/emulation.ld` locates code at `0x01000000` and
 candidate globals at `0x21000000`. `tools/arm_rebuild_oracle.py` maps the
 original 4 KiB RAM at `0x20000000`, but uses separate 64 KiB harness RAM for
 globals, scratch allocation, and the candidate stack. Thus passing tests do
@@ -58,7 +58,7 @@ directory, independently of the optional persistent build artifact.
   UART logging checks enable state, color decisions, binary NULs, and buffer
   boundaries through 300-byte inputs.
 
-Target-only wrappers in `target/format_wrappers.c` use real compiler-generated
+Target-only wrappers in `target/testing/format_wrappers.c` use real compiler-generated
 `va_start` and a direct memory adapter into the reconstructed format engine:
 
 | Original entry | Recompiled target wrapper | Compared result |

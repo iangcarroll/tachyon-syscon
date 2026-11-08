@@ -1,6 +1,6 @@
 # Direct target formatter core
 
-`target/format_core_target.c` and `include/format_core_target.h` expose three
+`target/runtime/format_core_target.c` and `include/format_core_target.h` expose three
 original ABI entries without host context or memory-access arguments:
 
 | Original | Target | Result |

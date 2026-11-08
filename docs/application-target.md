@@ -1,6 +1,6 @@
 # Original-ABI application and main loop
 
-`target/application_target.c` implements the complete non-returning `0x3b34`
+`target/app/application_target.c` implements the complete non-returning `0x3b34`
 entry in C, plus its event queue, constructors, shutdown request, diagnostic
 UART wrapper, parser wrapper, wakeup handling, log-enable flag and board GPIO
 setup. Unlike the older context-based application adapter, this body retains

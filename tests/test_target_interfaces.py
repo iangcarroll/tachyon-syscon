@@ -10,7 +10,7 @@ def linked_target_interfaces(tmp_path_factory):
     directory=tmp_path_factory.mktemp('target-interfaces');report=build(directory)
     obj=directory/'target-interfaces.o';elf=directory/'linked.elf'
     base=['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',
-        '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_target_uart_read',str(obj)]
+        '-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,-e,syscon_target_uart_read',str(obj)]
     missing=subprocess.run([*base,'-o',str(directory/'missing.elf')],capture_output=True,text=True)
     assert missing.returncode==0,missing.stderr
     assert report['unresolved_symbols']==[]

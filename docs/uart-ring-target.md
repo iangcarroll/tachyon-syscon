@@ -1,8 +1,8 @@
 # UART receive buffers and IRQ handling
 
-`target/uart_ring.c` implements seven production ARM interfaces.
+`target/drivers/uart_ring.c` implements seven production ARM interfaces.
 `include/uart_state.h` names the port, configuration and receive-ring fields;
-`target/uart_state.c` defines the linker-allocated buffers. `src/uart.c` is a
+`target/drivers/uart_state.c` defines the linker-allocated buffers. `src/uart.c` is a
 historical host test scaffold, not a second production implementation.
 
 | Original | Target symbol |
@@ -16,7 +16,7 @@ historical host test scaffold, not a second production implementation.
 | `0x8de4` | `syscon_target_uart_read` |
 
 The driver accesses ordinary volatile C objects and MCU registers. Board routing
-is defined in `target/hal_helpers.c`. Invalid public port indices invoke the
+is defined in `target/drivers/hal_helpers.c`. Invalid public port indices invoke the
 assertion interface with the original file/line/expression contents, using normal
 C strings. Tests compare diagnostic contents rather than private pointers.
 Assertions are nonreturning dependencies, never normal error returns.
@@ -56,6 +56,6 @@ physical build independently enforces the MCU's RAM and stack budget.
 
 A real parser→SET_RGB→logger→UART execution exposed behavior beyond the public C return value. The original `0x8c8c` returns R0=0, R1=input port, R2=input size, R3=input size. These outputs feed a later variadic callback when SET_RGB supplies too few arguments. The previous C-only transmitter preserved R0 but left different R1–R3 values.
 
-`target/uart_ring_abi.S` now owns the public entry, using the original 32-byte push layout, length store at SP+4, and pop into R1/R2/R3. It calls the source transmitter body in `target/uart_ring.c`. The signature remains `uint32_t(port,data,size)`; the additional register effects are explicit target ABI behavior. Tests compare all four output registers for both ports, enabled/disabled state, and zero/nonzero sizes. A buffer aliasing the outer entry frame verifies that its original saved words are transmitted. The C body's deeper private stack remains distinct and is not claimed byte-identical.
+`target/drivers/uart_ring_abi.S` now owns the public entry, using the original 32-byte push layout, length store at SP+4, and pop into R1/R2/R3. It calls the source transmitter body in `target/drivers/uart_ring.c`. The signature remains `uint32_t(port,data,size)`; the additional register effects are explicit target ABI behavior. Tests compare all four output registers for both ports, enabled/disabled state, and zero/nonzero sizes. A buffer aliasing the outer entry frame verifies that its original saved words are transmitted. The C body's deeper private stack remains distinct and is not claimed byte-identical.
 
 Both standalone and combined target builders include the assembly adapter. The source-built full MCU UART regression now matches original SET_RGB tokens `0`, `%u`, `%s`, `%p`, `%d`, `%x`, `%c`, and `%3u` through the real parser/logger/peripheral path. These finite cases resolve the demonstrated discrepancy; arbitrary missing arguments remain a wider proof obligation.

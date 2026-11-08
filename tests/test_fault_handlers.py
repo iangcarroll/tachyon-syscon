@@ -16,7 +16,7 @@ def fault_images(tmp_path_factory):
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Wall','-Wextra','-Werror',
         '-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-ffunction-sections',
         '-fno-unwind-tables','-fno-asynchronous-unwind-tables','-c',
-        str(ROOT/'target/fault_handlers.c'),'-o',str(obj)],check=True)
+        str(ROOT/'target/drivers/fault_handlers.c'),'-o',str(obj)],check=True)
     images={}
     for name in ('default_exception','hardfault','nmi'):
         elf=root/(name+'.elf');binary=root/(name+'.bin')

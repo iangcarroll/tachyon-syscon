@@ -3,7 +3,7 @@
     {
       "address": "0x7c54",
       "symbol": "syscon_target_adc_init",
-      "source": "target/adc_target.c",
+      "source": "target/drivers/adc_target.c",
       "header": "include/adc_target.h",
       "tests": "tests/test_adc_target.py",
       "docs": "docs/adc-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x7d54",
       "symbol": "syscon_target_adc_temperature",
-      "source": "target/adc_target.c",
+      "source": "target/drivers/adc_target.c",
       "header": "include/adc_target.h",
       "tests": "tests/test_adc_target.py",
       "docs": "docs/adc-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x7e7c",
       "symbol": "syscon_target_adc_raw",
-      "source": "target/adc_target.c",
+      "source": "target/drivers/adc_target.c",
       "header": "include/adc_target.h",
       "tests": "tests/test_adc_target.py",
       "docs": "docs/adc-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x7f24",
       "symbol": "syscon_target_adc_millivolts",
-      "source": "target/adc_target.c",
+      "source": "target/drivers/adc_target.c",
       "header": "include/adc_target.h",
       "tests": "tests/test_adc_target.py",
       "docs": "docs/adc-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x8954",
       "symbol": "syscon_target_uart_init",
-      "source": "target/uart_hal_target.c",
+      "source": "target/drivers/uart_hal_target.c",
       "header": "include/uart_hal_target.h",
       "tests": "tests/test_uart_hal_target.py",
       "docs": "docs/uart-hal-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x8b50",
       "symbol": "syscon_target_uart_deinit",
-      "source": "target/uart_hal_target.c",
+      "source": "target/drivers/uart_hal_target.c",
       "header": "include/uart_hal_target.h",
       "tests": "tests/test_uart_hal_target.py",
       "docs": "docs/uart-hal-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x95f0",
       "symbol": "syscon_target_uart_line_config",
-      "source": "target/uart_hal_target.c",
+      "source": "target/drivers/uart_hal_target.c",
       "header": "include/uart_hal_target.h",
       "tests": "tests/test_uart_hal_target.py",
       "docs": "docs/uart-hal-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x9638",
       "symbol": "syscon_target_uart_clock_config",
-      "source": "target/uart_hal_target.c",
+      "source": "target/drivers/uart_hal_target.c",
       "header": "include/uart_hal_target.h",
       "tests": "tests/test_uart_hal_target.py",
       "docs": "docs/uart-hal-target.md",
@@ -84,7 +84,7 @@
     "inputs_unchanged_during_run": false,
     "changed_during_run": [
       "include/scheduling_target.h",
-      "target/scheduling_test_fixture.c",
+      "target/testing/scheduling_test_fixture.c",
       "tests/test_scheduling_target.py",
       "tools/build_scheduling_target.py"
     ],

@@ -1,6 +1,6 @@
 # Original-ABI configuration entries
 
-`target/config_helpers.c` replaces the twelve previously folded namespace entries with independently callable ARM32 functions. `target/config_read.c` and `target/config_storage.c` add actual source-backed read/search, append/erase, parsing and runtime loading dependencies. These are additional target implementations; the host adapter in `src/config.c` is unchanged.
+`target/config/config_helpers.c` replaces the twelve previously folded namespace entries with independently callable ARM32 functions. `target/config/config_read.c` and `target/config/config_storage.c` add actual source-backed read/search, append/erase, parsing and runtime loading dependencies. These are additional target implementations; the host adapter in `src/config.c` is unchanged.
 
 | Original entries | Target source | Behavior |
 | --- | --- | --- |
@@ -37,7 +37,7 @@ Validation: the twenty configuration cases passed in 4.69 seconds. Configuration
 
 ## Remaining proof boundaries
 
-`target/config_update.c` now provides compaction, namespace initialization and runtime update, with frame-address capture in `target/config_update_abi.S` for the stack-usage diagnostic. `tests/test_config_target_updates.py` exercises initialization sequencing, repeated compactions, corrupted records, duplicate keys, capacity bounds, enabled diagnostics and every retained-record program failure position.
+`target/config/config_update.c` now provides compaction, namespace initialization and runtime update, with frame-address capture in `target/config/config_update_abi.S` for the stack-usage diagnostic. `tests/test_config_target_updates.py` exercises initialization sequencing, repeated compactions, corrupted records, duplicate keys, capacity bounds, enabled diagnostics and every retained-record program failure position.
 
 `syscon_cfg_write_slot` copies keys and values literally into the persistent slot: at most 30 bytes per field, a NUL terminator, erased-byte padding and the existing checksums. Legacy `%` characters are preserved rather than interpreted as printf formats. This is an approved behavioral correction: ordinary configuration commands already reject `%`. The original instruction oracle remains a witness to the old corruption, while candidate tests check literal bytes, field bounds, flash effects, UART readback and fresh-boot persistence. `tools/config_target_counterexample.py` replays the historical `%u` case and writes its current result under `build/`; historical analysis snapshots describe earlier implementations. The old assembly frame adapter and numeric saved-return argument are removed.
 

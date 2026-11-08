@@ -10,17 +10,17 @@ import subprocess
 from pathlib import Path
 import toolchain_process
 ROOT=Path(__file__).resolve().parents[1]
-TARGETS=['callback_helpers.c','config_state.c','config_helpers.c','config_read.c','config_storage.c',
-    'core_helpers.c','interface_bindings.c','fault_control_target.c','fault_handlers.c','hal_helpers.c',
-    'mspm0_core_target.c','gpio_state.c','uart_ring.c','uart_state.c','uart_ring_abi.S','runtime_arithmetic_abi.S','runtime_heap.c',
-    'runtime_scan.c','runtime_scan_abi.S','runtime_scan_printf.c','runtime_scan_wrappers.c',
-    'runtime_stdio.c','runtime_support.c','runtime_state.c','runtime_arithmetic_float.c',
-    'adc_target.c','uart_hal_target.c','timers_target.c','tasks_target.c','retained_target.c',
-    'diagnostics_target.c','diagnostics_state.c','application_target.c','application_state.c','logger_target.c','logger_state.c','logger_target_abi.S',
-    'rgb_target.c','power_key_target.c','power_policy_target.c','power_state.c','i2c_target.c','pwm_target.c',
-    'config_update.c','config_update_abi.S','ioexpander_target.c','power_manager_target.c',
-    'protocol_target.c','protocol_state.c','command_table_target.c','config_commands_target.c','control_commands_target.c','runtime_init_target.c',
-    'format_core_target.c','sg560d_target.c','modem_state.c']
+TARGETS=['physical/firmware_version.c','runtime/callback_helpers.c','config/config_state.c','config/config_helpers.c','config/config_read.c','config/config_storage.c',
+    'drivers/core_helpers.c','runtime/interface_bindings.c','drivers/fault_control_target.c','drivers/fault_handlers.c','drivers/hal_helpers.c',
+    'drivers/mspm0_core_target.c','drivers/gpio_state.c','drivers/uart_ring.c','drivers/uart_state.c','drivers/uart_ring_abi.S','runtime/runtime_arithmetic_abi.S','runtime/runtime_heap.c',
+    'runtime/runtime_scan.c','runtime/runtime_scan_abi.S','runtime/runtime_scan_printf.c','runtime/runtime_scan_wrappers.c',
+    'runtime/runtime_stdio.c','runtime/runtime_support.c','runtime/runtime_state.c','runtime/runtime_arithmetic_float.c',
+    'drivers/adc_target.c','drivers/uart_hal_target.c','scheduling/timers_target.c','scheduling/tasks_target.c','power/retained_target.c',
+    'app/diagnostics_target.c','app/diagnostics_state.c','app/application_target.c','app/application_state.c','logging/logger_target.c','logging/logger_state.c','logging/logger_target_abi.S',
+    'power/rgb_target.c','power/power_key_target.c','power/power_policy_target.c','power/power_state.c','drivers/i2c_target.c','drivers/pwm_target.c',
+    'config/config_update.c','config/config_update_abi.S','drivers/ioexpander_target.c','power/power_manager_target.c',
+    'protocol/protocol_target.c','protocol/protocol_state.c','protocol/command_table_target.c','config/config_commands_target.c','protocol/control_commands_target.c','app/runtime_init_target.c',
+    'runtime/format_core_target.c','modem/sg560d_target.c','modem/modem_state.c']
 SOURCES=['target/'+name for name in TARGETS]+['src/runtime_memory.c','src/runtime_arithmetic.c','src/flash_controller.c','src/format.c']+sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.c'))
 FLAGS=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-mfloat-abi=soft','-Os','-ffreestanding',
     '-fno-builtin','-fwrapv','-fno-inline','-fno-ipa-cp','-fno-ipa-pure-const',

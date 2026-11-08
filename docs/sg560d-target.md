@@ -1,6 +1,6 @@
 # SG560D original-ABI reconstruction
 
-`target/sg560d_target.c` implements the 38 modem entry points listed in
+`target/modem/sg560d_target.c` implements the 38 modem entry points listed in
 `analysis/sg560d-target-mapping.json`, including the main poll routine at `0x6a68`.
 The separate logger reconstruction implements `0x5edc`; it is not duplicated here.
 The reference is the pinned 1.0.52 image (SHA-256

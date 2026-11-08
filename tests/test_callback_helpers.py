@@ -19,8 +19,8 @@ def callback_elf(tmp_path_factory):
     elf=tmp_path_factory.mktemp('callback-helpers')/'test.elf'
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror',
-        '-I',str(ROOT/'include'),str(ROOT/'target/callback_helpers.c'),
-        '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_target_buffer_output',
+        '-I',str(ROOT/'include'),str(ROOT/'target/runtime/callback_helpers.c'),
+        '-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,-e,syscon_target_buffer_output',
         '-o',str(elf)],check=True)
     return elf
 

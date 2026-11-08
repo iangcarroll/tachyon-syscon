@@ -1,10 +1,10 @@
 # Power routing and battery detection
 
-`target/power_manager_target.c` implements measurements, power-route selection,
-USB reattachment and battery detection. `target/power_policy_target.c` handles
+`target/power/power_manager_target.c` implements measurements, power-route selection,
+USB reattachment and battery detection. `target/power/power_policy_target.c` handles
 reports, initialization, minimum voltage and shutdown-reason expiry. Both use
 ordinary source strings and the linker-allocated objects in
-`include/power_state.h` / `target/power_state.c`. Neither module depends on
+`include/power_state.h` / `target/power/power_state.c`. Neither module depends on
 original private RAM or ROM addresses. The older `src/` implementations are
 host test scaffolding, not a second production implementation.
 

@@ -25,8 +25,8 @@ ENTRIES={0x7a68:'syscon_hal_adc_lookup',0x7a90:'syscon_hal_pwm_lookup',
 @pytest.fixture(scope='module')
 def compiled(tmp_path_factory):
     directory=tmp_path_factory.mktemp('hal-helpers');obj=directory/'helpers.o';elf=directory/'helpers.elf'
-    subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(ROOT/'target/hal_helpers.c'),'-o',str(obj)],check=True)
-    subprocess.run(['arm-none-eabi-ld','-e','syscon_hal_adc_lookup','-T',str(ROOT/'target/emulation.ld'),str(obj),'-o',str(elf)],check=True)
+    subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(ROOT/'target/drivers/hal_helpers.c'),'-o',str(obj)],check=True)
+    subprocess.run(['arm-none-eabi-ld','-e','syscon_hal_adc_lookup','-T',str(ROOT/'target/testing/emulation.ld'),str(obj),'-o',str(elf)],check=True)
     symbols={}
     for line in subprocess.check_output(['arm-none-eabi-nm',str(elf)],text=True).splitlines():
         fields=line.split()

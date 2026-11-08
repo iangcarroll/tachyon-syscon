@@ -14,6 +14,6 @@ def build(destination):
         for name in [*COMMANDS.values(),*DEPENDENCIES.values()]))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['target/protocol_target.c','target/protocol_state.c','target/command_table_target.c','target/callback_helpers.c',str(trap)]
+        runtime.SOURCES=old+['target/protocol/protocol_target.c','target/protocol/protocol_state.c','target/protocol/command_table_target.c','target/runtime/callback_helpers.c',str(trap)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old

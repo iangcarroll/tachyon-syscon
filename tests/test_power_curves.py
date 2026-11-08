@@ -39,9 +39,9 @@ def curve_elf(tmp_path_factory):
         for name, _ in ports.values()))
     old = runtime.SOURCES
     try:
-        runtime.SOURCES = old + ['src/format.c', 'target/logger_target.c','target/logger_state.c', 'target/logger_target_abi.S',
-            'target/hal_helpers.c', 'target/sg560d_target.c','target/modem_state.c', 'target/power_manager_target.c',
-            'target/power_policy_target.c','target/power_state.c', 'target/adc_target.c', str(traps)]
+        runtime.SOURCES = old + ['src/format.c', 'target/logging/logger_target.c','target/logging/logger_state.c', 'target/logging/logger_target_abi.S',
+            'target/drivers/hal_helpers.c', 'target/modem/sg560d_target.c','target/modem/modem_state.c', 'target/power/power_manager_target.c',
+            'target/power/power_policy_target.c','target/power/power_state.c', 'target/drivers/adc_target.c', str(traps)]
         return runtime.build(out)
     finally:
         runtime.SOURCES = old

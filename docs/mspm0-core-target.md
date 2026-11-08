@@ -1,6 +1,6 @@
 # GPIO routing, interrupts and reset control
 
-`target/mspm0_core_target.c` provides thirteen original-ABI entries with direct volatile RAM/MMIO operations and real indirect callback calls. `include/mspm0_core_target.h` is the target interface. This module does not use `mspm0_core_execute`, the host environment callbacks, or original executable code as a fallback.
+`target/drivers/mspm0_core_target.c` provides thirteen original-ABI entries with direct volatile RAM/MMIO operations and real indirect callback calls. `include/mspm0_core_target.h` is the target interface. This module does not use `mspm0_core_execute`, the host environment callbacks, or original executable code as a fallback.
 
 | Original | Symbol suffix after `syscon_target_` | Scope |
 |---|---|---|
@@ -18,7 +18,7 @@
 | `0x81f8` | `gpio_detach` | Callback/context clearing and mask update |
 | `0x8258` | `gpio_irq` | Shared group check, descriptor scan, first-match dispatch |
 
-GPIO descriptors and callback records are typed C objects declared in `include/gpio_state.h` and defined in `target/gpio_state.c`. The board routing table, handler array and reset-cause cache are allocated by the linker. Their eight-byte record layouts preserve the existing interfaces; no production code depends on the old object addresses. Register shifts use ARM's low-eight-bit shift-count semantics, including zero results at counts 32–255. The interrupt polarity helper first doubles its physical-pin-relative count, then applies that rule; malformed descriptor bytes can therefore wrap the count back to zero. These original behaviors are preserved without C undefined shifts.
+GPIO descriptors and callback records are typed C objects declared in `include/gpio_state.h` and defined in `target/drivers/gpio_state.c`. The board routing table, handler array and reset-cause cache are allocated by the linker. Their eight-byte record layouts preserve the existing interfaces; no production code depends on the old object addresses. Register shifts use ARM's low-eight-bit shift-count semantics, including zero results at counts 32–255. The interrupt polarity helper first doubles its physical-pin-relative count, then applies that rule; malformed descriptor bytes can therefore wrap the count back to zero. These original behaviors are preserved without C undefined shifts.
 
 The implementation preserves ordering even when configuration memory or descriptors alias a register write. GPIO configuration captures the physical pin before powering the port, but reads the mux byte afterwards. GPIO reads fetch the input register before rereading the descriptor's physical pin. Callback registration writes the callback and context separately before reading the port, performs two distinct polarity read/modify/write operations, reads the interrupt-clear register before ORing the mask, and finally writes the NVIC enable register. It neither makes registration atomic nor changes the original interrupt-clear read into a fabricated value.
 

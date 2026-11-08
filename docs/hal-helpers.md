@@ -1,6 +1,6 @@
 # Original-ABI HAL helpers
 
-`target/hal_helpers.c` reconstructs twelve complete leaf functions from the pinned image. `include/hal_helpers.h` exposes their original 32-bit argument/pointer ABI. These implementations directly access volatile memory and MMIO; they do not call the existing host adapters, TI DriverLib, libc, libgcc, or replacement function hooks. `analysis/hal-helper-mapping.json` records the entries.
+`target/drivers/hal_helpers.c` reconstructs twelve complete leaf functions from the pinned image. `include/hal_helpers.h` exposes their original 32-bit argument/pointer ABI. These implementations directly access volatile memory and MMIO; they do not call the existing host adapters, TI DriverLib, libc, libgcc, or replacement function hooks. `analysis/hal-helper-mapping.json` records the entries.
 
 | Original entry | Reconstructed symbol | Behavior |
 |---|---|---|

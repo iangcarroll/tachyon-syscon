@@ -1,6 +1,6 @@
 # Reconstructed FILE and integer formatting support
 
-`target/runtime_stdio.c` implements these seven runtime helpers with original
+`target/runtime/runtime_stdio.c` implements these seven runtime helpers with original
 32-bit target pointers. The interfaces in `include/runtime_stdio.h` use opaque
 FILE/reentrancy pointers so the scanner can share its explicit target structures.
 

@@ -3,7 +3,7 @@
     {
       "address": "0x2738",
       "symbol": "syscon_target_flash_report",
-      "source": "target/flash_abi_target.c",
+      "source": "target/drivers/flash_abi_target.c",
       "header": "include/flash_abi_target.h",
       "tests": "tests/test_flash_abi_target.py",
       "docs": "docs/flash-abi-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x7af4",
       "symbol": "syscon_target_flash_erase",
-      "source": "target/flash_abi_target.c",
+      "source": "target/drivers/flash_abi_target.c",
       "header": "include/flash_abi_target.h",
       "tests": "tests/test_flash_abi_target.py",
       "docs": "docs/flash-abi-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x7b10",
       "symbol": "syscon_target_flash_program",
-      "source": "target/flash_abi_target.c",
+      "source": "target/drivers/flash_abi_target.c",
       "header": "include/flash_abi_target.h",
       "tests": "tests/test_flash_abi_target.py",
       "docs": "docs/flash-abi-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x7b44",
       "symbol": "syscon_target_flash_unprotect",
-      "source": "target/flash_abi_target.c",
+      "source": "target/drivers/flash_abi_target.c",
       "header": "include/flash_abi_target.h",
       "tests": "tests/test_flash_abi_target.py",
       "docs": "docs/flash-abi-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x7b60",
       "symbol": "syscon_target_flash_blank",
-      "source": "target/flash_abi_target.c",
+      "source": "target/drivers/flash_abi_target.c",
       "header": "include/flash_abi_target.h",
       "tests": "tests/test_flash_abi_target.py",
       "docs": "docs/flash-abi-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0xaae0",
       "symbol": "syscon_target_flash_veneer",
-      "source": "target/flash_abi_target.c",
+      "source": "target/drivers/flash_abi_target.c",
       "header": "include/flash_abi_target.h",
       "tests": "tests/test_flash_abi_target.py",
       "docs": "docs/flash-abi-target.md",
@@ -59,7 +59,7 @@
     "flash_original": "0xaaf0",
     "runtime_address": "0x20000000",
     "symbol": "syscon_target_flash_ram_execute",
-    "source": "target/flash_abi_target.c",
+    "source": "target/drivers/flash_abi_target.c",
     "emitted_source_bytes": 36
   },
   "validation": {
@@ -98,7 +98,7 @@
     ],
     "inputs_unchanged_during_run": false,
     "changed_since_test_start": [
-      "target/runtime_support.c",
+      "target/runtime/runtime_support.c",
       "tools/build_physical_firmware.py"
     ]
   },

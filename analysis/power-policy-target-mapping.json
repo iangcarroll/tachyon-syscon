@@ -3,7 +3,7 @@
     {
       "address": "0x5358",
       "symbol": "syscon_target_power_report",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x54cc",
       "symbol": "syscon_target_power_policy_init",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x559c",
       "symbol": "syscon_target_power_minimum_update",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x55b4",
       "symbol": "syscon_target_power_minimum_reset",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x55c4",
       "symbol": "syscon_target_power_minimum",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x55dc",
       "symbol": "syscon_target_shutdown_set",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x562c",
       "symbol": "syscon_target_shutdown_reason",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x5638",
       "symbol": "syscon_target_shutdown_elapsed",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -75,7 +75,7 @@
     {
       "address": "0x5670",
       "symbol": "syscon_target_shutdown_stale",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -84,7 +84,7 @@
     {
       "address": "0x567c",
       "symbol": "syscon_target_shutdown_active",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x5694",
       "symbol": "syscon_target_shutdown_poll",
-      "source": "target/power_policy_target.c",
+      "source": "target/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",
       "docs": "docs/power-policy-target.md",

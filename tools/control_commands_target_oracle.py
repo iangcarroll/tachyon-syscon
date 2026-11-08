@@ -40,12 +40,12 @@ def build(destination):
         f'.global {n}\n.type {n},%function\n.thumb_func\n{n}:\n bkpt #0\n bx lr\n' for n in endpoints))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['target/control_commands_target.c','target/control_commands_test_fixture.c',
-            'target/protocol_target.c','target/protocol_state.c','target/command_table_target.c','target/callback_helpers.c',str(trap)]
+        runtime.SOURCES=old+['target/protocol/control_commands_target.c','target/testing/control_commands_test_fixture.c',
+            'target/protocol/protocol_target.c','target/protocol/protocol_state.c','target/protocol/command_table_target.c','target/runtime/callback_helpers.c',str(trap)]
         elf=runtime.build(destination)
     finally:runtime.SOURCES=old
     (destination/'control-mappings.json').write_text(json.dumps({'entries':{hex(a):n for a,n in MAPPINGS.items()},
-        'source_hash':hashlib.sha256((ROOT/'target/control_commands_target.c').read_bytes()).hexdigest(),
+        'source_hash':hashlib.sha256((ROOT/'target/protocol/control_commands_target.c').read_bytes()).hexdigest(),
         'dependencies':{hex(a):n for a,(n,c) in DEPENDENCIES.items()}},indent=2)+'\n')
     return elf
 class Original(Oracle):
