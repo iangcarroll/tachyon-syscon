@@ -26,6 +26,30 @@ def test_inventory_uses_production_sources_and_preserves_model_provenance():
     assert any(row['legacy_model'] for row in ledger['functions'])
 
 
+def test_promoted_folded_helpers_keep_their_original_model():
+    promoted = {
+        address: next(path for path in mapping['additional_sources']
+                      if path.startswith('tests/models/'))
+        for address, mapping in MAP.items()
+        if not mapping['source'].startswith('tests/')
+        and any(path.startswith('tests/models/')
+                for path in mapping.get('additional_sources', []))
+    }
+    assert promoted
+    for row in build_inventory()['functions']:
+        address = int(row['address'], 16)
+        if address in promoted:
+            assert row['legacy_model'] == promoted[address]
+            assert row['source'] != row['legacy_model']
+
+
+def test_missing_legacy_model_is_rejected():
+    mapping = copy.deepcopy(MAP)
+    mapping[next(iter(mapping))]['legacy_model'] = 'tests/models/missing_legacy.c'
+    with pytest.raises(ValueError, match='missing or escaping mapped file'):
+        build_inventory(mapping=mapping)
+
+
 def test_inventory_rejects_test_model_as_production_implementation():
     mapping = copy.deepcopy(MAP)
     address = next(key for key, value in mapping.items()

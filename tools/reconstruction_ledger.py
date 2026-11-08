@@ -18,11 +18,12 @@ MAP = {}
 SHARED_SOURCES = {'runtime_memory': 'src/runtime/runtime_memory.c', 'runtime_arithmetic': 'src/runtime/runtime_arithmetic.c', 'format': 'src/runtime/format.c', 'flash_controller': 'src/drivers/flash_controller.c'}
 
 def register(module, entries, status='reconstructed_bounded', note='', source=None, tests=None, doc=None):
+    source = source or SHARED_SOURCES.get(module, f'tests/models/{module}.c')
     for token in entries.split():
         address = int(token, 16)
         assert address not in MAP, hex(address)
         MAP[address] = dict(module=module, semantic_status=status,
-            source=source or SHARED_SOURCES.get(module, f'tests/models/{module}.c'),
+            source=source, legacy_model=source if source.startswith('tests/') else None,
             module_tests=tests or [f'tests/test_{module}.py'],
             documentation=doc or f'docs/{module.replace("_", "-")}.md', note=note)
 
@@ -190,12 +191,12 @@ def build_inventory(root=ROOT, mapping=None, sources=None):
         tests = target.get('tests', model['module_tests'])
         tests = [tests] if isinstance(tests, str) else list(tests)
         documentation = target.get('documentation', model['documentation'])
-        for relative in [source, *tests, documentation]:
+        legacy = model['legacy_model']
+        for relative in [source, *tests, documentation, *([legacy] if legacy else [])]:
             path = (root / relative).resolve()
             if not path.is_relative_to(root.resolve()) or not path.is_file():
                 raise ValueError(f'{address:#x}: missing or escaping mapped file: {relative}')
             paths.add(relative)
-        legacy = model['source'] if model['source'].startswith('tests/') else None
         rows.append(dict(address=hex(address), name=target.get('symbol', function['name']),
                          source=source, source_tree=source.split('/')[0],
                          build_input=True, semantic_scope=model['semantic_status'],
