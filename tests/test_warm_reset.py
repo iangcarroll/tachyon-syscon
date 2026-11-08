@@ -147,12 +147,15 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in power_blocks),
                                power_names(),runtime_state(),modem_state(),
                                tuple(m.read(address,size) for address,size in diagnostic_blocks)))
-            if loop:cpu.emu_stop()
+            if loop:
+                m.stop_reason=('application-loop-stage',2)
+                cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)
         m.run(2000000)
         for hook in hooks:m.cpu.hook_del(hook)
         assert m.reset_count==reset_count+1 and loop and len(loaded)==1
+        assert m.stop_reason==('application-loop-stage',2)
         expected=retained if retained[0]==0x5b else (0x5b,0,0)
         assert loaded[0][0]==bytes(expected) and loaded[0][1]==expected
         # The original reset copies the same configuration defaults on warm boot.
