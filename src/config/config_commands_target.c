@@ -137,8 +137,8 @@ uint32_t syscon_target_cmd_config_internal(uint32_t arguments, uint32_t printer)
     flags[1] = syscon_target_wakeup_enabled();
     flags[2] = syscon_target_log_color();
     flags[3] = syscon_target_alt_powerkey();
-    flags[4] = syscon_target_factory_test();
-    flags[5] = syscon_target_modem_always_on();
+    flags[4] = syscon_target_demo_enabled();
+    flags[5] = syscon_target_keep_5v_when_off();
     uint32_t long_seconds = syscon_target_powerkey_long_seconds(),
              extra_seconds = syscon_target_powerkey_extra_seconds();
     const char *const formats[] = {SYSCON_CFG_DISPLAY_AUTO_BOOT,   SYSCON_CFG_DISPLAY_WAKE_PIN,

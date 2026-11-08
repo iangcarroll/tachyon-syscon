@@ -379,7 +379,7 @@ uint32_t syscon_target_modem_poweroff(uint32_t force)
         if (status < 0)
             LOG(1, "power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_NONE) failed: %d",
                 status);
-        if (syscon_target_modem_always_on()) {
+        if (syscon_target_keep_5v_when_off()) {
             status = (int32_t)syscon_target_power_header_default();
             if (status < 0)
                 LOG(1, "power_manager_5v_header_keep_on() failed: %d", status);
@@ -479,7 +479,7 @@ uint32_t syscon_target_modem_init(uint32_t mode)
     } else {
         syscon_target_modem_pins_off();
         syscon_target_wakeup_enable(1);
-        if (syscon_target_modem_always_on()) {
+        if (syscon_target_keep_5v_when_off()) {
             int32_t status = (int32_t)syscon_target_power_header_default();
             if (status < 0)
                 LOG(1, "power_manager_5v_header_keep_on() failed: %d", status);

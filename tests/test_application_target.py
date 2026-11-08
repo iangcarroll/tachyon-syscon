@@ -70,10 +70,10 @@ def test_full_main_initialization_reset_modes_failures_and_logs(application_elf)
     p=Pair(application_elf)
     for reset in [0,1,2,6,0xffffffff]:
         for auto in [0,1]:
-            for factory in [0,1]:
+            for demo in [0,1]:
                 for error in [0,1,0xffffffff,0x80000000]:
                     p.put(Q,bytes(24));p.put(0x20000680,b'\0')
-                    p.responses=dict(reset_cause=reset,auto_boot=auto,factory_test=factory,
+                    p.responses=dict(reset_cause=reset,auto_boot=auto,demo_enabled=demo,
                         ioexpander_init=error,power_policy_init=error,modem_init=error,
                         fault_stage_get=0x1234,reset_cause_name=0xb554,cached_reason=0xf00d,
                         fault_stage_name=0xb539,retained_modem=3,modem_mode_name=0xd1a9,
@@ -99,8 +99,8 @@ def test_full_main_all_key_events_and_shutdown_paths(application_elf):
                     p.inputs=[seed_event(event,off)];p.main(1)
     for pending in [0,1,255]:
         for active in [0,1,0xffffffff]:
-            for factory in [0,1]:
-                p.responses=dict(reset_cause=2,tasks_active=active,factory_test=factory)
+            for demo in [0,1]:
+                p.responses=dict(reset_cause=2,tasks_active=active,demo_enabled=demo)
                 p.inputs=[seed_event(1,1,pending)];p.main(1)
 
 
