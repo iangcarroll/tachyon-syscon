@@ -19,11 +19,18 @@ recompiled source against the original with 32-bit pointers and memory addresses
 The weak exit-registration function in the pinned image is absent (literal zero),
 so both exit-registration interfaces return success without saving a callback.
 The two low-level lock functions are actual no-ops; reconstructed heap wrappers
-still call them in the original order. Reentrancy reads the live pointer at
-`0x20000258`. Character classification uses the original immutable table at
-`0xe126`, including EOF and original classification-bit return values; it does
-not substitute a host locale. Tests also compare out-of-domain integers whose
-computed addresses are readable in the pinned flash image.
+still call them in the original order. Reentrancy reads the linker-resolved `syscon_runtime_current` pointer. Its
+100-byte context and three zero-filled stdio placeholders are declared in
+`runtime_state.h`; these placeholders are not initialized UART drivers.
+Startup restores this ordinary data on warm reset, as the original did.
+
+Character classification implements the original ASCII flags directly in C,
+independent of private ROM tables or the host locale. Differential tests cover
+all 256 byte values and EOF, including poisoning the obsolete table. For
+integers outside that domain, classification now returns zero and `toupper`
+returns its input. This intentional boundary change replaces accidental reads
+from unrelated firmware bytes; production callers use byte values.
+
 
 Memmove preserves the original unsigned 32-bit overlap decision and copy order.
 Tests compare full memory regions and return pointers across both overlap

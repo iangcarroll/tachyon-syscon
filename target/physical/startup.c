@@ -12,6 +12,7 @@ extern uint32_t __power_data_load[],__power_data_start[],__power_data_end[];
 extern uint32_t __power_bss_start[],__power_bss_end[];
 extern uint32_t __protocol_data_load[],__protocol_data_start[],__protocol_data_end[];
 extern uint32_t __application_bss_start[],__application_bss_end[];
+extern uint32_t __runtime_data_load[],__runtime_data_start[],__runtime_data_end[];
 extern void syscon_target_runtime_init(void);
 extern void syscon_target_timestamp_constructor(void),syscon_target_queue_constructor(void);
 extern void syscon_target_main(void),syscon_hardfault(void),syscon_nmi(void),syscon_default_exception(void);
@@ -29,6 +30,7 @@ _Noreturn void syscon_physical_reset(void){
     copy(__peripheral_data_start,__peripheral_data_load,__peripheral_data_end);
     copy(__power_data_start,__power_data_load,__power_data_end);
     copy(__protocol_data_start,__protocol_data_load,__protocol_data_end);
+    copy(__runtime_data_start,__runtime_data_load,__runtime_data_end);
     for(volatile uint32_t *p=__application_bss_start;p<__application_bss_end;p++)*p=0;
     for(volatile uint32_t *p=__power_bss_start;p<__power_bss_end;p++)*p=0;
     for(volatile uint32_t *p=__peripheral_bss_start;p<__peripheral_bss_end;p++)*p=0;

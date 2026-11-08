@@ -7,7 +7,7 @@ import toolchain_process
 ROOT=Path(__file__).resolve().parents[1]
 SOURCES=['target/config_state.c','target/runtime_scan.c','target/runtime_scan_wrappers.c','target/runtime_scan_printf.c',
          'target/runtime_scan_abi.S','target/runtime_stdio.c','target/runtime_heap.c',
-         'target/runtime_support.c','src/runtime_memory.c','src/runtime_arithmetic.c',
+         'target/runtime_support.c','target/runtime_state.c','src/runtime_memory.c','src/runtime_arithmetic.c',
          'target/runtime_arithmetic_abi.S','target/emulation_runtime.c']
 FLAGS=['-std=c11','-Wall','-Wextra','-Werror','-mcpu=cortex-m0plus','-mthumb',
        '-mfloat-abi=soft','-Os','-ffreestanding','-fno-builtin','-fwrapv',

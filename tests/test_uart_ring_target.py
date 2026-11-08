@@ -10,6 +10,7 @@ from arm_rebuild_oracle import ArmRebuildOracle
 from oracle import Oracle
 from power_state_comparison import PowerStateComparison
 from protocol_state_comparison import ProtocolStateComparison
+from runtime_state_comparison import RuntimeStateComparison
 
 ROOT=Path(__file__).resolve().parents[1]
 BASES=[0x40108000,0x40100000]
@@ -66,6 +67,7 @@ class Pair:
         self.o=Oracle();self.a=ArmRebuildOracle(elf);self.events=[[],[]];self.scripts=[defaultdict(deque),defaultdict(deque)];self.assertions=[[],[]]
         self.power_state=PowerStateComparison(self.o,self.a)
         self.protocol_state=ProtocolStateComparison(self.o,self.a)
+        self.runtime_state=RuntimeStateComparison(self.o,self.a)
         for i,machine in enumerate((self.o,self.a)):
             for base in BASES:machine.cpu.mem_map(base,0x2000)
             machine.cpu.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,self.record(i))
@@ -91,7 +93,7 @@ class Pair:
         left=self.o.call(entry,*args);right=self.a.call('syscon_target_uart_'+name,*args)
         if returns:assert left==right,(hex(entry),args,left,right)
         assert self.events[0]==self.events[1],(hex(entry),args,self.events)
-        assert bytes(self.o.cpu.mem_read(0x20000000,0xc00))==self.protocol_state.memory(0x20000000,self.power_state.memory(0x20000000,self.a.read(0x20000000,0xc00)))
+        assert bytes(self.o.cpu.mem_read(0x20000000,0xc00))==self.runtime_state.memory(0x20000000,self.protocol_state.memory(0x20000000,self.power_state.memory(0x20000000,self.a.read(0x20000000,0xc00))))
         return left
 
 

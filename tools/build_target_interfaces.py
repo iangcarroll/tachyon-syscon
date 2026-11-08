@@ -14,7 +14,7 @@ TARGETS=['callback_helpers.c','config_state.c','config_helpers.c','config_read.c
     'core_helpers.c','interface_bindings.c','fault_control_target.c','fault_handlers.c','hal_helpers.c',
     'mspm0_core_target.c','gpio_state.c','uart_ring.c','uart_state.c','uart_ring_abi.S','runtime_arithmetic_abi.S','runtime_heap.c',
     'runtime_scan.c','runtime_scan_abi.S','runtime_scan_printf.c','runtime_scan_wrappers.c',
-    'runtime_stdio.c','runtime_support.c','runtime_arithmetic_float.c',
+    'runtime_stdio.c','runtime_support.c','runtime_state.c','runtime_arithmetic_float.c',
     'adc_target.c','uart_hal_target.c','timers_target.c','tasks_target.c','retained_target.c',
     'diagnostics_target.c','diagnostics_state.c','application_target.c','application_state.c','logger_target.c','logger_state.c','logger_target_abi.S',
     'rgb_target.c','power_key_target.c','power_policy_target.c','power_state.c','i2c_target.c','pwm_target.c',

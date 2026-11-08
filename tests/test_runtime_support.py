@@ -18,7 +18,7 @@ def support_elf(tmp_path_factory):
     elf=dest/'test.elf'
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror',
-        '-I',str(ROOT/'include'),str(ROOT/'target/runtime_support.c'),str(trap),
+        '-I',str(ROOT/'include'),str(ROOT/'target/runtime_support.c'),str(ROOT/'target/runtime_state.c'),str(trap),
         '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_rt_memmove','-o',str(elf)],check=True)
     return elf
 
@@ -82,3 +82,17 @@ def test_ctype_out_of_domain_does_not_index_arbitrary_firmware(support_elf):
         assert machine.call('syscon_rt_ctype',signed)==0
         assert machine.call('syscon_rt_isalnum',signed)==0
         assert machine.call('syscon_rt_toupper',signed)==signed&0xffffffff
+
+
+def test_default_runtime_context_and_stream_placeholders_are_linked_objects(support_elf):
+    original=Oracle();candidate=ArmRebuildOracle(support_elf)
+    context=candidate.symbols['syscon_runtime_context']
+    assert candidate.call('syscon_rt_getreent')==context
+    assert candidate.u32(candidate.symbols['syscon_runtime_current'])==context
+    assert candidate.read(context,4)==bytes(original.cpu.mem_read(0x2000025c,4))
+    for offset,symbol in [(4,'syscon_stdio_input'),(8,'syscon_stdio_output'),(12,'syscon_stdio_error')]:
+        linked=candidate.symbols[symbol]
+        assert candidate.u32(context+offset)==linked
+        assert candidate.CODE<=linked<candidate.CODE+0x80000
+        assert candidate.read(linked,32)==bytes(original.cpu.mem_read(original.u32(0x2000025c+offset),32))
+    assert candidate.read(context+16,84)==bytes(84)
