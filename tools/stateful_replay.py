@@ -193,15 +193,23 @@ def compare(results):
     return dict(passed=equal and all(expected), equivalent=equal, expected_outcomes=expected)
 
 
-def replay(candidate, events, output):
-    validate(events)
+def write_summary(output, summary):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    (output / 'events.json').write_text(json.dumps(events, indent=2) + '\n')
-    summary_path = output / 'summary.json'
-    summary_path.write_text(json.dumps(dict(passed=False, status='running')) + '\n')
+    (output / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+
+
+def error_summary(error):
+    return dict(passed=False, status='error', error=type(error).__name__ + ': ' + str(error))
+
+
+def replay(candidate, events, output):
+    output = Path(output)
+    write_summary(output, dict(passed=False, status='running'))
     results = []
     try:
+        validate(events)
+        (output / 'events.json').write_text(json.dumps(events, indent=2) + '\n')
         images = [('original', load_image(), 0x20000820),
                   ('rebuilt', Path(candidate).read_bytes(), candidate_stack_floor(candidate))]
         for role, image, floor in images:
@@ -212,8 +220,8 @@ def replay(candidate, events, output):
         summary.update(status='completed', image_sha256={role: hashlib.sha256(image).hexdigest()
                                                        for role, image, _ in images})
     except Exception as error:
-        summary = dict(passed=False, status='error', error=type(error).__name__ + ': ' + str(error))
-    summary_path.write_text(json.dumps(summary, indent=2) + '\n')
+        summary = error_summary(error)
+    write_summary(output, summary)
     return summary
 
 
@@ -226,8 +234,13 @@ def main():
     parser.add_argument('--candidate', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    events = generate(args.seed, args.rounds) if args.seed is not None else validate(json.loads(args.events.read_text()))
-    summary = replay(args.candidate, events, args.output)
+    try:
+        events = generate(args.seed, args.rounds) if args.seed is not None else json.loads(args.events.read_text())
+    except (ValueError, OSError) as error:
+        summary = error_summary(error)
+        write_summary(args.output, summary)
+    else:
+        summary = replay(args.candidate, events, args.output)
     print(json.dumps(summary, indent=2))
     return 0 if summary['passed'] else 1
 

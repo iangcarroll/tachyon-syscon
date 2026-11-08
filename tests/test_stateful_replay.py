@@ -92,3 +92,28 @@ def test_missing_candidate_cannot_leave_a_stale_pass_or_running_result(tmp_path)
     result = replay(tmp_path / 'missing.bin', generate(1), tmp_path)
     assert result['status'] == 'error' and not result['passed']
     assert json.loads((tmp_path / 'summary.json').read_text()) == result
+
+
+def test_invalid_events_replace_a_previous_pass(tmp_path):
+    (tmp_path / 'summary.json').write_text('{"passed":true}')
+    result = replay(tmp_path / 'unused.bin', [{'kind': 'i2c-nack', 'count': 4}], tmp_path)
+    assert result['status'] == 'error' and not result['passed']
+    assert json.loads((tmp_path / 'summary.json').read_text()) == result
+
+
+@pytest.mark.parametrize('contents', ['not JSON', '[{"kind":"reset","unknown":true}]'])
+def test_cli_bad_replay_replaces_a_previous_pass(tmp_path, contents):
+    import subprocess
+    import sys
+    from build_physical_firmware import ROOT
+
+    events = tmp_path / 'input.json'
+    events.write_text(contents)
+    (tmp_path / 'summary.json').write_text('{"passed":true}')
+    result = subprocess.run([sys.executable, str(ROOT / 'tools/stateful_replay.py'),
+                             '--events', str(events), '--candidate', str(tmp_path / 'unused.bin'),
+                             '--output', str(tmp_path)], capture_output=True, text=True)
+    assert result.returncode == 1
+    summary = json.loads((tmp_path / 'summary.json').read_text())
+    assert summary['status'] == 'error' and not summary['passed']
+    assert json.loads(result.stdout) == summary
