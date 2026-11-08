@@ -217,10 +217,23 @@ def compare_results(spec, results):
             'differing_fields': [field for field in fields if len(results) == 2 and results[0][field] != results[1][field]]}
 
 
-def execute(image, spec, output, role):
+def execute(image, spec, output, role, manifest=None):
     """Execute real reset/IRQ/main code; all writes are external peripheral stimuli."""
     from rebuilt_system import boot, normalized_log
     from unicorn import UC_HOOK_MEM_WRITE
+    from inventory import EXPECTED
+    if hashlib.sha256(image).hexdigest()==EXPECTED:
+        state_address,mode_address,stack_floor=0x200004f1,0x20000450,0x20000820
+    else:
+        if not manifest or manifest.get('binary_sha256')!=hashlib.sha256(image).hexdigest():
+            raise ValueError('Candidate image requires its matching layout manifest')
+        layout=manifest['layout_audit'];symbols=layout['symbols']
+        state_address=symbols['syscon_modem_runtime']+17
+        mode_address=symbols['syscon_modem_timing']
+        stack_floor=layout['stack_floor_address']
+        if not (0x20000000<=state_address<stack_floor-1 and
+                0x20000000<=mode_address<stack_floor<=0x20001000):
+            raise ValueError('Candidate observer addresses are outside allocated SRAM')
     validate(spec)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
@@ -246,7 +259,7 @@ def execute(image, spec, output, role):
     persistence_verified = spec['startup'] != 'persisted-auto'
     limits = spec['limits']
     result = {'role': role, 'image_sha256': hashlib.sha256(image).hexdigest(),
-              'termination': 'completed', 'error': None}
+              'termination': 'completed', 'error': None,'stack_floor':stack_floor}
 
     def check_budget():
         if time.monotonic() - started > limits['wall_seconds']:
@@ -303,7 +316,7 @@ def execute(image, spec, output, role):
         phase = 'configuration-setup' if spec['startup'] == 'persisted-auto' and reset_index == 0 else 'scenario'
         machine, _ = boot(flash, scenario_path,
                           budget=min(2000000, limits['instructions'] - total_instructions),
-                          observer=lambda initialized: power.attach(initialized, phase))
+                          observer=lambda initialized: power.attach(initialized, phase),stack_floor=stack_floor)
         reset_index += 1
         check_budget()
 
@@ -321,7 +334,7 @@ def execute(image, spec, output, role):
             cold_start(configured)
             persistence.append({'phase': 'fresh-reset', 'flash_hex': bytes(machine.flash[0xf800:]).hex()})
             persistence_verified = persistence[-1]['flash_hex'] == persistence[-2]['flash_hex']
-        initial_state = bytes(machine.cpu.mem_read(0x200004f1, 2)).hex()
+        initial_state = bytes(machine.cpu.mem_read(state_address, 2)).hex()
 
         def observe(cpu, kind, address, size, value, unused):
             nonlocal key_tick, released
@@ -355,7 +368,7 @@ def execute(image, spec, output, role):
                     ready_seen = uart_ready(machine.device.r, 1)
             else:
                 ready_since = None
-            state = bytes(machine.cpu.mem_read(0x200004f1, 2)).hex()
+            state = bytes(machine.cpu.mem_read(state_address, 2)).hex()
             log = bytes(machine.device.tx[0])
             if spec['expect'] == 'on' and policy_satisfied:
                 break
@@ -386,8 +399,8 @@ def execute(image, spec, output, role):
         persistence.append({'phase': 'session-end', 'flash_hex': bytes(machine.flash[0xf800:]).hex()})
     log = bytes(machine.device.tx[0]) if machine else b''
     result.update(initial_state=initial_state,
-        state=bytes(machine.cpu.mem_read(0x200004f1, 2)).hex() if machine else None,
-        mode=int.from_bytes(machine.cpu.mem_read(0x20000450, 1), 'little') if machine else None,
+        state=bytes(machine.cpu.mem_read(state_address, 2)).hex() if machine else None,
+        mode=int.from_bytes(machine.cpu.mem_read(mode_address, 1), 'little') if machine else None,
         key_events=key_events, rail_applied=raised, uart_readiness_observed=ready_seen,
         uart_policy=spec['uart']['policy'], uart_policy_satisfied=policy_satisfied,
         uart1_reply_hex=reply.hex(), protocol_trace=protocol, persistence_trace=persistence,
@@ -406,7 +419,7 @@ def execute(image, spec, output, role):
     return result
 
 
-def replay(original, candidate, spec, output, seed=None):
+def replay(original, candidate, spec, output, seed=None, candidate_manifest=None):
     """All bulky traces go to output; returned summary is intentionally small."""
     validate(spec)
     if seed is not None:
@@ -415,7 +428,7 @@ def replay(original, candidate, spec, output, seed=None):
     output.mkdir(parents=True, exist_ok=True)
     (output / 'summary.json').write_text(json.dumps({'status': 'running', 'passed': False}) + '\n')
     (output / 'replay.json').write_text(json.dumps({'seed': seed, 'scenario': spec}, indent=2) + '\n')
-    results = [execute(image, spec, output, role) for role, image in [('original', original), ('rebuilt', candidate)]]
+    results = [execute(image, spec, output, role, candidate_manifest if role=='rebuilt' else None) for role, image in [('original', original), ('rebuilt', candidate)]]
     summary = compare_results(spec, results)
     summary.update(status='completed', name=spec['name'], seed=seed, output=str(output),
                    image_sha256={result['role']: result['image_sha256'] for result in results},
@@ -432,11 +445,13 @@ def main():
     parser.add_argument('--original', required=True, type=Path)
     parser.add_argument('--candidate', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--manifest', type=Path, help='Candidate layout manifest; defaults beside firmware.bin')
     parser.add_argument('--seed', type=int)
     args = parser.parse_args()
     try:
         spec = load_scenario(args.scenario)
-        summary = replay(args.original.read_bytes(), args.candidate.read_bytes(), spec, args.output, args.seed)
+        manifest=json.loads((args.manifest or args.candidate.with_name('manifest.json')).read_text())
+        summary = replay(args.original.read_bytes(), args.candidate.read_bytes(), spec, args.output, args.seed, manifest)
     except (InputError, ValueError, OSError) as error:
         parser.error(str(error))
     print(json.dumps(summary, indent=2))

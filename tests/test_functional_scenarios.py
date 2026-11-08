@@ -30,7 +30,7 @@ def rebuilt_image(tmp_path_factory):
     image = (directory / 'firmware.bin').read_bytes()
     assert hashlib.sha256(image).hexdigest() == manifest['binary_sha256']
     assert hashlib.sha256((directory / 'firmware.elf').read_bytes()).hexdigest() == manifest['elf_sha256']
-    return image
+    return image,manifest
 
 
 def scenario_output(fallback, name, seed):
@@ -150,13 +150,14 @@ def test_readiness_protocol_and_persistence_mismatches_fail():
 def test_physical_cold_scenarios(tmp_path, rebuilt_image, name, seed):
     from inventory import load_image
     output = scenario_output(tmp_path, name, seed)
-    result = replay(load_image(), rebuilt_image, fixture(name), output, seed)
+    image,manifest=rebuilt_image
+    result = replay(load_image(), image, fixture(name), output, seed, manifest)
     assert result['passed'], result
     assert result['expected_outcomes'] == [True, True]
     for role in ['original', 'rebuilt']:
         row = json.loads((output / (role + '-result.json')).read_text())
         assert row['termination'] == 'completed'
-        assert row['minimum_msp'] >= 0x20000820
+        assert row['minimum_msp'] >= row['stack_floor']
     if name == 'cold-autoboot':
         a = json.loads((output / 'original-result.json').read_text())
         b = json.loads((output / 'rebuilt-result.json').read_text())
@@ -310,3 +311,15 @@ def test_scenario_output_preserves_unique_named_ci_runs(tmp_path, monkeypatch):
     marker = first / 'result.json'
     marker.write_text('preserved')
     assert second.is_dir() and marker.read_text() == 'preserved'
+
+
+def test_candidate_observers_require_matching_manifest(tmp_path,rebuilt_image):
+    from functional_scenarios import execute
+    image,manifest=rebuilt_image
+    for bad in [None,dict(manifest,binary_sha256='wrong')]:
+        with pytest.raises(ValueError,match='matching layout manifest'):
+            execute(image,fixture(),tmp_path,'rebuilt',bad)
+    bad=copy.deepcopy(manifest)
+    bad['layout_audit']['symbols']['syscon_modem_runtime']=0x40000000
+    with pytest.raises(ValueError,match='outside allocated SRAM'):
+        execute(image,fixture(),tmp_path,'rebuilt',bad)
