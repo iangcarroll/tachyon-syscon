@@ -20,8 +20,8 @@ def fault_target_elf(tmp_path_factory):
         'syscon_target_gpio_read','syscon_target_watchdog_feed','syscon_cycle_delay']
     trap.write_text('\n'.join('void '+n+'(void){__asm__("bkpt #0");}' for n in names)+'\n')
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb','-ffreestanding','-fno-builtin',
-        '-nostdlib','-Wall','-Wextra','-Werror','-I',str(ROOT/'include'),str(ROOT/'target/drivers/fault_control_target.c'),
-        str(ROOT/'target/drivers/gpio_state.c'),str(ROOT/'src/runtime_memory.c'),str(trap),'-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),
+        '-nostdlib','-Wall','-Wextra','-Werror','-I',str(ROOT/'include'),str(ROOT/'src/drivers/fault_control_target.c'),
+        str(ROOT/'src/drivers/gpio_state.c'),str(ROOT/'src/runtime/runtime_memory.c'),str(trap),'-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),
         '-Wl,-e,syscon_target_assert','-o',str(elf)],check=True)
     return elf
 

@@ -1,6 +1,6 @@
 # ADC conversion and calibration
 
-`target/drivers/adc_target.c` implements `0x7c54`, `0x7d54`, `0x7e7c`, and `0x7f24` through the interfaces in `include/adc_target.h`. These are direct target functions, not wrappers around the host ADC environment. The source uses the reconstructed lookup/clock/VREF helpers, memory routines, signed division, and actual cycle-delay instructions.
+`src/drivers/adc_target.c` implements `0x7c54`, `0x7d54`, `0x7e7c`, and `0x7f24` through the interfaces in `include/adc_target.h`. These are direct target functions, not wrappers around the host ADC environment. The source uses the reconstructed lookup/clock/VREF helpers, memory routines, signed division, and actual cycle-delay instructions.
 
 | Entry | Target symbol | Behavior retained |
 |---|---|---|
@@ -9,7 +9,7 @@
 | `0x7e7c` | `syscon_target_adc_raw` | Manual sample/conversion sequence, delay-separated descriptor reloads, SVT result read and 16-bit mask |
 | `0x7f24` | `syscon_target_adc_millivolts` | Bytewise scale reload, wrapping 32-bit product and signed truncation toward zero |
 
-Pin lookup uses the low byte of its argument and the mutable `syscon_adc_channels` table in `target/drivers/hal_helpers.c`. Missing descriptors assert before null configuration is checked during initialization. Assertions preserve the original filename/expression text and line numbers; their strings are ordinary linker-resolved C objects. Initialization's R0 is zero and R1 is the copied first clock-configuration word; a `uint64_t` return explicitly preserves both.
+Pin lookup uses the low byte of its argument and the mutable `syscon_adc_channels` table in `src/drivers/hal_helpers.c`. Missing descriptors assert before null configuration is checked during initialization. Assertions preserve the original filename/expression text and line numbers; their strings are ordinary linker-resolved C objects. Initialization's R0 is zero and R1 is the copied first clock-configuration word; a `uint64_t` return explicitly preserves both.
 
 The raw conversion does not cache its port across delay calls. It reloads the descriptor's base after the 32000-count delay, then reloads the slot and base after the 3200-count delay. The target implementation and tests preserve these reads, including descriptor changes during actual delay execution. It does not invent a conversion-complete poll or timeout absent from the original.
 
@@ -21,11 +21,11 @@ The scale conversion keeps the original byte read order and defined ARM32 wrap s
 
 ## Dependencies and evidence
 
-The standalone builder `tools/adc_uart_target_oracle.py` links `target/drivers/hal_helpers.c`, `target/drivers/mspm0_core_target.c`, `target/drivers/core_helpers.c`, `src/runtime_memory.c`, `src/runtime_arithmetic.c`, the reconstructed arithmetic ABI/adapters, and pinned GCC soft-float source. No installed libc/libgcc is linked. `syscon_target_assert` is the one trapped nonreturning dependency in the direct tests; the full target assertion can be linked by the final image builder. Unused sleep/logging code is garbage-collected, so this ADC test does not supply a fake logger.
+The standalone builder `tools/adc_uart_target_oracle.py` links `src/drivers/hal_helpers.c`, `src/drivers/mspm0_core_target.c`, `src/drivers/core_helpers.c`, `src/runtime/runtime_memory.c`, `src/runtime/runtime_arithmetic.c`, the reconstructed arithmetic ABI/adapters, and pinned GCC soft-float source. No installed libc/libgcc is linked. `syscon_target_assert` is the one trapped nonreturning dependency in the direct tests; the full target assertion can be linked by the final image builder. Unused sleep/logging code is garbage-collected, so this ADC test does not supply a fake logger.
 
 `include/adc_state.h` defines the board channel descriptors, saved caller configuration,
 little-endian scale bytes and VREF initialization flag. They are named linker-allocated
-objects; no private RAM or ROM address remains in `target/drivers/adc_target.c` or the ADC
+objects; no private RAM or ROM address remains in `src/drivers/adc_target.c` or the ADC
 lookup helper. Clock parameters are explicit source values. Fixed addresses in the
 conversion code identify MCU peripherals, the ADC result alias and factory calibration
 memory. Factory calibration remains an explicit emulator input, never an invented

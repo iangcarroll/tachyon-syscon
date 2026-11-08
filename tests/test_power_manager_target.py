@@ -140,9 +140,9 @@ def test_editing_voltage_scale_changes_only_the_selected_channel(tmp_path,monkey
     import shutil
     import power_manager_target_oracle as builder
     tree=tmp_path/'source'
-    for directory in ('target','include','src'):
+    for directory in ('src','include','tests/fixtures/target'):
         shutil.copytree(builder.ROOT/directory,tree/directory)
-    source=tree/'target/power/power_manager_target.c'
+    source=tree/'src/power/power_manager_target.c'
     text=source.read_text()
     assert text.count('scale[] = {3, 3, 3, 2, 8, 1}')==1
     source.write_text(text.replace('scale[] = {3, 3, 3, 2, 8, 1}',

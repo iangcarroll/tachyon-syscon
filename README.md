@@ -2,7 +2,9 @@
 
 Particle seems to have abandoned Tachyon, leaving parts of the platform without promised source code. I started this project to help keep the hardware maintainable by reconstructing and open-sourcing the missing syscon firmware.
 
-The reconstruction was written by **GPT-6 Astra**, with human direction and hardware testing. It aims to preserve the original functionality while making the source understandable and editable. See the [source guide](target/README.md) to get started.
+The reconstruction was written by **GPT-6 Astra**, with human direction and hardware testing. It aims to preserve the original functionality while making the source understandable and editable. See the [source guide](src/README.md) to get started.
+
+Project-authored code is available under the [MIT License](LICENSE), copyright Cautela LLC. Bundled third-party code retains its existing licenses.
 
 **Experimental: use at your own risk.** This is reconstructed firmware. Differential testing and MCU emulation provide evidence of similar behavior, not proof of complete equivalence or safety. The syscon controls board power; a bad image can leave the board unable to boot or recover through Linux.
 

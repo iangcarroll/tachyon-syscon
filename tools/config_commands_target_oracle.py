@@ -16,6 +16,6 @@ def build(destination):
     feed.write_text('#include <stdint.h>\nuint32_t syscon_target_watchdog_feed(void){*(volatile uint32_t*)0x40081108=0xa7;return 0;}\n')
     old=config.runtime.SOURCES
     try:
-        config.runtime.SOURCES=old+['target/config/config_commands_target.c',str(trap),str(feed)]
+        config.runtime.SOURCES=old+['src/config/config_commands_target.c',str(trap),str(feed)]
         return config.build(destination)
     finally:config.runtime.SOURCES=old

@@ -3,21 +3,21 @@
     {
       "address": "0x976c",
       "symbol": "syscon_rt_snprintf",
-      "source": "target/runtime/runtime_scan_abi.S",
+      "source": "src/runtime/runtime_scan_abi.S",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0x97d4",
       "symbol": "syscon_rt_sscanf",
-      "source": "target/runtime/runtime_scan_wrappers.c",
+      "source": "src/runtime/runtime_scan_wrappers.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0x9824",
       "symbol": "syscon_rt_seofread",
-      "source": "target/runtime/runtime_scan_wrappers.c",
+      "source": "src/runtime/runtime_scan_wrappers.c",
       "tests": "tests/test_runtime_scan_callback.py",
       "docs": "docs/static-discovery-audit.md",
       "provenance": "Literal0x981c points to callback installed at FILE._read by sscanf97d4; byte body00207047; vendor/newlib-4.3.0/sscanf.c names __seofread."
@@ -25,75 +25,75 @@
     {
       "address": "0x9844",
       "symbol": "syscon_rt_strncasecmp",
-      "source": "target/runtime/runtime_scan_wrappers.c",
+      "source": "src/runtime/runtime_scan_wrappers.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0x9904",
       "symbol": "syscon_rt_strtol_core",
-      "source": "target/runtime/runtime_scan_wrappers.c",
+      "source": "src/runtime/runtime_scan_wrappers.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0x9a20",
       "symbol": "syscon_rt_strtol_r",
-      "source": "target/runtime/runtime_scan_wrappers.c",
+      "source": "src/runtime/runtime_scan_wrappers.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0x9a28",
       "symbol": "syscon_rt_strtol",
-      "source": "target/runtime/runtime_scan_wrappers.c",
+      "source": "src/runtime/runtime_scan_wrappers.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0x9b24",
       "symbol": "syscon_rt_vfprintf",
-      "source": "target/runtime/runtime_scan_abi.S",
+      "source": "src/runtime/runtime_scan_abi.S",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0x9ddc",
       "symbol": "syscon_rt_vfscanf",
-      "source": "target/runtime/runtime_scan.c",
+      "source": "src/runtime/runtime_scan.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0xa3d8",
       "symbol": "syscon_scan_chars",
-      "source": "target/runtime/runtime_scan.c",
+      "source": "src/runtime/runtime_scan.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0xa494",
       "symbol": "syscon_scan_integer",
-      "source": "target/runtime/runtime_scan.c",
+      "source": "src/runtime/runtime_scan.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     },
     {
       "address": "0xa69c",
       "symbol": "syscon_scan_sccl",
-      "source": "target/runtime/runtime_scan.c",
+      "source": "src/runtime/runtime_scan.c",
       "tests": "tests/test_runtime_scan.py",
       "docs": "docs/runtime-scan.md"
     }
   ],
   "dependencies": [
-    "target/runtime/runtime_stdio.c",
-    "target/runtime/runtime_heap.c",
-    "target/runtime/runtime_support.c",
-    "src/runtime_memory.c",
-    "src/runtime_arithmetic.c",
-    "target/runtime/runtime_arithmetic_abi.S",
-    "target/runtime/runtime_scan_printf.c"
+    "src/runtime/runtime_stdio.c",
+    "src/runtime/runtime_heap.c",
+    "src/runtime/runtime_support.c",
+    "src/runtime/runtime_memory.c",
+    "src/runtime/runtime_arithmetic.c",
+    "src/runtime/runtime_arithmetic_abi.S",
+    "src/runtime/runtime_scan_printf.c"
   ],
   "remaining_boundaries": [
     "Arbitrary corruption of private stack or suppression flags during scan callbacks is not claimed equivalent.",

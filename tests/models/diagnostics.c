@@ -1,18 +1,15 @@
+#include "model_memory.h"
 #include "diagnostics.h"
 #include <string.h>
-static uint32_t r32(const uint8_t *s,unsigned offset){uint32_t v;memcpy(&v,s+offset,4);return v;}
-static uint64_t r64(const uint8_t *s,unsigned offset){uint64_t v;memcpy(&v,s+offset,8);return v;}
-static void w32(uint8_t *s,unsigned offset,uint32_t v){memcpy(s+offset,&v,4);}
-static void w64(uint8_t *s,unsigned offset,uint64_t v){memcpy(s+offset,&v,8);}
 static uint64_t call(const syscon_diagnostics_io *io,uint32_t address,uint32_t a){return io->call(io->ctx,address,a);}
 void syscon_diagnostics_enable(uint8_t s[4096],uint32_t enable){s[0x46]=(uint8_t)enable;}
 void syscon_diagnostics_poll(uint8_t s[4096],const syscon_diagnostics_io *io){
-    w64(s,0x2c0,r64(s,0x2c0)+1);
+    model_write_u64(s,0x2c0,model_read_u64(s,0x2c0)+1);
     uint64_t now=call(io,0x77b4,0);
-    if(now-(uint64_t)r32(s,0x2c8)<=5000)return;
-    uint32_t current=(uint32_t)call(io,0x77b4,0),previous=r32(s,0x2cc);
-    uint64_t loops=r64(s,0x2c0);
-    w32(s,0x2cc,current);w64(s,0x2c0,0);w32(s,0x2c8,current);
+    if(now-(uint64_t)model_read_u32(s,0x2c8)<=5000)return;
+    uint32_t current=(uint32_t)call(io,0x77b4,0),previous=model_read_u32(s,0x2cc);
+    uint64_t loops=model_read_u64(s,0x2c0);
+    model_write_u32(s,0x2cc,current);model_write_u64(s,0x2c0,0);model_write_u32(s,0x2c8,current);
     if(!s[0x46])return;
     uint32_t uptime=(uint32_t)(call(io,0x77b4,0)/1000);
     uint32_t volts[6];
@@ -47,7 +44,7 @@ uint32_t syscon_runtime_get(const uint8_t s[4096],uint32_t entry){
     switch(entry){
     case 0x3114:return s[0x30];case 0x3120:return s[0x31];case 0x312c:return s[0x32];
     case 0x3138:return s[0x33];case 0x3144:return s[0x34];case 0x3150:return s[0x35];
-    case 0x315c:return r32(s,0x36);case 0x3178:return r32(s,0x3a);
+    case 0x315c:return model_read_u32(s,0x36);case 0x3178:return model_read_u32(s,0x3a);
     default:return UINT32_MAX;
     }
 }

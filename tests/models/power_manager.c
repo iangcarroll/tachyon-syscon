@@ -1,3 +1,4 @@
+#include "model_memory.h"
 #include "power_manager.h"
 #include <string.h>
 #include <setjmp.h>
@@ -12,8 +13,6 @@ static uint64_t guarded_call(void *ctx,uint32_t entry,uint32_t a,uint32_t b,cons
 static uint64_t dep(const syscon_power_environment *e,uint32_t f,uint32_t a,uint32_t b) {
     return e->call(e->ctx,f,a,b,0,0);
 }
-static uint64_t read64(uint8_t *s,unsigned o) { uint64_t v;memcpy(&v,s+o,8);return v; }
-static void write64(uint8_t *s,unsigned o,uint64_t v) { memcpy(s+o,&v,8); }
 static uint32_t get(const syscon_power_environment *e,uint32_t pin) { return (uint32_t)dep(e,0x3620,pin,0); }
 static int32_t put(const syscon_power_environment *e,uint32_t pin,uint32_t value) { return (int32_t)dep(e,0x364e,pin,value); }
 static uint32_t fail(const syscon_power_environment *e,uint32_t line,int *failed) {
@@ -87,17 +86,17 @@ static uint32_t run(uint8_t *s,const syscon_power_environment *e,uint32_t entry,
         if(value!=a)return fail(e,0x168,failed);
         return 0;
     case 0x50f4:
-        run(s,e,0x5004,0,failed);write64(s,0x378,dep(e,0x77b4,0,0));s[0x370]=0;return 1;
+        run(s,e,0x5004,0,failed);model_write_u64(s,0x378,dep(e,0x77b4,0,0));s[0x370]=0;return 1;
     case 0x5148:run(s,e,0x5004,1,failed);return 1;
     case 0x517c:
         if(s[0x370])return s[0x370];
-        return read64(s,0x378) && (uint64_t)(dep(e,0x77b4,0,0)-read64(s,0x378))<2000;
+        return model_read_u64(s,0x378) && (uint64_t)(dep(e,0x77b4,0,0)-model_read_u64(s,0x378))<2000;
     case 0x51c0: {
         if(run(s,e,0x517c,0,failed))return UINT32_MAX;
         if((int32_t)run(s,e,0x4c50,16,failed)<=4499)return UINT32_MAX;
         if(!run(s,e,0x4ec4,0,failed))return UINT32_MAX;
         static const uint32_t actions[]={0,0x5149,1,250,0,0x50f5};
-        s[0x370]=1;write64(s,0x378,0);
+        s[0x370]=1;model_write_u64(s,0x378,0);
         if((int32_t)e->call(e->ctx,0x7554,0,3,actions,sizeof(actions))<0){s[0x370]=0;return UINT32_MAX;}
         return 0;
     }

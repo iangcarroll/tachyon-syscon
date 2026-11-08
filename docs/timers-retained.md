@@ -122,7 +122,7 @@ No hardware was connected, read, erased, or programmed by this work.
 
 ## Linked runtime state
 
-The production `target/` implementation uses the named objects declared in
+The production `src/` implementation uses the named objects declared in
 `include/scheduling_state.h`: timer slots and clock words, task queues, and the
 three-byte retained-state mirror. The physical linker allocates these objects;
 reset clears their ordinary BSS before application initialization. PMU scratch

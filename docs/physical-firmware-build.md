@@ -2,7 +2,7 @@
 
 `tools/build_physical_firmware.py` now links a complete experimental image from reconstructed source with **zero unresolved symbols**. It performs no hardware operation. The physical profile remains unconfirmed, whole-image stack use is not bounded, and neither a successful link nor these startup tests establish firmware equivalence or flash readiness.
 
-The builder uses `target/physical/firmware.ld` and follows the emulator's MSPM0L1306 profile: 65536 bytes MAIN flash and 4096 bytes SRAM. Missing symbols fail the link; test fixtures, endpoint stubs, installed runtime archives and original executable payloads are not production inputs. Rebuilds first remove old image outputs. Compilation/link/audit failures or input changes during the build prevent a current binary from being emitted. A manifest records source/header/linker/builder hashes, exact unresolved symbols, layout, load segments and compiler stack reports.
+The builder uses `src/physical/firmware.ld` and follows the emulator's MSPM0L1306 profile: 65536 bytes MAIN flash and 4096 bytes SRAM. Missing symbols fail the link; test fixtures, endpoint stubs, installed runtime archives and original executable payloads are not production inputs. Rebuilds first remove old image outputs. Compilation/link/audit failures or input changes during the build prevent a current binary from being emitted. A manifest records source/header/linker/builder hashes, exact unresolved symbols, layout, load segments and compiler stack reports.
 
 | Region | Contract |
 |---|---|
@@ -22,7 +22,7 @@ size. Factory/NONMAIN contents are never invented.
 
 ## Reset and flash execution
 
-`target/physical/startup.c` copies each linker-defined initialized section and
+`src/physical/startup.c` copies each linker-defined initialized section and
 clears each allocated BSS section. It leaves unallocated SRAM alone. Runtime
 initialization calls the timestamp and queue constructors in their original
 order before main. Warm-reset tests corrupt ordinary objects and verify their

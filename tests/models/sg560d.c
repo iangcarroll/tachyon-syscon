@@ -1,11 +1,8 @@
 /* Recovered SG560D control helpers. All voltages/times are original integers. */
+#include "model_memory.h"
 #include "sg560d.h"
 #include <string.h>
 
-static uint32_t r32(const uint8_t *s,unsigned o) { uint32_t v;memcpy(&v,s+o,4);return v; }
-static uint64_t r64(const uint8_t *s,unsigned o) { uint64_t v;memcpy(&v,s+o,8);return v; }
-static void w32(uint8_t *s,unsigned o,uint32_t v) { memcpy(s+o,&v,4); }
-static void w64(uint8_t *s,unsigned o,uint64_t v) { memcpy(s+o,&v,8); }
 static uint64_t dep(const sg560d_environment *e,uint32_t f,uint32_t a,uint32_t b) {
     return e->call(e->ctx,f,a,b,0,0,0,0);
 }
@@ -67,7 +64,7 @@ static uint32_t power_check(uint8_t *s,const sg560d_environment *e) {
     } else dep(e,0x4e34,2,0);
     dep(e,0x5048,usb<=4499 && input && battery==1?2:1,0);
     dep(e,0x5358,0x8fa1,0);
-    s[0x4f2]=1;w64(s,0x518,now(e)+3000);
+    s[0x4f2]=1;model_write_u64(s,0x518,now(e)+3000);
     return 1;
 }
 static const uint32_t backoff_base[7]={30000,900000,900000,5000,120000,120000,10000};
@@ -93,10 +90,10 @@ static void schedule_retry(uint8_t *s,const sg560d_environment *e,uint32_t reaso
     int continuing=s[0x508]!=0 && s[0x528]==reason;
     s[0x528]=(uint8_t)reason;
     if(reason==0 || reason-3<4) {
-        if(!continuing) w32(s,0x4f4,0);
+        if(!continuing) model_write_u32(s,0x4f4,0);
         s[0x508]=1;
-        uint32_t delay=retry_delay(e,reason,r32(s,0x4f4));
-        w64(s,0x500,now(e)+delay);
+        uint32_t delay=retry_delay(e,reason,model_read_u32(s,0x4f4));
+        model_write_u64(s,0x500,now(e)+delay);
     }
 }
 
@@ -124,7 +121,7 @@ static uint32_t power_on(uint8_t *s,const sg560d_environment *e,uint32_t which) 
     if(which==1) { offset=6;count=4; }
     if(which>=2) {
         int fct=which==3;
-        w32(s,0x3c8,fct?0xd324:0xd328);
+        model_write_u32(s,0x3c8,fct?0xd324:0xd328);
         s[0x3c4]=fct?5:3;
         offset=14;count=fct?12:5;
     }
@@ -143,13 +140,13 @@ static uint32_t power_off(uint8_t *s,const sg560d_environment *e,uint32_t force)
         else { dep(e,0x4ee0,0,0);dep(e,0x4ed4,0,0); }
         set_mode(s,e,1);
         s[0x4f2]=3;
-        w64(s,0x518,now(e)+3000);
+        model_write_u64(s,0x518,now(e)+3000);
     }
     dep(e,0x5e30,0,0);
     dep(e,0x6248,0,0);
     dep(e,0x7928,1,0);
     s[0x3cf]=s[0x4f8]=0;
-    w64(s,0x4e8,0);
+    model_write_u64(s,0x4e8,0);
     return 1;
 }
 
@@ -163,7 +160,7 @@ static uint32_t prepare_boot(uint8_t *s,const sg560d_environment *e,uint32_t mod
         set_mode(s,e,mode==0?s[0x3c4]:mode);
         if(mode==0) dep(e,0x364e,29,0);
         dep(e,0x8054,8,1);
-        if(mode==0) w32(s,0x454,(uint32_t)now(e));
+        if(mode==0) model_write_u32(s,0x454,(uint32_t)now(e));
     }
     return success;
 }
@@ -173,7 +170,7 @@ static uint32_t discover_power(uint8_t *s,const sg560d_environment *e,uint32_t m
     if((int32_t)dep(e,0x4c50,15,0)>1699) {
         if(mode<2) mode=2;
         s[0x4f2]=s[0x4f1]=2;
-        w64(s,0x4e0,now(e));
+        model_write_u64(s,0x4e0,now(e));
     } else { mode=1;s[0x4f2]=s[0x4f1]=0; }
     set_mode(s,e,mode);
     if(s[0x4f1]==2) {
@@ -191,25 +188,25 @@ static void poll(uint8_t *s,const sg560d_environment *e) {
     dep(e,0x5694,0,0);
     int32_t v18=(int32_t)dep(e,0x4c50,15,0);
     if(v18>1699) dep(e,0x559c,0,0);
-    if(r64(s,0x4e8) && now(e)>=r64(s,0x4e8)) {
-        w64(s,0x4e8,0);s[0x4f8]=0;
+    if(model_read_u64(s,0x4e8) && now(e)>=model_read_u64(s,0x4e8)) {
+        model_write_u64(s,0x4e8,0);s[0x4f8]=0;
         dep(e,0x4e34,1,0);dep(e,0x55b4,0,0);
     }
     if(v18>1699) {
         if(s[0x4f1]==0) {
             if(s[0x4f2]==1) {
-                s[0x4f1]=s[0x4f2]=2;w64(s,0x518,0);
+                s[0x4f1]=s[0x4f2]=2;model_write_u64(s,0x518,0);
                 dep(e,0x614c,0,0);
                 dep(e,0x4c50,12,0);dep(e,0x4ca8,0,0);
-                if(s[0x4f8]) w64(s,0x4e8,now(e)+50);
-                dep(e,0x55b4,0,0);w64(s,0x4e0,now(e));
-                if(r64(s,0x458)) w64(s,0x458,0);
+                if(s[0x4f8]) model_write_u64(s,0x4e8,now(e)+50);
+                dep(e,0x55b4,0,0);model_write_u64(s,0x4e0,now(e));
+                if(model_read_u64(s,0x458)) model_write_u64(s,0x458,0);
                 if(s[0x3cf]) {
                     s[0x3cf]=0;
                     dep(e,0x562c,0,0);dep(e,0x5670,0,0);
                     dep(e,0x55dc,0,0);s[0x508]=s[0x528]=0;
                     if(s[0x450]==5) {
-                        uint32_t elapsed=(uint32_t)now(e)-r32(s,0x454);
+                        uint32_t elapsed=(uint32_t)now(e)-model_read_u32(s,0x454);
                         if(elapsed) {
                             if(elapsed>14999) {
                                 power_off(s,e,1);
@@ -222,14 +219,14 @@ static void poll(uint8_t *s,const sg560d_environment *e) {
                     if(s[0x450]!=2) set_mode(s,e,2);
                 }
             } else if(s[0x4f2]==0) {
-                s[0x4f1]=s[0x4f2]=2;w64(s,0x518,0);
+                s[0x4f1]=s[0x4f2]=2;model_write_u64(s,0x518,0);
                 dep(e,0x614c,0,0);dep(e,0x7928,0,0);set_mode(s,e,2);
             }
         }
     } else if(s[0x4f1]==2) {
         if(s[0x4f2]==3) {
-            s[0x4f2]=s[0x4f1]=0;w64(s,0x518,0);
-            dep(e,0x5e30,0,0);w64(s,0x4e0,0);
+            s[0x4f2]=s[0x4f1]=0;model_write_u64(s,0x518,0);
+            dep(e,0x5e30,0,0);model_write_u64(s,0x4e0,0);
         } else if(s[0x4f2]==2) {
             dep(e,0x559c,0,0);
             uint32_t floor=(uint32_t)dep(e,0x55c4,0,0);
@@ -238,12 +235,12 @@ static void poll(uint8_t *s,const sg560d_environment *e) {
             dep(e,0x562c,0,0);dep(e,0x5670,0,0);
             dep(e,0x55b4,0,0);
             uint32_t reason=(uint32_t)dep(e,0x567c,0,0);
-            s[0x4f2]=s[0x3cf]=1;w64(s,0x4e0,0);s[0x4f1]=0;
-            w64(s,0x518,now(e)+250);schedule_retry(s,e,reason);
+            s[0x4f2]=s[0x3cf]=1;model_write_u64(s,0x4e0,0);s[0x4f1]=0;
+            model_write_u64(s,0x518,now(e)+250);schedule_retry(s,e,reason);
         }
     }
 transition_done:
-    if(r64(s,0x518) && now(e)>r64(s,0x518)) {
+    if(model_read_u64(s,0x518) && now(e)>model_read_u64(s,0x518)) {
         if(!s[0x3cf]) {
             if(s[0x4f1]==0 && s[0x4f2]==1) {
                 uint8_t mode=s[0x450];power_off(s,e,1);
@@ -254,7 +251,7 @@ transition_done:
             if(dep(e,0x567c,0,0)==1) power_on(s,e,0);
             else power_off(s,e,1);
         }
-        s[0x4f2]=s[0x4f1];w64(s,0x518,0);
+        s[0x4f2]=s[0x4f1];model_write_u64(s,0x518,0);
     }
     uint8_t rgb[3],bits[3];
     for(unsigned i=0;i<3;++i) bits[i]=dep(e,0x80f8,18+i,0)==1;
@@ -265,8 +262,8 @@ transition_done:
         else if((s[0x4f9+i]&7)==7) rgb[i]=1;
     }
     if(memcmp(rgb,s+0x3cc,3)) {
-        w32(s,0x530,(uint32_t)now(e));
-        if(!rgb[0] && rgb[1] && !rgb[2]) w32(s,0x52c,(uint32_t)now(e));
+        model_write_u32(s,0x530,(uint32_t)now(e));
+        if(!rgb[0] && rgb[1] && !rgb[2]) model_write_u32(s,0x52c,(uint32_t)now(e));
         if(!rgb[0] && !rgb[1] && !rgb[2]) (void)now(e);
         memcpy(s+0x3cc,rgb,3);
     }
@@ -277,12 +274,12 @@ transition_done:
             if(rgb[2]) { green=0;cyan=rgb[2]; }
         } else { green=0;yellow=rgb[2]^1; }
     }
-    int stable=r32(s,0x530)!=0 && now(e)-(uint64_t)r32(s,0x530)>=1001;
+    int stable=model_read_u32(s,0x530)!=0 && now(e)-(uint64_t)model_read_u32(s,0x530)>=1001;
     uint32_t theme=(uint32_t)dep(e,0x5dbc,0,0);
     if(stable) {
         uint32_t desired=green?5:cyan?6:yellow?7:0;
         if(desired && theme!=desired) dep(e,0x5c68,desired,0);
-        w32(s,0x530,0);
+        model_write_u32(s,0x530,0);
     }
     dep(e,0x49d0,0x200000e0,0);
     int32_t usb=(int32_t)dep(e,0x4c50,16,0);
@@ -291,7 +288,7 @@ transition_done:
     uint8_t current=s[0x4f1],target=s[0x4f2];
     uint32_t automatic=(uint32_t)dep(e,0x3114,0,0);
     if(current==0 && target==0) {
-        if(r64(s,0x458) && now(e)>=r64(s,0x458)) {
+        if(model_read_u64(s,0x458) && now(e)>=model_read_u64(s,0x458)) {
             int32_t temperature=(int32_t)dep(e,0x7d54,0,0);
             int32_t header=(int32_t)dep(e,0x4c50,13,0);
             uint32_t reason=(uint32_t)dep(e,0x562c,0,0);
@@ -302,14 +299,14 @@ transition_done:
                 else if((uint8_t)(reason-3)<4 || reason==0) permitted=age>=backoff_base[reason];
                 else permitted=1;
             }
-            if(permitted) { w64(s,0x458,0);power_on(s,e,0); }
-            else if(now(e)>=r64(s,0x510)) {
-                w64(s,0x510,now(e)+60000);
+            if(permitted) { model_write_u64(s,0x458,0);power_on(s,e,0); }
+            else if(now(e)>=model_read_u64(s,0x510)) {
+                model_write_u64(s,0x510,now(e)+60000);
                 dep(e,0x5638,0,0);
             }
         }
         if(automatic && s[0x508] && !dep(e,0x517c,0,0)) {
-            if(now(e)>=r64(s,0x500)) {
+            if(now(e)>=model_read_u64(s,0x500)) {
                 int blocked=0;
                 if(s[0x528]==3) {
                     int32_t header=(int32_t)dep(e,0x4c50,13,0);
@@ -317,25 +314,25 @@ transition_done:
                 }
                 if(!blocked) {
                     uint8_t reason=s[0x528];
-                    uint32_t attempts=r32(s,0x4f4)+1;w32(s,0x4f4,attempts);
+                    uint32_t attempts=model_read_u32(s,0x4f4)+1;model_write_u32(s,0x4f4,attempts);
                     uint32_t delay=retry_delay(e,reason,attempts);
-                    w64(s,0x500,now(e)+delay);
+                    model_write_u64(s,0x500,now(e)+delay);
                     power_on(s,e,0);s[0x528]=reason;s[0x508]=1;s[0x509]=0;
                 }
             }
         }
     }
-    if(s[0x508] && r64(s,0x4e0) && s[0x4f1]==2 && now(e)-r64(s,0x4e0)>119999) {
-        w32(s,0x4f4,0);s[0x508]=s[0x528]=0;
+    if(s[0x508] && model_read_u64(s,0x4e0) && s[0x4f1]==2 && now(e)-model_read_u64(s,0x4e0)>119999) {
+        model_write_u32(s,0x4f4,0);s[0x508]=s[0x528]=0;
     }
     uint32_t reason=(uint32_t)dep(e,0x567c,0,0);
     int owns=s[0x508] && s[0x528] ? s[0x508] : reason==2;
     if(!dep(e,0x517c,0,0) && current==0 && target==0 && automatic) {
         if(!owns) {
-            if(!s[0x4f0] && present) { w64(s,0x520,now(e));s[0x509]=1;goto usb_done; }
+            if(!s[0x4f0] && present) { model_write_u64(s,0x520,now(e));s[0x509]=1;goto usb_done; }
             if(!s[0x509]) { if(present) goto usb_done; }
             else if(present) {
-                if(now(e)-r64(s,0x520)>4999) { s[0x509]=0;power_on(s,e,0); }
+                if(now(e)-model_read_u64(s,0x520)>4999) { s[0x509]=0;power_on(s,e,0); }
                 goto usb_done;
             }
         }
@@ -364,9 +361,9 @@ uint64_t sg560d_execute(uint8_t s[4096],const sg560d_environment *e,uint32_t ent
     case 0x65d0:return power_on(s,e,3);
     case 0x65da:power_on(s,e,3);return 1;
     case 0x65e4:return power_on(s,e,2);
-    case 0x65f0:w64(s,0x458,a?now(e)+(uint64_t)a*1000:0);return 0;
+    case 0x65f0:model_write_u64(s,0x458,a?now(e)+(uint64_t)a*1000:0);return 0;
     case 0x6650: {
-        uint64_t time=now(e),target=r64(s,0x458);
+        uint64_t time=now(e),target=model_read_u64(s,0x458);
         if(!target)return UINT32_MAX;
         return time>=target?0:(uint32_t)((target-time)/1000);
     }

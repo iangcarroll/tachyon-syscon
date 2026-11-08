@@ -3,7 +3,7 @@
     {
       "address": "0x49d0",
       "symbol": "syscon_target_protocol_poll",
-      "source": "target/protocol/protocol_target.c",
+      "source": "src/protocol/protocol_target.c",
       "header": "include/protocol_target.h",
       "tests": "tests/test_protocol_target.py",
       "docs": "docs/protocol-target.md",

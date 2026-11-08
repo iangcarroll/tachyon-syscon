@@ -2,9 +2,9 @@ PYTHON ?= .venv/bin/python
 ARM_CC ?= arm-none-eabi-gcc
 ARM_AR ?= arm-none-eabi-ar
 ARM_FLAGS = -std=c11 -mcpu=cortex-m0plus -mthumb -Os -ffreestanding -ffunction-sections -fdata-sections -Wall -Wextra -Werror -Iinclude
-SOURCES := $(wildcard src/*.c)
-OBJECTS := $(patsubst src/%.c,build/arm/%.o,$(SOURCES))
-HEADERS := $(wildcard include/*.h)
+SOURCES := $(wildcard tests/models/*.c) src/runtime/runtime_memory.c src/runtime/runtime_arithmetic.c src/drivers/flash_controller.c src/runtime/format.c
+OBJECTS := $(patsubst %.c,build/arm/%.o,$(SOURCES))
+HEADERS := $(wildcard include/*.h tests/models/*.h)
 # Daily feedback: helpers plus real ARM configuration, ADC and power subsystems.
 # Full image cold starts and exhaustive fault sweeps remain in `make test` / CI.
 QUICK_TESTS := tests/test_differential.py tests/test_uart.py \
@@ -18,8 +18,8 @@ all: physical-firmware
 arm: physical-firmware
 host-models: build/arm/libsyscon-reconstruction.a
 
-build/arm/%.o: src/%.c $(HEADERS)
-	mkdir -p build/arm
+build/arm/%.o: %.c $(HEADERS)
+	mkdir -p $(dir $@)
 	$(ARM_CC) $(ARM_FLAGS) -c $< -o $@
 
 build/arm/libsyscon-reconstruction.a: $(OBJECTS)
@@ -57,7 +57,7 @@ ledger:
 	$(PYTHON) tools/reconstruction_ledger.py
 
 emulate: inputs
-	$(PYTHON) tools/emulate.py --scenario fixtures/emulator/tachyon-synthetic.json --instructions 1000000 --stop-at 0x3c9a --command VERSION --report build/emulation-boot-version.json
+	$(PYTHON) tools/emulate.py --scenario tests/fixtures/emulator/tachyon-synthetic.json --instructions 1000000 --stop-at 0x3c9a --command VERSION --report build/emulation-boot-version.json
 
 target-interfaces:
 	$(PYTHON) tools/build_target_interfaces.py

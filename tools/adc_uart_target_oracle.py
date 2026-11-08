@@ -21,9 +21,9 @@ class BusBoundary(Exception):pass
 def build(out):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     trap=out/'assert.c';trap.write_text('void syscon_target_assert(unsigned a,unsigned b,unsigned c){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
-    sources=[ROOT/'target/drivers/adc_target.c',ROOT/'target/drivers/uart_hal_target.c',ROOT/'target/drivers/uart_state.c',ROOT/'target/drivers/hal_helpers.c',
-        ROOT/'target/drivers/mspm0_core_target.c',ROOT/'target/drivers/gpio_state.c',ROOT/'target/drivers/core_helpers.c',ROOT/'src/runtime_memory.c',
-        ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime/runtime_arithmetic_abi.S',ROOT/'target/runtime/runtime_arithmetic_float.c',
+    sources=[ROOT/'src/drivers/adc_target.c',ROOT/'src/drivers/uart_hal_target.c',ROOT/'src/drivers/uart_state.c',ROOT/'src/drivers/hal_helpers.c',
+        ROOT/'src/drivers/mspm0_core_target.c',ROOT/'src/drivers/gpio_state.c',ROOT/'src/drivers/core_helpers.c',ROOT/'src/runtime/runtime_memory.c',
+        ROOT/'src/runtime/runtime_arithmetic.c',ROOT/'src/runtime/runtime_arithmetic_abi.S',ROOT/'src/runtime/runtime_arithmetic_float.c',
         *sorted((ROOT/'vendor/gcc-soft-fp').glob('*.c')),trap]
     objects=[]
     flags=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-mfloat-abi=soft','-ffreestanding','-fno-builtin',
@@ -36,7 +36,7 @@ def build(out):
         toolchain_process.run(['arm-none-eabi-gcc',*flags,optimize,*extra,'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'drivers.elf'
     toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,
-        '-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,--gc-sections','-Wl,-e,syscon_target_adc_init',
+        '-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),'-Wl,--gc-sections','-Wl,-e,syscon_target_adc_init',
         *['-Wl,--undefined=syscon_target_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
     return elf
 

@@ -8,8 +8,8 @@ from pathlib import Path
 import toolchain_process
 from elftools.elf.elffile import ELFFile
 from build_target_interfaces import SOURCES,FLAGS,ROOT
-EXTRA=['target/power/power_manager_target.c','target/drivers/ioexpander_target.c','target/protocol/protocol_target.c','target/protocol/command_table_target.c','target/app/runtime_init_target.c','target/drivers/flash_abi_target.c']
-PHYSICAL=['target/physical/startup.c']
+EXTRA=['src/power/power_manager_target.c','src/drivers/ioexpander_target.c','src/protocol/protocol_target.c','src/protocol/command_table_target.c','src/app/runtime_init_target.c','src/drivers/flash_abi_target.c']
+PHYSICAL=['src/physical/startup.c']
 LINKER_SYMBOLS={'__state_bss_start','__state_bss_end','__extra_bss_end','__extra_bss_start','__stack_top','__ram_exec_end','__ram_exec_load','__ram_exec_start','__ram_extra_end','__ram_extra_load','__ram_extra_start'}
 LINKER_SYMBOLS.update({'__data_load','__data_start','__data_end'})
 LINKER_SYMBOLS.update({'__peripheral_data_load','__peripheral_data_start',
@@ -75,19 +75,19 @@ def build(output):
     # A failed rebuild must never leave an apparently current image behind.
     for name in ['firmware.elf','firmware.bin','firmware.map']:(output/name).unlink(missing_ok=True)
     sources=production_sources();objects=[];failures=[]
-    forbidden=[s for s in sources if any(part in s for part in ('/testing/','test_fixture','emulation_runtime','test_stub'))]
+    forbidden=[s for s in sources if s.startswith('tests/') or any(part in s for part in ('/testing/','test_fixture','emulation_runtime','test_stub'))]
     if forbidden:raise ValueError('Test-only source forbidden in physical build: '+repr(forbidden))
-    tracked=[ROOT/s for s in sources]+list((ROOT/'include').glob('*.h'))+[ROOT/'target/physical/firmware.ld',Path(__file__)]
+    tracked=[ROOT/s for s in sources]+list((ROOT/'include').glob('*.h'))+[ROOT/'src/physical/firmware.ld',Path(__file__)]
     before={str(p.relative_to(ROOT)):digest(p) for p in tracked if p.exists()}
     for source in sources:
         obj=output/(source.replace('/','_').replace('.c','.o').replace('.S','.o'))
-        extra=['-O2'] if source=='src/runtime_arithmetic.c' or source.startswith('vendor/gcc-soft-fp/') else []
+        extra=['-O2'] if source=='src/runtime/runtime_arithmetic.c' or source.startswith('vendor/gcc-soft-fp/') else []
         if source.startswith('vendor/gcc-soft-fp/'):extra+=['-std=gnu11','-I'+str(ROOT/'vendor/gcc-soft-fp')]
         if source.endswith('/floatunsisf.c'):extra+=['-Wno-type-limits']
         result=run(['arm-none-eabi-gcc',*FLAGS,*extra,'-DSYSCON_DIRECT_FLASH_ABI','-fstack-usage','-I'+str(ROOT/'include'),'-c',str(ROOT/source),'-o',str(obj)])
         if result.returncode:failures.append({'source':source,'error':result.stderr});continue
         objects.append(obj)
-    report={'source_sha256':{s:digest(ROOT/s) for s in sources if (ROOT/s).exists()},'linker_sha256':digest(ROOT/'target/physical/firmware.ld'),'compile_failures':failures,'unresolved_symbols':[],
+    report={'source_sha256':{s:digest(ROOT/s) for s in sources if (ROOT/s).exists()},'linker_sha256':digest(ROOT/'src/physical/firmware.ld'),'compile_failures':failures,'unresolved_symbols':[],
         'physical_mcu_identity_verified':False,'original_executable_bytes_included':False,'endpoint_stubs_included':False,'whole_image_stack_bound_proven':False,'whole_firmware_equivalence':False,'flash_candidate':False}
     if not failures:
         combined=output/'physical-inputs.o'
@@ -99,7 +99,7 @@ def build(output):
             report['unresolved_symbols']=sorted(set(unresolved)-LINKER_SYMBOLS)
             report['section_size_report']=toolchain_process.check_output(['arm-none-eabi-size','-A',str(combined)],text=True)
         # No --unresolved-symbols=ignore-all, weak fallback stubs, or test fixtures.
-        result=run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*map(str,objects),'-Wl,-T,'+str(ROOT/'target/physical/firmware.ld'),'-Wl,--gc-sections','-Wl,-Map,'+str(output/'firmware.map'),'-o',str(output/'firmware.elf')])
+        result=run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*map(str,objects),'-Wl,-T,'+str(ROOT/'src/physical/firmware.ld'),'-Wl,--gc-sections','-Wl,-Map,'+str(output/'firmware.map'),'-o',str(output/'firmware.elf')])
         if result.returncode:report['physical_link_error']=result.stderr;(output/'firmware.elf').unlink(missing_ok=True)
         else:
             report['layout_audit']=elf_audit(output/'firmware.elf')

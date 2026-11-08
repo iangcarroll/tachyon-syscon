@@ -7,7 +7,8 @@ from pathlib import Path
 from intelhex import IntelHex
 
 ROOT = Path(__file__).resolve().parents[1]
-IMAGE = ROOT / "firmware/syscon-1.0.52.bin"
+IMAGE = ROOT / "build/reference-firmware/syscon-1.0.52.bin"
+HEX_IMAGE = IMAGE.with_suffix(".hex")
 EXPECTED = "5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6"
 
 
@@ -37,7 +38,7 @@ def command_table(b):
 
 def main():
     b = load_image()
-    h = IntelHex(str(ROOT / "firmware/syscon-1.0.52.hex"))
+    h = IntelHex(str(HEX_IMAGE))
     assert all(b[a] == h[a] for a in h.addresses()), "HEX/BIN mismatch"
     result = dict(sha256=EXPECTED, file_size=len(b), version=cstring(b, 0xf7f8),
                   hex_segments=h.segments(), initial_sp=struct.unpack_from("<I", b)[0],

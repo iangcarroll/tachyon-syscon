@@ -3,7 +3,7 @@
     {
       "address": "0x3048",
       "symbol": "syscon_cfg_indexed_get",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -12,7 +12,7 @@
     {
       "address": "0x3098",
       "symbol": "syscon_cfg_runtime_slot_blank",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -21,7 +21,7 @@
     {
       "address": "0x30c0",
       "symbol": "syscon_cfg_identity_slot_blank",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -30,7 +30,7 @@
     {
       "address": "0x30e8",
       "symbol": "syscon_cfg_runtime_slot_count",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -39,7 +39,7 @@
     {
       "address": "0x30ec",
       "symbol": "syscon_cfg_identity_slot_count",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -48,7 +48,7 @@
     {
       "address": "0x31d0",
       "symbol": "syscon_cfg_identity_erase",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -57,7 +57,7 @@
     {
       "address": "0x3278",
       "symbol": "syscon_cfg_identity_append",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -66,7 +66,7 @@
     {
       "address": "0x3298",
       "symbol": "syscon_cfg_identity_get",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -75,7 +75,7 @@
     {
       "address": "0x32b0",
       "symbol": "syscon_cfg_identity_indexed_get",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -84,7 +84,7 @@
     {
       "address": "0x339c",
       "symbol": "syscon_cfg_runtime_get",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -93,7 +93,7 @@
     {
       "address": "0x33b4",
       "symbol": "syscon_cfg_runtime_erase",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -102,7 +102,7 @@
     {
       "address": "0x3464",
       "symbol": "syscon_cfg_runtime_indexed_get",
-      "source": "target/config/config_helpers.c",
+      "source": "src/config/config_helpers.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": true,
@@ -111,7 +111,7 @@
     {
       "address": "0x27dc",
       "symbol": "syscon_cfg_field_readable",
-      "source": "target/config/config_read.c",
+      "source": "src/config/config_read.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -120,7 +120,7 @@
     {
       "address": "0x2810",
       "symbol": "syscon_cfg_field_writable",
-      "source": "target/config/config_read.c",
+      "source": "src/config/config_read.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -129,7 +129,7 @@
     {
       "address": "0x282c",
       "symbol": "syscon_cfg_checksum",
-      "source": "target/config/config_read.c",
+      "source": "src/config/config_read.c",
       "tests": [
         "tests/test_config_helpers.py",
         "tests/test_proof_physical_checksum.py"
@@ -141,7 +141,7 @@
     {
       "address": "0x2840",
       "symbol": "syscon_cfg_slot_valid",
-      "source": "target/config/config_read.c",
+      "source": "src/config/config_read.c",
       "tests": [
         "tests/test_config_helpers.py",
         "tests/test_config_slot_read_order.py"
@@ -153,7 +153,7 @@
     {
       "address": "0x296c",
       "symbol": "syscon_cfg_read_slot",
-      "source": "target/config/config_read.c",
+      "source": "src/config/config_read.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -162,7 +162,7 @@
     {
       "address": "0x29a0",
       "symbol": "syscon_cfg_find_slot",
-      "source": "target/config/config_read.c",
+      "source": "src/config/config_read.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -171,7 +171,7 @@
     {
       "address": "0x2cb8",
       "symbol": "syscon_cfg_store_get",
-      "source": "target/config/config_read.c",
+      "source": "src/config/config_read.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -180,7 +180,7 @@
     {
       "address": "0x2738",
       "symbol": "syscon_cfg_flash_report",
-      "source": "target/config/config_storage.c",
+      "source": "src/config/config_storage.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -189,7 +189,7 @@
     {
       "address": "0x27a8",
       "symbol": "syscon_cfg_store_erase",
-      "source": "target/config/config_storage.c",
+      "source": "src/config/config_storage.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -198,7 +198,7 @@
     {
       "address": "0x28d4",
       "symbol": "syscon_cfg_write_slot",
-      "source": "target/config/config_storage.c",
+      "source": "src/config/config_storage.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -207,7 +207,7 @@
     {
       "address": "0x2d08",
       "symbol": "syscon_cfg_bool_get",
-      "source": "target/config/config_storage.c",
+      "source": "src/config/config_storage.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -216,7 +216,7 @@
     {
       "address": "0x2d94",
       "symbol": "syscon_cfg_u32_get",
-      "source": "target/config/config_storage.c",
+      "source": "src/config/config_storage.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -225,7 +225,7 @@
     {
       "address": "0x2df8",
       "symbol": "syscon_cfg_load",
-      "source": "target/config/config_storage.c",
+      "source": "src/config/config_storage.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -234,7 +234,7 @@
     {
       "address": "0x2f0c",
       "symbol": "syscon_cfg_store_append",
-      "source": "target/config/config_storage.c",
+      "source": "src/config/config_storage.c",
       "tests": "tests/test_config_helpers.py",
       "docs": "docs/config-helpers.md",
       "previously_folded_entry": false,
@@ -242,21 +242,21 @@
     }
   ],
   "dependencies": [
-    "src/flash_controller.c",
-    "target/runtime/runtime_scan.c",
-    "target/runtime/runtime_scan_wrappers.c",
-    "target/runtime/runtime_scan_printf.c",
-    "target/runtime/runtime_scan_abi.S",
-    "target/runtime/runtime_stdio.c",
-    "target/runtime/runtime_heap.c",
-    "target/runtime/runtime_support.c",
-    "src/runtime_memory.c",
-    "src/runtime_arithmetic.c",
-    "target/runtime/runtime_arithmetic_abi.S",
-    "src/format.c",
-    "src/logging.c",
-    "target/testing/format_wrappers.c",
-    "target/testing/emulation_runtime.c"
+    "src/drivers/flash_controller.c",
+    "src/runtime/runtime_scan.c",
+    "src/runtime/runtime_scan_wrappers.c",
+    "src/runtime/runtime_scan_printf.c",
+    "src/runtime/runtime_scan_abi.S",
+    "src/runtime/runtime_stdio.c",
+    "src/runtime/runtime_heap.c",
+    "src/runtime/runtime_support.c",
+    "src/runtime/runtime_memory.c",
+    "src/runtime/runtime_arithmetic.c",
+    "src/runtime/runtime_arithmetic_abi.S",
+    "src/runtime/format.c",
+    "tests/models/logging.c",
+    "tests/fixtures/target/format_wrappers.c",
+    "tests/fixtures/target/emulation_runtime.c"
   ],
   "external_boundary_symbols": [
     "syscon_cfg_assert",

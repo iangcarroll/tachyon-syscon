@@ -3,7 +3,7 @@
     {
       "address": "0x798c",
       "symbol": "syscon_target_watchdog_init",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x79d0",
       "symbol": "syscon_target_watchdog_feed",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x7a50",
       "symbol": "syscon_target_hal_noop",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x7a54",
       "symbol": "syscon_target_gpio_lookup",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x7c08",
       "symbol": "syscon_target_reset_cause",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x7c3c",
       "symbol": "syscon_target_reset_cause_name",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x7f58",
       "symbol": "syscon_target_gpio_config",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x8054",
       "symbol": "syscon_target_gpio_write",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -75,7 +75,7 @@
     {
       "address": "0x80ac",
       "symbol": "syscon_target_gpio_toggle",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -84,7 +84,7 @@
     {
       "address": "0x80f8",
       "symbol": "syscon_target_gpio_read",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x8148",
       "symbol": "syscon_target_gpio_attach",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -102,7 +102,7 @@
     {
       "address": "0x81f8",
       "symbol": "syscon_target_gpio_detach",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -111,7 +111,7 @@
     {
       "address": "0x8258",
       "symbol": "syscon_target_gpio_irq",
-      "source": "target/drivers/mspm0_core_target.c",
+      "source": "src/drivers/mspm0_core_target.c",
       "header": "include/mspm0_core_target.h",
       "tests": "tests/test_mspm0_core_target.py",
       "docs": "docs/mspm0-core-target.md",
@@ -120,7 +120,7 @@
   ],
   "dependencies": {
     "source_linked": [
-      "src/runtime_memory.c"
+      "src/runtime/runtime_memory.c"
     ],
     "assertion_boundary": "syscon_target_assert / 0x2678",
     "readonly_original_data": true,

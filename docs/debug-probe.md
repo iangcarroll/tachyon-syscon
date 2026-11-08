@@ -9,7 +9,7 @@ TI documents CMSIS-DAP support for MSPM0 and current OpenOCD includes MSPM0 supp
 
 - https://software-dl.ti.com/msp430/esd/MSPM0-SDK/latest/docs/english/tools/doc_guide/doc_guide-srcs/debug_program.html
 - https://software-dl.ti.com/msp430/esd/MSPM0-SDK/2_08_00_03/docs/english/tools/keil_ide_guide/doc_guide/doc_guide-srcs/keil_ide_guide.html
-- https://github.com/openocd-org/openocd/blob/master/tcl/target/ti/mspm0.cfg
+- https://github.com/openocd-org/openocd/blob/master/tcl/src/ti/mspm0.cfg
 
 Particle's debug adapter schematic has a J-Link-labeled connector and a TXS0108E
 level translator between the 3.3 V probe side and 1.8 V target side. A compatible

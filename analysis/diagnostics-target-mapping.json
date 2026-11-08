@@ -3,7 +3,7 @@
     {
       "address": "0x3114",
       "symbol": "syscon_target_auto_boot",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x3120",
       "symbol": "syscon_target_wakeup_enabled",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -21,7 +21,7 @@
     {
       "address": "0x312c",
       "symbol": "syscon_target_log_color",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -30,7 +30,7 @@
     {
       "address": "0x3138",
       "symbol": "syscon_target_alt_powerkey",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -39,7 +39,7 @@
     {
       "address": "0x3144",
       "symbol": "syscon_target_factory_test",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -48,7 +48,7 @@
     {
       "address": "0x3150",
       "symbol": "syscon_target_modem_always_on",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -57,7 +57,7 @@
     {
       "address": "0x315c",
       "symbol": "syscon_target_powerkey_long_seconds",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -66,7 +66,7 @@
     {
       "address": "0x3178",
       "symbol": "syscon_target_powerkey_extra_seconds",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -75,7 +75,7 @@
     {
       "address": "0x3194",
       "symbol": "syscon_target_hwrevision_new",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -84,7 +84,7 @@
     {
       "address": "0x347c",
       "symbol": "syscon_target_diagnostics_enable",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",
@@ -93,7 +93,7 @@
     {
       "address": "0x3488",
       "symbol": "syscon_target_diagnostics_poll",
-      "source": "target/app/diagnostics_target.c",
+      "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
       "docs": "docs/diagnostics-target.md",

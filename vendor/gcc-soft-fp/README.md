@@ -11,7 +11,7 @@ The selected `libgcc/soft-fp/*.c` operations, their macro headers, ARM
 `tools/build_runtime_arithmetic.py`. Installed `libgcc.a` is not linked.
 `reference/libgcc2.c` is provenance/reference only, not compiled; its
 `TARGET_HAS_NO_HW_DIVIDE` unsigned 64-bit align/subtract algorithm informed
-`src/runtime_arithmetic.c`. That adapted file preserves defined ARM behavior
+`src/runtime/runtime_arithmetic.c`. That adapted file preserves defined ARM behavior
 for zero-divisor internal calls explicitly, instead of relying on undefined
 C full-width shifts.
 

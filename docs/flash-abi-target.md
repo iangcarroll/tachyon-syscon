@@ -1,6 +1,6 @@
 # Original-ABI flash entries
 
-`target/drivers/flash_abi_target.c` and `include/flash_abi_target.h` add direct target entries for the six original functions below. Unlike `src/flash_controller.c`, their signatures do not add a callback/environment parameter.
+`src/drivers/flash_abi_target.c` and `include/flash_abi_target.h` add direct target entries for the six original functions below. Unlike `src/drivers/flash_controller.c`, their signatures do not add a callback/environment parameter.
 
 | Original | Source symbol | Contract |
 |---|---|---|

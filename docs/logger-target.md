@@ -1,9 +1,9 @@
 # Logger output and ARM variadic adapters
 
-`target/logging/logger_target.c` formats timestamps, tags, colors, messages and truncation.
-`target/logging/logger_target_abi.S` collects ARM variadic arguments and preserves the
+`src/logging/logger_target.c` formats timestamps, tags, colors, messages and truncation.
+`src/logging/logger_target_abi.S` collects ARM variadic arguments and preserves the
 UART return-register effects used by the existing command parser. Enable state
-and the manufacturing tag are named objects in `target/logging/logger_state.c`, declared
+and the manufacturing tag are named objects in `src/logging/logger_state.c`, declared
 by `include/logger_state.h`. Text and colors are ordinary C strings. `include/logger_frame.h` gives the
 exposed stack buffers named fields and shares their layout with assembly.
 
@@ -17,7 +17,7 @@ exposed stack buffers named fields and shares their layout with assembly.
 | 92f4 | syscon_logger_target_snprintf | syscon_target_snprintf |
 
 The physical linker allocates the enable byte in reclaimed SRAM. The isolated
-oracle linker alone places it at the original address. `src/logging.c` is the
+oracle linker alone places it at the original address. `tests/models/logging.c` is the
 historical host scaffold; production does not call that adapter.
 
 ## Returns and legacy frame behavior

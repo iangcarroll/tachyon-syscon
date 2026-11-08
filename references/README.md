@@ -1,6 +1,8 @@
-# External hardware references
+# Reference inputs
 
-Downloaded references are local cache files, not firmware source. The pinned
+The [firmware manifest](firmware-manifest.json) pins the original syscon oracle and optional updater. `make firmware-fetch` stores the BIN/HEX files in `build/reference-firmware/`; `tools/fetch_firmware.py --with-updater` also fetches the offline-audit executable into `build/reference-tools/`. Nothing is installed or executed.
+
+Downloaded hardware references are local cache files, not firmware source. The pinned
 [fetch manifest](fetch-manifest.json) records their URLs, sizes and SHA-256 hashes.
 The build itself needs no hardware-reference payloads; the MCU emulator and
 profile tests need the small TI group.

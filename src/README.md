@@ -1,10 +1,8 @@
 # Firmware source guide
 
-The physical image links this tree, four shared implementations in `src/`
-(memory, arithmetic, flash controller and formatter), and the pinned soft-float
-sources under `vendor/`. `tools/build_target_interfaces.py` lists the production
-inputs; `tools/build_physical_firmware.py` adds reset/vector code and the linker
-script. `make` builds the complete image. Nothing in the build flashes hardware.
+This is the firmware source tree. The physical image links these implementations and the pinned soft-float sources under `vendor/`. `tools/build_target_interfaces.py` lists the production inputs; `tools/build_physical_firmware.py` adds reset/vector code and the linker script. `make` builds the complete image. Nothing in the build flashes hardware.
+
+Legacy host-side models live in `tests/models/`; ARM test fixtures and test linker scripts live in `tests/fixtures/target/`. The physical builder rejects both directories. Tests also compile the production memory, arithmetic, formatting and flash-controller implementations directly, so those have only one maintained copy.
 
 | Directory | Responsibility |
 | --- | --- |
@@ -18,7 +16,6 @@ script. `make` builds the complete image. Nothing in the build flashes hardware.
 | `logging/` | Diagnostic formatting and ARM variadic-call adapters |
 | `runtime/` | Freestanding memory/stdio/parsing support and compiler ABI helpers |
 | `physical/` | Reset, vectors, version slot and MCU-region linker layout |
-| `testing/` | Isolated ARM oracle fixtures, stubs and test linker scripts; never production |
 
 Shared declarations and named state types are in `include/`. All private text,
 objects and callbacks use C/assembly symbols. The linker may move them. Hardware

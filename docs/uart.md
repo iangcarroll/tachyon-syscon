@@ -5,7 +5,7 @@ This page describes historical host test scaffolding. Production firmware uses
 
 Implemented original routines `0x8c34` (single transmit), `0x8c8c` (buffer transmit),
 `0x8cf0` (available), `0x8d70` (receive IRQ), and `0x8de4` (read). Native source is
-`src/uart.c`; the two 76-byte ring structures preserve the original byte layout.
+`tests/models/uart.c`; the two 76-byte ring structures preserve the original byte layout.
 
 Both channels have 64-byte rings. A full ring drops newly received bytes. The
 available/read paths mask the RX interrupt and then unconditionally enable it;

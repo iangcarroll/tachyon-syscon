@@ -44,7 +44,7 @@ def scenario_output(fallback, name, seed):
 
 
 def fixture(name='cold-command'):
-    return json.loads((PACKAGE / 'fixtures/emulator/scenarios' / (name + '.json')).read_text())
+    return json.loads((PACKAGE / 'tests/fixtures/emulator/scenarios' / (name + '.json')).read_text())
 
 
 @pytest.mark.parametrize('path,value', [

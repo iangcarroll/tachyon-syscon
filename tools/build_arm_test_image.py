@@ -7,11 +7,11 @@ from pathlib import Path
 import toolchain_process
 
 ROOT=Path(__file__).resolve().parents[1]
-SOURCES=['src/rgb.c','src/sg560d.c','src/tasks.c','src/timers.c','src/retained.c',
-         'src/application.c','src/mspm0_core.c','src/format.c','src/logging.c','src/runtime_memory.c',
-         'target/testing/emulation_runtime.c','target/testing/format_wrappers.c','target/logging/logger_target.c','target/logging/logger_state.c','target/logging/logger_target_abi.S']
-RUNTIME_SOURCES=['src/runtime_arithmetic.c','target/runtime/runtime_arithmetic_abi.S',
-                 'target/runtime/runtime_arithmetic_float.c',
+SOURCES=['tests/models/rgb.c','tests/models/sg560d.c','tests/models/tasks.c','tests/models/timers.c','tests/models/retained.c',
+         'tests/models/application.c','tests/models/mspm0_core.c','src/runtime/format.c','tests/models/logging.c','src/runtime/runtime_memory.c',
+         'tests/fixtures/target/emulation_runtime.c','tests/fixtures/target/format_wrappers.c','src/logging/logger_target.c','src/logging/logger_state.c','src/logging/logger_target_abi.S']
+RUNTIME_SOURCES=['src/runtime/runtime_arithmetic.c','src/runtime/runtime_arithmetic_abi.S',
+                 'src/runtime/runtime_arithmetic_float.c',
                  *sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.c'))]
 FLAGS=['-std=c11','-Wall','-Wextra','-Werror','-mcpu=cortex-m0plus','-mthumb',
        '-mfloat-abi=soft','-Os','-ffreestanding','-fno-builtin',
@@ -33,11 +33,11 @@ def build(destination):
         objects.append(obj)
     elf=destination/'reconstructed-test.elf'
     toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-mfloat-abi=soft',
-        '-nostdlib','-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),
+        '-nostdlib','-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),
         '-Wl,-Map,'+str(destination/'reconstructed-test.map'),*map(str,objects),
         '-o',str(elf)],check=True)
     compiler=toolchain_process.check_output(['arm-none-eabi-gcc','--version'],text=True).splitlines()[0]
-    inputs=[*SOURCES,*RUNTIME_SOURCES,'target/testing/emulation.ld',*sorted(str(p.relative_to(ROOT)) for p in (ROOT/'include').glob('*.h')),
+    inputs=[*SOURCES,*RUNTIME_SOURCES,'tests/fixtures/target/emulation.ld',*sorted(str(p.relative_to(ROOT)) for p in (ROOT/'include').glob('*.h')),
             *sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.h'))]
     manifest=dict(compiler=compiler,flags=FLAGS,code_address='0x01000000',
         global_data_address='0x21000000',flash_candidate=False,

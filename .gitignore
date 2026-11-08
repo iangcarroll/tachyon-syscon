@@ -10,9 +10,8 @@ analysis/**/*.o
 /references/**
 !/references/README.md
 !/references/fetch-manifest.json
+!/references/firmware-manifest.json
 !/references/ti-mspm0/
 !/references/ti-mspm0/manifest.json
 !/references/ti-mspm0/pack-manifest.json
 !/references/ti-mspm0/source-paths.json
-/firmware/*.bin
-/firmware/*.hex

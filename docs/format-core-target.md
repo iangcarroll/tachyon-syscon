@@ -1,6 +1,6 @@
 # Direct target formatter core
 
-`target/runtime/format_core_target.c` and `include/format_core_target.h` expose three
+`src/runtime/format_core_target.c` and `include/format_core_target.h` expose three
 original ABI entries without host context or memory-access arguments:
 
 | Original | Target | Result |
@@ -42,7 +42,7 @@ no terminator and does not suppress invalid target-memory faults.
 ## Executable tests
 
 `tools/build_format_core_target.py` builds a relocated test ELF with these
-adapters, `src/format.c`, our recovered arithmetic C/ABI source, and explicitly
+adapters, `src/runtime/format.c`, our recovered arithmetic C/ABI source, and explicitly
 test-only callbacks/memory helpers. It links no installed runtime archive and
 records source/compiler/ELF hashes and entry mappings. Shared formatter source
 was not modified for this checkpoint.
@@ -71,7 +71,7 @@ the original widths and alignment.
 The scoped report
 `analysis/format-core-target-test-instruction-coverage.json` records **319/319
 identified original instructions** across the three entries. ELF and manifest
-are under `build/format-core-target/`. This is finite executable evidence,
+are under `build/format-core-src/`. This is finite executable evidence,
 not universal equivalence, a cycle-timing proof, or a production flash image.
 Arbitrary aliases into changed private stack frames and callbacks that inspect
 or corrupt those frames remain outside this checkpoint's evidence.

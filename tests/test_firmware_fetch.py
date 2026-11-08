@@ -221,6 +221,8 @@ def test_atomic_write_failure_keeps_previous_file_and_cleans_temporary(tmp_path,
 
 @pytest.mark.skipif(os.environ.get('SYSCON_FETCH_NETWORK') != '1', reason='set SYSCON_FETCH_NETWORK=1 for pinned official download')
 def test_fresh_official_package_matches_reference_and_offline_cache(tmp_path, monkeypatch):
+    import inventory
+
     result = ff.fetch(root=tmp_path, with_updater=True)
     assert result['downloaded']
     doc = json.loads(ff.DEFAULT_MANIFEST.read_text())
@@ -232,6 +234,16 @@ def test_fresh_official_package_matches_reference_and_offline_cache(tmp_path, mo
             assert original.read_bytes() == contents
     monkeypatch.setattr(ff, 'download', lambda entry: pytest.fail('check downloaded'))
     assert not ff.fetch(root=tmp_path, check=True, with_updater=True)['downloaded']
+    # Follow the real consumer's path in a fresh root, rather than merely
+    # checking that the fetcher agrees with its own manifest destinations.
+    image = tmp_path / inventory.IMAGE.relative_to(ff.ROOT)
+    monkeypatch.setattr(inventory, 'IMAGE', image)
+    assert inventory.load_image() == image.read_bytes()
+    damaged = bytearray(image.read_bytes())
+    damaged[-1] ^= 1
+    image.write_bytes(damaged)
+    with pytest.raises(ValueError, match='Reference firmware changed'):
+        inventory.load_image()
 
 
 def test_same_size_cache_corruption_is_detected_without_writes(bundle, monkeypatch):

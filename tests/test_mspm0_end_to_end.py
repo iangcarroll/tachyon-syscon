@@ -6,7 +6,7 @@ from emulate import from_scenario,send_command,report
 from inventory import ROOT,load_image
 from mspm0.core import UnsupportedRegister,MissingImage
 
-SCENARIO=ROOT/'fixtures/emulator/tachyon-synthetic.json'
+SCENARIO=ROOT/'tests/fixtures/emulator/tachyon-synthetic.json'
 
 def boot():
     m,scenario=from_scenario(SCENARIO)

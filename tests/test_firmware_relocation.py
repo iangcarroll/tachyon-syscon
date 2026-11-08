@@ -20,13 +20,13 @@ def relocated_image(tmp_path_factory):
     # Build a real source variant in isolation, including its own linker script.
     # No current-tree edits, guest patches, reused binary or function stubs.
     tree=tmp_path/'source'
-    for directory in ('src','include','target','vendor','tools'):
+    for directory in ('src','include','vendor','tools'):
         shutil.copytree(runtime.ROOT/directory,tree/directory,
                         ignore=shutil.ignore_patterns('__pycache__'))
     header=tree/'include/config_text.h'
     header.write_text(header.read_text().replace('Key checksum mismatch',
                       'Configuration key checksum mismatch (longer editable text)'))
-    compaction=tree/'target/config/config_update.c'
+    compaction=tree/'src/config/config_update.c'
     text=compaction.read_text()
     declaration='    char kept[8][2][31], candidate[31];'
     assert text.count(declaration)==1
@@ -35,7 +35,7 @@ def relocated_image(tmp_path_factory):
     assert text.count(completion)==1
     text=text.replace(completion,completion+'\n    __asm__ volatile("" : "+m"(edit_workspace) : : "memory");')
     compaction.write_text(text)
-    commands=tree/'target/protocol/command_table_target.c'
+    commands=tree/'src/protocol/command_table_target.c'
     text=commands.read_text()
     # Add a command in source without changing a count, address or linker size.
     import re
@@ -44,7 +44,7 @@ def relocated_image(tmp_path_factory):
     marker=declaration[0]
     text=text.replace(marker,marker+'\n    {"BUILD_INFO", syscon_target_cmd_version, 0, 0, "Build information from editable source"},')
     commands.write_text(text)
-    linker=tree/'target/physical/firmware.ld'
+    linker=tree/'src/physical/firmware.ld'
     script=linker.read_text()
     assert script.count('.config_data :')==1
     script=script.replace('.config_data : {','.config_data : { . += 256;')

@@ -1,6 +1,6 @@
 # Periodic diagnostics and runtime accessors
 
-`src/diagnostics.c` reconstructs diagnostic enable `0x347c`, polling `0x3488`,
+`tests/models/diagnostics.c` reconstructs diagnostic enable `0x347c`, polling `0x3488`,
 the eight packed runtime configuration accessors `0x3114..0x3178`, and hardware
 revision parsing `0x3194`.
 

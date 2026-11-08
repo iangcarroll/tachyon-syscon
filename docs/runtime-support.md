@@ -1,6 +1,6 @@
 # Runtime glue and character tables
 
-`target/runtime/runtime_support.c` covers ten target-only entries. ARM tests execute the
+`src/runtime/runtime_support.c` covers ten target-only entries. ARM tests execute the
 recompiled source against the original with 32-bit pointers and memory addresses.
 
 | Original | Replacement |

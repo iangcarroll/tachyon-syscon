@@ -28,8 +28,8 @@ def core_elf(tmp_path_factory):
     trap=out/'assert.c';trap.write_text('void syscon_target_assert(unsigned a,unsigned b,unsigned c){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),
-        str(ROOT/'target/drivers/mspm0_core_target.c'),str(ROOT/'target/drivers/gpio_state.c'),str(ROOT/'src/runtime_memory.c'),str(trap),
-        '-Wl,-T,'+str(ROOT/'target/testing/emulation.ld'),'-Wl,-e,syscon_target_gpio_config','-o',str(elf)],check=True)
+        str(ROOT/'src/drivers/mspm0_core_target.c'),str(ROOT/'src/drivers/gpio_state.c'),str(ROOT/'src/runtime/runtime_memory.c'),str(trap),
+        '-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),'-Wl,-e,syscon_target_gpio_config','-o',str(elf)],check=True)
     return elf
 
 class Pair:

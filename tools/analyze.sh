@@ -16,7 +16,7 @@ run_ghidra() {
     "$root/build" syscon -scriptPath "$root/tools" "$@"
 }
 if [ ! -f "$root/build/syscon.gpr" ]; then
-  run_ghidra -import "$root/firmware/syscon-1.0.52.hex" \
+  run_ghidra -import "$root/build/reference-firmware/syscon-1.0.52.hex" \
     -processor ARM:LE:32:Cortex -preScript PrepareSyscon.java
 fi
 run_ghidra -process syscon-1.0.52.hex -preScript AnnotateSyscon.java \

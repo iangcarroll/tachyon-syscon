@@ -15,7 +15,7 @@ proofs.
 ## First scoped theorem
 
 `tools/proof_checksum.py` proves a narrow machine-code property for original
-`0x282c` and freshly compiled `syscon_checksum31` from `src/config.c`.
+`0x282c` and freshly compiled `syscon_checksum31` from `tests/models/config.c`.
 The candidate is compiled with `-O2`, producing different register allocation
 and different bytes from the original; no original bytes enter the candidate.
 The captured C source, candidate ELF, compiler arguments and hashes are retained.
@@ -123,7 +123,7 @@ write-only register assumptions; it is not an identified board readback.
 | Runtime binding | Single source runtime, no external libc/libgcc fallback; cross-unit type audit | Universal memory, arithmetic, formatting, stream and allocator contracts |
 | Observable timing | Real IRQ/exception handling and deterministic instruction-quanta clock | A justified timing relation between different compiled schedules; physical-cycle correspondence is not established |
 
-Historical host-analysis implementations under `src/` still have their own
+Historical host-analysis implementations under `tests/models/` still have their own
 explicit scope restrictions. They are separate from the direct target modules
 used in the physical link. Their status codes and guarded unsupported inputs
 must not be mistaken for the current target's terminal behavior.

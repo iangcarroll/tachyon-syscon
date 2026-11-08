@@ -1,9 +1,8 @@
 /* Register-access reconstruction, not a physical MSPM0 peripheral simulation. */
+#include "model_memory.h"
 #include "mspm0_core.h"
 #include <string.h>
 
-static uint32_t rd(const uint8_t *s,unsigned o) { uint32_t v;memcpy(&v,s+o,4);return v; }
-static void wr(uint8_t *s,unsigned o,uint32_t v) { memcpy(s+o,&v,4); }
 static uint32_t read_reg(const mspm0_environment *e,uint32_t a) { return e->read(e->ctx,a); }
 static void write_reg(const mspm0_environment *e,uint32_t a,uint32_t v) { e->write(e->ctx,a,v); }
 static uint32_t bitmask(unsigned b) { return b<32?UINT32_C(1)<<b:0; }
@@ -47,9 +46,9 @@ uint64_t mspm0_core_execute(uint8_t s[4096],const mspm0_environment *e,uint32_t 
             uint32_t index=(read_reg(e,0x400a1020)-1)&255;
             for(unsigned i=0;i<25;++i) {
                 unsigned descriptor=0x16c+i*8;
-                if(rd(s,descriptor)==0x400a0000 && s[descriptor+4]==index) {
-                    uint32_t fn=rd(s,0x698+i*8);
-                    if(fn)e->dispatch(e->ctx,fn,i,rd(s,0x69c+i*8));
+                if(model_read_u32(s,descriptor)==0x400a0000 && s[descriptor+4]==index) {
+                    uint32_t fn=model_read_u32(s,0x698+i*8);
+                    if(fn)e->dispatch(e->ctx,fn,i,model_read_u32(s,0x69c+i*8));
                     break;
                 }
             }
@@ -61,7 +60,7 @@ uint64_t mspm0_core_execute(uint8_t s[4096],const mspm0_environment *e,uint32_t 
      * Fault logging/reset semantics remain a separate reconstruction task. */
     if(pin>=25 || (entry==0x7f58 && !cfg))return UINT64_MAX;
     unsigned descriptor=0x16c+pin*8;
-    uint32_t port=rd(s,descriptor),physical=s[descriptor+4];
+    uint32_t port=model_read_u32(s,descriptor),physical=s[descriptor+4];
     uint32_t mask=bitmask(physical),mux=0x40428004+s[descriptor+5]*4;
     switch(entry) {
     case 0x7f58:
@@ -76,7 +75,7 @@ uint64_t mspm0_core_execute(uint8_t s[4096],const mspm0_environment *e,uint32_t 
             }
         } else if(cfg[4]==1) {
             write_reg(e,mux,0x81);
-            if(rd(cfg,8)&2)write_reg(e,port+(cfg[7]?0x1290:0x12a0),mask);
+            if(model_read_u32(cfg,8)&2)write_reg(e,port+(cfg[7]?0x1290:0x12a0),mask);
             write_reg(e,port+0x12d0,mask);
         }
         return 0;
@@ -84,7 +83,7 @@ uint64_t mspm0_core_execute(uint8_t s[4096],const mspm0_environment *e,uint32_t 
     case 0x80ac:write_reg(e,port+0x12b0,mask);return 0;
     case 0x80f8:return (read_reg(e,port+0x1380)&mask)!=0;
     case 0x8148: {
-        wr(s,0x698+pin*8,b);wr(s,0x69c+pin*8,c);
+        model_write_u32(s,0x698+pin*8,b);model_write_u32(s,0x69c+pin*8,c);
         uint32_t edge=(a==1 || a==2)?a:3;
         uint32_t reg=port+(physical<16?0x1390:0x13a0);
         unsigned shift=((physical<16?physical:physical-16)*2)&255;
@@ -97,7 +96,7 @@ uint64_t mspm0_core_execute(uint8_t s[4096],const mspm0_environment *e,uint32_t 
         return (uint64_t)pin<<32;
     }
     case 0x81f8:
-        wr(s,0x698+pin*8,0);wr(s,0x69c+pin*8,0);
+        model_write_u32(s,0x698+pin*8,0);model_write_u32(s,0x69c+pin*8,0);
         write_reg(e,port+0x1028,read_reg(e,port+0x1028)&~mask);
         return 0;
     default:return UINT64_MAX;

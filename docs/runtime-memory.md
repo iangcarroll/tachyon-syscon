@@ -1,6 +1,6 @@
 # Memory and string runtime reconstruction
 
-`src/runtime_memory.c` reconstructs ten routines directly from the original
+`src/runtime/runtime_memory.c` reconstructs ten routines directly from the original
 instructions, with fixed 32-bit length arguments and unsigned-byte comparisons:
 
 | Original entry | Replacement |

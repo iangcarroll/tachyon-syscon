@@ -1,6 +1,6 @@
 # Reconstructed nano heap
 
-`target/runtime/runtime_heap.c` supplies seven original entry points using the original
+`src/runtime/runtime_heap.c` supplies seven original entry points using the original
 32-bit pointer ABI and RAM globals. It is target-only C; host libc allocation is
 not used as an oracle or substitute.
 
@@ -48,9 +48,9 @@ exercised; this is not branch/path completeness. The stdio integration adds inte
 real FILE writes and these allocator routines, including failed growth.
 
 `tools/heap_stdio_oracle.py` builds the target modules with the reconstructed
-memory functions and `target/runtime/runtime_support.c` lock/memmove functions. Compiler
+memory functions and `src/runtime/runtime_support.c` lock/memmove functions. Compiler
 arithmetic helpers are linked from the independently reconstructed
-`src/runtime_arithmetic.c` and `target/runtime/runtime_arithmetic_abi.S`; no installed libgcc or host arithmetic runtime is
+`src/runtime/runtime_arithmetic.c` and `src/runtime/runtime_arithmetic_abi.S`; no installed libgcc or host arithmetic runtime is
 linked into this test image. The build keeps the sbrk call boundary visible.
 
 This model does not validate real heap placement, stack/heap collision detection,

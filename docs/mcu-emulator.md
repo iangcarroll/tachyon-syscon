@@ -17,7 +17,7 @@ From `/Users/ian/tachyon`:
 
 ```sh
 syscon-re/.venv/bin/python syscon-re/tools/emulate.py \
-  --scenario syscon-re/fixtures/emulator/tachyon-synthetic.json \
+  --scenario syscon-re/tests/fixtures/emulator/tachyon-synthetic.json \
   --instructions 1000000 --stop-at 0x3c9a \
   --command VERSION \
   --command 'CONFIG_SET emu.key alpha' \
@@ -171,7 +171,7 @@ Build a fresh candidate, then run a bounded original/rebuilt comparison:
 
 ```sh
 make inputs physical-firmware
-.venv/bin/python tools/functional_scenarios.py fixtures/emulator/scenarios/cold-command.json --original firmware/syscon-1.0.52.bin --candidate build/physical-firmware/firmware.bin --seed 73 --output build/scenarios/command-73
+.venv/bin/python tools/functional_scenarios.py tests/fixtures/emulator/scenarios/cold-command.json --original build/reference-firmware/syscon-1.0.52.bin --candidate build/physical-firmware/firmware.bin --seed 73 --output build/scenarios/command-73
 ```
 
 The other small fixtures cover saved `sys.auto_boot` across a fresh reset, a

@@ -3,7 +3,7 @@
     {
       "address": "0x5e30",
       "symbol": "syscon_target_modem_uart_stop",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -12,7 +12,7 @@
     {
       "address": "0x5f30",
       "symbol": "syscon_target_modem_power_check",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -21,7 +21,7 @@
     {
       "address": "0x614c",
       "symbol": "syscon_target_modem_uart_start",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -30,7 +30,7 @@
     {
       "address": "0x61b8",
       "symbol": "syscon_target_modem_fct_complete",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -39,7 +39,7 @@
     {
       "address": "0x61d0",
       "symbol": "syscon_target_modem_volume_release",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -48,7 +48,7 @@
     {
       "address": "0x61f0",
       "symbol": "syscon_target_modem_usbboot_release",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -57,7 +57,7 @@
     {
       "address": "0x6210",
       "symbol": "syscon_target_modem_powerkey_release_task",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -66,7 +66,7 @@
     {
       "address": "0x6230",
       "symbol": "syscon_target_modem_normal_key_release",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -75,7 +75,7 @@
     {
       "address": "0x6238",
       "symbol": "syscon_target_modem_special_key_release",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -84,7 +84,7 @@
     {
       "address": "0x6240",
       "symbol": "syscon_target_modem_edl_key_release",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -93,7 +93,7 @@
     {
       "address": "0x6248",
       "symbol": "syscon_target_modem_pins_off",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -102,7 +102,7 @@
     {
       "address": "0x6282",
       "symbol": "syscon_target_modem_pins_on",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -111,7 +111,7 @@
     {
       "address": "0x62ec",
       "symbol": "syscon_target_modem_retry_delay",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -120,7 +120,7 @@
     {
       "address": "0x6384",
       "symbol": "syscon_target_modem_retry_schedule",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -129,7 +129,7 @@
     {
       "address": "0x6428",
       "symbol": "syscon_target_modem_poweron",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -138,7 +138,7 @@
     {
       "address": "0x64a0",
       "symbol": "syscon_target_modem_edl",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -147,7 +147,7 @@
     {
       "address": "0x6520",
       "symbol": "syscon_target_modem_special_boot",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -156,7 +156,7 @@
     {
       "address": "0x65d0",
       "symbol": "syscon_target_modem_fct",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -165,7 +165,7 @@
     {
       "address": "0x65da",
       "symbol": "syscon_target_modem_fct_callback",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -174,7 +174,7 @@
     {
       "address": "0x65e4",
       "symbol": "syscon_target_modem_fastboot",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -183,7 +183,7 @@
     {
       "address": "0x65f0",
       "symbol": "syscon_target_modem_wake_schedule",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -192,7 +192,7 @@
     {
       "address": "0x6650",
       "symbol": "syscon_target_modem_wake_remaining",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -201,7 +201,7 @@
     {
       "address": "0x6690",
       "symbol": "syscon_target_modem_off",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -210,7 +210,7 @@
     {
       "address": "0x66a0",
       "symbol": "syscon_target_modem_mode_name",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -219,7 +219,7 @@
     {
       "address": "0x66bc",
       "symbol": "syscon_target_modem_set_mode",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -228,7 +228,7 @@
     {
       "address": "0x6720",
       "symbol": "syscon_target_modem_poweroff",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -237,7 +237,7 @@
     {
       "address": "0x6838",
       "symbol": "syscon_target_modem_prepare_special",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -246,7 +246,7 @@
     {
       "address": "0x68a4",
       "symbol": "syscon_target_modem_prepare_edl",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -255,7 +255,7 @@
     {
       "address": "0x68fc",
       "symbol": "syscon_target_modem_prepare_normal",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -264,7 +264,7 @@
     {
       "address": "0x6948",
       "symbol": "syscon_target_modem_init",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -273,7 +273,7 @@
     {
       "address": "0x6a28",
       "symbol": "syscon_target_modem_key_assert",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -282,7 +282,7 @@
     {
       "address": "0x6a48",
       "symbol": "syscon_target_modem_key_release",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -291,7 +291,7 @@
     {
       "address": "0x6a68",
       "symbol": "syscon_target_modem_poll",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -300,7 +300,7 @@
     {
       "address": "0x7468",
       "symbol": "syscon_target_modem_key_pulse",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -309,7 +309,7 @@
     {
       "address": "0x7488",
       "symbol": "syscon_target_modem_fct_powerkey_pulse",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -318,7 +318,7 @@
     {
       "address": "0x74a8",
       "symbol": "syscon_target_modem_fct_second_reset_pulse",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -327,7 +327,7 @@
     {
       "address": "0x74c8",
       "symbol": "syscon_target_modem_fct_first_reset_pulse",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -336,7 +336,7 @@
     {
       "address": "0x74e8",
       "symbol": "syscon_target_modem_raw_send",
-      "source": "target/modem/sg560d_target.c",
+      "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
       ],
@@ -392,13 +392,13 @@
   ],
   "source_dependencies": [
     "include/sg560d_literals.h",
-    "target/logging/logger_target.c",
-    "target/logging/logger_target_abi.S",
-    "src/format.c",
-    "target/drivers/hal_helpers.c",
-    "src/runtime_memory.c",
-    "src/runtime_arithmetic.c",
-    "target/runtime/runtime_arithmetic_abi.S"
+    "src/logging/logger_target.c",
+    "src/logging/logger_target_abi.S",
+    "src/runtime/format.c",
+    "src/drivers/hal_helpers.c",
+    "src/runtime/runtime_memory.c",
+    "src/runtime/runtime_arithmetic.c",
+    "src/runtime/runtime_arithmetic_abi.S"
   ],
   "original_code_executable_in_candidate": false,
   "remaining_boundaries": [

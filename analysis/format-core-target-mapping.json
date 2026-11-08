@@ -3,7 +3,7 @@
     {
       "address": "0x8fcc",
       "symbol": "syscon_target_format_digits",
-      "source": "target/runtime/format_core_target.c",
+      "source": "src/runtime/format_core_target.c",
       "header": "include/format_core_target.h",
       "tests": "tests/test_format_core_target.py",
       "docs": "docs/format-core-target.md",
@@ -12,7 +12,7 @@
     {
       "address": "0x9028",
       "symbol": "syscon_target_format_forward",
-      "source": "target/runtime/format_core_target.c",
+      "source": "src/runtime/format_core_target.c",
       "header": "include/format_core_target.h",
       "tests": "tests/test_format_core_target.py",
       "docs": "docs/format-core-target.md",
@@ -21,13 +21,13 @@
     {
       "address": "0x9038",
       "symbol": "syscon_target_vformat_callback",
-      "source": "target/runtime/format_core_target.c",
+      "source": "src/runtime/format_core_target.c",
       "header": "include/format_core_target.h",
       "tests": "tests/test_format_core_target.py",
       "docs": "docs/format-core-target.md",
       "original_abi": true,
       "additional_sources": [
-        "src/format.c"
+        "src/runtime/format.c"
       ]
     }
   ],

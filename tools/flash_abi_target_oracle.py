@@ -1,4 +1,5 @@
 """Source-compiled original flash ABI, including actual code at SRAM20000000."""
+from inventory import load_image
 from pathlib import Path
 import toolchain_process
 import subprocess,struct
@@ -16,16 +17,16 @@ def build(out):
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     stub=out/'logger.c';stub.write_text('void syscon_target_logger(void){__asm__("bkpt #0");}\n')
     objects=[]
-    for i,source in enumerate([ROOT/'target/drivers/flash_abi_target.c',stub]):
+    for i,source in enumerate([ROOT/'src/drivers/flash_abi_target.c',stub]):
         obj=out/f'{i}.o';objects.append(str(obj))
         toolchain_process.run(['arm-none-eabi-gcc','-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-fno-inline','-ffreestanding','-fno-builtin','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
-    elf=out/'flash-abi.elf';toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'target/testing/flash_abi_test.ld'),'-o',str(elf)],check=True);return elf
+    elf=out/'flash-abi.elf';toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'tests/fixtures/target/flash_abi_test.ld'),'-o',str(elf)],check=True);return elf
 class FlashTargetOracle(ArmRebuildOracle):
     def __init__(self,elf_path):
         self.cpu=Uc(UC_ARCH_ARM,UC_MODE_THUMB|UC_MODE_MCLASS)
         self.cpu.ctl_set_cpu_model(UC_CPU_ARM_CORTEX_M0)
         self.cpu.mem_map(self.CODE,0x100000);self.cpu.mem_map(self.DATA,0x10000);self.cpu.mem_map(self.STATE,4096)
-        self.image=(ROOT/'firmware/syscon-1.0.52.bin').read_bytes();self.cpu.mem_map(0,65536,UC_PROT_READ);self.cpu.mem_write(0,self.image)
+        self.image=load_image();self.cpu.mem_map(0,65536,UC_PROT_READ);self.cpu.mem_write(0,self.image)
         self.cpu.mem_write(self.STATE+0x30,self.image[0xe2e8:0xe578]);self.symbols={}
         with Path(elf_path).open('rb') as stream:
             elf=ELFFile(stream)
