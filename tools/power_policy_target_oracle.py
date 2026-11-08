@@ -22,6 +22,6 @@ def build(destination):
     elf=destination/'policy.elf'
     toolchain_process.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror',
-        '-I'+str(ROOT/'include'),str(ROOT/'target/power_policy_target.c'),str(ROOT/'src/runtime_memory.c'),str(binding),str(stub),
+        '-I'+str(ROOT/'include'),str(ROOT/'target/power_policy_target.c'),str(ROOT/'target/power_state.c'),str(ROOT/'src/runtime_memory.c'),str(binding),str(stub),
         '-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_target_power_policy_init','-o',str(elf)],check=True)
     return elf

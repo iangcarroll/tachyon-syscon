@@ -3,6 +3,7 @@ from pathlib import Path
 import struct
 from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
+from power_state_comparison import PowerStateComparison,text_argument
 from unicorn import UC_HOOK_MEM_WRITE
 from unicorn.arm_const import UC_ARM_REG_R1
 import build_runtime_scan_image as runtime
@@ -27,7 +28,7 @@ def build(destination):
     traps.write_text('.syntax unified\n.thumb\n'+''.join(f'.global {n}\n.type {n},%function\n.thumb_func\n{n}:\n bkpt #0\n bx lr\n' for n in names))
     old=runtime.SOURCES
     try:
-        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S','target/hal_helpers.c','target/sg560d_target.c',str(traps)]
+        runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_state.c','target/logger_target_abi.S','target/hal_helpers.c','target/sg560d_target.c','target/power_state.c',str(traps)]
         return runtime.build(destination)
     finally:runtime.SOURCES=old
 
@@ -39,6 +40,7 @@ class Pair:
     def __init__(self,elf,respond=None,logging=True):
         if self.owners is not None:self.owners.append(self)
         self.cpus=[Oracle(),ArmRebuildOracle(elf)];self.events=[[],[]]
+        self.power_state=PowerStateComparison(*self.cpus)
         self.respond=respond or (lambda address,args:0);self.terminal_assert=False
         self.pointer_map={self.cpus[1].symbols['syscon_target_modem_'+name]|1:entry|1 for entry,name in ENTRIES.items()}
         self.pointer_map[self.cpus[1].symbols['syscon_target_mfg_logger']|1]=0x8fa1
@@ -69,6 +71,7 @@ class Pair:
             args=(0,);data=bytes(cpu.cpu.mem_read(pointer,size))
         elif address==0x8c8c:
             args=(cpu.arg(0),);data=bytes(cpu.cpu.mem_read(cpu.arg(1),cpu.arg(2)))
+        if address==0x2678:args=(text_argument(cpu,args[0]),args[1],text_argument(cpu,args[2]))
         self.events[index].append((address,args,data))
         if address==0x2678 and self.terminal_assert:raise AssertionBoundary
         result=self.respond(address,args)
@@ -81,7 +84,7 @@ class Pair:
         actual=self.cpus[1].call('syscon_target_modem_'+ENTRIES[entry],*args,count=2000000)
         if check_return is None:check_return=entry not in VOID
         if check_return:assert actual==expected,(hex(entry),args,actual,expected)
-        assert bytes(self.cpus[0].cpu.mem_read(0x20000000,0x800))==self.cpus[1].read(0x20000000,0x800),(hex(entry),'state')
+        assert bytes(self.cpus[0].cpu.mem_read(0x20000000,0x800))==self.power_state.memory(0x20000000,self.cpus[1].read(0x20000000,0x800)),(hex(entry),'state')
         
         if self.events[0]!=self.events[1]:
             from itertools import zip_longest

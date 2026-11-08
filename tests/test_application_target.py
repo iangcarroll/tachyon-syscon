@@ -8,6 +8,7 @@ from unicorn.arm_const import UC_ARM_REG_R1
 from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
 from application_target_oracle import build,DEPENDENCIES
+from power_state_comparison import log_arguments
 Q=0x200002d8
 class Boundary(Exception):pass
 
@@ -39,9 +40,7 @@ class Pair:
             assert args[2]==expected
             args=(*args[:2],'relocated:wakeup_irq',args[3])
         if name=='logger':
-            fmt=bytes(cpu.cpu.mem_read(args[2],200)).split(b'\0')[0]
-            count=len(re.findall(rb'%(?!%)[-+ #0]*[0-9.*]*[hl]*[diuxXscp]',fmt))
-            args+=tuple(cpu.arg(j) for j in range(3,3+count))
+            args=log_arguments(cpu,2)
         self.events[i].append((name,args))
         mutation=self.mutations.get(name)
         if mutation:mutation(cpu,i,args)
@@ -176,8 +175,8 @@ def test_full_main_queue_disappears_between_checks(application_elf):
         cpu.cpu.hook_add(UC_HOOK_MEM_READ,mutate,begin=Q+12,end=Q+12)
     p.inputs=[seed_event(0)];p.responses={'reset_cause':2};p.main(1)
     logs=[e for e in p.events[0] if e[0]=='logger']
-    assert any(e[1][2]==0xb5d4 for e in logs)
-    assert any(e[1][2]==0xb69f for e in logs)
+    assert any(e[1][2]==p.cpus[0].cstring(0xb5d4) for e in logs)
+    assert any(e[1][2]==p.cpus[0].cstring(0xb69f) for e in logs)
 
 
 def test_queue_unmapped_buffer_fault_preserves_identical_prior_state(application_elf):

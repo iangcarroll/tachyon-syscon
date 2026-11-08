@@ -15,6 +15,7 @@ LINKER_SYMBOLS.update({'__data_load','__data_start','__data_end'})
 LINKER_SYMBOLS.update({'__peripheral_data_load','__peripheral_data_start',
                       '__peripheral_data_end','__peripheral_bss_start','__peripheral_bss_end'})
 LINKER_SYMBOLS.update({'__irq_bss_start','__irq_bss_end'})
+LINKER_SYMBOLS.update({'__power_data_load','__power_data_start','__power_data_end','__power_bss_start','__power_bss_end'})
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def run(command):return toolchain_process.run(command,text=True,capture_output=True)
@@ -50,6 +51,8 @@ def elf_audit(path):
                       symbols.get('__state_bss_end',0),
                       symbols.get('__peripheral_bss_end',0),
                       symbols.get('__irq_bss_end',0),
+                      symbols.get('__power_bss_end',0),
+                      symbols.get('__power_data_end',0),
                       symbols.get('__peripheral_data_end',0))
         return {'sections':sections,'load_segments':loads,'symbols':symbols,'issues':issues,'flash_io_words':callbacks,
                 'stack_floor_address':state_end,'stack_headroom_bytes':0x20001000-state_end}

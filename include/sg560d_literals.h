@@ -9,7 +9,6 @@
 #define D_5ed8 0x0000cfb8u
 #define D_5f2c 0x0000b894u
 #define D_60e8 0x0000cfe1u
-#define D_60ec 0x20000078u
 #define D_60f0 0x0000cfc8u
 #define D_60f4 0x000006a3u
 #define D_60f8 0x0000cfe6u
@@ -48,7 +47,6 @@
 #define D_6364 0x0000dba8u
 #define D_6368 0x0001d4c0u
 #define D_636c 0x0001d4bfu
-#define D_6370 0x20000098u
 #define D_6374 0x0000d1fcu
 #define D_6378 0x0000cfe1u
 #define D_637c 0x0006ddcfu
@@ -57,7 +55,6 @@
 #define D_6408 0x20000528u
 #define D_640c 0x200004f4u
 #define D_6410 0x20000500u
-#define D_6414 0x20000098u
 #define D_6418 0x0000d22bu
 #define D_641c 0x0000d236u
 #define D_6420 0x0000d23eu
@@ -148,7 +145,6 @@
 #define D_6bf8 0x200004f1u
 #define D_6bfc 0x20000518u
 #define D_6c00 0x200004f2u
-#define D_6c04 0x20000078u
 #define D_6c08 0x0000d62fu
 #define D_6c0c 0x200004e0u
 #define D_6c10 0x20000458u
@@ -163,7 +159,6 @@
 #define D_6c34 0x20000454u
 #define D_6c38 0x0000d6d4u
 #define D_6c3c 0x0000d71cu
-#define D_6c40 0x20000098u
 #define D_6c44 0x0000d69bu
 #define D_6f7c 0x00003a97u
 #define D_6f80 0x0000d6e6u
@@ -188,7 +183,6 @@
 #define D_6fcc 0x0000d75eu
 #define D_6fd0 0x0000d77au
 #define D_6fd4 0x000009c3u
-#define D_6fd8 0x20000098u
 #define D_6fdc 0x0000d603u
 #define D_6fe0 0x0000b896u
 #define D_6fe4 0x0000d7a1u
@@ -211,7 +205,6 @@
 #define D_7340 0x20000458u
 #define D_7344 0x20000510u
 #define D_7348 0x0000ea60u
-#define D_734c 0x20000098u
 #define D_7350 0x0000d9b7u
 #define D_7354 0x0000cfe1u
 #define D_7358 0x0000dba8u
@@ -226,7 +219,6 @@
 #define D_737c 0x0001d4bfu
 #define D_7380 0x0000da2cu
 #define D_743c 0x20000508u
-#define D_7440 0x20000098u
 #define D_7444 0x20000528u
 #define D_7448 0x0000da6eu
 #define D_744c 0x0000cfe1u

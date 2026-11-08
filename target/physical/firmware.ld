@@ -16,6 +16,9 @@ MEMORY {
  RAM_PERIPHERALS (rw) : ORIGIN = 0x200000f4, LENGTH = 0x164
  /* Reclaimed ADC scratch, GPIO callbacks and UART receive state, below logging state. */
  RAM_IRQ_STATE (rw) : ORIGIN = 0x20000684, LENGTH = 0x188
+ /* Reclaim old power-name tables and migrated power/key/RGB state. */
+ RAM_POWER_DATA (rw) : ORIGIN = 0x20000370, LENGTH = 0x54
+ RAM_POWER_STATE (rw) : ORIGIN = 0x2000005c, LENGTH = 0x58
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
 /* Separate PT_LOAD flags distinguish code and read-only data in the ELF.
@@ -36,6 +39,8 @@ PHDRS {
  peripherals PT_LOAD FLAGS(6);
  peripheral_bss PT_LOAD FLAGS(6);
  irq_state PT_LOAD FLAGS(6);
+ power_data PT_LOAD FLAGS(6);
+ power_state PT_LOAD FLAGS(6);
 }
 SECTIONS {
  .vectors : {KEEP(*(.vectors))} > CODE :vectors
@@ -86,6 +91,8 @@ SECTIONS {
    *target_fault_control_target.o(.rodata*)
    *target_i2c_target.o(.rodata*)
    *target_uart_hal_target.o(.rodata*) *target_uart_ring.o(.rodata*)
+   *target_power_manager_target.o(.rodata*) *target_power_policy_target.o(.rodata*)
+   *target_power_state.o(.rodata*)
  } > SPARE :peripheral_rodata
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
@@ -108,6 +115,18 @@ SECTIONS {
    *(.bss.syscon_log_enabled)
    . = ALIGN(4); __irq_bss_end = .;
  } > RAM_IRQ_STATE :irq_state
+ .power_data : ALIGN(4) {
+   __power_data_start = .;
+   *(.data.syscon_power_names)
+   . = ALIGN(4); __power_data_end = .;
+ } > RAM_POWER_DATA AT> CODE :power_data
+ __power_data_load = LOADADDR(.power_data);
+ .power_bss (NOLOAD) : {
+   __power_bss_start = .;
+   *(.bss.syscon_shutdown_reason) *(.bss.syscon_usb_reattach_state)
+   *(.bss.syscon_shutdown_state)
+   . = ALIGN(4); __power_bss_end = .;
+ } > RAM_POWER_STATE :power_state
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
  __data_load = LOADADDR(.data);
  .state_bss ORIGIN(RAM_STATE) (NOLOAD) : {

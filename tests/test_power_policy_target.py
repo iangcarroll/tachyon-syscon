@@ -8,6 +8,7 @@ from unicorn.arm_const import UC_ARM_REG_R1
 from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
 from power_policy_target_oracle import build,MAPPINGS,DEPENDENCIES
+from power_state_comparison import PowerStateComparison,log_arguments
 
 @pytest.fixture(scope='module')
 def policy_elf(tmp_path_factory):return build(tmp_path_factory.mktemp('power-policy'))
@@ -16,6 +17,7 @@ class Pair:
     def __init__(self,elf):
         self.cpus=[Oracle(),ArmRebuildOracle(elf)];self.events=[[],[]];self.trace=[[],[]]
         self.responses={};self.mutations={}
+        self.power_state=PowerStateComparison(*self.cpus)
         for i,cpu in enumerate(self.cpus):
             for addr,(name,count) in DEPENDENCIES.items():
                 entry=addr if i==0 else cpu.symbols['syscon_target_'+name]&~1
@@ -23,7 +25,9 @@ class Pair:
             def record(uc,kind,address,size,value,_,i=i):
                 if (0x2000005c<=address<0x200000ac or address==0x2000036f or 0x20000380<=address<0x20000390):
                     if kind==UC_MEM_READ:value=int.from_bytes(uc.mem_read(address,size),'little')
-                    self.trace[i].append((kind,address,size,value&((1<<(8*size))-1)))
+                    value &= (1<<(8*size))-1
+                    if i:value=self.power_state.word(address,size,value)
+                    self.trace[i].append((kind,address,size,value))
             cpu.cpu.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,record)
     def endpoint(self,cpu,i,name,count):
         args=tuple(cpu.arg(j) for j in range(count))
@@ -31,9 +35,7 @@ class Pair:
             args=(args[0],bytes(cpu.cpu.mem_read(args[1],7 if name=='adc_init' else 3)))
         if name in ['logger','mfg_logger','output']:
             start=2 if name=='logger' else 0
-            fmt=bytes(cpu.cpu.mem_read(cpu.arg(start),180)).split(b'\0')[0]
-            n=len(re.findall(rb'%(?!%)[-+ #0]*[0-9.*]*[hl]*[diuxXscp]',fmt))
-            args=tuple(cpu.arg(j) for j in range(start+1+n))
+            args=log_arguments(cpu,start)
         self.events[i].append((name,args))
         if name in self.mutations:self.mutations[name](cpu,i,args)
         result=self.responses.get(name,0)
@@ -96,7 +98,7 @@ def test_minimum_signed_comparison_sentinel_and_full_bit_results(policy_elf):
 
 def test_shutdown_reason_logging_wrap_byte_truncation_and_clock_zero(policy_elf):
     p=Pair(policy_elf)
-    for reason in [0,1,2,3,255,256,0x3ffffff0,0x40000000,0xffffffff]:
+    for reason in [0,1,2,3,4,5,6,255,256,0x3ffffff0,0x40000000,0xffffffff]:
         for now in [0,1,0xffffffff,0x100000001,0xffffffffffffffff]:
             p.put(0x20000380,b'\xff');p.responses={'now':now};p.call(0x55dc,reason)
             p.call(0x562c);p.call(0x5670);p.call(0x567c)
@@ -132,3 +134,16 @@ def test_invalid_reason_table_fault_precedes_state_write(policy_elf):
         errors.append(error.value.errno)
         assert bytes(cpu.cpu.mem_read(0x2000036f,1))==b'\xa5'
     assert errors[0]==errors[1]
+
+
+def test_power_report_and_all_shutdown_names_ignore_original_rom(policy_elf):
+    p=Pair(policy_elf)
+    p.cpus[1].put(0xc61f,b'\xa5'*(0xcd7c-0xc61f))
+    for address,size in [(0xb9f9,8),(0xba07,9),(0xd1a9,3),(0xd776,4)]:
+        p.cpus[1].put(address,b'\xa5'*size)
+    p.call(0x5358)
+    p.call(0x54cc,0)
+    for reason in range(7):
+        p.responses={'now':1000}
+        p.call(0x55dc,reason)
+        assert p.call(0x562c)==reason

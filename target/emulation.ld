@@ -23,6 +23,11 @@ MEMORY {
     TEST_UART_PORTS (rw) : ORIGIN = 0x20000234, LENGTH = 32
     TEST_UART_CONFIG (rw) : ORIGIN = 0x20000762, LENGTH = 18
     TEST_UART_RINGS (rw) : ORIGIN = 0x20000774, LENGTH = 152
+    TEST_POWER_MINIMUM (rw) : ORIGIN = 0x2000005c, LENGTH = 4
+    TEST_POWER_NAMES (rw) : ORIGIN = 0x20000060, LENGTH = 84
+    TEST_SHUTDOWN_REASON (rw) : ORIGIN = 0x2000036f, LENGTH = 1
+    TEST_USB_REATTACH (rw) : ORIGIN = 0x20000370, LENGTH = 16
+    TEST_SHUTDOWN (rw) : ORIGIN = 0x20000380, LENGTH = 16
     TEST_LOG (rw) : ORIGIN = 0x2000080c, LENGTH = 1
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
@@ -47,6 +52,11 @@ PHDRS {
     uart_ports PT_LOAD FLAGS(6);
     uart_config PT_LOAD FLAGS(6);
     uart_rings PT_LOAD FLAGS(6);
+    power_minimum PT_LOAD FLAGS(6);
+    power_names PT_LOAD FLAGS(6);
+    shutdown_reason PT_LOAD FLAGS(6);
+    usb_reattach PT_LOAD FLAGS(6);
+    shutdown PT_LOAD FLAGS(6);
     log PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
@@ -76,6 +86,11 @@ SECTIONS {
     .uart_ports : { *(.data.syscon_uart_ports) } > TEST_UART_PORTS AT> TEST_CODE :uart_ports
     .uart_config (NOLOAD) : { *(.bss.syscon_uart_config) } > TEST_UART_CONFIG :uart_config
     .uart_rings (NOLOAD) : { *(.bss.syscon_uart_rings) } > TEST_UART_RINGS :uart_rings
+    .power_minimum : { *(.data.syscon_minimum_vph_mv) } > TEST_POWER_MINIMUM AT> TEST_CODE :power_minimum
+    .power_names : { *(.data.syscon_power_names) } > TEST_POWER_NAMES AT> TEST_CODE :power_names
+    .shutdown_reason (NOLOAD) : { *(.bss.syscon_shutdown_reason) } > TEST_SHUTDOWN_REASON :shutdown_reason
+    .usb_reattach (NOLOAD) : { *(.bss.syscon_usb_reattach_state) } > TEST_USB_REATTACH :usb_reattach
+    .shutdown (NOLOAD) : { *(.bss.syscon_shutdown_state) } > TEST_SHUTDOWN :shutdown
     .log (NOLOAD) : { *(.bss.syscon_log_enabled) } > TEST_LOG :log
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers

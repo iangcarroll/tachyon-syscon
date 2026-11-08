@@ -59,6 +59,18 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                       (symbols['syscon_uart_config'],18),
                       (symbols['syscon_uart_rings'],152)])
         for address,size in uart_blocks:m.write_ram(address,b'\xa5'*size)
+        power_blocks=([(0x2000005c,4),(0x2000036f,1),(0x20000370,16),(0x20000380,16)]
+                      if image==load_image() else
+                      [(symbols['syscon_minimum_vph_mv'],4),(symbols['syscon_shutdown_reason'],1),
+                       (symbols['syscon_usb_reattach_state'],16),(symbols['syscon_shutdown_state'],16)])
+        names=0x20000060 if image==load_image() else symbols['syscon_power_names']
+        for address,size in [*power_blocks,(names,84)]:m.write_ram(address,b'\xa5'*size)
+        def power_names():
+            result=[]
+            for offset in range(0,84,4):
+                address=int.from_bytes(m.read(names+offset,4),'little')
+                result.append(bytes(m.read(address,64)).split(b'\0',1)[0])
+            return tuple(result)
         log_flag=0x2000080c if image==load_image() else symbols['syscon_log_enabled']
         m.write_ram(log_flag,b'\xa5')
         reset_count=m.reset_count
@@ -79,7 +91,9 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in led_blocks),
                                tuple(m.read(address,size) for address,size in gpio_i2c_blocks),
                                tuple(m.read(address,size) for address,size in uart_blocks),
-                               m.read(log_flag,1)))
+                               m.read(log_flag,1),
+                               tuple(m.read(address,size) for address,size in power_blocks),
+                               power_names()))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)
