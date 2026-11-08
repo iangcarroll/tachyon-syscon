@@ -120,19 +120,27 @@ Under the owner-authorized Linux-only protocol, after local validation and the o
 4. While Linux is still running, reflash the original with the same updater. Require successful verification, its VERSION reply and unchanged configuration/identity. This round trip tests the Linux restore path before relying on it.
 5. Do not combine this experiment with a power-cycle or intentional app-driven power cut. Those are separate recovery experiments; the BSL round trip proves neither.
 
-The original-only rehearsal was followed by a successful replacement round trip:
+The first replacement round trip on 2026-11-07 used source commit `295015f0f4cada173339aa97291fcb0aa979e8a7` (image SHA256 `59e6ba29bdd0229b763115fe0bcde2787f36b3468f71acb6d1b333197437182d`). Both candidate programming and original restoration succeeded, with matching logical configuration/identity and the same Linux boot ID.
 
-- Rebuilt source commit: `295015f0f4cada173339aa97291fcb0aa979e8a7` (PR #8), with 1,145 local tests passing, unchanged tested inputs, and both CI suites green.
-- Candidate SHA256: `59e6ba29bdd0229b763115fe0bcde2787f36b3468f71acb6d1b333197437182d`; 63,487 bytes, padded to 63,488.
-- One candidate program and one original restore through the exact packaged executable. Each completed with exit status zero and a CRC verification acknowledgement. Captured wire packets show one range erase of `0x0000..0xf7ff` and 248 program packets per image.
-- The rebuilt app returned VERSION 1.0.52. CONFIG_DUMP, CONFIG_ID_DUMP and CONFIG_INTERNAL matched the original baseline exactly. READ_PWR reported VPH 4308, header 4971, VBAT 4206, 1V8 1806 and VUSB 5176 mV; differences from the immediately preceding original readings were at most 3 mV.
-- The original was restored immediately. Its version/configuration/identity/settings matched the pre-test values; Linux retained the same boot ID across the complete 21-second round trip.
+The current source image completed another round trip on 2026-11-08:
 
-Raw UART dumps and updater logs remain in private local captures outside Git.
-This was a boot/read-only smoke test, not a power-cycle, brownout, sustained
-charging or exhaustive functional validation. The board is back on the original.
-The private-address migration and broader stateful input/fault tests remain
-required project work; later source commits have not inherited hardware proof.
+- Build source: `8ddf9643ee8a41bde9af879f6f3c6b2583d0b057`. Every recorded production build-input hash still matches merged source `ceeb1b3464ecb2c85cf904edd8814d54e56693ec`; the Linux CI artifact is byte-identical.
+- Candidate SHA256: `0ee5d33c1870b2c517038975ebbf1079c3ab6301d0889c7b092c50d54361bf37`. Original restore SHA256: `5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6`. Each image is 63,487 bytes, padded to 63,488 by the packaged updater.
+- USB power was present. Linux reported battery health Good, charge level 100%, temperature 20 C and status Charging before the test. The packaged updater, control script and UART utility matched the pinned hashes. The updater service was idle.
+- The script ran as a transient systemd service so a host/ADB disconnect would not terminate the prepared restoration. It performed exactly one candidate program and one original restore. Both exited zero and received CRC verification acknowledgements.
+- Offline inspection of both captured wire logs found one range erase of `0x0000..0xf7ff` (inclusive), 248 sequential program packets, and CRC verification over those same 63,488 bytes. All packet CRCs were valid, and each complete transmitted payload exactly matched its staged image plus `0xff` padding. No erase/program request reached the identity/configuration sectors or NONMAIN.
+- The candidate returned VERSION 1.0.52. CONFIG_DUMP, CONFIG_ID_DUMP and CONFIG_INTERNAL matched the original baseline and the restored original byte-for-byte. Candidate rail readings were VPH 4236, 5V 4974, VBAT 4230, 1V8 1806 and VUSB 5152 mV; the largest change from the immediate baseline was 3 mV.
+- Linux kept the same boot ID throughout the 21.18-second round trip. A subsequent live VERSION query confirmed the restored application; Linux still reported USB power present, battery health Good and status Charging. The transient service exited zero and was stopped after its result and captures were saved.
+
+A separately authorized cold-boot test followed on 2026-11-08, using the same candidate:
+
+- The candidate was reinstalled through the same packaged updater and CRC-verified. Version, runtime configuration, identity and effective configuration matched the original baseline before shutting Linux down normally.
+- The owner confirmed that all power was removed for 20 seconds, then the battery and USB were reconnected. ADB returned with a new Linux boot ID; the first observed Linux uptime was 29.48 seconds. This physical power-removal step was performed and reported by the owner, not inferred from an ADB disconnect.
+- After cold boot, VERSION returned 1.0.52 and CONFIG_DUMP, CONFIG_ID_DUMP and CONFIG_INTERNAL still matched the baseline byte-for-byte. Rail readings were VPH 4314, 5V 4971, VBAT 4215, 1V8 1806 and VUSB 5176 mV. Linux reported USB power present, battery health Good, capacity 100%, temperature 21 C and status Full.
+- The boot-time vendor service completed successfully and logged that version 1.0.52 was already current, skipping its upgrade. VERSION alone cannot identify the reconstruction because it intentionally retains the original version string.
+- A subsequent read-only BSL CRC request over `0x0000..0xf7ff` returned `0x0ed896c1`, exactly matching the padded rebuilt image and differing from the original image's `0xfac385c0`. These are the updater's uncomplemented reflected CRC32 values. Offline packet inspection verified the request range and all packet CRCs, with no erase or program commands. This probe resets the MCU; the cold-boot application responses above were captured before that reset. Application queries also succeeded after the probe without another Linux boot.
+
+Raw UART dumps, firmware copies and updater logs remain in private local captures outside Git. **The board remains on the rebuilt firmware.** These observations validate a Linux-running flash/restore, normal cold startup of this image and read-only application smoke tests. They do not validate recovery from a broken image after power loss, brownout recovery, independent SWD recovery, configuration writes on hardware, sustained charging, thermal behavior, or every application path. The reconstructed firmware does not implement the Qualcomm charger's complete charging algorithm; a Linux Charging status is not charging-curve validation. Later images require their own evidence unless their binary and relevant build inputs are identical.
 
 ### Immutable audit inputs
 
