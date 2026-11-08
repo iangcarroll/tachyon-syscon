@@ -22,6 +22,10 @@ LINKER_SYMBOLS.update({'__protocol_data_load','__protocol_data_start','__protoco
 LINKER_SYMBOLS.update({'__modem_bss_start','__modem_bss_end'})
 LINKER_SYMBOLS.update({'__runtime_data_load','__runtime_data_start','__runtime_data_end'})
 
+def production_sources():
+    """Single source inventory for physical builds and architecture checks."""
+    return list(dict.fromkeys([*SOURCES,*EXTRA,*PHYSICAL]))
+
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def run(command):return toolchain_process.run(command,text=True,capture_output=True)
 def emit_binary(elf_path,binary_path):
@@ -70,7 +74,7 @@ def build(output):
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True)
     # A failed rebuild must never leave an apparently current image behind.
     for name in ['firmware.elf','firmware.bin','firmware.map']:(output/name).unlink(missing_ok=True)
-    sources=list(dict.fromkeys([*SOURCES,*EXTRA,*PHYSICAL]));objects=[];failures=[]
+    sources=production_sources();objects=[];failures=[]
     forbidden=[s for s in sources if any(part in s for part in ('/testing/','test_fixture','emulation_runtime','test_stub'))]
     if forbidden:raise ValueError('Test-only source forbidden in physical build: '+repr(forbidden))
     tracked=[ROOT/s for s in sources]+list((ROOT/'include').glob('*.h'))+[ROOT/'target/physical/firmware.ld',Path(__file__)]

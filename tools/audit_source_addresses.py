@@ -34,9 +34,9 @@ def violations(source):
     return sorted(findings)
 
 def audit(root=None):
-    from build_target_interfaces import SOURCES,ROOT
+    from build_physical_firmware import production_sources,ROOT
     root=Path(root or ROOT)
-    paths=[root/path for path in SOURCES]+list((root/'target/physical').glob('*.c'))+list((root/'include').glob('*.h'))
+    paths=[root/path for path in production_sources()]+list((root/'include').glob('*.h'))
     result=[]
     for path in dict.fromkeys(paths):
         for line,value in violations(path.read_text()):
