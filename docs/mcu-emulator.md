@@ -213,7 +213,8 @@ in its separate stateful job and uploads their replay inputs and results.
 
 The grammar varies configuration keys/values, command selection, rejected `%`
 values, UART byte spacing, rising/falling battery samples, short button hold
-time and one to three consecutive I2C NACKs. A fresh-boot event creates a new CPU
+time and one to three consecutive I2C NACKs. Button/fault placement varies between
+command/ADC rounds, so later commands observe their effects. A fresh-boot event creates a new CPU
 and resets modeled peripherals and external inputs to the synthetic fixture,
 carrying over flash only; it is not a retained-SRAM warm reset. Warm resets have
 their own integration tests. Commands after the fresh boot independently check

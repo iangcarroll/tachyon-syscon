@@ -10,6 +10,12 @@ from stateful_replay import battery_responded, compare, generate, replay, valida
 def test_seeded_sequences_are_reproducible_and_saved_events_are_the_contract(tmp_path):
     sequences = [generate(seed) for seed in range(20)]
     assert len({json.dumps(events) for events in sequences}) == len(sequences)
+    # Inputs vary in placement as well as values: exercise commands/ADC both
+    # before and after button handling and recoverable peripheral failures.
+    placements = {(next(i for i, event in enumerate(events) if event['kind'] == 'button'),
+                   next(i for i, event in enumerate(events) if event['kind'] == 'i2c-nack'))
+                  for events in sequences}
+    assert len(placements) > 1
     for seed, events in enumerate(sequences):
         assert events == generate(seed)
         path = tmp_path / 'events.json'

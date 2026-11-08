@@ -61,6 +61,8 @@ def generate(seed, rounds=4):
 
     command('VERSION', 'Version=1.0.52')
     values = {}
+    button_after = rng.randrange(rounds)
+    fault_after = rng.randrange(rounds)
     for index in range(rounds):
         key = 'replay.' + str(rng.randrange(2))
         value = ''.join(rng.choice('abcdefghijklmnopqrstuvwxyz0123456789') for _ in range(rng.randint(1, 18)))
@@ -75,12 +77,14 @@ def generate(seed, rounds=4):
         command(rng.choice(['VERSION', 'GPIO_READ 12', 'IOEXP_READ 0']))
         if rng.choice([False, True]):
             command('CONFIG_SET rejected %s', status='FAIL')
+        if index == button_after:
+            events.append(dict(kind='button', hold_ticks=rng.randint(90, 150)))
+        if index == fault_after:
+            events.append(dict(kind='i2c-nack', count=rng.randint(1, 3)))
+            command('IOEXP_READ 0')
     events.append(dict(kind='reset'))
     for key, value in sorted(values.items()):
         command('CONFIG_GET ' + key, key + ' = ' + value)
-    events.append(dict(kind='button', hold_ticks=rng.randint(90, 150)))
-    events.append(dict(kind='i2c-nack', count=rng.randint(1, 3)))
-    command('IOEXP_READ 0')
     command('VERSION', 'Version=1.0.52')
     return validate(events)
 
