@@ -12,6 +12,15 @@ R=0x200003a8
 @pytest.fixture(scope='module')
 def rgb_target_elf(tmp_path_factory):return build(tmp_path_factory.mktemp('rgb-target'))
 
+def string(cpu,address):
+    text=bytearray()
+    for i in range(256):
+        byte=cpu.cpu.mem_read(address+i,1)
+        if byte==b'\0':return bytes(text)
+        text.extend(byte)
+    raise AssertionError('Unterminated RGB text')
+
+
 class Pair:
     def __init__(self,elf):
         self.cpus=[Oracle(),ArmRebuildOracle(elf)];self.events=[[],[]];self.memory=[[],[]]
@@ -24,6 +33,7 @@ class Pair:
                     if name=='timer_register':
                         expected=0x5cad if i==0 else machine.symbols['syscon_target_rgb_tick']|1
                         assert args[2]==expected;args=(*args[:2],'relocated:rgb_tick',args[3])
+                    if name=='logger':args=(args[0],string(machine,args[1]),string(machine,args[2]),args[3])
                     self.events[i].append((name,args))
                     if self.mutate:self.mutate(machine,i,name,args)
                     return self.responses.get(name,0)
@@ -38,7 +48,10 @@ class Pair:
         self.events=[[],[]];self.memory=[[],[]]
         left=self.cpus[0].call(address,*args,count=1000000)
         right=self.cpus[1].call('syscon_target_rgb_'+MAPPINGS[address],*args,count=1000000)
-        if address not in [0x5b48,0x5e24]:assert left==right,(hex(address),args,left,right)
+        if address in (0x5df4,0x5e0c):
+            assert string(self.cpus[0],left)==string(self.cpus[1],right)
+        elif address not in [0x5b48,0x5e24]:
+            assert left==right,(hex(address),args,left,right)
         if address==0x5cac:assert self.cpus[0].cpu.reg_read(UC_ARM_REG_R1)==self.cpus[1].cpu.reg_read(UC_ARM_REG_R1)
         assert self.events[0]==self.events[1],(hex(address),self.events)
         assert self.memory[0]==self.memory[1],(hex(address),self.memory)
@@ -106,3 +119,40 @@ def test_rgb_animation_long_sequence_and_transient_restore(rgb_target_elf):
         p.call(0x5c68,preset,0);p.call(0x5e24)
         p.call(0x5cac,123,456);p.call(0x5cac,123,456)
         assert p.call(0x5dbc)==preset
+
+
+def test_rgb_has_no_dependency_on_original_tables_or_strings(rgb_target_elf):
+    p=Pair(rgb_target_elf)
+    p.cpus[1].put(0xce05,b'\xa5'*(0xcf68-0xce05))
+    p.cpus[1].put(0xd776,b'\xa5'*4)
+    p.cpus[1].put(0xdaa5,b'\xa5'*8)
+    p.responses['timer_register']=0xffffffff
+    p.call(0x5b7c,0)
+    for preset in range(10):
+        p.call(0x5c68,preset,0)
+        p.call(0x5df4,preset)
+        for _ in range(6):p.call(0x5cac,0,0)
+    for pattern in range(7):p.call(0x5e0c,pattern)
+    p.call(0x5df4,255)
+
+
+def test_editing_a_preset_changes_behavior_without_address_changes(tmp_path,monkeypatch):
+    import build_arm_test_image as runtime
+    header=(runtime.ROOT/'include/rgb_data.h').read_text()
+    old='[SYSCON_RGB_FACTORY]   = {255, 255, 255,  30, SYSCON_RGB_BLINKING}'
+    new='[SYSCON_RGB_FACTORY]   = {255, 255, 255,  73, SYSCON_RGB_BLINKING}'
+    assert header.count(old)==1
+    shadow=tmp_path/'include';shadow.mkdir()
+    (shadow/'rgb_data.h').write_text(header.replace(old,new))
+    monkeypatch.setattr(runtime,'FLAGS',[*runtime.FLAGS,'-I'+str(shadow)])
+    p=Pair(build(tmp_path/'variant'))
+    p.cpus[0].call(0x5b7c,1)
+    p.cpus[1].call('syscon_target_rgb_init',1)
+    p.events=[[],[]]
+    p.cpus[0].call(0x5c68,3,0)
+    p.cpus[1].call('syscon_target_rgb_preset',3,0)
+    writes=[[args for name,args in events if name=='pwm_write'] for events in p.events]
+    assert [port for port,value in writes[0]]==[port for port,value in writes[1]]
+    assert len(writes[0])==len(writes[1])==3
+    assert all(after[1]>before[1] for before,after in zip(writes[0],writes[1]))
+    assert (runtime.ROOT/'include/rgb_data.h').read_text()==header

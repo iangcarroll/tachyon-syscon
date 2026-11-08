@@ -96,6 +96,11 @@ could not detect that collision with newer objects above its boundary.
 The linker now allocates scheduler/retained objects in the freed task/timer
 region instead of reserving a second copy in auxiliary RAM. Object addresses
 remain linker-resolved, and the whole-image regression changes their order.
+LED state and PWM descriptors similarly reuse the former ADC-table region;
+the relocation test shifts both by eight bytes. Startup copies this initialized
+data and clears its BSS before constructors. Its 64 bytes of reclaimed storage
+matter: keeping a duplicate raised the stack floor to `0x2000094c`, and the
+compaction test caught an actual stack descent to `0x20000944`.
 This split SRAM layout is transitional while other modules still depend on
 legacy locations; it must not become a permanent private-address ABI. Remaining
 migration should converge on ordinary contiguous data/BSS allocation.
@@ -105,7 +110,8 @@ end. `make rebuilt-system` reads it from a manifest whose binary hash must match
 the image. A raw image without a manifest requires an explicit `--stack-floor`.
 Full-image relocation and compaction tests pass this bound to the emulator
 and check startup and later stack use against it. Only vacant legacy locations
-are poisoned: the reclaimed scheduling arena is now live storage. A negative control relinks the same objects with the duplicate allocation restored,
+are poisoned: reclaimed arenas are now live storage. Negative controls relink
+the same objects with duplicate scheduler or LED allocation restored,
 boots successfully and must hit the allocation guard during compaction. These dynamic
 checks establish the exercised paths, not a maximum over all possible paths.
 

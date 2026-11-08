@@ -1,6 +1,7 @@
 /* Reconstructed from the pinned original Thumb bodies; no DriverLib linkage. */
 #include "hal_helpers.h"
 #include "adc_state.h"
+#include "pwm_state.h"
 #define U8(a) (*(volatile uint8_t *)(uintptr_t)(uint32_t)(a))
 #define U16(a) (*(volatile uint16_t *)(uintptr_t)(uint32_t)(a))
 #define U32(a) (*(volatile uint32_t *)(uintptr_t)(uint32_t)(a))
@@ -24,10 +25,20 @@ uint32_t syscon_hal_adc_lookup(uint32_t id)
     }
     return 0;
 }
-uint32_t syscon_hal_pwm_lookup(uint32_t id) {
-    if ((uint32_t)U8(0x20000148u) == id) return 0x20000148u;
-    if ((uint32_t)U8(0x20000154u) == id) return 0x20000154u;
-    if ((uint32_t)U8(0x20000160u) == id) return 0x20000160u;
+/* Logical blue/green/red channels, IOMUX function and timer compare routing. */
+volatile syscon_pwm_channel_t syscon_pwm_channels[3]
+    __attribute__((section(".data.syscon_pwm_channels"))) = {
+        {1, 2, {0}, 0x40088000u, 1, {0}},
+        {2, 2, {0}, 0x40084000u, 0, {0}},
+        {3, 2, {0}, 0x40084000u, 1, {0}},
+    };
+
+uint32_t syscon_hal_pwm_lookup(uint32_t id)
+{
+    for (unsigned i = 0; i < 3; ++i) {
+        if (syscon_pwm_channels[i].pin == id)
+            return (uint32_t)(uintptr_t)&syscon_pwm_channels[i];
+    }
     return 0;
 }
 uint32_t syscon_hal_uart_lookup(uint32_t index) {

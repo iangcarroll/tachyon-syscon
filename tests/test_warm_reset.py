@@ -39,6 +39,11 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                      (symbols['syscon_adc_state'],11),
                      (symbols['syscon_adc_vref_initialized'],1)])
         for address,size in adc_blocks:m.write_ram(address,b'\xa5'*size)
+        led_blocks=([(0x20000148,36),(0x200003a8,28)]
+                    if image==load_image() else
+                    [(symbols['syscon_pwm_channels'],36),
+                     (symbols['syscon_rgb_runtime'],28)])
+        for address,size in led_blocks:m.write_ram(address,b'\xa5'*size)
         reset_count=m.reset_count
         loaded=[];return_pc=None;loop=False
         def writes(cpu,kind,address,size,value,unused):
@@ -53,7 +58,8 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read_register(0x400b0400+4*i) for i in range(3)),
                                bytes(m.read(cache,22)),
                                tuple(m.read(address,size) for address,size in button_blocks),
-                               tuple(m.read(address,size) for address,size in adc_blocks)))
+                               tuple(m.read(address,size) for address,size in adc_blocks),
+                               tuple(m.read(address,size) for address,size in led_blocks)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]
         m.write_register(0xe000ed0c,0x05fa0004)

@@ -55,7 +55,7 @@ class HalOracle(Oracle):
                     if segment['p_type']!='PT_LOAD' or not segment['p_filesz']:continue
                     address=segment['p_vaddr'];size=segment['p_memsz']
                     assert ((CODE<=address and address+size<=CODE+0x80000) or
-                            (address==0x200000f4 and size==72 and not segment['p_flags']&1))
+                            (any((address,size)==block for block in [(0x200000f4,72),(0x20000148,36)]) and not segment['p_flags']&1))
                     self.put(address,segment.data())
         for low,high in [(BASE,BASE+0x1fff),(CFG,CFG+63),(DATA,DATA+0x1ffff),
                          (0x200000f4,0x20000263)]:
