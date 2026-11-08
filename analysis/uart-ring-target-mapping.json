@@ -2,11 +2,11 @@
   "entries": [
     {
       "address": "0x891c",
-      "symbol": "syscon_target_uart_rx_disable"
+      "symbol": "syscon_target_uart_rx_irq_mask"
     },
     {
       "address": "0x8938",
-      "symbol": "syscon_target_uart_rx_enable"
+      "symbol": "syscon_target_uart_rx_irq_unmask"
     },
     {
       "address": "0x8c34",

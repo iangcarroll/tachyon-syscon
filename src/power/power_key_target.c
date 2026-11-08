@@ -126,8 +126,8 @@ void syscon_target_powerkey_debounce(uint32_t ignored)
             STATE.pressed_ms = 0;
             STATE.released_ms = 0;
             STATE.forced = 0;
-            uint32_t seconds = syscon_target_modem_off() ? syscon_target_powerkey_long_seconds()
-                                                         : syscon_target_powerkey_extra_seconds();
+            uint32_t seconds = syscon_target_modem_off() ? syscon_target_edl_timer_seconds()
+                                                         : syscon_target_shutdown_timer_seconds();
             /* Unsigned arithmetic, including wrap, matches the stored timer
              * configuration. Do not silently clamp the caller's value. */
             uint32_t ms = seconds * 1000;

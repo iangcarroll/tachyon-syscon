@@ -45,7 +45,7 @@ def test_boot_modes_real_internal_calls_and_task_callbacks(elf):
                 p=Pair(elf,responses({0x7554:task_result}));p.put(0x200004f1,bytes([busy]));p.call(entry,*args)
 
 
-def test_power_check_source_selection_and_driver_failures(elf):
+def test_prepare_power_source_selection_and_driver_failures(elf):
     rng=random.Random(0x5f30)
     for _ in range(150):
         v={0x5274:rng.choice([0,1,2]),0x4ca8:rng.choice([0,1,2]),0x3194:rng.randrange(2),0x4d9c:rng.randrange(3),
@@ -76,7 +76,7 @@ def test_original_scenario_corpus_with_real_internal_calls_and_logger(elf,scenar
     getattr(module,scenario_name)(None)
 
 
-def test_init_and_preparation_with_real_power_check(elf):
+def test_init_and_preparation_with_real_power_setup(elf):
     for mode in list(range(7))+[255,256,0xffffffff]:
         for voltage in [0,1699,1700]:
             for keep in [0,1]:

@@ -15,7 +15,7 @@ class KeyPair(Pair):
         super().__init__(elf)
         for entry,name in [(0x80f8,'gpio_read'),(0x81f8,'gpio_detach'),(0x8148,'gpio_attach'),
             (0x7f58,'gpio_config'),(0x6690,'modem_off'),(0x6a28,'modem_key_assert'),(0x6a48,'modem_key_release'),
-            (0x315c,'powerkey_long_seconds'),(0x3178,'powerkey_extra_seconds')]:
+            (0x315c,'edl_timer_seconds'),(0x3178,'shutdown_timer_seconds')]:
             self.o.redirect[entry]=self.symbol('syscon_target_'+name)
         self.entries=TIMER_MAPPINGS|MAPPINGS
         self.pointers={entry|1:self.symbol(MAPPINGS[entry]) for entry in (0x570c,0x5740,0x5844)}

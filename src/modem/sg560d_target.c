@@ -64,16 +64,16 @@ void syscon_target_modem_uart_start(void)
     syscon_rt_memset((void *)syscon_modem_scratch, 0, sizeof(syscon_modem_scratch));
     syscon_modem_parser.enabled = 1;
 }
-uint32_t syscon_target_modem_power_check(void)
+uint32_t syscon_target_modem_prepare_power(void)
 {
-    int32_t battery = (int32_t)syscon_target_power_battery_detect();
+    int32_t battery = (int32_t)syscon_target_power_battery_probe();
     int32_t route = (int32_t)syscon_target_power_battery_route();
     LOG(3, "Current VBATT source: %s", syscon_power_name(syscon_power_names.battery_route, route));
     if (measure(15) > 1699) {
         LOG(1, "cannot change power source when the modem is powered up", 1699);
         check(0x152, "false");
     }
-    if (!syscon_target_hwrevision_new()) {
+    if (!syscon_target_hardware_uses_dead_battery_workaround()) {
         if (route)
             check(0x159, "vbattSrc == MODEM_VBAT_SOURCE_NONE");
     } else if (route)
@@ -97,7 +97,7 @@ uint32_t syscon_target_modem_power_check(void)
     }
     if (battery == 1) {
         if (battery_mv < 2000) {
-            if (syscon_target_hwrevision_new()) {
+            if (syscon_target_hardware_uses_dead_battery_workaround()) {
                 LOG(1, "Working around dead battery issue");
                 status = (int32_t)syscon_target_power_battery_route_set(2);
                 if (status < 0)
@@ -407,7 +407,7 @@ uint32_t syscon_target_modem_poweroff(uint32_t force)
 uint32_t syscon_target_modem_prepare_special(void)
 {
     LOG(3, "preparing to enter %s", syscon_modem_boot.label);
-    uint32_t ok = syscon_target_modem_power_check();
+    uint32_t ok = syscon_target_modem_prepare_power();
     if (!ok) {
         LOG(1, "powerCheck on failed");
         syscon_target_modem_pins_off();
@@ -424,7 +424,7 @@ uint32_t syscon_target_modem_prepare_edl(void)
 {
     LOG(3, "preparing to enter EDL mode");
     syscon_target_gpio_write(11, 1);
-    uint32_t ok = syscon_target_modem_power_check();
+    uint32_t ok = syscon_target_modem_prepare_power();
     if (!ok) {
         LOG(1, "powerCheck on failed");
         syscon_target_modem_pins_off();
@@ -439,7 +439,7 @@ uint32_t syscon_target_modem_prepare_edl(void)
 uint32_t syscon_target_modem_prepare_normal(void)
 {
     LOG(3, "preparing to enter NORMAL mode");
-    uint32_t ok = syscon_target_modem_power_check();
+    uint32_t ok = syscon_target_modem_prepare_power();
     if (!ok) {
         LOG(1, "powerCheck on failed");
         syscon_target_modem_pins_off();
@@ -629,7 +629,7 @@ static void update_power_transitions(void)
                 syscon_power_name(syscon_power_names.shutdown, reason),
                 stale ? ADDRESS(", stale") : ADDRESS(""), floor, battery);
             syscon_target_power_minimum_reset();
-            reason = syscon_target_shutdown_active();
+            reason = syscon_target_shutdown_reason_if_fresh();
             syscon_modem_runtime.expected_state = 1;
             syscon_modem_boot.restarting = 1;
             write64(&syscon_modem_runtime.started, 0);
@@ -647,13 +647,13 @@ transition_done:
                 uint32_t mode = syscon_modem_timing.mode;
                 syscon_target_modem_poweroff(1);
                 if (mode - 3 > 2)
-                    syscon_target_modem_retry_schedule(syscon_target_shutdown_active());
+                    syscon_target_modem_retry_schedule(syscon_target_shutdown_reason_if_fresh());
             } else
                 LOG(1, "Modem power state error: timeout waiting for power state change");
         } else if (!syscon_modem_runtime.current_state &&
                    syscon_modem_runtime.expected_state == 1) {
             syscon_modem_boot.restarting = 0;
-            uint32_t reason = syscon_target_shutdown_active();
+            uint32_t reason = syscon_target_shutdown_reason_if_fresh();
             if (reason == 1) {
                 LOG(3, "Reboot timeout - manually triggering power on");
                 syscon_target_modem_poweron();
@@ -773,7 +773,7 @@ static void update_automatic_start(void)
             }
         }
         if (automatic && syscon_modem_runtime.retry_active &&
-            !syscon_target_power_shutdown_busy()) {
+            !syscon_target_usb_reattach_busy()) {
             if (syscon_target_now() >= read64(&syscon_modem_runtime.retry_deadline)) {
                 uint32_t blocked = 0;
                 if (syscon_modem_runtime.retry_reason == 3) {
@@ -806,11 +806,11 @@ static void update_automatic_start(void)
         syscon_modem_runtime.retry_active = 0;
         syscon_modem_runtime.retry_reason = 0;
     }
-    uint32_t reason = syscon_target_shutdown_active();
+    uint32_t reason = syscon_target_shutdown_reason_if_fresh();
     uint32_t owns = syscon_modem_runtime.retry_active && syscon_modem_runtime.retry_reason
                         ? syscon_modem_runtime.retry_active
                         : reason == 2;
-    if (!syscon_target_power_shutdown_busy() && !current && !expected && automatic) {
+    if (!syscon_target_usb_reattach_busy() && !current && !expected && automatic) {
         if (!owns) {
             if (!syscon_modem_runtime.usb_present && present) {
                 write64(&syscon_modem_runtime.usb_rise, syscon_target_now());

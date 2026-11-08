@@ -3,7 +3,9 @@
 #include <stdint.h>
 void syscon_target_modem_uart_stop(void);
 void syscon_target_modem_uart_start(void);
-uint32_t syscon_target_modem_power_check(void);
+/* Probes the battery and configures supplies/boost/NTC/VBUS for startup.
+ * The active battery probe runs before the processor-off assertion. */
+uint32_t syscon_target_modem_prepare_power(void);
 uint32_t syscon_target_modem_fct_complete(void);
 uint32_t syscon_target_modem_volume_release(void);
 uint32_t syscon_target_modem_usbboot_release(void);

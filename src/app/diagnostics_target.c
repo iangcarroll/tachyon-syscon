@@ -24,7 +24,7 @@ uint32_t syscon_target_log_color(void)
 {
     return syscon_config_state.flags[SYSCON_CONFIG_COLOR_DEBUG];
 }
-uint32_t syscon_target_alt_powerkey(void)
+uint32_t syscon_target_fastboot_enabled(void)
 {
     return syscon_config_state.flags[SYSCON_CONFIG_FASTBOOT];
 }
@@ -42,15 +42,15 @@ static uint32_t packed_read(const volatile uint8_t *base)
     uint32_t second = base[1], first = base[0], third = base[2], fourth = base[3];
     return first | (second << 8) | (third << 16) | (fourth << 24);
 }
-uint32_t syscon_target_powerkey_long_seconds(void)
+uint32_t syscon_target_edl_timer_seconds(void)
 {
     return packed_read(syscon_config_state.edl_timer_le);
 }
-uint32_t syscon_target_powerkey_extra_seconds(void)
+uint32_t syscon_target_shutdown_timer_seconds(void)
 {
     return packed_read(syscon_config_state.shutdown_timer_le);
 }
-uint32_t syscon_target_hwrevision_new(void)
+uint32_t syscon_target_hardware_uses_dead_battery_workaround(void)
 {
     uint32_t major, minor, patch = 0;
     int fields =

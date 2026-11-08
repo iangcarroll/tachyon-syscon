@@ -229,3 +229,20 @@ def test_uart_buffer_preserves_original_all_return_registers_and_exposed_frame(u
         m.cpu.emu_start(entry|1,0x22000000,count=10000)
         assert m.cpu.reg_read(UC_ARM_REG_PC)==0x22000000
     assert p.events[0]==p.events[1]
+
+
+def test_rx_irq_mask_only_changes_interrupt_delivery(uart_elf):
+    p = Pair(uart_elf)
+    rng = random.Random(0x891c)
+    for port, base in enumerate(BASES):
+        for _ in range(20):
+            registers = rng.randbytes(0x2000)
+            p.put(base, registers)
+            initial = int.from_bytes(registers[0x1028:0x102c], 'little')
+            for entry, name, expected in [(0x891c, 'rx_irq_mask', initial & ~0x400),
+                                           (0x8938, 'rx_irq_unmask', initial | 0x400)]:
+                p.call(entry, name, port, returns=False)
+                expected_registers = bytearray(registers)
+                struct.pack_into('<I', expected_registers, 0x1028, expected)
+                for machine in (p.o, p.a):
+                    assert bytes(machine.cpu.mem_read(base, 0x2000)) == expected_registers

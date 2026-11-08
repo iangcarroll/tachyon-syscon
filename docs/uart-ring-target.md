@@ -7,13 +7,15 @@ historical host test scaffold, not a second production implementation.
 
 | Original | Target symbol |
 | --- | --- |
-| `0x891c` | `syscon_target_uart_rx_disable` |
-| `0x8938` | `syscon_target_uart_rx_enable` |
+| `0x891c` | `syscon_target_uart_rx_irq_mask` |
+| `0x8938` | `syscon_target_uart_rx_irq_unmask` |
 | `0x8c34` | `syscon_target_uart_put` |
 | `0x8c8c` | `syscon_target_uart_write_buffer` |
 | `0x8cf0` | `syscon_target_uart_available` |
 | `0x8d70` | `syscon_target_uart_irq` |
 | `0x8de4` | `syscon_target_uart_read` |
+
+`syscon_target_uart_rx_irq_mask` and `syscon_target_uart_rx_irq_unmask` change only the RX interrupt mask bit. They do not disable the receiver, discard FIFO contents or clear the software ring.
 
 The driver accesses ordinary volatile C objects and MCU registers. Board routing
 is defined in `src/drivers/hal_helpers.c`. Invalid public port indices invoke the

@@ -124,3 +124,24 @@ def test_cli_generates_consistent_index_without_historical_proofs(tmp_path):
     assert ledger['summary']['identified_functions'] == len(ledger['functions'])
     assert all(row['proof_status'] == 'not_assessed' for row in ledger['functions'])
     assert ledger['mapping_input_sha256']
+
+
+def test_curated_target_names_exist_in_compiled_production_objects(tmp_path):
+    from build_physical_firmware import build
+    from elftools.elf.elffile import ELFFile
+
+    output = tmp_path / 'production'
+    report = build(output)
+    assert report['status'] == 'linked-experimental'
+    assert report['inputs_unchanged_during_build']
+    # Inspect objects before section GC: some recovered functions have no live
+    # caller in the final image, but their curated names must still be real.
+    functions = set()
+    for path in output.glob('*.o'):
+        with path.open('rb') as stream:
+            table = ELFFile(stream).get_section_by_name('.symtab')
+            functions.update(symbol.name for symbol in table.iter_symbols()
+                             if symbol['st_info']['type'] == 'STT_FUNC'
+                             and symbol['st_shndx'] != 'SHN_UNDEF')
+    mapped = {entry['target_abi']['symbol'] for entry in MAP.values() if entry.get('target_abi')}
+    assert not mapped - functions, f'Stale function mappings: {sorted(mapped - functions)}'

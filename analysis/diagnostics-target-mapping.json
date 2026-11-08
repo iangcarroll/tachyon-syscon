@@ -29,7 +29,7 @@
     },
     {
       "address": "0x3138",
-      "symbol": "syscon_target_alt_powerkey",
+      "symbol": "syscon_target_fastboot_enabled",
       "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
@@ -38,7 +38,7 @@
     },
     {
       "address": "0x3144",
-      "symbol": "syscon_target_factory_test",
+      "symbol": "syscon_target_demo_enabled",
       "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
@@ -47,7 +47,7 @@
     },
     {
       "address": "0x3150",
-      "symbol": "syscon_target_modem_always_on",
+      "symbol": "syscon_target_keep_5v_when_off",
       "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
@@ -56,7 +56,7 @@
     },
     {
       "address": "0x315c",
-      "symbol": "syscon_target_powerkey_long_seconds",
+      "symbol": "syscon_target_edl_timer_seconds",
       "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
@@ -65,7 +65,7 @@
     },
     {
       "address": "0x3178",
-      "symbol": "syscon_target_powerkey_extra_seconds",
+      "symbol": "syscon_target_shutdown_timer_seconds",
       "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",
@@ -74,7 +74,7 @@
     },
     {
       "address": "0x3194",
-      "symbol": "syscon_target_hwrevision_new",
+      "symbol": "syscon_target_hardware_uses_dead_battery_workaround",
       "source": "src/app/diagnostics_target.c",
       "tests": "tests/test_diagnostics_target.py",
       "header": "include/diagnostics_target.h",

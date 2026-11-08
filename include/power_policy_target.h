@@ -10,6 +10,7 @@ void syscon_target_shutdown_set(uint32_t reason);
 uint32_t syscon_target_shutdown_reason(void);
 uint64_t syscon_target_shutdown_elapsed(void);
 uint32_t syscon_target_shutdown_stale(void);
-uint32_t syscon_target_shutdown_active(void);
+/* Returns the reason byte while fresh, otherwise 0; not a boolean. */
+uint32_t syscon_target_shutdown_reason_if_fresh(void);
 void syscon_target_shutdown_poll(void);
 #endif

@@ -76,10 +76,11 @@ uint32_t syscon_target_power_boost_set(uint32_t enabled)
 {
     return syscon_target_pin_write(37, enabled);
 }
-uint32_t syscon_target_power_battery_sense_set(uint32_t disabled)
+uint32_t syscon_target_power_ntc_detection_set_disabled(uint32_t disabled)
 {
     return syscon_target_pin_write(27, disabled != 0);
 }
+/* Preserve legacy best-effort writes: no final route check or error status. */
 uint64_t syscon_target_power_battery_route_set(uint32_t route)
 {
     uint32_t old = syscon_target_power_battery_route();
@@ -198,7 +199,7 @@ uint32_t syscon_target_power_usb_assert_callback(void)
             result);
     return 1;
 }
-uint32_t syscon_target_power_shutdown_busy(void)
+uint32_t syscon_target_usb_reattach_busy(void)
 {
     uint32_t active = syscon_usb_reattach_state.active;
     if (active)
@@ -212,9 +213,9 @@ uint32_t syscon_target_power_shutdown_busy(void)
     hi = syscon_usb_reattach_state.released_high;
     return now - ((uint64_t)hi << 32 | lo) < 2000u;
 }
-uint32_t syscon_target_power_shutdown_request(void)
+uint32_t syscon_target_usb_reattach_request(void)
 {
-    if (syscon_target_power_shutdown_busy()) {
+    if (syscon_target_usb_reattach_busy()) {
         LOG(2, "USB re-attach already in progress");
         return UINT32_MAX;
     }
@@ -242,7 +243,7 @@ uint32_t syscon_target_power_shutdown_request(void)
     }
     return 0;
 }
-uint32_t syscon_target_power_battery_detect(void)
+uint32_t syscon_target_power_battery_probe(void)
 {
     uint32_t voltage = syscon_target_power_measure(14), type;
     if ((int32_t)voltage > 2999) {
@@ -254,7 +255,7 @@ uint32_t syscon_target_power_battery_detect(void)
             LOG(1, "power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_DCDC) failed: %d",
                 result);
         syscon_target_power_ntc_set(1);
-        result = syscon_target_power_battery_sense_set(0);
+        result = syscon_target_power_ntc_detection_set_disabled(0);
         if ((int32_t)result < 0)
             LOG(1, "power_manager_set_ntc_det_ctrl(POWER_MANAGER_NTC_DETECT_ENABLE) failed: %d",
                 result);
@@ -264,7 +265,7 @@ uint32_t syscon_target_power_battery_detect(void)
         if ((int32_t)result < 0)
             LOG(1, "power_manager_set_modem_vbatt_source(MODEM_VBAT_SOURCE_NONE) failed: %d",
                 result);
-        result = syscon_target_power_battery_sense_set(1);
+        result = syscon_target_power_ntc_detection_set_disabled(1);
         type = ((voltage - 400u) > 800u) + 1u;
         if ((int32_t)result < 0)
             LOG(1, "power_manager_set_ntc_det_ctrl(POWER_MANAGER_NTC_DETECT_DISABLE) failed: %d",

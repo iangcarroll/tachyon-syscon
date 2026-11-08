@@ -212,11 +212,12 @@ uint32_t syscon_target_cmd_read_pwr(uint32_t args, uint32_t printer)
     }
     return 1;
 }
+/* BATCHECK invokes an active power-route probe, with no processor-off guard. */
 uint32_t syscon_target_cmd_batcheck(uint32_t args, uint32_t printer)
 {
     (void)args;
     (void)printer;
-    syscon_target_power_battery_detect();
+    syscon_target_power_battery_probe();
     return 1;
 }
 uint32_t syscon_target_cmd_modem_dbg(uint32_t args, uint32_t printer)

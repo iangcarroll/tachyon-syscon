@@ -155,7 +155,7 @@
     },
     {
       "address": "0x517c",
-      "symbol": "syscon_target_power_shutdown_busy",
+      "symbol": "syscon_target_usb_reattach_busy",
       "source": "src/power/power_manager_target.c",
       "header": "include/power_manager_target.h",
       "tests": "tests/test_power_manager_target.py",
@@ -164,7 +164,7 @@
     },
     {
       "address": "0x51c0",
-      "symbol": "syscon_target_power_shutdown_request",
+      "symbol": "syscon_target_usb_reattach_request",
       "source": "src/power/power_manager_target.c",
       "header": "include/power_manager_target.h",
       "tests": "tests/test_power_manager_target.py",
@@ -173,7 +173,7 @@
     },
     {
       "address": "0x5264",
-      "symbol": "syscon_target_power_battery_sense_set",
+      "symbol": "syscon_target_power_ntc_detection_set_disabled",
       "source": "src/power/power_manager_target.c",
       "header": "include/power_manager_target.h",
       "tests": "tests/test_power_manager_target.py",
@@ -182,7 +182,7 @@
     },
     {
       "address": "0x5274",
-      "symbol": "syscon_target_power_battery_detect",
+      "symbol": "syscon_target_power_battery_probe",
       "source": "src/power/power_manager_target.c",
       "header": "include/power_manager_target.h",
       "tests": "tests/test_power_manager_target.py",

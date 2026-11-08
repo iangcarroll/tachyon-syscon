@@ -27,7 +27,7 @@ DEPENDENCIES={0x39e8:('syscon_target_ioexpander_read',2),0x80f8:('syscon_target_
     0x64a0:('syscon_target_modem_edl',0),0x5dc8:('syscon_target_rgb_get_config',1),
     0x5df4:('syscon_target_rgb_state_name',1),0x5e0c:('syscon_target_rgb_pattern_name',1),
     0x5c68:('syscon_target_rgb_preset',2),0x5c38:('syscon_target_rgb_configure',1),
-    0x4c50:('syscon_target_power_measure',1),0x5274:('syscon_target_power_battery_detect',0),
+    0x4c50:('syscon_target_power_measure',1),0x5274:('syscon_target_power_battery_probe',0),
     0x7468:('syscon_target_modem_key_pulse',2),0x6720:('syscon_target_modem_poweroff',1),
     0x347c:('syscon_target_diagnostics_enable',1),0x8fc0:('syscon_target_log_enable',1),
     0x2678:('syscon_target_assert',3),0x591c:('syscon_target_powerkey_mode',1),

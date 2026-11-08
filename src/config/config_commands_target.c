@@ -136,17 +136,17 @@ uint32_t syscon_target_cmd_config_internal(uint32_t arguments, uint32_t printer)
     flags[0] = syscon_target_auto_boot();
     flags[1] = syscon_target_wakeup_enabled();
     flags[2] = syscon_target_log_color();
-    flags[3] = syscon_target_alt_powerkey();
+    flags[3] = syscon_target_fastboot_enabled();
     flags[4] = syscon_target_demo_enabled();
     flags[5] = syscon_target_keep_5v_when_off();
-    uint32_t long_seconds = syscon_target_powerkey_long_seconds(),
-             extra_seconds = syscon_target_powerkey_extra_seconds();
+    uint32_t edl_seconds = syscon_target_edl_timer_seconds(),
+             shutdown_seconds = syscon_target_shutdown_timer_seconds();
     const char *const formats[] = {SYSCON_CFG_DISPLAY_AUTO_BOOT,   SYSCON_CFG_DISPLAY_WAKE_PIN,
                                    SYSCON_CFG_DISPLAY_COLOR_DEBUG, SYSCON_CFG_DISPLAY_FASTBOOT,
                                    SYSCON_CFG_DISPLAY_DEMO,        SYSCON_CFG_DISPLAY_KEEP_5V};
     for (unsigned i = 0; i < 6; ++i)
         print(formats[i], (flags[i] ? SYSCON_CFG_TRUE : SYSCON_CFG_FALSE));
-    print(SYSCON_CFG_DISPLAY_EDL_TIMER, long_seconds);
-    print(SYSCON_CFG_DISPLAY_SHUTDOWN_TIMER, extra_seconds);
+    print(SYSCON_CFG_DISPLAY_EDL_TIMER, edl_seconds);
+    print(SYSCON_CFG_DISPLAY_SHUTDOWN_TIMER, shutdown_seconds);
     return 1;
 }
