@@ -95,6 +95,18 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
             assert int.from_bytes(m.read(console+16,4),'little')==printer
             return (tuple(m.read(address,size) for address,size in app_blocks),
                     m.read(queue+4,16),m.read(console,4),m.read(console+8,8))
+        current=0x20000258 if image==load_image() else symbols['syscon_runtime_current']
+        context=0x2000025c if image==load_image() else symbols['syscon_runtime_context']
+        heap=0x20000810 if image==load_image() else symbols['syscon_runtime_heap']
+        for address,size in [(current,4),(context,100),(heap,16)]:m.write_ram(address,b'\xa5'*size)
+        def runtime_state():
+            assert int.from_bytes(m.read(current,4),'little')==context
+            streams=[]
+            for offset,old,name in [(4,0xe294,'input'),(8,0xe2b4,'output'),(12,0xe274,'error')]:
+                pointer=int.from_bytes(m.read(context+offset,4),'little')
+                assert pointer==(old if image==load_image() else symbols['syscon_stdio_'+name])
+                streams.append(m.read(pointer,32))
+            return m.read(context,4),tuple(streams),m.read(context+16,84),m.read(heap,16)
         protocol_debug=0x200002ee if image==load_image() else symbols['syscon_protocol_debug']
         m.write_ram(protocol_debug,b'\xa5')
         log_flag=0x2000080c if image==load_image() else symbols['syscon_log_enabled']
@@ -119,7 +131,7 @@ def test_warm_reset_restores_retained_state_after_data_initialization(physical,r
                                tuple(m.read(address,size) for address,size in uart_blocks),
                                m.read(log_flag,1),m.read(protocol_debug,1),application_state(),
                                tuple(m.read(address,size) for address,size in power_blocks),
-                               power_names(),
+                               power_names(),runtime_state(),
                                tuple(m.read(address,size) for address,size in diagnostic_blocks)))
             if loop:cpu.emu_stop()
         hooks=[m.cpu.hook_add(UC_HOOK_MEM_WRITE,writes),m.cpu.hook_add(UC_HOOK_CODE,code)]

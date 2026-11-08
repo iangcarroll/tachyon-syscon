@@ -39,6 +39,9 @@ MEMORY {
     TEST_KEY_STARTED_OFF (rw) : ORIGIN = 0x200002ed, LENGTH = 1
     TEST_WAKEUP_PENDING (rw) : ORIGIN = 0x20000680, LENGTH = 1
     TEST_IOEXPANDER_INITIALIZED (rw) : ORIGIN = 0x200002d0, LENGTH = 1
+    TEST_RUNTIME_CURRENT (rw) : ORIGIN = 0x20000258, LENGTH = 4
+    TEST_RUNTIME_CONTEXT (rw) : ORIGIN = 0x2000025c, LENGTH = 100
+    TEST_RUNTIME_HEAP (rw) : ORIGIN = 0x20000810, LENGTH = 16
     TEST_LOG (rw) : ORIGIN = 0x2000080c, LENGTH = 1
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
@@ -79,6 +82,9 @@ PHDRS {
     key_started_off PT_LOAD FLAGS(6);
     wakeup_pending PT_LOAD FLAGS(6);
     ioexpander_initialized PT_LOAD FLAGS(6);
+    runtime_current PT_LOAD FLAGS(6);
+    runtime_context PT_LOAD FLAGS(6);
+    runtime_heap PT_LOAD FLAGS(6);
     log PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
@@ -124,6 +130,9 @@ SECTIONS {
     .key_started_off (NOLOAD) : { *(.bss.syscon_key_started_off) } > TEST_KEY_STARTED_OFF :key_started_off
     .wakeup_pending (NOLOAD) : { *(.bss.syscon_wakeup_pending) } > TEST_WAKEUP_PENDING :wakeup_pending
     .ioexpander_initialized (NOLOAD) : { *(.bss.syscon_ioexpander_initialized) } > TEST_IOEXPANDER_INITIALIZED :ioexpander_initialized
+    .runtime_current : { *(.data.syscon_runtime_current) } > TEST_RUNTIME_CURRENT AT> TEST_CODE :runtime_current
+    .runtime_context : { *(.data.syscon_runtime_context) } > TEST_RUNTIME_CONTEXT AT> TEST_CODE :runtime_context
+    .runtime_heap (NOLOAD) : { *(.bss.syscon_runtime_heap) } > TEST_RUNTIME_HEAP :runtime_heap
     .log (NOLOAD) : { *(.bss.syscon_log_enabled) } > TEST_LOG :log
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers

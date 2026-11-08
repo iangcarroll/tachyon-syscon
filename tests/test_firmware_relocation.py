@@ -65,6 +65,9 @@ def relocated_image(tmp_path_factory):
     order='*(.bss.syscon_timer_state) *(.bss.syscon_task_state)'
     assert script.count(order)==1
     script=script.replace(order,'*(.bss.syscon_task_state) *(.bss.syscon_timer_state)')
+    order='*(.data.syscon_runtime_context) *(.data.syscon_runtime_current)'
+    assert script.count(order)==1
+    script=script.replace(order,'*(.data.syscon_runtime_current) *(.data.syscon_runtime_context)')
     linker.write_text(script)
     output=tmp_path/'physical'
     subprocess.run([sys.executable,str(tree/'tools/build_physical_firmware.py'),
@@ -143,7 +146,7 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     # unallocated prefix; a stale ADC lookup would instead encounter LED data.
     peripheral_start=manifest['layout_audit']['sections']['.peripheral_data']['address']
     obsolete.append((0x200000f4,peripheral_start-0x200000f4))
-    obsolete+= [(0x200002d0,31),(0x20000680,1),(0x2000013c,12),(0x2000016c,200),(0x20000254,1),
+    obsolete+= [(0x20000810,16),(0x200002d0,31),(0x20000680,1),(0x2000013c,12),(0x2000016c,200),(0x20000254,1),
                 (0x20000698,200),(0x20000760,2)]
     obsolete=vacant_ranges(manifest,obsolete)
     for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)

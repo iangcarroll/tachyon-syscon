@@ -4,6 +4,7 @@ import struct
 from oracle import Oracle
 from arm_rebuild_oracle import ArmRebuildOracle
 from power_state_comparison import PowerStateComparison,text_argument
+from runtime_state_comparison import RuntimeStateComparison
 from unicorn import UC_HOOK_MEM_WRITE
 from unicorn.arm_const import UC_ARM_REG_R1
 import build_runtime_scan_image as runtime
@@ -41,6 +42,7 @@ class Pair:
         if self.owners is not None:self.owners.append(self)
         self.cpus=[Oracle(),ArmRebuildOracle(elf)];self.events=[[],[]]
         self.power_state=PowerStateComparison(*self.cpus)
+        self.runtime_state=RuntimeStateComparison(*self.cpus)
         self.respond=respond or (lambda address,args:0);self.terminal_assert=False
         self.pointer_map={self.cpus[1].symbols['syscon_target_modem_'+name]|1:entry|1 for entry,name in ENTRIES.items()}
         self.pointer_map[self.cpus[1].symbols['syscon_target_mfg_logger']|1]=0x8fa1
@@ -77,6 +79,8 @@ class Pair:
         result=self.respond(address,args)
         if address in RET64:cpu.cpu.reg_write(UC_ARM_REG_R1,(result>>32)&0xffffffff)
         return result if index else result&0xffffffff
+    def normalized_memory(self,address,data):
+        return self.runtime_state.memory(address,self.power_state.memory(address,data))
     def call(self,entry,*args,check_return=None):
         self.active_cpu=0
         expected=self.cpus[0].call(entry,*args,count=2000000)
@@ -85,7 +89,7 @@ class Pair:
         if check_return is None:check_return=entry not in VOID
         if entry==0x66a0:assert self.cpus[0].cstring(expected)==self.cpus[1].cstring(actual)
         elif check_return:assert actual==expected,(hex(entry),args,actual,expected)
-        assert bytes(self.cpus[0].cpu.mem_read(0x20000000,0x800))==self.power_state.memory(0x20000000,self.cpus[1].read(0x20000000,0x800)),(hex(entry),'state')
+        assert bytes(self.cpus[0].cpu.mem_read(0x20000000,0x800))==self.normalized_memory(0x20000000,self.cpus[1].read(0x20000000,0x800)),(hex(entry),'state')
         
         if self.events[0]!=self.events[1]:
             from itertools import zip_longest

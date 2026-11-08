@@ -1,13 +1,13 @@
 #include "runtime_stdio.h"
+#include "runtime_support.h"
 #include "runtime_heap.h"
 #include "runtime_memory.h"
 #include <stdint.h>
 #define P(a) ((uint32_t *)(uintptr_t)(uint32_t)(a))
 #define U(p) ((uint32_t)(uintptr_t)(p))
-#define CTYPE ((const uint8_t *)(uintptr_t)0xe127)
 uint32_t syscon_rt_strtoul_r(void *reent,const char *text,char **end,int base) {
     const uint8_t *s=(const uint8_t *)text;
-    uint32_t c;do{c=*s++;}while(CTYPE[c]&8);
+    uint32_t c;do{c=*s++;}while(syscon_rt_ctype(c)&SYSCON_CTYPE_SPACE);
     unsigned negative=0;
     if(c=='-'){negative=1;c=*s++;}else if(c=='+')c=*s++;
     if((base==0 || base==16) && c=='0') {

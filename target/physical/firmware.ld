@@ -23,6 +23,7 @@ MEMORY {
  RAM_POWER_STATE (rw) : ORIGIN = 0x2000005c, LENGTH = 0x58
  RAM_PROTOCOL_DATA (rw) : ORIGIN = 0x20000030, LENGTH = 0x2c
  RAM_APPLICATION (rw) : ORIGIN = 0x200002c0, LENGTH = 0xb0
+ RAM_LIBC (rw) : ORIGIN = 0x20000258, LENGTH = 0x68
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
 /* Separate PT_LOAD flags distinguish code and read-only data in the ELF.
@@ -48,6 +49,7 @@ PHDRS {
  power_state PT_LOAD FLAGS(6);
  protocol_data PT_LOAD FLAGS(6);
  application_state PT_LOAD FLAGS(6);
+ runtime_data PT_LOAD FLAGS(6);
 }
 SECTIONS {
  .vectors : {KEEP(*(.vectors))} > CODE :vectors
@@ -105,6 +107,7 @@ SECTIONS {
    *target_core_helpers.o(.rodata*) *target_flash_abi_target.o(.rodata*)
    *target_ioexpander_target.o(.rodata*)
    *target_retained_target.o(.rodata*) *target_tasks_target.o(.rodata*) *target_timers_target.o(.rodata*)
+   *target_runtime_state.o(.rodata*)
    *target_diagnostics_target.o(.rodata*)
    *target_sg560d_target.o(.rodata*)
    *target_application_target.o(.rodata*)
@@ -143,7 +146,7 @@ SECTIONS {
    __power_bss_start = .;
    *(.bss.syscon_shutdown_reason) *(.bss.syscon_usb_reattach_state)
    *(.bss.syscon_shutdown_state) *(.bss.syscon_diagnostics_state)
-   *(.bss.syscon_protocol_debug)
+   *(.bss.syscon_protocol_debug) *(.bss.syscon_runtime_heap)
    . = ALIGN(4); __power_bss_end = .;
  } > RAM_POWER_STATE :power_state
  .protocol_data : ALIGN(4) {
@@ -159,6 +162,11 @@ SECTIONS {
    *(.bss.syscon_application_dso) *(.bss.syscon_ioexpander_initialized)
    . = ALIGN(4); __application_bss_end = .;
  } > RAM_APPLICATION :application_state
+ .runtime_data : ALIGN(4) {
+   __runtime_data_start = .; *(.data.syscon_runtime_context) *(.data.syscon_runtime_current)
+   . = ALIGN(4); __runtime_data_end = .;
+ } > RAM_LIBC AT> CODE :runtime_data
+ __runtime_data_load = LOADADDR(.runtime_data);
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
  __data_load = LOADADDR(.data);
  .state_bss ORIGIN(RAM_STATE) (NOLOAD) : {

@@ -52,7 +52,7 @@ syscon_rt_strtol_core (void *rptr, const char *__restrict nptr,
 	 */
 	do {
 		c = *s++;
-	} while ((((const unsigned char*)0xe127)[(unsigned char)c]&8));
+	} while ((syscon_rt_ctype((unsigned char)c)&SYSCON_CTYPE_SPACE));
 	if (c == '-') {
 		neg = 1;
 		c = *s++;
@@ -119,10 +119,9 @@ syscon_rt_strtol_core (void *rptr, const char *__restrict nptr,
 int32_t syscon_rt_strtol_r(void *r,const char*s,char**e,int32_t b){return syscon_rt_strtol_core(r,s,e,b);}
 int32_t syscon_rt_strtol(const char*s,char**e,int32_t b){return syscon_rt_strtol_core(syscon_rt_getreent(),s,e,b);}
 int syscon_rt_strncasecmp(const char *a,const char*b,uint32_t n){
- const unsigned char *t=(const unsigned char*)0xe127;
  while(n--){uint32_t x=(unsigned char)*a++,y=(unsigned char)*b++;
- if((t[x]&3)==1)x+=32;
- if((t[y]&3)==1)y+=32;
+ if((syscon_rt_ctype(x)&3)==1)x+=32;
+ if((syscon_rt_ctype(y)&3)==1)y+=32;
  if(x!=y)return (int)x-(int)y;
  if(!y)break;}return 0;
 }

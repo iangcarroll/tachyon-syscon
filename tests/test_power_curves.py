@@ -128,7 +128,7 @@ class CurvePair(ModemPair):
             if check_return is None:
                 check_return=entry not in (0x559c,0x55b4,0x55dc,0x5694,0x5358)
             if check_return:assert result==original,(hex(entry),result,original)
-            assert bytes(self.cpus[0].cpu.mem_read(0x20000000,0x800))==self.power_state.memory(0x20000000,self.cpus[1].read(0x20000000,0x800))
+            assert bytes(self.cpus[0].cpu.mem_read(0x20000000,0x800))==self.normalized_memory(0x20000000,self.cpus[1].read(0x20000000,0x800))
             assert self.events[0]==self.events[1],(hex(entry),self.events)
         assert self.gpio[0]==self.gpio[1]
         assert self.battery[0]==self.battery[1]

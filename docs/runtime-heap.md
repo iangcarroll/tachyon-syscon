@@ -14,8 +14,8 @@ not used as an oracle or substitute.
 | `0xaabc` | `syscon_rt_malloc_unlock` |
 | `0xaacc` | `syscon_rt_malloc_usable_size_r` |
 
-The free-list head remains at `0x20000818`, initial heap pointer at `0x2000081c`,
-global errno at `0x20000810`, and lock object at `0x20000814`. Lock wrappers call
+The free-list head, initial heap pointer, global errno, and lock object are
+fields of the linker-allocated `syscon_runtime_heap` object. Lock wrappers call
 the separately reconstructed no-op lock endpoints. Chunks retain their four-byte
 headers, address-sorted free list, minimum twelve-byte allocation size,
 eight-byte returned-pointer alignment, and negative alignment adjustment header.

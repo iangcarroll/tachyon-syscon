@@ -4,6 +4,7 @@ import subprocess
 from pathlib import Path
 import toolchain_process
 from oracle import Oracle
+from elftools.elf.elffile import ELFFile
 ROOT=Path(__file__).resolve().parents[1]
 CODE=0x01000000
 HEAP=0x21000000
@@ -12,7 +13,7 @@ REENT=0x20000840
 class RuntimeImage:
     def __init__(self,directory):
         directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
-        sources=[ROOT/'target/runtime_heap.c',ROOT/'target/runtime_stdio.c',ROOT/'src/runtime_memory.c',ROOT/'target/runtime_support.c',ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime_arithmetic_abi.S']
+        sources=[ROOT/'target/runtime_heap.c',ROOT/'target/runtime_stdio.c',ROOT/'src/runtime_memory.c',ROOT/'target/runtime_support.c',ROOT/'target/runtime_state.c',ROOT/'src/runtime_arithmetic.c',ROOT/'target/runtime_arithmetic_abi.S']
         flags=['-std=c11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-fno-inline','-fno-ipa-cp','-fno-ipa-pure-const','-ffunction-sections','-fdata-sections','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include')]
         objects=[]
         for i,source in enumerate(sources):
@@ -23,9 +24,11 @@ class RuntimeImage:
                 fields=line.split()
                 if len(fields)==3 and fields[1] in ('T','W'):retained.append('-Wl,--undefined='+fields[2])
         elf=directory/'runtime.elf';binary=directory/'runtime.bin'
-        toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-Ttext=0x01000000','-Wl,-e,syscon_rt_malloc_r','-Wl,--gc-sections',*retained,*objects,'-o',str(elf)],check=True)
-        toolchain_process.run(['arm-none-eabi-objcopy','-O','binary',str(elf),str(binary)],check=True)
-        self.code=binary.read_bytes();self.symbols={}
+        toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib','-Wl,-T,'+str(ROOT/'target/emulation.ld'),'-Wl,-e,syscon_rt_malloc_r','-Wl,--gc-sections',*retained,*objects,'-o',str(elf)],check=True)
+        with elf.open('rb') as stream:
+            self.segments=[(p['p_vaddr'],p.data()) for p in ELFFile(stream).iter_segments()
+                           if p['p_type']=='PT_LOAD' and p['p_filesz']]
+        self.symbols={}
         for line in toolchain_process.check_output(['arm-none-eabi-nm',str(elf)],text=True).splitlines():
             fields=line.split()
             if len(fields)==3:self.symbols[fields[2]]=int(fields[0],16)
@@ -34,7 +37,8 @@ class RuntimeOracle(Oracle):
         super().__init__();self.runtime_image=image;self.cpu.mem_map(HEAP,HEAP_SIZE)
         self.put(HEAP,bytes((i*71+19)&255 for i in range(HEAP_SIZE)))
         if image:
-            self.cpu.mem_map(CODE,(len(image.code)+4095)&~4095);self.put(CODE,image.code)
+            self.cpu.mem_map(CODE,0x100000)
+            for address,data in image.segments:self.put(address,data)
     def run(self,name,original,*args,count=200000):
         return self.call(self.runtime_image.symbols[name] if self.runtime_image else original,*args,count=count)
 class ScriptedBreak:
