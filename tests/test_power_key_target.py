@@ -36,7 +36,7 @@ class KeyPair(Pair):
                 value.extend(byte)
             raise AssertionError('Unterminated logger string')
         events=[]
-        for record in struct.iter_unpack('<6I',self.events(machine)):
+        for record in self.events(machine):
             kind,a,b,c,d,e=record
             if kind==0x8148:
                 c=self.norm_pointer(c)
@@ -151,7 +151,7 @@ def test_complete_long_press_release_flow_runs_only_real_key_and_timer_instructi
     callbacks=[];forced=[]
     def tick():
         p.run(0x76f8)
-        for record in struct.iter_unpack('<6I',p.events(p.a)):
+        for record in p.events(p.a):
             if record[0]==0xf100:callbacks.append(record[1:3])
             if record[0]==0x6a48:forced.append(p.a.u32(0x20000390))
     for _ in range(6020):tick()
