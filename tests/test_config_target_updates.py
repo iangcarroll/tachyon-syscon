@@ -83,6 +83,23 @@ def test_bool_integer_parsers_original_abi_and_unchanged_output(elf):
 
 
 def bind_diagnostic_ports(p):
+    import re
+    from unicorn import UC_HOOK_CODE
+    from unicorn.arm_const import UC_ARM_REG_MSP
+    from config_helpers_oracle import read_string
+    from flash_interruptions import stack_log
+
+    p.stack_measurements = [[], []]
+    pending = [[], []]
+    logger_entries = [(p.original, 0x8f88),
+                      (p.candidate, p.candidate.symbols['syscon_target_logger'] & ~1)]
+    for index, (cpu, entry) in enumerate(logger_entries):
+        def observe(uc, address, size, unused, cpu=cpu, index=index):
+            if read_string(cpu, cpu.arg(2)) == b'Compaction: %d bytes of stack in use':
+                sample = dict(msp=uc.reg_read(UC_ARM_REG_MSP), reported=cpu.arg(3))
+                p.stack_measurements[index].append(sample)
+                pending[index].append(sample)
+        cpu.cpu.hook_add(UC_HOOK_CODE, observe, begin=entry, end=entry)
     p.put(0x2000080c,b'\1')
     p.bind(0x312c,'syscon_target_color',lambda cpu,events:events.append(('color',0)) or 0)
     def clock(cpu,events):
@@ -91,7 +108,16 @@ def bind_diagnostic_ports(p):
     p.bind(0x77b4,'syscon_target_now',clock)
     def write(cpu,events):
         address,size=(cpu.arg(0),cpu.arg(1)) if cpu is p.original else (cpu.arg(1),cpu.arg(2))
-        events.append(('uart',bytes(cpu.cpu.mem_read(address,size))))
+        payload = bytes(cpu.cpu.mem_read(address, size))
+        if re.fullmatch(rb'Compaction: \d+ bytes of stack in use', payload):
+            index = 0 if cpu is p.original else 1
+            assert pending[index], 'Stack output has no independent observation'
+            prefix = b'[TIME] [CONF] '
+            # Reuse the whole-image check: the value must equal SRAM-top minus
+            # live MSP before private compiler-frame sizes may be abstracted.
+            checked = stack_log(prefix + payload + b'\r\n', [pending[index].pop(0)])
+            payload = checked[len(prefix):-2]
+        events.append(('uart', payload))
     p.bind(0x3af4,'syscon_target_uart_write',write)
 
 

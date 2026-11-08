@@ -269,7 +269,7 @@ image must initially preserve these behaviors; this suite does not quietly make
 the storage transactional.
 
 The compaction stack diagnostic is measured, not required to have the original
-numeric value: the rebuilt call chain uses eight more bytes in this corpus.
+numeric value: compiler and source changes can alter private frame sizes.
 A read-only observer at each image's logger entry verifies the reported depth
 equals SRAM-top minus the live MSP. Only after that check does comparison replace
 the number with a symbolic stack-depth label. All other diagnostic bytes remain

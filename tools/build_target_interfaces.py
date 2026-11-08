@@ -18,7 +18,7 @@ TARGETS=['physical/firmware_version.c','runtime/callback_helpers.c','config/conf
     'drivers/adc_target.c','drivers/uart_hal_target.c','scheduling/timers_target.c','scheduling/tasks_target.c','power/retained_target.c',
     'app/diagnostics_target.c','app/diagnostics_state.c','app/application_target.c','app/application_state.c','logging/logger_target.c','logging/logger_state.c','logging/logger_target_abi.S',
     'power/rgb_target.c','power/power_key_target.c','power/power_policy_target.c','power/power_state.c','drivers/i2c_target.c','drivers/pwm_target.c',
-    'config/config_update.c','config/config_update_abi.S','drivers/ioexpander_target.c','power/power_manager_target.c',
+    'config/config_update.c','drivers/ioexpander_target.c','power/power_manager_target.c',
     'protocol/protocol_target.c','protocol/protocol_state.c','protocol/command_table_target.c','config/config_commands_target.c','protocol/control_commands_target.c','app/runtime_init_target.c',
     'runtime/format_core_target.c','modem/sg560d_target.c','modem/modem_state.c']
 SOURCES=['target/'+name for name in TARGETS]+['src/runtime_memory.c','src/runtime_arithmetic.c','src/flash_controller.c','src/format.c']+sorted(str(p.relative_to(ROOT)) for p in (ROOT/'vendor/gcc-soft-fp').glob('*.c'))

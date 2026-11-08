@@ -62,7 +62,7 @@ The old assembly argument-frame adapter, numeric return address and reserved fla
 
 ## Stack and validation boundaries
 
-The manifest reports `stack_headroom_bytes` after all fixed and linker-allocated globals. This is available space, not a proven maximum stack allowance. Compiler reports identify a 680-byte `syscon_rt_vfscanf` frame, a 584-byte `syscon_cfg_compact_body` frame and a 184-byte protocol poll frame. They must be composed with call chains, assembly ABI frames, interrupt stacking/nesting and callback paths. The builder records `.su` evidence and lists assembly sources without compiler frame bounds. It does not present these numbers as a whole-image bound. A linker minimum-headroom assertion is a rejection guard, not a stack-safety proof.
+The manifest reports `stack_headroom_bytes` after all fixed and linker-allocated globals. This is available space, not a proven maximum stack allowance. Compiler `.su` reports give the current frames for functions such as `syscon_rt_vfscanf`, `syscon_cfg_compact` and protocol polling; these sizes may change when source is edited. They must be composed with call chains, assembly ABI frames, interrupt stacking/nesting and callback paths. The builder records `.su` evidence and lists assembly sources without compiler frame bounds. It does not present these numbers as a whole-image bound. A linker minimum-headroom assertion is a rejection guard, not a stack-safety proof.
 
 `tests/test_physical_firmware.py` uses a separate test-only fixture for dirty-SRAM
 startup, initialized/BSS objects, constructor order, vectors, SRAM-only execution
