@@ -122,7 +122,7 @@ Under the owner-authorized Linux-only protocol, after local validation and the o
 
 The first replacement round trip on 2026-11-07 used source commit `295015f0f4cada173339aa97291fcb0aa979e8a7` (image SHA256 `59e6ba29bdd0229b763115fe0bcde2787f36b3468f71acb6d1b333197437182d`). Both candidate programming and original restoration succeeded, with matching logical configuration/identity and the same Linux boot ID.
 
-The current source image completed another round trip on 2026-11-08:
+The source image identified below completed another round trip on 2026-11-08:
 
 - Build source: `8ddf9643ee8a41bde9af879f6f3c6b2583d0b057`. Every recorded production build-input hash still matches merged source `ceeb1b3464ecb2c85cf904edd8814d54e56693ec`; the Linux CI artifact is byte-identical.
 - Candidate SHA256: `0ee5d33c1870b2c517038975ebbf1079c3ab6301d0889c7b092c50d54361bf37`. Original restore SHA256: `5bf027f9655bdabb4870eccee5a39e005a08ce70b8337613672081feecef03f6`. Each image is 63,487 bytes, padded to 63,488 by the packaged updater.
