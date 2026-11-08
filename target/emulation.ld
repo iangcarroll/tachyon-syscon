@@ -30,6 +30,7 @@ MEMORY {
     TEST_SHUTDOWN_REASON (rw) : ORIGIN = 0x2000036f, LENGTH = 1
     TEST_USB_REATTACH (rw) : ORIGIN = 0x20000370, LENGTH = 16
     TEST_SHUTDOWN (rw) : ORIGIN = 0x20000380, LENGTH = 16
+    TEST_PROTOCOL_DEBUG (rw) : ORIGIN = 0x200002ee, LENGTH = 1
     TEST_LOG (rw) : ORIGIN = 0x2000080c, LENGTH = 1
     TEST_TASKS (rw) : ORIGIN = 0x20000534, LENGTH = 216
     TEST_TIMERS (rw) : ORIGIN = 0x20000610, LENGTH = 112
@@ -61,6 +62,7 @@ PHDRS {
     shutdown_reason PT_LOAD FLAGS(6);
     usb_reattach PT_LOAD FLAGS(6);
     shutdown PT_LOAD FLAGS(6);
+    protocol_debug PT_LOAD FLAGS(6);
     log PT_LOAD FLAGS(6);
     tasks PT_LOAD FLAGS(6);
     timers PT_LOAD FLAGS(6);
@@ -97,6 +99,7 @@ SECTIONS {
     .shutdown_reason (NOLOAD) : { *(.bss.syscon_shutdown_reason) } > TEST_SHUTDOWN_REASON :shutdown_reason
     .usb_reattach (NOLOAD) : { *(.bss.syscon_usb_reattach_state) } > TEST_USB_REATTACH :usb_reattach
     .shutdown (NOLOAD) : { *(.bss.syscon_shutdown_state) } > TEST_SHUTDOWN :shutdown
+    .protocol_debug (NOLOAD) : { *(.bss.syscon_protocol_debug) } > TEST_PROTOCOL_DEBUG :protocol_debug
     .log (NOLOAD) : { *(.bss.syscon_log_enabled) } > TEST_LOG :log
     .tasks (NOLOAD) : { *(.bss.syscon_task_state) } > TEST_TASKS :tasks
     .timers (NOLOAD) : { *(.bss.syscon_timer_state) } > TEST_TIMERS :timers

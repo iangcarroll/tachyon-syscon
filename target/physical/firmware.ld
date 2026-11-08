@@ -4,7 +4,7 @@ MEMORY {
  CODE (rx) : ORIGIN = 0x00000000, LENGTH = 0xab20
  FIXED (r) : ORIGIN = 0xab20, LENGTH = 0x3a58
  /* Migrated power strings/scales no longer occupy their original ROM block. */
- RECLAIMED_TEXT (r) : ORIGIN = 0xc61f, LENGTH = 0x75c
+ RECLAIMED_TEXT (r) : ORIGIN = 0xbb09, LENGTH = 0x1272
  SPARE (rx) : ORIGIN = 0xe578, LENGTH = 0x1280
  VERSION_REGION (r) : ORIGIN = 0xf7f8, LENGTH = 8
  IDENTITY (r) : ORIGIN = 0xf800, LENGTH = 0x400
@@ -59,7 +59,7 @@ SECTIONS {
  } > RAM_AUX AT> CODE :ram_extra
  __ram_extra_load = LOADADDR(.ram_extra);
  .fixed_actions 0xab20 : {KEEP(*(.fixed.ab20))} > FIXED :fixed
- .command_table 0xc419 : {KEEP(*(.rodata.syscon_target_commands))} > FIXED :fixed
+ .command_table : {KEEP(*(.rodata.syscon_target_commands))} > RECLAIMED_TEXT :application_rodata
  .fixed_strings 0xcd7b : {KEEP(*(.fixed.cd7b))} > FIXED :fixed
  .constructors 0xe2d8 : {KEEP(*(.physical.constructors))} > FIXED :fixed
  .initial_data 0xe2e8 : {__physical_initial_data = .;KEEP(*(.physical.initial_data))} > FIXED :fixed
@@ -101,6 +101,9 @@ SECTIONS {
    *target_diagnostics_target.o(.rodata*)
    *target_sg560d_target.o(.rodata*)
    *target_application_target.o(.rodata*)
+   *target_command_table_target.o(.rodata*)
+   *target_protocol_target.o(.rodata*)
+   *target_control_commands_target.o(.rodata*)
  } > RECLAIMED_TEXT :application_rodata
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
@@ -133,6 +136,7 @@ SECTIONS {
    __power_bss_start = .;
    *(.bss.syscon_shutdown_reason) *(.bss.syscon_usb_reattach_state)
    *(.bss.syscon_shutdown_state) *(.bss.syscon_diagnostics_state)
+   *(.bss.syscon_protocol_debug)
    . = ALIGN(4); __power_bss_end = .;
  } > RAM_POWER_STATE :power_state
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
@@ -148,7 +152,7 @@ SECTIONS {
  ASSERT(SIZEOF(.vectors)==192,"Vector table must contain48entries")
  ASSERT(__ram_exec_used_end>__ram_exec_start,"RAM executor missing")
  ASSERT(__ram_exec_used_end-__ram_exec_start<=48,"RAM executor exceeds original48byte slot")
- ASSERT(SIZEOF(.command_table)==518,"Command descriptor layout must remain37x14")
+ ASSERT(SIZEOF(.command_table)>0 && SIZEOF(.command_table)%14==0,"Command descriptors must be complete records")
  ASSERT(SIZEOF(.constructors)==8,"Constructor list must contain2source pointers")
  ASSERT(SIZEOF(.initial_data)==656,"Initialized RAM image must remain656bytes")
  ASSERT(__extra_bss_end<=0x20000c00,"Less than1KiB stack remains; whole-image stack bound required")

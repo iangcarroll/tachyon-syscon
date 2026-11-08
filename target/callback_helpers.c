@@ -9,8 +9,8 @@ uint32_t syscon_target_failure(uint32_t command, uint32_t reason,
                               syscon_target_print_callback print) {
     if (command) print(command);
     print(reason);
-    /* Immutable FAIL string in the pinned image; same pointer identity. */
-    return print(UINT32_C(0xb6c6));
+    /* Response text belongs to this image and moves with the source. */
+    return print((uint32_t)(uintptr_t)"FAIL");
 }
 
 uint32_t syscon_target_buffer_output(uint32_t character,

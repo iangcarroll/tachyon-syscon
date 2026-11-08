@@ -26,6 +26,13 @@ def relocated_image(tmp_path_factory):
     header=tree/'include/config_text.h'
     header.write_text(header.read_text().replace('Key checksum mismatch',
                       'Configuration key checksum mismatch (longer editable text)'))
+    commands=tree/'target/command_table_target.c'
+    text=commands.read_text()
+    # Add a command in source without changing a count, address or linker size.
+    marker='const syscon_target_command_record syscon_target_commands[] =\n    {'
+    assert text.count(marker)==1
+    text=text.replace(marker,marker+'\n    {"BUILD_INFO", syscon_target_cmd_version, 0, 0, "Build information from editable source"},')
+    commands.write_text(text)
     linker=tree/'target/physical/firmware.ld'
     script=linker.read_text()
     assert script.count('.config_data :')==1
@@ -42,7 +49,8 @@ def relocated_image(tmp_path_factory):
     script=script.replace('.irq_bss (NOLOAD) : {',
                           '.irq_bss ORIGIN(RAM_IRQ_STATE)+8 (NOLOAD) : {')
     script=script.replace('.application_rodata : {',
-                          '.application_rodata ORIGIN(RECLAIMED_TEXT)+64 : {')
+                          '.application_rodata : { . += 64;')
+    script=script.replace('.command_table : {', '.command_table ORIGIN(RECLAIMED_TEXT)+32 : {')
     script=script.replace('.power_bss (NOLOAD) : {',
                           '.power_bss ORIGIN(RAM_POWER_STATE)+8 (NOLOAD) : {')
     needle='__ram_exec_start = .; KEEP(*(.ram_original_flash))'
@@ -411,3 +419,29 @@ def test_relocated_diagnostic_controls_and_loop_counter(relocated_image):
     # stale fixed location. Timing/count values need not be instruction-identical.
     assert machines[1].read(state,16)!=before
     for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size
+
+
+def test_source_added_command_and_help_use_linker_resolved_descriptors(relocated_image):
+    output,manifest,_=relocated_image
+    original,_=boot(load_image())
+    candidate,_=boot((output/'firmware.bin').read_bytes(),stack_floor=candidate_stack_floor(output))
+    symbols=manifest['layout_audit']['symbols']
+    count=int.from_bytes(candidate.read(symbols['syscon_target_command_count'],4),'little')
+    original_count=len(__import__('inventory').command_table(load_image()))
+    assert count==original_count+1
+    assert symbols['syscon_target_commands']!=0xc419
+    # Echo differs by design; both commands execute the same VERSION handler.
+    expected=command_reply(original,'VERSION')
+    actual=command_reply(candidate,'BUILD_INFO')
+    assert b'Version=1.0.52\r\n' in expected and b'Version=1.0.52\r\n' in actual
+    assert b'PASS\r\n' in actual
+    help_text=command_reply(candidate,'HELP')
+    assert b'BUILD_INFO - Build information from editable source' in help_text
+    for command in __import__('inventory').command_table(load_image()):
+        assert (command['name']+' - '+command['help']).encode() in help_text
+    flag=symbols['syscon_protocol_debug']
+    assert flag!=0x200002ee
+    for command,value in [('560D_DBG ON',1),('560D_DBG OFF',0)]:
+        replies=[command_reply(m,command) for m in (original,candidate)]
+        assert normalized_log(replies[0])==normalized_log(replies[1])
+        assert candidate.read(flag,1)==bytes([value])

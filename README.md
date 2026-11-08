@@ -86,6 +86,7 @@ Start with these production source groups when making a change:
 | Power-button debounce and press/release events | `target/power_key_target.c` | `include/power_key_state.h`, `include/power_key_text.h` |
 | Timers, scheduled tasks and retained boot state | `target/timers_target.c`, `target/tasks_target.c`, `target/retained_target.c` | `include/scheduling_state.h` |
 | Diagnostic reporting and loop-rate tracking | `target/diagnostics_target.c`, `target/diagnostics_state.c` | `include/diagnostics_state.h` |
+| UART command parsing and control handlers | `target/protocol_target.c`, `target/control_commands_target.c` | Editable `target/command_table_target.c`; named parser fields/debug flag in `include/protocol_state.h` |
 | Main loop and command dispatch | `target/application_target.c`, `target/config_commands_target.c` | Remaining fixed state is still being migrated |
 | ADC conversion and calibration | `target/adc_target.c`, ADC lookup in `target/hal_helpers.c` | `include/adc_state.h` |
 | RGB animation and PWM | `target/rgb_target.c`, `target/pwm_target.c`, PWM routing in `target/hal_helpers.c` | `include/rgb_state.h`, editable presets/palette in `include/rgb_data.h`, `include/pwm_state.h` |
