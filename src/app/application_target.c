@@ -80,7 +80,7 @@ void syscon_target_queue_event(uint32_t event)
 }
 void syscon_target_request_off(void)
 {
-    if (!syscon_target_power_shutdown_request())
+    if (!syscon_target_usb_reattach_request())
         syscon_shutdown_pending = 1;
     else
         syscon_target_modem_poweroff(0);
@@ -228,10 +228,10 @@ _Noreturn void syscon_target_main(void)
                     case 0: {
                         uint32_t off = syscon_target_modem_off();
                         syscon_key_started_off = (uint8_t)off;
-                        uint32_t alt = syscon_target_alt_powerkey();
+                        uint32_t fastboot = syscon_target_fastboot_enabled();
                         syscon_target_logger(3, "MAIN", "Power going %s; fastboot %s",
-                                             (off ? "on" : "off"), (alt ? "enabled" : "disabled"));
-                        if (syscon_key_started_off && syscon_target_alt_powerkey())
+                                             (off ? "on" : "off"), (fastboot ? "enabled" : "disabled"));
+                        if (syscon_key_started_off && syscon_target_fastboot_enabled())
                             syscon_target_rgb_key_feedback();
                         break;
                     }
@@ -240,7 +240,7 @@ _Noreturn void syscon_target_main(void)
                             syscon_target_modem_poweron();
                         break;
                     case 2:
-                        if (syscon_target_alt_powerkey())
+                        if (syscon_target_fastboot_enabled())
                             syscon_target_rgb_key_feedback();
                         else if (syscon_key_started_off)
                             syscon_target_modem_edl();
@@ -249,7 +249,7 @@ _Noreturn void syscon_target_main(void)
                         break;
                     case 3: {
                         uint32_t off = syscon_key_started_off;
-                        if (syscon_target_alt_powerkey()) {
+                        if (syscon_target_fastboot_enabled()) {
                             if (off)
                                 syscon_target_modem_edl();
                             else
@@ -258,11 +258,11 @@ _Noreturn void syscon_target_main(void)
                         break;
                     }
                     case 4:
-                        if (syscon_target_alt_powerkey() && syscon_key_started_off)
+                        if (syscon_target_fastboot_enabled() && syscon_key_started_off)
                             syscon_target_rgb_key_feedback();
                         break;
                     case 5:
-                        if (syscon_key_started_off && syscon_target_alt_powerkey())
+                        if (syscon_key_started_off && syscon_target_fastboot_enabled())
                             syscon_target_modem_fastboot();
                         break;
                     }

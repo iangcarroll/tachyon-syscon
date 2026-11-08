@@ -83,7 +83,7 @@
     },
     {
       "address": "0x567c",
-      "symbol": "syscon_target_shutdown_active",
+      "symbol": "syscon_target_shutdown_reason_if_fresh",
       "source": "src/power/power_policy_target.c",
       "header": "include/power_policy_target.h",
       "tests": "tests/test_power_policy_target.py",

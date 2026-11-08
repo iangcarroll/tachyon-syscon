@@ -9,7 +9,8 @@ from arm_rebuild_oracle import ArmRebuildOracle
 from power_oracle import PowerEnvironment
 from power_state_comparison import PowerStateComparison,log_arguments,text_argument
 ROOT=Path(__file__).resolve().parents[1]
-ENTRIES=dict(zip([0x4c50,0x4ca8,0x4d00,0x4d58,0x4d68,0x4d9c,0x4df4,0x4e04,0x4e34,0x4ec4,0x4ed4,0x4ee0,0x4fd0,0x5004,0x5048,0x50f4,0x5148,0x517c,0x51c0,0x5264,0x5274],['measure','battery_route','vbus_route','battery_id','battery_id_set','header_route','ntc','ntc_set','battery_route_set','boost','boost_set','header_route_set','header_default','usb_isolate','vbus_route_set','usb_release_callback','usb_assert_callback','shutdown_busy','shutdown_request','battery_sense_set','battery_detect']))
+ENTRIES=dict(zip([0x4c50,0x4ca8,0x4d00,0x4d58,0x4d68,0x4d9c,0x4df4,0x4e04,0x4e34,0x4ec4,0x4ed4,0x4ee0,0x4fd0,0x5004,0x5048,0x50f4,0x5148,0x517c,0x51c0,0x5264,0x5274],['measure','battery_route','vbus_route','battery_id','battery_id_set','header_route','ntc','ntc_set','battery_route_set','boost','boost_set','header_route_set','header_default','usb_isolate','vbus_route_set','usb_release_callback','usb_assert_callback','usb_reattach_busy','usb_reattach_request','ntc_detection_set_disabled','battery_probe']))
+SYMBOLS={entry:('syscon_target_' if name.startswith('usb_reattach_') else 'syscon_target_power_')+name for entry,name in ENTRIES.items()}
 DEPENDENCIES={0x3620:('syscon_target_pin_read',1),0x364e:('syscon_target_pin_write',2),0x7f24:('syscon_target_adc_millivolts',1),0x77c0:('syscon_target_timer_delay',1),0x5ad4:('syscon_target_retained_set_battery',1),0x77b4:('syscon_target_now',0),0x7554:('syscon_target_tasks_submit',2),0x8f88:('syscon_target_logger',3),0x2678:('syscon_target_assert',3)}
 class AssertionBoundary(Exception):pass
 class DependencyBoundary(Exception):pass
@@ -24,7 +25,7 @@ def build(out,integrated=False):
         obj=out/f'{i}.o';objects.append(str(obj))
         toolchain_process.run(['arm-none-eabi-gcc','-std=gnu11','-mcpu=cortex-m0plus','-mthumb','-Os','-ffreestanding','-fno-builtin','-ffunction-sections','-fdata-sections','-Wall','-Wextra','-Werror','-I'+str(ROOT/'include'),'-c',str(source),'-o',str(obj)],check=True)
     elf=out/'power-manager.elf'
-    toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),'-Wl,--gc-sections',*(['-Wl,--undefined=syscon_target_tasks_poll','-Wl,--undefined=syscon_target_tasks_init'] if integrated else []),'-Wl,-e,syscon_target_power_measure',*['-Wl,--undefined=syscon_target_power_'+s for s in ENTRIES.values()],'-o',str(elf)],check=True)
+    toolchain_process.run(['arm-none-eabi-gcc','-mcpu=cortex-m0plus','-mthumb','-nostdlib',*objects,'-Wl,-T,'+str(ROOT/'tests/fixtures/target/emulation.ld'),'-Wl,--gc-sections',*(['-Wl,--undefined=syscon_target_tasks_poll','-Wl,--undefined=syscon_target_tasks_init'] if integrated else []),'-Wl,-e,syscon_target_power_measure',*['-Wl,--undefined='+symbol for symbol in SYMBOLS.values()],'-o',str(elf)],check=True)
     return elf
 
 class Pair:
@@ -86,7 +87,7 @@ class Pair:
     def execute(self,index,entry,args):
         m=self.machines[index]
         symbol={0x7540:'syscon_target_tasks_init',0x75d8:'syscon_target_tasks_poll'}.get(entry)
-        if symbol is None:symbol='syscon_target_power_'+ENTRIES[entry]
+        if symbol is None:symbol=SYMBOLS[entry]
         try:
             value=m.call(entry if not index else symbol,*args)
             if entry in (0x7540,0x75d8):value=None

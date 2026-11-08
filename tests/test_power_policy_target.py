@@ -147,3 +147,12 @@ def test_power_report_and_all_shutdown_names_ignore_original_rom(policy_elf):
         p.responses={'now':1000}
         p.call(0x55dc,reason)
         assert p.call(0x562c)==reason
+
+
+def test_fresh_shutdown_reason_preserves_reason_instead_of_boolean(policy_elf):
+    p = Pair(policy_elf)
+    for reason in [0, 1, 2, 6, 255]:
+        p.put(0x2000036f, bytes([reason]))
+        for stale in [0, 1, 255]:
+            p.put(0x20000380, bytes([stale]))
+            assert p.call(0x567c) == (0 if stale else reason)

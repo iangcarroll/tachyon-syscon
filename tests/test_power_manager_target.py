@@ -47,7 +47,7 @@ def test_header_default_and_voltage_logs(elf):
         for e in p.envs:e.adc[13]=[sample]
         p.run(0x4ee0,1)
 
-def test_shutdown_callbacks_cooldown_wrap_and_timestamp_reload(elf):
+def test_usb_reattach_callbacks_cooldown_wrap_and_timestamp_reload(elf):
     for status in [0,1,0xffffffff,0x80000000,0x40000000]:
         p=Pair(elf);both(p,'write_result',status);both(p,'now',0x123456789abcdef0);p.run(0x5148);p.run(0x50f4)
     for active in [0,1,255]:
@@ -59,13 +59,13 @@ def test_shutdown_callbacks_cooldown_wrap_and_timestamp_reload(elf):
         if address==0x77b4:o.put(0x20000378,struct.pack('<Q',2000))
     p.on_call=change;p.run(0x517c)
 
-def test_shutdown_request_rejections_success_and_task_failure(elf):
+def test_usb_reattach_request_rejections_success_and_task_failure(elf):
     for active,adc,boost,result in itertools.product([0,1],[562,563,0xffffffff],[0,1],[0,-1]):
         p=Pair(elf);p.put(0x20000370,bytes([active]));both(p,'task_result',result)
         for e in p.envs:e.adc[16]=[adc];e.gpio[37]=boost
         p.run(0x51c0)
 
-def test_battery_detection_thresholds_and_gpio_failures(elf):
+def test_battery_probe_thresholds_and_gpio_failures(elf):
     for battery,ntc,status in itertools.product([999,1000,0xffffffff],[0,399,400,1200,1201,0xffffffff],[0,0xffffffff]):
         p=Pair(elf);both(p,'write_result',status)
         for e in p.envs:e.adc[14]=[battery];e.adc[23]=[ntc]
@@ -157,3 +157,39 @@ def test_editing_voltage_scale_changes_only_the_selected_channel(tmp_path,monkey
             assert candidate[0]==original[0]=='return'
             assert candidate[1]>original[1]
         else:assert candidate==original
+
+
+@pytest.mark.parametrize('initial_route', [1, 2])
+@pytest.mark.parametrize('battery_sample', [999, 1000])
+def test_battery_probe_routes_are_active_and_not_restored(elf, initial_route, battery_sample):
+    p = Pair(elf)
+    route(p, (33, 34), initial_route)
+    for environment in p.envs:
+        # The real measurement code multiplies this ADC reading by three.
+        environment.adc[14] = [battery_sample]
+        environment.adc[23] = [800]
+    assert p.run(0x5274) == ('return', 1)
+    for environment in p.envs:
+        writes = [(a, b) for address, a, b, _ in environment.trace if address == 0x364e]
+        rail_writes = [(pin, value) for pin, value in writes if pin in (33, 34)]
+        if battery_sample < 1000:
+            # Even a previously connected battery is left disconnected.
+            assert (environment.gpio[33], environment.gpio[34]) == (0, 0)
+            assert rail_writes[-2:] == [(33, 0), (34, 0)]
+            assert environment.gpio[27] == 1  # NTC detector disabled afterward.
+        else:
+            assert (environment.gpio[33], environment.gpio[34]) == (int(initial_route == 1), int(initial_route == 2))
+            assert not rail_writes
+        assert environment.gpio[36] == 0  # Battery NTC source restored.
+
+
+def test_battery_route_failure_reports_success_without_confirming_pins(elf):
+    for requested in [0, 2]:
+        p = Pair(elf)
+        route(p, (33, 34), 1)
+        both(p, 'stuck', {33, 34})
+        both(p, 'write_result', 0xffffffff)
+        outcome, result = p.run(0x4e34, requested)
+        assert outcome == 'return' and result & 0xffffffff == 0
+        # A fresh getter exposes the actual unchanged route despite success.
+        assert p.run(0x4ca8) == ('return', 1)

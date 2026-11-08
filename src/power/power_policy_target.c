@@ -107,7 +107,7 @@ uint32_t syscon_target_shutdown_stale(void)
 {
     return syscon_shutdown_state.stale;
 }
-uint32_t syscon_target_shutdown_active(void)
+uint32_t syscon_target_shutdown_reason_if_fresh(void)
 {
     return syscon_shutdown_state.stale ? 0 : syscon_shutdown_reason;
 }

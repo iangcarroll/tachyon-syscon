@@ -1,8 +1,9 @@
 #ifndef SYSCON_UART_RING_TARGET_H
 #define SYSCON_UART_RING_TARGET_H
 #include <stdint.h>
-void syscon_target_uart_rx_disable(uint32_t port);
-void syscon_target_uart_rx_enable(uint32_t port);
+/* Change only the RX interrupt mask. The receiver and FIFO remain enabled. */
+void syscon_target_uart_rx_irq_mask(uint32_t port);
+void syscon_target_uart_rx_irq_unmask(uint32_t port);
 uint32_t syscon_target_uart_put(uint32_t port, uint32_t character);
 /* 8c8c: normal return also leaves R1=port, R2=size, R3=size. */
 uint32_t syscon_target_uart_write_buffer(uint32_t port, uint32_t data, uint32_t size);

@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 MAPPINGS={0x5358:'power_report',0x54cc:'power_policy_init',0x559c:'power_minimum_update',
           0x55b4:'power_minimum_reset',0x55c4:'power_minimum',0x55dc:'shutdown_set',
           0x562c:'shutdown_reason',0x5638:'shutdown_elapsed',0x5670:'shutdown_stale',
-          0x567c:'shutdown_active',0x5694:'shutdown_poll'}
+          0x567c:'shutdown_reason_if_fresh',0x5694:'shutdown_poll'}
 DEPENDENCIES={0x4c50:('power_measure',1),0x4ca8:('power_battery_route',0),
 0x4d00:('power_vbus_route',0),0x4d9c:('power_header_route',0),0x4d58:('power_battery_id',0),
 0x4df4:('power_ntc',0),0x4ec4:('power_boost',0),0x3620:('pin_read',1),

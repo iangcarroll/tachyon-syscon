@@ -12,7 +12,7 @@ from power_state_comparison import log_arguments
 import build_runtime_scan_image as runtime
 ROOT=Path(__file__).resolve().parents[1]
 GETTERS=[(0x3114,'auto_boot'),(0x3120,'wakeup_enabled'),(0x312c,'log_color'),
-         (0x3138,'alt_powerkey'),(0x3144,'demo_enabled'),(0x3150,'keep_5v_when_off')]
+         (0x3138,'fastboot_enabled'),(0x3144,'demo_enabled'),(0x3150,'keep_5v_when_off')]
 
 @pytest.fixture(scope='module')
 def diagnostic_elf(tmp_path_factory):
@@ -72,7 +72,7 @@ def test_packed_fields_read_order_and_live_mutation(diagnostic_elf):
         cpu.cpu.hook_add(UC_HOOK_MEM_READ,observe,begin=0x20000036,end=0x2000003d)
     for _ in range(100):
         p.put(0x20000036,rng.randbytes(8))
-        for address,name in [(0x315c,'powerkey_long_seconds'),(0x3178,'powerkey_extra_seconds')]:
+        for address,name in [(0x315c,'edl_timer_seconds'),(0x3178,'shutdown_timer_seconds')]:
             traces[0].clear();traces[1].clear();p.call(address,name)
             assert traces[0]==traces[1]
 
@@ -83,7 +83,7 @@ def test_revision_uses_complete_source_backed_scan_parser(diagnostic_elf):
             b'v1.4294967296.0',b'v1.+2.0tail',b'v 1.2.0',b'v01.002.0',b'v1.2.',b'1.2.0',
             b'v1.2.999999999999999999999999',b'v2147483648.2.0']
     for value in values:
-        p.put(0x2000003e,value+b'\0');p.call(0x3194,'hwrevision_new')
+        p.put(0x2000003e,value+b'\0');p.call(0x3194,'hardware_uses_dead_battery_workaround')
     assert not p.machines[0].hook_calls and not p.machines[1].hook_calls
 
 
@@ -154,3 +154,15 @@ def test_diagnostic_text_does_not_read_original_rom(diagnostic_elf):
         p.put(0x20000046,b'\1')
         configure_poll(p,[6001]*3,temperature,wake=1)
         p.call(0x3488,'diagnostics_poll',void=True)
+
+
+def test_dead_battery_workaround_is_not_general_revision_ordering(diagnostic_elf):
+    p = Pair(diagnostic_elf)
+    for major in [0, 1, 2, 3]:
+        for minor in [0, 1, 2, 9]:
+            revision = f'{major}.{minor}.7'.encode()
+            p.put(0x2000003e, revision + b'\0')
+            assert p.call(0x3194, 'hardware_uses_dead_battery_workaround') == (major == 1 and minor > 1)
+    for revision, expected in [(b'1.-1.0', 1), (b'v1.2.0', 0), (b'1.2', 0)]:
+        p.put(0x2000003e, revision + b'\0')
+        assert p.call(0x3194, 'hardware_uses_dead_battery_workaround') == expected

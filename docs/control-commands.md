@@ -121,3 +121,5 @@ Run from `syscon-re`:
 ```sh
 .venv/bin/python -m pytest -q tests/test_control_commands.py
 ```
+
+`BATCHECK` is an active battery probe, not a passive status query: on the low-voltage path it switches the processor battery supply to DC-DC and then NONE, without restoring the previous route. The original command has no processor-off guard. Use `READ_PWR` for voltage measurements; see [power routing](power-manager-target.md) for the preserved behavior.

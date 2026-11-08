@@ -16,7 +16,7 @@ static volatile syscon_uart_port_t *lookup_or_assert(uint32_t port, uint32_t lin
     }
     return descriptor;
 }
-void syscon_target_uart_rx_disable(uint32_t port)
+void syscon_target_uart_rx_irq_mask(uint32_t port)
 {
     volatile syscon_uart_port_t *descriptor =
         (volatile syscon_uart_port_t *)(uintptr_t)syscon_hal_uart_lookup(port);
@@ -24,7 +24,7 @@ void syscon_target_uart_rx_disable(uint32_t port)
     uint32_t mask = U32(base + 0x1028u);
     U32(base + 0x1028u) = mask & ~UINT32_C(0x400);
 }
-void syscon_target_uart_rx_enable(uint32_t port)
+void syscon_target_uart_rx_irq_unmask(uint32_t port)
 {
     volatile syscon_uart_port_t *descriptor =
         (volatile syscon_uart_port_t *)(uintptr_t)syscon_hal_uart_lookup(port);
@@ -57,12 +57,12 @@ uint32_t syscon_target_uart_available(uint32_t port)
     (void)lookup_or_assert(port, 0xc6);
     if (syscon_uart_config[port].mode)
         return 0;
-    syscon_target_uart_rx_disable(port);
+    syscon_target_uart_rx_irq_mask(port);
     volatile syscon_uart_ring_t *ring = &syscon_uart_rings[port];
     uint32_t write = ring->write_index;
     uint32_t read = ring->read_index;
     uint32_t full = ring->full;
-    syscon_target_uart_rx_enable(port);
+    syscon_target_uart_rx_irq_unmask(port);
     if (full)
         return SYSCON_UART_RX_CAPACITY;
     if (write < read)
@@ -107,13 +107,13 @@ uint32_t syscon_target_uart_read(uint32_t port)
         return UINT32_MAX;
     if ((int32_t)syscon_target_uart_available(port) <= 0)
         return UINT32_MAX;
-    syscon_target_uart_rx_disable(port);
+    syscon_target_uart_rx_irq_mask(port);
     volatile syscon_uart_ring_t *ring = &syscon_uart_rings[port];
     uint32_t read = ring->read_index;
     uint32_t value = U8((uint32_t)(uintptr_t)ring + read);
     read = ring->read_index;
     ring->read_index = (read + 1u) & (SYSCON_UART_RX_CAPACITY - 1u);
     ring->full = disabled;
-    syscon_target_uart_rx_enable(port);
+    syscon_target_uart_rx_irq_unmask(port);
     return value;
 }

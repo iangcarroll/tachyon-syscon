@@ -94,8 +94,8 @@ def test_full_main_all_key_events_and_shutdown_paths(application_elf):
         for off in [0,1,255]:
             for alt in [0,1]:
                 for shutdown in [0,1]:
-                    p.responses=dict(reset_cause=2,modem_off=off,alt_powerkey=alt,
-                        power_shutdown_request=shutdown,tasks_active=0)
+                    p.responses=dict(reset_cause=2,modem_off=off,fastboot_enabled=alt,
+                        usb_reattach_request=shutdown,tasks_active=0)
                     p.inputs=[seed_event(event,off)];p.main(1)
     for pending in [0,1,255]:
         for active in [0,1,0xffffffff]:
@@ -108,10 +108,10 @@ def test_full_main_reads_key_state_on_correct_side_of_callbacks(application_elf)
     p=Pair(application_elf)
     for event in range(6):
         for before in [0,1]:
-            p.responses=dict(reset_cause=2,alt_powerkey=1,modem_off=1)
+            p.responses=dict(reset_cause=2,fastboot_enabled=1,modem_off=1)
             # Event3 must use the off state captured before the callback; events
             # 0/2/4 differ in their reload points. The full loop observes this.
-            p.mutations={'alt_powerkey':lambda cpu,i,args:cpu.put(0x200002ed,bytes([1-before]))}
+            p.mutations={'fastboot_enabled':lambda cpu,i,args:cpu.put(0x200002ed,bytes([1-before]))}
             p.inputs=[seed_event(event,before)];p.main(1)
 
 
@@ -120,7 +120,7 @@ def test_full_main_multiple_iterations_consume_queue_and_defer_shutdown(applicat
     p=Pair(application_elf)
     def fill(cpu):
         cpu.put(0x200002d1,bytes([0,1,2,3]));cpu.put(Q,struct.pack('<IIIIB',0x200002d1,4,0,0,1));cpu.put(0x200002ec,b'\0\0')
-    p.inputs=[fill];p.responses=dict(reset_cause=2,modem_off=1,alt_powerkey=0,
+    p.inputs=[fill];p.responses=dict(reset_cause=2,modem_off=1,fastboot_enabled=0,
         tasks_active=lambda cpu,i,args:int(p.loops[i]<4))
     p.main(6)
     p.equal(Q,24)
@@ -204,7 +204,7 @@ def test_application_runs_without_original_private_log_strings(application_elf):
     p.cpus[1].put(0xb4ac,b'\xa5'*(0xb6bb-0xb4ac))
     p.cpus[1].put(0xdd05,b'\xa5'*(0xdd79-0xdd05))
     p.inputs=[seed_event(2,0)]
-    p.responses=dict(reset_cause=2,modem_off=1,alt_powerkey=1,
+    p.responses=dict(reset_cause=2,modem_off=1,fastboot_enabled=1,
                      gpio_read=0,wakeup_enabled=1)
     p.main(1)
     p.call(0x78ac,'wakeup_irq',17,0)

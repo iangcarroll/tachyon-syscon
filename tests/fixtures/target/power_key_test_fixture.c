@@ -27,8 +27,8 @@ uint32_t syscon_target_gpio_config(uint32_t pin,uint32_t config){
 uint32_t syscon_target_modem_off(void){event(0x6690,0,0,0,0,0);return E[5];}
 void syscon_target_modem_key_assert(void){event(0x6a28,0,0,0,0,0);if(E[4])B(0x200000d8)=(uint8_t)E[4];}
 void syscon_target_modem_key_release(void){event(0x6a48,0,0,0,0,0);if(E[4])B(0x200000d8)=(uint8_t)E[4];}
-uint32_t syscon_target_powerkey_long_seconds(void){event(0x315c,0,0,0,0,0);return E[6];}
-uint32_t syscon_target_powerkey_extra_seconds(void){event(0x3178,0,0,0,0,0);return E[7];}
+uint32_t syscon_target_edl_timer_seconds(void){event(0x315c,0,0,0,0,0);return E[6];}
+uint32_t syscon_target_shutdown_timer_seconds(void){event(0x3178,0,0,0,0,0);return E[7];}
 void fixture_key_callback(uint32_t key_event,uint32_t context){
     event(0xf100,key_event,context,0,0,0);++E[9];
     if(E[8]==1){B(0x200000d9)=42;B(0x2000039c)=0;}

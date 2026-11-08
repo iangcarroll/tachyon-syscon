@@ -11,7 +11,7 @@
     },
     {
       "address": "0x5f30",
-      "symbol": "syscon_target_modem_power_check",
+      "symbol": "syscon_target_modem_prepare_power",
       "source": "src/modem/sg560d_target.c",
       "tests": [
         "tests/test_sg560d_target.py"
@@ -346,8 +346,8 @@
   "external_boundary_symbols": [
     "syscon_target_assert",
     "syscon_target_auto_boot",
-    "syscon_target_modem_always_on",
-    "syscon_target_hwrevision_new",
+    "syscon_target_keep_5v_when_off",
+    "syscon_target_hardware_uses_dead_battery_workaround",
     "syscon_target_pin_write",
     "syscon_target_ioexpander_configure",
     "syscon_target_protocol_poll",
@@ -359,8 +359,8 @@
     "syscon_target_power_header_route_set",
     "syscon_target_power_header_default",
     "syscon_target_power_vbus_route_set",
-    "syscon_target_power_shutdown_busy",
-    "syscon_target_power_battery_detect",
+    "syscon_target_usb_reattach_busy",
+    "syscon_target_power_battery_probe",
     "syscon_target_power_report",
     "syscon_target_power_minimum_update",
     "syscon_target_power_minimum_reset",
@@ -369,7 +369,7 @@
     "syscon_target_shutdown_reason",
     "syscon_target_shutdown_elapsed",
     "syscon_target_shutdown_stale",
-    "syscon_target_shutdown_active",
+    "syscon_target_shutdown_reason_if_fresh",
     "syscon_target_shutdown_poll",
     "syscon_target_powerkey_mode",
     "syscon_target_retained_set_modem",
