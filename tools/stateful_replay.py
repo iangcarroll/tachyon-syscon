@@ -33,7 +33,7 @@ def validate(events):
         if not isinstance(kind, str) or kind not in fields or set(event) != fields[kind]:
             raise ValueError('Unknown event or fields')
         ranges = {'spacing': (5000, 12000), 'channel': (0, 31),
-                  'sample': (0, 4095), 'hold_ticks': (90, 150), 'count': (1, 4)}
+                  'sample': (0, 4095), 'hold_ticks': (90, 150), 'count': (1, 3)}
         for field, (low, high) in ranges.items():
             if field in event and (type(event[field]) is not int or not low <= event[field] <= high):
                 raise ValueError('Invalid ' + field)

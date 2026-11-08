@@ -27,6 +27,7 @@ def test_seeded_sequences_are_reproducible_and_saved_events_are_the_contract(tmp
 @pytest.mark.parametrize('bad', [None, [], [None], [{'kind': []}], [{'kind': 'ram-patch'}],
                                [{'kind': 'reset', 'address': 0}],
                                [{'kind': 'button', 'hold_ticks': True}],
+                               [{'kind': 'i2c-nack', 'count': 4}],
                                [{'kind': 'adc', 'channel': 2, 'sample': 4096}]])
 def test_invalid_replay_is_rejected(bad):
     with pytest.raises(ValueError):
@@ -75,6 +76,15 @@ def test_battery_response_requires_rises_and_falls_to_follow_input():
     assert not battery_responded([(1900, 2505), (2950, 2400)])
     assert not battery_responded([(1900, 2505)] * 3)
     assert not battery_responded([])
+
+
+def test_recoverable_nack_range_matches_the_firmware_retry_boundary():
+    for count in range(1, 4):
+        event = {'kind': 'i2c-nack', 'count': count}
+        assert validate([event]) == [event]
+    for count in (0, 4, True):
+        with pytest.raises(ValueError):
+            validate([{'kind': 'i2c-nack', 'count': count}])
 
 
 def test_missing_candidate_cannot_leave_a_stale_pass_or_running_result(tmp_path):
