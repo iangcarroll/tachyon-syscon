@@ -202,7 +202,7 @@ def test_relocated_globals_button_battery_curve_and_compaction(relocated_image):
     assert persisted[64:128]==bytes(slot(b'legacy',literal))
 
 
-@pytest.mark.parametrize('stack_bytes',[1024,1088])
+@pytest.mark.parametrize('stack_bytes',[1280,1344])
 def test_stack_guard_rejects_data_growth_that_exceeds_compaction_headroom(relocated_image,tmp_path,stack_bytes):
     output,manifest,script=relocated_image
     # Model a source edit adding ordinary state. The static minimum still
