@@ -8,13 +8,16 @@ The reference is the pinned 1.0.52 image (SHA-256
 Instruction listings and decompilations were compared with the earlier host
 reconstruction; the target implementation additionally preserves diagnostic
 calls and uses actual rebuilt function pointers in submitted task records.
-`include/sg560d_literals.h` contains decoded literal **data**, not copied opcodes.
+Strings and the retry-delay table now live in ordinary C source; the decoded
+private-address literal header has been removed.
 
 The implementation covers power routing and voltage checks, normal/EDL/FCT/
 fastboot preparation and action sequences, UART setup and buffering state,
 retry backoff and thermal limits, timed wakeup, shutdown/reboot detection,
 transition deadlines, RGB sampling and debounce, USB boot debounce, and the
-power-key pulse callbacks. It reads and writes the original 32-bit RAM layout.
+power-key pulse callbacks. Named boot, timing, runtime and parser objects are declared in
+`include/modem_state.h` and allocated by the linker. Only the isolated oracle
+fixture preserves the old placement; physical firmware reorders these objects.
 The retry counter and 64-bit clocks retain unsigned wrap behavior; signed
 voltage and temperature comparisons retain the original thresholds.
 
@@ -24,7 +27,9 @@ voltage and temperature comparisons retain the original thresholds.
 against the original ARM code with Unicorn. It compares returned values where
 specified, low 2 KiB state, ordered state writes (including access widths),
 ordered external calls and argument payloads, emitted diagnostic UART bytes,
-and normalized task callback pointers. Source-backed logger, formatter,
+and validated linked boot-label/parser/task pointers. Corrupted pointer and
+retry-count controls must fail comparison; normalization never changes guest memory.
+A separate test poisons the old ROM strings and tables before executing modem calls. Source-backed logger, formatter,
 integer arithmetic, memory routines and UART descriptor lookup execute in the
 candidate; internal modem calls execute reconstructed C. No candidate fetch
 from the original firmware code is permitted by the harness mapping.

@@ -19,6 +19,7 @@ LINKER_SYMBOLS.update({'__power_data_load','__power_data_start','__power_data_en
 
 LINKER_SYMBOLS.update({'__protocol_data_load','__protocol_data_start','__protocol_data_end','__application_bss_start','__application_bss_end'})
 
+LINKER_SYMBOLS.update({'__modem_bss_start','__modem_bss_end'})
 LINKER_SYMBOLS.update({'__runtime_data_load','__runtime_data_start','__runtime_data_end'})
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -59,6 +60,7 @@ def elf_audit(path):
                       symbols.get('__power_data_end',0),
                       symbols.get('__protocol_data_end',0),
                       symbols.get('__runtime_data_end',0),
+                      symbols.get('__modem_bss_end',0),
                       symbols.get('__application_bss_end',0),
                       symbols.get('__peripheral_data_end',0))
         return {'sections':sections,'load_segments':loads,'symbols':symbols,'issues':issues,'flash_io_words':callbacks,

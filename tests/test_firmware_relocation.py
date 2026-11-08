@@ -68,6 +68,9 @@ def relocated_image(tmp_path_factory):
     order='*(.data.syscon_runtime_context) *(.data.syscon_runtime_current)'
     assert script.count(order)==1
     script=script.replace(order,'*(.data.syscon_runtime_current) *(.data.syscon_runtime_context)')
+    order='*(.bss.syscon_modem_runtime) *(.bss.syscon_modem_boot) *(.bss.syscon_modem_timing)'
+    assert script.count(order)==1
+    script=script.replace(order,'*(.bss.syscon_modem_timing) *(.bss.syscon_modem_runtime) *(.bss.syscon_modem_boot)')
     linker.write_text(script)
     output=tmp_path/'physical'
     subprocess.run([sys.executable,str(tree/'tools/build_physical_firmware.py'),

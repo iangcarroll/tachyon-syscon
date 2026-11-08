@@ -153,3 +153,20 @@ def test_fatal_assertion_stops_both_paths_before_later_actions(elf):
         assert p.events[0]==p.events[1]
         assert bytes(p.cpus[0].cpu.mem_read(0x20000000,0x800))==p.normalized_memory(0x20000000,p.cpus[1].read(0x20000000,0x800))
         assert p.events[0][-1][0]==0x2678
+
+
+def test_modem_owns_text_and_retry_table_after_old_rom_is_poisoned(elf):
+    p=Pair(elf,responses({0x77b4:10000,0x7d54:499,(0x4c50,(16,)):5000}))
+    p.cpus[1].put(0xab20,b'\xa5'*(0xe2d8-0xab20))
+    emitted=[]
+    for entry,args in [(0x66a0,(5,)),(0x66bc,(3,)),(0x62ec,(0,2)),
+                       (0x65d0,()),(0x6838,()),(0x6a68,())]:
+        p.events=[[],[]];p.call(entry,*args);emitted.extend(p.events[0])
+    assert any(event[0]==0x3af4 for event in emitted)
+
+
+@pytest.mark.parametrize('address', [0x200003c8,0x200000f0,0x200004f4])
+def test_modem_state_comparison_rejects_wrong_label_callback_or_retry_count(elf,address):
+    p=Pair(elf);p.call(0x65d0)
+    p.cpus[1].put(address,struct.pack('<I',0xa5a5a5a5))
+    assert bytes(p.cpus[0].cpu.mem_read(0x20000000,0x800))!=p.normalized_memory(0x20000000,p.cpus[1].read(0x20000000,0x800))

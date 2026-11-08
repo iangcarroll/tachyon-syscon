@@ -74,8 +74,8 @@ hardware, MCU memory-region and persistent-storage contracts. Layout-change test
 must exercise moved data/code and changed string lengths. Configuration storage
 now preserves legacy values literally, including `%` characters, instead of
 interpreting them as printf formats. This approved bug fix removes the private
-return-address dependency; normal commands still reject `%`. Fixed global state
-and remaining recovered data blocks still need migration; they are not approved
+return-address dependency; normal commands still reject `%`. The runtime and modem globals now use named objects. The obsolete startup data
+copy and transitional linker arenas remain to be retired; they are not permanent
 exceptions to this requirement.
 
 Start with these production source groups when making a change:
@@ -91,11 +91,12 @@ Start with these production source groups when making a change:
 | ADC conversion and calibration | `target/adc_target.c`, ADC lookup in `target/hal_helpers.c` | `include/adc_state.h` |
 | RGB animation and PWM | `target/rgb_target.c`, `target/pwm_target.c`, PWM routing in `target/hal_helpers.c` | `include/rgb_state.h`, editable presets/palette in `include/rgb_data.h`, `include/pwm_state.h` |
 | Power routing, battery detection and shutdown policy | `target/power_policy_target.c`, `target/power_manager_target.c`, `target/power_state.c` | `include/power_state.h`; source voltage scales and diagnostic strings |
-| Modem state machine | `target/sg560d_target.c` | Remaining fixed state/tables are still being migrated |
+| Modem state machine | `target/sg560d_target.c` | `include/modem_state.h`; named boot/runtime/parser state and source retry table |
 | GPIO, reset causes and watchdog | `target/mspm0_core_target.c`, `target/gpio_state.c` | `include/gpio_state.h` |
 | I2C and fault diagnostics | `target/i2c_target.c`, `target/fault_control_target.c` | `include/i2c_state.h`, bus routing in `target/hal_helpers.c` |
 | UART initialization and receive buffering | `target/uart_hal_target.c`, `target/uart_ring.c`, `target/uart_state.c` | `include/uart_state.h`, port routing in `target/hal_helpers.c` |
 | Logging and ARM variadic calls | `target/logger_target.c`, `target/logger_target_abi.S`, `target/logger_state.c` | `include/logger_state.h` |
+| Runtime context, heap and character rules | `target/runtime_*.c` | `include/runtime_state.h`; linker-resolved state and ASCII rules |
 | Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
 
 Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide
