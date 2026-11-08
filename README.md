@@ -39,7 +39,7 @@ macOS avoid copying accumulated emulator mappings when no inheritable private
 descriptors need closing.
 It writes a separate partial-coverage report under `build/`. `make test` retains
 the full suite, including complete-image cold starts and extensive fault cases;
-CI runs that complete suite in parallel core, integration and cold-start jobs. The quick
+CI runs that complete suite in parallel core, integration, cold-start and stateful jobs. The quick
 selection is not a replacement for whole-image validation before a firmware PR.
 
 `make`, `make arm` and `make physical-firmware` link the complete
@@ -95,7 +95,7 @@ Start with these production source groups when making a change:
 | I2C and fault diagnostics | `target/drivers/i2c_target.c`, `target/drivers/fault_control_target.c` | `include/i2c_state.h`, bus routing in `target/drivers/hal_helpers.c` |
 | UART initialization and receive buffering | `target/drivers/uart_hal_target.c`, `target/drivers/uart_ring.c`, `target/drivers/uart_state.c` | `include/uart_state.h`, port routing in `target/drivers/hal_helpers.c` |
 | Logging and ARM variadic calls | `target/logging/logger_target.c`, `target/logging/logger_target_abi.S`, `target/logging/logger_state.c` | `include/logger_state.h` |
-| Runtime context, heap and character rules | `target/runtime_*.c` | `include/runtime_state.h`; linker-resolved state and ASCII rules |
+| Runtime context, heap and character rules | `target/runtime/` | `include/runtime_state.h`; linker-resolved state and ASCII rules |
 | Reset, vectors and memory layout | `target/physical/` | `target/physical/firmware.ld` |
 
 Files named `*_test_fixture.c`, `emulation_runtime.c` and `emulation.ld` provide
@@ -127,8 +127,13 @@ The current whole-image corpus exercises command and persistent-configuration
 cold starts, missing-rail failures and UART readiness, with reproducible mutations
 of rail delay, UART spacing and USB ADC input. It compares ordered power outputs,
 protocol replies and persistent flash, and requires an independent expected
-outcome so two stuck images cannot pass. Broader stateful UART/ADC/I2C/button
-fuzzing remains work to do. See the [scenario commands](docs/mcu-emulator.md#replayable-cold-start-scenarios).
+outcome so two stuck images cannot pass. Seeded stateful sessions now interleave
+configuration commands and rejected inputs, battery ADC curves, fresh boots,
+button presses and recoverable I2C NACKs. They compare intermediate flash and
+power effects as well as protocol output. This is a bounded seed grammar, not
+arbitrary input-stream or exhaustive fault fuzzing. See the
+[scenario commands](docs/mcu-emulator.md#replayable-cold-start-scenarios) and
+[stateful replays](docs/mcu-emulator.md#stateful-whole-image-replays).
 
 Battery and power tests must include time-varying supply inputs, routing changes,
 brownout/recovery paths, thermal behavior and externally reported shutdowns.

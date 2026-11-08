@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [core, integration, cold-start]
+        suite: [core, integration, cold-start, stateful]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -62,10 +62,12 @@ jobs:
           )
           if [ "${{ matrix.suite }}" = "cold-start" ]; then
             python -m pytest -q tests/test_functional_scenarios.py --durations=15 --junitxml=build/ci/functional-tests.xml
+          elif [ "${{ matrix.suite }}" = "stateful" ]; then
+            python -m pytest -q tests/test_stateful_images.py --durations=15 --junitxml=build/ci/functional-tests.xml
           elif [ "${{ matrix.suite }}" = "integration" ]; then
             python -m pytest -q "${integration[@]}" --durations=15 --junitxml=build/ci/functional-tests.xml
           else
-            ignores=(--ignore=tests/test_functional_scenarios.py)
+            ignores=(--ignore=tests/test_functional_scenarios.py --ignore=tests/test_stateful_images.py)
             for path in "${integration[@]}"; do ignores+=("--ignore=$path"); done
             python -m pytest -q tests "${ignores[@]}" --durations=15 --junitxml=build/ci/functional-tests.xml
           fi
