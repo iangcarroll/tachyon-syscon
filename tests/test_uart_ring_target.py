@@ -18,14 +18,46 @@ class AssertReached(RuntimeError):pass
 
 @pytest.fixture(scope='module')
 def uart_elf(tmp_path_factory):
-    out=tmp_path_factory.mktemp('uart-ring-target');elf=out/'test.elf'
+    return build_uart_ring(tmp_path_factory.mktemp('uart-ring-target'))
+
+
+def build_uart_ring(out,include=ROOT/'include',linker=ROOT/'target/emulation.ld'):
+    elf=out/'test.elf'
     trap=out/'assert.c';trap.write_text('void syscon_target_assert(unsigned a,unsigned b,unsigned c){(void)a;(void)b;(void)c;__asm__("bkpt #0");}\n')
     subprocess.run(['arm-none-eabi-gcc','-std=c11','-Os','-mcpu=cortex-m0plus','-mthumb',
         '-ffreestanding','-fno-builtin','-nostdlib','-Wall','-Wextra','-Werror',
-        '-I',str(ROOT/'include'),str(ROOT/'target/uart_ring.c'),str(ROOT/'target/uart_ring_abi.S'),str(ROOT/'target/hal_helpers.c'),
-        str(ROOT/'src/runtime_memory.c'),str(trap),'-Wl,-T,'+str(ROOT/'target/emulation.ld'),
+        '-I',str(include),str(ROOT/'target/uart_ring.c'),str(ROOT/'target/uart_state.c'),str(ROOT/'target/uart_ring_abi.S'),str(ROOT/'target/hal_helpers.c'),
+        str(ROOT/'src/runtime_memory.c'),str(trap),'-Wl,-T,'+str(linker),
         '-Wl,-e,syscon_target_uart_read','-o',str(elf)],check=True)
     return elf
+
+
+def test_edited_ring_capacity_changes_real_irq_buffering_without_offset_edits(tmp_path):
+    import shutil
+    include=tmp_path/'include';shutil.copytree(ROOT/'include',include)
+    header=include/'uart_state.h';original=header.read_text()
+    assert original.count('SYSCON_UART_RX_CAPACITY = 64')==1
+    header.write_text(original.replace('SYSCON_UART_RX_CAPACITY = 64',
+                                       'SYSCON_UART_RX_CAPACITY = 128'))
+    # Isolated test SRAM has room for the intentional size change. A physical
+    # build still has to satisfy the MCU's independent RAM/stack constraints.
+    linker=tmp_path/'edited.ld';script=(ROOT/'target/emulation.ld').read_text()
+    old='TEST_UART_RINGS (rw) : ORIGIN = 0x20000774, LENGTH = 152'
+    assert script.count(old)==1
+    linker.write_text(script.replace(old,'TEST_UART_RINGS (rw) : ORIGIN = 0x21000000, LENGTH = 280'))
+    machine=ArmRebuildOracle(build_uart_ring(tmp_path,include,linker))
+    for base in BASES:machine.cpu.mem_map(base,0x2000)
+    def inject(value):
+        machine.put(BASES[0]+0x1020,struct.pack('<I',11))
+        machine.put(BASES[0]+0x1124,struct.pack('<I',value))
+        machine.call('syscon_target_uart_irq',BASES[0])
+    for value in range(160):inject(value)
+    assert machine.call('syscon_target_uart_available',0)==128
+    assert [machine.call('syscon_target_uart_read',0) for _ in range(128)]==list(range(128))
+    assert machine.call('syscon_target_uart_read',0)==0xffffffff
+    for value in range(255,223,-1):inject(value)
+    assert [machine.call('syscon_target_uart_read',0) for _ in range(32)]==list(range(255,223,-1))
+    assert (ROOT/'include/uart_state.h').read_text()==original
 
 class Pair:
     def __init__(self,elf):
@@ -34,7 +66,7 @@ class Pair:
             for base in BASES:machine.cpu.mem_map(base,0x2000)
             machine.cpu.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,self.record(i))
             def trap(cpu,index=i):
-                self.assertions[index].append(tuple(cpu.arg(n) for n in range(3)))
+                self.assertions[index].append((cpu.cstring(cpu.arg(0)),cpu.arg(1),cpu.cstring(cpu.arg(2))))
                 raise AssertReached()
             address=0x2678 if i==0 else self.a.symbols['syscon_target_assert']&~1
             machine.hooks[address]=trap
@@ -144,7 +176,16 @@ def test_uart_invalid_ports_reach_original_assertion_with_same_source_location(u
             for machine,address in ((p.o,entry),(p.a,'syscon_target_uart_'+name)):
                 with pytest.raises(AssertReached):machine.call(address,*args)
             assert p.assertions[0]==p.assertions[1]
-            assert p.o.cstring(p.assertions[0][0][0])==b'hal_uart.cpp'
+            assert p.assertions[0][0][0]==b'hal_uart.cpp'
+
+
+def test_uart_ring_assertions_ignore_original_private_rom(uart_elf):
+    p=Pair(uart_elf)
+    p.a.put(0xe0af,b'\xa5'*(0xe0ef-0xe0af))
+    p.a.put(0xcfb8,b'\xa5'*16)
+    for machine,entry in [(p.o,0x8de4),(p.a,'syscon_target_uart_read')]:
+        with pytest.raises(AssertReached):machine.call(entry,2)
+    assert p.assertions[0]==p.assertions[1]
 
 
 def test_uart_buffer_faults_after_same_transmitted_prefix(uart_elf):

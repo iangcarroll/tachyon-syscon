@@ -55,7 +55,7 @@ class ArmRebuildOracle:
                 assert ((self.CODE<=address and address+size<=self.CODE+0x80000) or
                         (self.DATA<=address and address+size<=self.DATA+0x8000) or
                         (any(address==self.STATE+offset and size<=limit for offset,limit in
-                             [(0x30,22),(0xb4,36),(0xd8,2),(0x390,24),(0x3a8,28),(0xda,3),(0xf4,72),(0x148,36),(0x685,11),(0x694,1),(0x16c,200),(0x698,200),(0x254,1),(0x13c,12),(0x760,2),(0x534,216),(0x610,112)]) and not segment['p_flags']&1))
+                             [(0x30,22),(0xb4,36),(0xd8,2),(0x390,24),(0x3a8,28),(0xda,3),(0xf4,72),(0x148,36),(0x685,11),(0x694,1),(0x16c,200),(0x698,200),(0x254,1),(0x13c,12),(0x760,2),(0x234,32),(0x762,18),(0x774,152),(0x534,216),(0x610,112)]) and not segment['p_flags']&1))
                 if segment['p_filesz']:self.cpu.mem_write(address,segment.data())
             for symbol in elf.get_section_by_name('.symtab').iter_symbols():
                 if symbol['st_shndx']!='SHN_UNDEF':self.symbols[symbol.name]=symbol['st_value']

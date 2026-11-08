@@ -282,3 +282,30 @@ def test_relocated_i2c_nack_runs_real_fault_path(relocated_image,tmp_path):
         assert machine.device.expander.events
         outputs.append(wire)
     assert outputs[0]==outputs[1]
+
+
+def test_relocated_uart_stream_uses_linked_receive_ring(relocated_image):
+    output,manifest,_=relocated_image
+    symbols=manifest['layout_audit']['symbols']
+    for name,old in [('syscon_uart_ports',0x20000234),
+                     ('syscon_uart_config',0x20000762),('syscon_uart_rings',0x20000774)]:
+        assert symbols[name]!=old
+    machines=[boot(load_image())[0],
+              boot((output/'firmware.bin').read_bytes(),
+                   stack_floor=manifest['layout_audit']['stack_floor_address'])[0]]
+    obsolete=vacant_ranges(manifest,[(0x20000234,32),(0x20000762,18),(0x20000774,152)])
+    for address,size in obsolete:machines[1].write_ram(address,b'\xa5'*size)
+    rings=[0x20000774,symbols['syscon_uart_rings']]
+    before=[machine.read(address+64,8) for machine,address in zip(machines,rings)]
+    # Enough real command input to wrap the 64-byte ring. Compare replies and
+    # actual linked indices, so paired stale writer/reader addresses cannot pass.
+    for command in ['VERSION','CONFIG_SET uart.edit relocatable',
+                    'CONFIG_GET uart.edit','VERSION','CONFIG_GET uart.edit']:
+        replies=[command_reply(machine,command) for machine in machines]
+        assert all(b'PASS\r\n' in reply for reply in replies)
+        assert normalized_log(replies[0])==normalized_log(replies[1])
+        indices=[machine.read(address+64,8) for machine,address in zip(machines,rings)]
+        assert indices[0]==indices[1]
+    assert b'uart.edit = relocatable' in replies[1]
+    assert all(previous!=current for previous,current in zip(before,indices))
+    for address,size in obsolete:assert machines[1].read(address,size)==b'\xa5'*size

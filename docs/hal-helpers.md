@@ -6,7 +6,7 @@
 |---|---|---|
 | `0x7a68` | `syscon_hal_adc_lookup` | Scan the six linker-allocated `syscon_adc_channels` descriptors by byte identifier; first match wins. |
 | `0x7a90` | `syscon_hal_pwm_lookup` | Scan three linker-allocated `syscon_pwm_channels` descriptors; first match wins. |
-| `0x7ac0` | `syscon_hal_uart_lookup` | Return `0x20000234 + 16*index` for unsigned indices 0 and 1, otherwise null. |
+| `0x7ac0` | `syscon_hal_uart_lookup` | Return a linker-allocated `syscon_uart_ports` descriptor for unsigned indices 0 and 1, otherwise null. |
 | `0x7ad4` | `syscon_hal_i2c_lookup` | Return the linker-allocated `syscon_i2c_bus` only for index 0. |
 | `0x930c` | `syscon_hal_adc_clock` | Keyed source-field update, divider-field update, then frequency byte write. |
 | `0x934c` | `syscon_hal_i2c_clock` | Masked source and divider updates, preserving unrelated register bits. |

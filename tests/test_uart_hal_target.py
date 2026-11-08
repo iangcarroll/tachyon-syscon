@@ -12,6 +12,19 @@ def prepare(p,base,rng):
     for offset in (0x1100,0x1104,0x1110,0x1114,0x1028):p.word(base+offset,rng.getrandbits(32))
 
 
+def test_uart_setup_and_assertions_ignore_original_private_rom(driver_elf):
+    p=Pair(driver_elf)
+    p.candidate.put(0xabe8,b'\xa5'*10)
+    p.candidate.put(0xe0af,b'\xa5'*(0xe0ef-0xe0af))
+    p.candidate.put(0xcfb8,b'\xa5'*16)
+    p.put(CFG,config())
+    for port in range(2):
+        assert p.run(0x8954,port,CFG)==('return',0)
+        assert p.run(0x8b50,port)==('return',0)
+    assert p.run(0x8954,2,CFG)[0]=='assert'
+    assert p.run(0x8954,0,0)[0]=='assert'
+
+
 def test_uart_init_baud_domains_real_softfloat_chain_partial_copy_and_ring_clear(driver_elf):
     p=Pair(driver_elf);rng=random.Random(0x8954)
     bauds=[0,1,2,3,30,31,32,115200,2000000,2000001,0x7fffffff,0x80000000,0xffffffff]

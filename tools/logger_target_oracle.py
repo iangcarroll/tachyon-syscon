@@ -15,7 +15,7 @@ def build(destination,real_uart=False):
     old=runtime.SOURCES
     try:
         runtime.SOURCES=old+['src/format.c','target/logger_target.c','target/logger_target_abi.S',str(traps)]
-        if real_uart:runtime.SOURCES+=['target/uart_ring.c','target/uart_ring_abi.S','target/hal_helpers.c','target/logger_uart_test_fixture.c']
+        if real_uart:runtime.SOURCES+=['target/uart_ring.c','target/uart_state.c','target/uart_ring_abi.S','target/hal_helpers.c','target/logger_uart_test_fixture.c']
         return runtime.build(destination)
     finally:runtime.SOURCES=old
 

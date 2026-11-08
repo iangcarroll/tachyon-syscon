@@ -1,8 +1,9 @@
-# Original-ABI UART ring implementation
+# UART receive buffers and IRQ handling
 
-`target/uart_ring.c` implements seven direct ARM interfaces with the original
-RAM descriptors and state locations. It supplements, rather than silently
-relabels, the higher-level `src/uart.c` host adapter.
+`target/uart_ring.c` implements seven production ARM interfaces.
+`include/uart_state.h` names the port, configuration and receive-ring fields;
+`target/uart_state.c` defines the linker-allocated buffers. `src/uart.c` is a
+historical host test scaffold, not a second production implementation.
 
 | Original | Target symbol |
 | --- | --- |
@@ -14,14 +15,11 @@ relabels, the higher-level `src/uart.c` host adapter.
 | `0x8d70` | `syscon_target_uart_irq` |
 | `0x8de4` | `syscon_target_uart_read` |
 
-State is accessed directly at the original 32-bit addresses; no host-owned ring
-struct, environment callback or port-array substitute is used. The implementation
-links the reconstructed descriptor lookup and blocking UART transmitter from
-`target/hal_helpers.c`, plus source runtime string functions for the invalid-port
-assertion path. Invalid public port indices invoke the original assertion
-interface with the same file pointer, line number and expression. Assertion
-behavior is an explicit unresolved link dependency of this module, not replaced
-with a normal error return. Tests stop and compare that boundary.
+The driver accesses ordinary volatile C objects and MCU registers. Board routing
+is defined in `target/hal_helpers.c`. Invalid public port indices invoke the
+assertion interface with the original file/line/expression contents, using normal
+C strings. Tests compare diagnostic contents rather than private pointers.
+Assertions are nonreturning dependencies, never normal error returns.
 
 Unsigned ring counts, nonzero full/disabled bytes, and the signed available-count
 test in read are preserved. The receive handler prefers descriptor 1 when both
@@ -32,7 +30,7 @@ the byte write may overwrite a ring metadata byte, after which the original
 reloads the write index before incrementing it. Volatile operations preserve
 these read/write dependencies and MMIO ordering.
 
-Eight test groups execute original and freshly compiled ARM implementations,
+Differential tests execute original and freshly compiled ARM implementations,
 linking the actual reconstructed dependencies without libc or libgcc. They compare
 complete non-stack RAM and ordered RAM/MMIO transactions, including 600 mixed
 receive/read operations, full-ring drops, corrupt/self-aliasing indices, mutated
@@ -42,10 +40,17 @@ of invalid-buffer reads when disabled or size is zero. Transaction values are
 masked to the transfer width: Unicorn's byte-write hook reports the whole source
 register, while only its low byte is transferred.
 
-This is executable integration evidence for these original interfaces, not a
-whole-firmware proof. The tests retain separate harness stacks and do not prove
-cycle timing, all interrupt interleavings, assertion/reset completion, or a
-physical-layout replacement image.
+Whole-image tests move the descriptor and receive arrays, send enough real UART
+command input to wrap the ring, and compare responses and the actual linked
+read/write indices. Checking those objects catches a writer/reader pair that
+still agrees on an obsolete address. Vacant old locations are poisoned; warm
+reset compares reinitialization after poisoning the new objects. These checks
+do not establish physical timing or all interrupt interleavings.
+
+`SYSCON_UART_RX_CAPACITY` controls storage, wrap masks and full-ring checks.
+A source-edit regression doubles it in an isolated fixture and exercises actual
+IRQ enqueue, overflow, reads and wrap without editing private offsets. The
+physical build independently enforces the MCU's RAM and stack budget.
 
 ## Caller-saved register correction
 

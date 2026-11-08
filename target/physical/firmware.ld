@@ -12,10 +12,10 @@ MEMORY {
  /* Reuse the now-vacant task/timer SRAM instead of reserving a second copy.
     This partition is transitional until remaining fixed-state users migrate. */
  RAM_STATE (rw) : ORIGIN = 0x20000534, LENGTH = 0x14c
- /* Former ADC/I2C/PWM/GPIO descriptors are now one allocation arena. */
- RAM_PERIPHERALS (rw) : ORIGIN = 0x200000f4, LENGTH = 0x140
- /* Former ADC scratch and GPIO callback storage, below the remaining UART state. */
- RAM_IRQ_STATE (rw) : ORIGIN = 0x20000684, LENGTH = 0xdc
+ /* Former ADC/I2C/PWM/GPIO/UART descriptors are now one allocation arena. */
+ RAM_PERIPHERALS (rw) : ORIGIN = 0x200000f4, LENGTH = 0x164
+ /* Reclaimed ADC scratch, GPIO callbacks and UART receive state, below logging state. */
+ RAM_IRQ_STATE (rw) : ORIGIN = 0x20000684, LENGTH = 0x188
  RAM_AUX (rwx) : ORIGIN = 0x20000820, LENGTH = 0x7e0
 }
 /* Separate PT_LOAD flags distinguish code and read-only data in the ELF.
@@ -85,6 +85,7 @@ SECTIONS {
    *target_mspm0_core_target.o(.rodata*)
    *target_fault_control_target.o(.rodata*)
    *target_i2c_target.o(.rodata*)
+   *target_uart_hal_target.o(.rodata*) *target_uart_ring.o(.rodata*)
  } > SPARE :peripheral_rodata
  .text : { *(.text*) *(.rodata*) } > CODE :text
  .ARM.exidx : {* (.ARM.exidx*)} > CODE :text
@@ -92,6 +93,7 @@ SECTIONS {
    __peripheral_data_start = .; *(.data.syscon_pwm_channels)
    *(.data.syscon_gpio_pins) *(.data.syscon_i2c_bus)
    *(.data.syscon_reset_cause_cache)
+   *(.data.syscon_uart_ports)
    . = ALIGN(4); __peripheral_data_end = .;
  } > RAM_PERIPHERALS AT> CODE :peripherals
  __peripheral_data_load = LOADADDR(.peripheral_data);
@@ -102,6 +104,7 @@ SECTIONS {
  .irq_bss (NOLOAD) : {
    __irq_bss_start = .;
    *(.bss.syscon_gpio_handlers) *(.bss.syscon_i2c_state)
+   *(.bss.syscon_uart_config) *(.bss.syscon_uart_rings)
    . = ALIGN(4); __irq_bss_end = .;
  } > RAM_IRQ_STATE :irq_state
  .data : ALIGN(4) {__data_start = .;*(.data*) . = ALIGN(4);__data_end = .;} > RAM_AUX AT> CODE :initialized
