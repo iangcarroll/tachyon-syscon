@@ -12,7 +12,7 @@ from power_state_comparison import log_arguments
 import build_runtime_scan_image as runtime
 ROOT=Path(__file__).resolve().parents[1]
 GETTERS=[(0x3114,'auto_boot'),(0x3120,'wakeup_enabled'),(0x312c,'log_color'),
-         (0x3138,'alt_powerkey'),(0x3144,'factory_test'),(0x3150,'modem_always_on')]
+         (0x3138,'alt_powerkey'),(0x3144,'demo_enabled'),(0x3150,'keep_5v_when_off')]
 
 @pytest.fixture(scope='module')
 def diagnostic_elf(tmp_path_factory):
@@ -51,8 +51,12 @@ class Pair:
 def test_configuration_getters_preserve_full_byte_and_enable_truncation(diagnostic_elf):
     p=Pair(diagnostic_elf)
     for value in range(256):
-        p.put(0x20000030,bytes([value])*6)
-        for address,name in GETTERS:assert p.call(address,name)==value
+        # Distinct flags catch swapped field mappings; each field still visits
+        # all 256 byte values across the loop, including non-boolean bytes.
+        flags=bytes((value+37*index)&255 for index in range(len(GETTERS)))
+        p.put(0x20000030,flags)
+        for index,(address,name) in enumerate(GETTERS):
+            assert p.call(address,name)==flags[index]
         p.call(0x347c,'diagnostics_enable',value|0xabcdef00,void=True)
         p.equal(0x20000046,1)
         assert p.machines[0].cpu.mem_read(0x20000046,1)==bytes([value])

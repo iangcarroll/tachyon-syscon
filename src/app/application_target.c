@@ -194,7 +194,7 @@ _Noreturn void syscon_target_main(void)
     syscon_target_watchdog_feed();
     if (reset == 1) {
         uint32_t automatic = syscon_target_auto_boot();
-        if (syscon_target_factory_test())
+        if (syscon_target_demo_enabled())
             syscon_target_rgb_preset(7, 0);
         else if (automatic)
             syscon_target_modem_poweron();
@@ -216,7 +216,7 @@ _Noreturn void syscon_target_main(void)
                 syscon_key_events.read = modulo(next, size);
                 syscon_key_events.full = 0;
             }
-            if (!syscon_target_factory_test()) {
+            if (!syscon_target_demo_enabled()) {
                 if (event < 6) {
                     uint32_t old = syscon_key_started_off;
                     static const char *const formats[6] = {

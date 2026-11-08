@@ -11,7 +11,7 @@ DEPENDENCIES=[
 (0x3808,'ioexpander_init',1),(0x7c3c,'reset_cause_name',1),(0x7bfc,'cached_reason',0),
 (0x7b9c,'fault_stage_name',1),(0x5ac4,'retained_modem',0),(0x66a0,'modem_mode_name',1),
 (0x5af0,'retained_battery',0),(0x5b14,'retained_boots',0),(0x54cc,'power_policy_init',1),
-(0x6948,'modem_init',1),(0x3114,'auto_boot',0),(0x3144,'factory_test',0),
+(0x6948,'modem_init',1),(0x3114,'auto_boot',0),(0x3144,'demo_enabled',0),
 (0x5c68,'rgb_preset',2),(0x6428,'modem_poweron',0),(0x3488,'diagnostics_poll',0),
 (0x3138,'alt_powerkey',0),(0x6690,'modem_off',0),(0x5e24,'rgb_key_feedback',0),
 (0x64a0,'modem_edl',0),(0x65e4,'modem_fastboot',0),(0x51c0,'power_shutdown_request',0),

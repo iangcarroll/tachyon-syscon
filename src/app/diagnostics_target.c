@@ -28,11 +28,11 @@ uint32_t syscon_target_alt_powerkey(void)
 {
     return syscon_config_state.flags[SYSCON_CONFIG_FASTBOOT];
 }
-uint32_t syscon_target_factory_test(void)
+uint32_t syscon_target_demo_enabled(void)
 {
     return syscon_config_state.flags[SYSCON_CONFIG_DEMO];
 }
-uint32_t syscon_target_modem_always_on(void)
+uint32_t syscon_target_keep_5v_when_off(void)
 {
     return syscon_config_state.flags[SYSCON_CONFIG_KEEP_5V];
 }

@@ -15,7 +15,7 @@ VOID={0x5e30,0x614c,0x6248,0x6282,0x6384,0x65f0,0x6a28,0x6a48,0x6a68}
 # address -> (target symbol, explicit argument count). Return64 declarations are
 # handled separately, because original Oracle hooks otherwise only set R0.
 DEPENDENCIES={
-0x2678:('syscon_target_assert',3),0x3114:('syscon_target_auto_boot',0),0x3150:('syscon_target_modem_always_on',0),0x3194:('syscon_target_hwrevision_new',0),
+0x2678:('syscon_target_assert',3),0x3114:('syscon_target_auto_boot',0),0x3150:('syscon_target_keep_5v_when_off',0),0x3194:('syscon_target_hwrevision_new',0),
 0x364e:('syscon_target_pin_write',2),0x386c:('syscon_target_ioexpander_configure',1),0x49d0:('syscon_target_protocol_poll',1),
 0x4c50:('syscon_target_power_measure',1),0x4ca8:('syscon_target_power_battery_route',0),0x4d9c:('syscon_target_power_header_route',0),0x4e34:('syscon_target_power_battery_route_set',1),0x4ed4:('syscon_target_power_boost_set',1),0x4ee0:('syscon_target_power_header_route_set',1),0x4fd0:('syscon_target_power_header_default',0),0x5048:('syscon_target_power_vbus_route_set',1),0x517c:('syscon_target_power_shutdown_busy',0),0x5274:('syscon_target_power_battery_detect',0),0x5358:('syscon_target_power_report',1),
 0x559c:('syscon_target_power_minimum_update',0),0x55b4:('syscon_target_power_minimum_reset',0),0x55c4:('syscon_target_power_minimum',0),0x55dc:('syscon_target_shutdown_set',1),0x562c:('syscon_target_shutdown_reason',0),0x5638:('syscon_target_shutdown_elapsed',0),0x5670:('syscon_target_shutdown_stale',0),0x567c:('syscon_target_shutdown_active',0),0x5694:('syscon_target_shutdown_poll',0),
