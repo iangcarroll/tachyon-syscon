@@ -193,6 +193,48 @@ produce the expected error and power cut, not simply match a stuck peer.
 Instruction, virtual-step and wall-time budgets bound execution. CI retains
 these artifacts without committing generated traces.
 
+## Stateful whole-image replays
+
+`tools/stateful_replay.py` feeds generated sequences to the original and rebuilt
+images. Every command traverses UART IRQs, the parser and the real main loop;
+button edges traverse GPIO IRQs and debounce. No guest function is replaced or
+private state patched. Generate a session, then replay its exact event list:
+
+```sh
+make inputs physical-firmware
+.venv/bin/python tools/stateful_replay.py --seed 73 --rounds 4 --candidate build/physical-firmware/firmware.bin --output build/stateful/seed-73
+.venv/bin/python tools/stateful_replay.py --events build/stateful/seed-73/events.json --candidate build/physical-firmware/firmware.bin --output build/stateful/replay-73
+```
+
+The candidate must have a matching SHA-256 layout manifest beside it. Inputs and
+per-image traces stay under the requested output directory, with a failing
+summary replacing any prior pass before execution. CI runs two bounded seeds
+in its separate stateful job and uploads their replay inputs and results.
+
+The grammar varies configuration keys/values, command selection, rejected `%`
+values, UART byte spacing, rising/falling battery samples, short button hold
+time and one to three consecutive I2C NACKs. Button/fault placement varies between
+command/ADC rounds, so later commands observe their effects. A fresh-boot event creates a new CPU
+and resets modeled peripherals and external inputs to the synthetic fixture,
+carrying over flash only; it is not a retained-SRAM warm reset. Warm resets have
+their own integration tests. Commands after the fresh boot independently check
+the last stored configuration values.
+
+Comparison retains each event's timestamp-normalized UART bytes, flash-controller
+operations and persistent bytes, ordered GPIO/expander power transitions, and
+observed I2C NACKs. Code and identity sectors must remain unchanged. Independent
+checks require expected command replies, battery readings that follow input
+direction, consumed button events, actual output transitions and consumption of
+every injected NACK. Equal stalled images, unused fault scripts, and differing
+intermediate effects fail. Only logger timestamps are normalized.
+
+Events and instruction slices are bounded. This is an initial stateful corpus,
+not arbitrary byte-stream fuzzing, a validated timing model, or coverage of every
+power/fault combination. Long button holds, concurrent rail failures, interrupted
+flash operations, watchdog interactions and broader seed campaigns still need
+additional whole-image scenarios. Existing subsystem/fault tests cover some of
+these separately; they do not establish every combined behavior.
+
 ## Battery and power curves
 
 `tests/test_power_curves.py` runs sequential synthetic ADC inputs through the
