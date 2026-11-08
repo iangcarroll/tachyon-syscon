@@ -23,10 +23,12 @@ def support_elf(tmp_path_factory):
     return elf
 
 
-def test_support_ctype_preserves_table_values_including_readable_out_of_domain(support_elf):
+def test_support_ctype_preserves_every_byte_and_eof_without_original_rom(support_elf):
     o=Oracle();a=ArmRebuildOracle(support_elf);rng=random.Random(0x971c)
-    values=list(range(-1,256))+[rng.randrange(-0xe127,0x10000-0xe127) for _ in range(500)]
+    values=list(range(-1,256))
+    a.put(0xe126,b'\xa5'*257)
     for n in values:
+        assert a.call('syscon_rt_ctype',n)==(0 if n==-1 else o.image[0xe127+n])
         for entry,name in [(0x971c,'isalnum'),(0x9a40,'toupper')]:
             assert a.call('syscon_rt_'+name,n)==o.call(entry,n),(name,n)
 
@@ -69,3 +71,14 @@ def test_support_memmove_overlap_direction_returns_and_all_guard_bytes(support_e
                 data=rng.randbytes(768);o.put(base,data);a.put(base,data)
                 assert a.call('syscon_rt_memmove',destination,source,size)==o.call(0xa8c6,destination,source,size)
                 assert a.read(base,768)==bytes(o.cpu.mem_read(base,768))
+
+
+def test_ctype_out_of_domain_does_not_index_arbitrary_firmware(support_elf):
+    machine=ArmRebuildOracle(support_elf)
+    rng=random.Random(0x971c)
+    for signed in [-2,-128,-65536,256,65536,0x7fffffff,-0x80000000]+[
+            rng.randint(-0x80000000,-2) for _ in range(40)]+[
+            rng.randint(256,0x7fffffff) for _ in range(40)]:
+        assert machine.call('syscon_rt_ctype',signed)==0
+        assert machine.call('syscon_rt_isalnum',signed)==0
+        assert machine.call('syscon_rt_toupper',signed)==signed&0xffffffff

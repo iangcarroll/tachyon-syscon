@@ -10,12 +10,26 @@ int syscon_rt_arm_atexit(void *arg,void (*fn)(void *),void *dso) {
     return syscon_rt_cxa_atexit(fn,arg,dso);
 }
 int32_t syscon_rt_atoi(const char *text) {return syscon_rt_strtol(text,0,10);}
+uint8_t syscon_rt_ctype(int32_t character)
+{
+    uint32_t c = (uint32_t)character;
+    if (c > 127) return 0;
+    if (c < 32 || c == 127)
+        return SYSCON_CTYPE_CONTROL | (c >= 9 && c <= 13 ? SYSCON_CTYPE_SPACE : 0);
+    if (c == ' ') return SYSCON_CTYPE_SPACE | SYSCON_CTYPE_BLANK;
+    if (c >= '0' && c <= '9') return SYSCON_CTYPE_DIGIT;
+    if (c >= 'A' && c <= 'Z')
+        return SYSCON_CTYPE_UPPER | (c <= 'F' ? SYSCON_CTYPE_HEX : 0);
+    if (c >= 'a' && c <= 'z')
+        return SYSCON_CTYPE_LOWER | (c <= 'f' ? SYSCON_CTYPE_HEX : 0);
+    return SYSCON_CTYPE_PUNCT;
+}
 int syscon_rt_isalnum(int32_t character) {
-    return *(const uint8_t *)(uintptr_t)(0xe127u+(uint32_t)character)&7;
+    return syscon_rt_ctype(character) & (SYSCON_CTYPE_UPPER | SYSCON_CTYPE_LOWER | SYSCON_CTYPE_DIGIT);
 }
 int32_t syscon_rt_toupper(int32_t character) {
-    uint8_t flags=*(const uint8_t *)(uintptr_t)(0xe127u+(uint32_t)character);
-    return (flags&3)==2 ? (int32_t)((uint32_t)character-32u) : character;
+    uint8_t flags=syscon_rt_ctype(character);
+    return (flags&3)==SYSCON_CTYPE_LOWER ? (int32_t)((uint32_t)character-32u) : character;
 }
 uint8_t *syscon_rt_getreent(void) {
     return (uint8_t *)(uintptr_t)*(volatile uint32_t *)(uintptr_t)0x20000258;

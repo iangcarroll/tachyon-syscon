@@ -44,8 +44,8 @@
 
 /* Adapted from pinned newlib-4.3.0, see vendor manifest and docs/runtime-scan.md. */
 #include "runtime_scan.h"
-#include "runtime_stdio.h"
 #include "runtime_support.h"
+#include "runtime_stdio.h"
 #include <stdint.h>
 #include <stddef.h>
 _Static_assert(sizeof(void*)==4,"target ARM32 only");
@@ -56,7 +56,7 @@ _Static_assert(offsetof(syscon_rt_file,_ub)==52,"syscon_rt_file pushback ABI");
 _Static_assert(offsetof(syscon_rt_file,_ubuf)==68,"syscon_rt_file inline pushback ABI");
 _Static_assert(offsetof(struct syscon_scan_state,pfn_ungetc)==380,"scan state ABI");
 _Static_assert(offsetof(struct syscon_scan_state,pfn_refill)==384,"scan state ABI");
-static int scan_space(int c){return ((const unsigned char*)0xe127)[(unsigned char)c]&8;}
+static int scan_space(int c){return syscon_rt_ctype((unsigned char)c)&SYSCON_CTYPE_SPACE;}
 static void *scan_memchr(const void *s,int c,size_t n){const unsigned char*p=s;while(n--){if(*p==(unsigned char)c)return(void*)p;p++;}return 0;}
 static int scan_refill(struct _reent*r,syscon_rt_file*f){return syscon_rt_ssrefill_r(r,f);}
 static int scan_ungetc(struct _reent*r,int c,syscon_rt_file*f){return syscon_rt_sungetc_r(r,c,f);}
